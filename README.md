@@ -38,6 +38,18 @@ Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browse
 
 ---
 
+## DSCP HyProof Client: Dev Usage
+
+```sh
+npm run dev
+```
+
+Runs the application using the default port in dev mode.
+
+Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browser.
+
+---
+
 ## DSCP HyProof Client: Build
 
 ```sh
