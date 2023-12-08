@@ -48,6 +48,16 @@ Builds the app for production to the build folder.
 
 ---
 
+## DSCP HyProof Client: Assets
+
+In terms of assets, this project contains the following:
+
+* fonts are stored in **[src/assets/fonts](./src/assets/fonts/)** and imported globally in **[src/index.js](./src/index.js)**
+
+* images are stored in **[src/assets/images](./src/assets/images/)** and loaders configured in **[webpack.config](./webpack.config)**
+
+---
+
 ## DSCP HyProof Client: License
 
 This project is licensed under the **Apache 2.0** license.
