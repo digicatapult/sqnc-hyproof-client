@@ -1,4 +1,6 @@
 ignores: [
+  "depcheck",
+  "*loader",
   "webpack",
   "webpack-cli",
   "@babel/preset-react"
