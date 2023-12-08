@@ -2,7 +2,7 @@
     "name": "@digicatapult/dscp-hyproof-client",
     "version": "0.0.1",
     "description": "User interface for HyProof",
-    "homepage": "https://digicatapult.github.io/dscp-hyproof-client",
+    "homepage": "https://github.com/digicatapult/dscp-hyproof-client",
     "main": "src/index.js",
     "sideEffects": false,
     "scripts": {
