@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  react:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: react
+    container_name: react
+    ports:
+      - 3000:80
+    volumes:
+      - react-storage:/var/log/nginx/
+    image: dscp-hyproof-client
+
+volumes:
+  react-storage:
