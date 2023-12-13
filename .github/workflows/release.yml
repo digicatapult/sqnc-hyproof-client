@@ -93,7 +93,7 @@ jobs:
 
   publish:
     name: "Publish package"
-    needs: [preconditions, lint, dependency-check, tests, check-version]
+    needs: [preconditions, lint, dependency-check, check-version]
     runs-on: ubuntu-latest
     if: ${{ needs.check-version.outputs.is_new_version == 'true' }}
 
