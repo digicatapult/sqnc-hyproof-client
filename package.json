@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/dscp-hyproof-client",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/dscp-hyproof-client",
     "main": "src/index.js",
@@ -71,10 +71,10 @@
         "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "@digicatapult/ui-component-library": "^0.13.4",
+        "@digicatapult/ui-component-library": "^0.13.5",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.21.1",
+        "react-router-dom": "^6.21.2",
         "styled-components": "^6.1.8"
     }
 }
