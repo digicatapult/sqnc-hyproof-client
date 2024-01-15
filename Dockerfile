@@ -1,6 +1,6 @@
 # docker build -t dscp-hyproof-client .
 # docker run --rm -h gui --name gui -p 3000:80 dscp-hyproof-client
-ARG NODE_VERSION=18-alpine
+ARG NODE_VERSION=20-alpine
 FROM node:$NODE_VERSION AS build
 
 RUN npm -g install npm@10.x.x
