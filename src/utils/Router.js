@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import Home from '../pages/Home'
+import Certificates from '../pages/Certificates'
 
-export const router = createBrowserRouter([{ path: '*', Component: Home }])
+export const router = createBrowserRouter([
+  { path: '*', Component: Certificates },
+])

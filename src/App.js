@@ -6,16 +6,20 @@ import { router } from './utils/Router'
 import { Grid } from '@digicatapult/ui-component-library'
 
 const FullScreenGrid = styled(Grid)`
-  height: 100vh;
-  width: 100vw;
+  height: 100lvh;
+  width: 100lvw;
 `
 
 export default function App() {
   return (
     <FullScreenGrid
-      areas={[['header'], ['main']]}
-      columns={['1fr']}
-      rows={['82px', '1fr']}
+      areas={[
+        ['home', 'nav', 'nav'],
+        ['header', 'header', 'sidebar'],
+        ['timeline', 'main', 'sidebar'],
+      ]}
+      columns={['auto', '1fr', 'auto']}
+      rows={['82px', '82px', '1fr']}
     >
       <RouterProvider router={router} />
     </FullScreenGrid>
