@@ -9,7 +9,7 @@ export default function CertificateFormHeader() {
   return (
     <>
       <GreenBgDiv>
-        <div style={{ minWidth: '200px' }}>
+        <WrapperDiv>
           <Section
             background="#e4e4e4"
             headingGap="0ch"
@@ -32,11 +32,15 @@ export default function CertificateFormHeader() {
               </ListItem>
             </UnorderedList>
           </Section>
-        </div>
+        </WrapperDiv>
       </GreenBgDiv>
     </>
   )
 }
+
+const WrapperDiv = styled.div`
+  min-width: '200px';
+`
 
 const GreenBgDiv = styled.div`
   background: #228077 url(${BgImageSVG}) repeat 25%;
