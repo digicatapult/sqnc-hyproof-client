@@ -39,7 +39,7 @@ export default function CertificateFormHeader() {
 }
 
 const WrapperDiv = styled.div`
-  min-width: '200px';
+  min-width: 250px;
 `
 
 const GreenBgDiv = styled.div`
