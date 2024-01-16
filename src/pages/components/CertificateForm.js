@@ -17,10 +17,10 @@ export default function CertificateForm() {
       <Timeline area="timeline">timeline</Timeline>
       <Grid.Panel area="main">
         <CertificateFormHeader />
-        <div>StartAndEndTime</div>
-        <div>EnergyUsage</div>
-        <div>HydrogenBatchSize</div>
-        <div>TimeOfProduction</div>
+        <div>InfoPickerStartAndEndTime</div>
+        <div>InfoPickerEnergyUse</div>
+        <div>InfoPickerBatchSize</div>
+        <div>InfoPickerProdTime</div>
       </Grid.Panel>
       <CertificateActionsButtons onSubmit={handleSubmit} />
     </Form>

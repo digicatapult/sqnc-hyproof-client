@@ -5,11 +5,9 @@ import { Grid } from '@digicatapult/ui-component-library'
 
 export default function CertificateActionsButtons({ onSubmit }) {
   return (
-    <>
-      <Sidebar area="sidebar">
-        <button onSubmit={onSubmit}>Submit</button>
-      </Sidebar>
-    </>
+    <Sidebar area="sidebar">
+      <button onSubmit={onSubmit}>Submit</button>
+    </Sidebar>
   )
 }
 
