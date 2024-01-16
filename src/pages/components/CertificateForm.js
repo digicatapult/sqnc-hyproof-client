@@ -3,14 +3,27 @@ import styled from 'styled-components'
 
 import { Grid } from '@digicatapult/ui-component-library'
 
+import CertificateFormHeader from './CertificateFormHeader'
+
 export default function CertificateForm() {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    alert('Hello')
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Timeline area="timeline">timeline</Timeline>
       <Grid.Panel area="main">
-        <h1>Certificate Form</h1>
+        <CertificateFormHeader />
+        <div>StartAndEndTime</div>
+        <div>EnergyUsage</div>
+        <div>HydrogenBatchSize</div>
+        <div>TimeOfProduction</div>
       </Grid.Panel>
-      <Sidebar area="sidebar">Sidebar</Sidebar>
+      <Sidebar area="sidebar">
+        <button type="submit">Submit</button>
+      </Sidebar>
     </Form>
   )
 }
