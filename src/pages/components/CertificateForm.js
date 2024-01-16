@@ -4,11 +4,14 @@ import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
 
 import CertificateFormHeader from './CertificateFormHeader'
+// import CertificateActionsButtons from './CertificateActionsButtons'
+import CertificateActionsButtons from './CertificateActionsButtons'
 
 export default function CertificateForm() {
   const handleSubmit = (event) => {
     event.preventDefault()
-    alert('Hello')
+    // alert('Hello')
+    window.location.href = 'https://www.google.com'
   }
 
   return (
@@ -21,12 +24,23 @@ export default function CertificateForm() {
         <div>HydrogenBatchSize</div>
         <div>TimeOfProduction</div>
       </Grid.Panel>
-      <Sidebar area="sidebar">
-        <button type="submit">Submit</button>
-      </Sidebar>
+      {/* <button type="submit">Submit</button> */}
+      {/* CertificateActionsButtons */}
+      {/* <CertificateActionsButtons2 onSubmit={handleSubmit} /> */}
+      <CertificateActionsButtons onSubmit={handleSubmit} />
     </Form>
   )
 }
+
+// function CertificateActionsButtons2({ onSubmit }) {
+//   return (
+//     <>
+//       <Sidebar area="sidebar">
+//         <button onSubmit={onSubmit}>Submit</button>
+//       </Sidebar>
+//     </>
+//   )
+// }
 
 const Form = styled.form`
   display: grid;
@@ -44,11 +58,11 @@ const Timeline = styled(Grid.Panel)`
   background: #0c3b38;
 `
 
-const Sidebar = styled(Grid.Panel)`
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  min-width: 400px;
-  color: white;
-  background: #0c3b38;
-`
+// const Sidebar = styled(Grid.Panel)`
+//   display: grid;
+//   align-items: center;
+//   justify-items: center;
+//   min-width: 400px;
+//   color: white;
+//   background: #0c3b38;
+// `
