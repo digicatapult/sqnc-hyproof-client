@@ -19,7 +19,7 @@ export default function App() {
         ['timeline', 'main', 'sidebar'],
       ]}
       columns={['auto', '1fr', 'auto']}
-      rows={['82px', '82px', '1fr']}
+      rows={['78px', '98px', '1fr']}
     >
       <RouterProvider router={router} />
     </FullScreenGrid>

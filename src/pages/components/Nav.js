@@ -15,7 +15,7 @@ export default function Nav() {
           <source srcSet={LogoPNG} type="image/png" />
           <img src={LogoPNG} alt="HII Initiative Logo" height="80px" />
         </HomeIcon>
-        <Button>Home</Button>
+        <Button variant="square">Home</Button>
       </Home>
       <Grid.Panel area="nav">
         <AppBar
