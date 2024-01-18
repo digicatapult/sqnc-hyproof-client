@@ -13,7 +13,7 @@ export default function CertificateForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form action="" onSubmit={handleSubmit}>
       <Timeline area="timeline">timeline</Timeline>
       <Grid.Panel area="main">
         <CertificateFormHeader />
@@ -22,7 +22,7 @@ export default function CertificateForm() {
         <div>InfoPickerBatchSize</div>
         <div>InfoPickerProdTime</div>
       </Grid.Panel>
-      <CertificateActionsButtons onSubmit={handleSubmit} />
+      <CertificateActionsButtons />
     </Form>
   )
 }

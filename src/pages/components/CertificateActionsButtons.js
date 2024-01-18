@@ -3,13 +3,24 @@ import styled from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
-export default function CertificateActionsButtons({ onSubmit }) {
+export default function CertificateActionsButtons() {
+  function handleClickSaveDraft() {
+    alert('Saved')
+  }
+  function handleCancelDraft() {
+    alert('Cancelled')
+  }
+  function handleClickSubmit(e) {
+    e.preventDefault()
+    e.target.form.requestSubmit()
+  }
+
   return (
     <>
       <Sidebar area="sidebar">
         <PaddedDiv>
           <Grid
-            style={{ backgroundColor: 'white' }}
+            style={{ gridTemplateRows: '40px 60px' }}
             areas={[
               ['div-left', 'div-right'],
               ['div-double', 'div-double'],
@@ -19,17 +30,28 @@ export default function CertificateActionsButtons({ onSubmit }) {
             gap="20px 10px"
           >
             <Grid.Panel area="div-left">
-              <Div>left</Div>
+              <SmallButton
+                variant="roundedPronounced"
+                onClick={handleClickSaveDraft}
+              >
+                Save draft
+              </SmallButton>
             </Grid.Panel>
             <Grid.Panel area="div-right">
-              <Div>right</Div>
+              <SmallButton
+                variant="roundedPronounced"
+                onClick={handleCancelDraft}
+              >
+                Cancel
+              </SmallButton>
             </Grid.Panel>
             <Grid.Panel area="div-double">
-              <Div>
-                <Button onSubmit={onSubmit} variant="rounded">
-                  Submit
-                </Button>
-              </Div>
+              <LargeButton
+                variant="roundedPronounced"
+                onClick={handleClickSubmit}
+              >
+                Submit
+              </LargeButton>
             </Grid.Panel>
           </Grid>
         </PaddedDiv>
@@ -51,10 +73,25 @@ const PaddedDiv = styled.div`
   width: 100%;
 `
 
-const Div = styled.div`
+const SmallButton = styled(Button)`
+  width: 100%;
   min-width: 132px;
+  height: 100% !important;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
 
-  padding: 1em;
-  background-color: #369a93;
-  color: #454545;
+  font-size: 15.5px;
+
+  color: #ffffff;
+  border: 1px solid #ffffff !important;
+  background: #124338 !important;
+`
+
+const LargeButton = styled(SmallButton)`
+  font-size: 21px;
+
+  color: #33e58c;
+  border: 1px solid #2fe181 !important;
+  background: #124338 !important;
 `
