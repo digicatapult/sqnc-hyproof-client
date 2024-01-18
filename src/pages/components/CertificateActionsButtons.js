@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Grid } from '@digicatapult/ui-component-library'
+import { Grid, Button } from '@digicatapult/ui-component-library'
 
 export default function CertificateActionsButtons({ onSubmit }) {
   return (
@@ -26,7 +26,9 @@ export default function CertificateActionsButtons({ onSubmit }) {
             </Grid.Panel>
             <Grid.Panel area="div-double">
               <Div>
-                <button onSubmit={onSubmit}>Submit</button>
+                <Button onSubmit={onSubmit} variant="rounded">
+                  Submit
+                </Button>
               </Div>
             </Grid.Panel>
           </Grid>
