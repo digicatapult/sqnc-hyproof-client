@@ -79,6 +79,7 @@ const SmallButton = styled(Button)`
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
+  white-space: nowrap;
 
   font-size: 15.5px;
 
