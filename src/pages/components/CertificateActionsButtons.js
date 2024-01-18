@@ -86,6 +86,10 @@ const SmallButton = styled(Button)`
   color: #ffffff;
   border: 1px solid #ffffff !important;
   background: #124338 !important;
+
+  &:hover {
+    opacity: 0.6;
+  }
 `
 
 const LargeButton = styled(SmallButton)`
