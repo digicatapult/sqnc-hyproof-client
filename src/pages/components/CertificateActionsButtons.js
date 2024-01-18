@@ -32,18 +32,6 @@ export default function CertificateActionsButtons({ onSubmit }) {
           </Grid>
         </PaddedDiv>
       </Sidebar>
-
-      {/*
-      <Sidebar area="sidebar">
-        <PaddedDiv>
-          <GriddedDiv>
-            <Div>SaveDraft</Div>
-            <Div>Cancel</Div>
-            <DivDouble></DivDouble>
-          </GriddedDiv>
-        </PaddedDiv>
-      </Sidebar>
-      */}
     </>
   )
 }
@@ -61,15 +49,6 @@ const PaddedDiv = styled.div`
   width: 100%;
 `
 
-// const GriddedDiv = styled.div`
-//   display: grid;
-//   gap: 20px 10px;
-//   grid-template-columns: 1fr 1fr;
-//   grid-auto-rows: 44px 69px;
-//
-//   background-color: #25928b;
-// `
-
 const Div = styled.div`
   min-width: 132px;
 
@@ -77,12 +56,3 @@ const Div = styled.div`
   background-color: #369a93;
   color: #454545;
 `
-
-// const DivDouble = styled(Div)`
-//   grid-column: 1 / -1;
-// `
-
-// const BoxDoubleAlternative = styled(Box)`
-//   grid-column-start: 1;
-//   grid-column-end: 3;
-// `
