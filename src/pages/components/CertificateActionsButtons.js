@@ -8,15 +8,41 @@ export default function CertificateActionsButtons({ onSubmit }) {
     <>
       <Sidebar area="sidebar">
         <PaddedDiv>
+          <Grid
+            areas={[
+              ['div-left', 'div-right'],
+              ['div-double', 'div-double'],
+            ]}
+            rows={['1fr', '1fr']}
+            columns={['1fr', '1fr']}
+            gap="20px 10px"
+          >
+            <Grid.Panel area="div-left">
+              <Div>left</Div>
+            </Grid.Panel>
+            <Grid.Panel area="div-right">
+              <Div>right</Div>
+            </Grid.Panel>
+            <Grid.Panel area="div-double">
+              <Div>
+                <button onSubmit={onSubmit}>Submit</button>
+              </Div>
+            </Grid.Panel>
+          </Grid>
+        </PaddedDiv>
+      </Sidebar>
+
+      {/*
+      <Sidebar area="sidebar">
+        <PaddedDiv>
           <GriddedDiv>
             <Div>SaveDraft</Div>
             <Div>Cancel</Div>
-            <DivDouble>
-              <button onSubmit={onSubmit}>Submit</button>
-            </DivDouble>
+            <DivDouble></DivDouble>
           </GriddedDiv>
         </PaddedDiv>
       </Sidebar>
+      */}
     </>
   )
 }
@@ -34,14 +60,14 @@ const PaddedDiv = styled.div`
   width: 100%;
 `
 
-const GriddedDiv = styled.div`
-  display: grid;
-  gap: 20px 10px;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 44px 69px;
-
-  background-color: #25928b;
-`
+// const GriddedDiv = styled.div`
+//   display: grid;
+//   gap: 20px 10px;
+//   grid-template-columns: 1fr 1fr;
+//   grid-auto-rows: 44px 69px;
+//
+//   background-color: #25928b;
+// `
 
 const Div = styled.div`
   min-width: 132px;
@@ -51,9 +77,9 @@ const Div = styled.div`
   color: #454545;
 `
 
-const DivDouble = styled(Div)`
-  grid-column: 1 / -1;
-`
+// const DivDouble = styled(Div)`
+//   grid-column: 1 / -1;
+// `
 
 // const BoxDoubleAlternative = styled(Box)`
 //   grid-column-start: 1;
