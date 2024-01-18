@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { Grid, UserIcon } from '@digicatapult/ui-component-library'
 
-import LiveIndicatorPNG from '../../assets/images/liveIndicator.png'
+import LiveIndicatorSVG from '../../assets/images/liveIndicator.svg'
 
 export default function Header({ userFullName, companyName }) {
   return (
@@ -17,9 +17,9 @@ export default function Header({ userFullName, companyName }) {
       />
       <CompanyName>{companyName}</CompanyName>
       <LiveIndicator>
-        <source srcSet={LiveIndicatorPNG} type="image/png" />
+        <source srcSet={LiveIndicatorSVG} type="image/png" />
         <img
-          src={LiveIndicatorPNG}
+          src={LiveIndicatorSVG}
           alt="Icon indicating certification system is live"
           height="32px"
           width="32px"
