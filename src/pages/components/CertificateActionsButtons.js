@@ -9,6 +9,7 @@ export default function CertificateActionsButtons({ onSubmit }) {
       <Sidebar area="sidebar">
         <PaddedDiv>
           <Grid
+            style={{ backgroundColor: 'white' }}
             areas={[
               ['div-left', 'div-right'],
               ['div-double', 'div-double'],
