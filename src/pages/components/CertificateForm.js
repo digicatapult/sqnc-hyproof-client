@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { Grid } from '@digicatapult/ui-component-library'
 
+import CertificateInputFields from './CertificateInputFields'
 import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
 
@@ -17,10 +18,7 @@ export default function CertificateForm() {
       <Timeline area="timeline">timeline</Timeline>
       <Grid.Panel area="main">
         <CertificateFormHeader />
-        <div>InfoPickerStartAndEndTime</div>
-        <div>InfoPickerEnergyUse</div>
-        <div>InfoPickerBatchSize</div>
-        <div>InfoPickerProdTime</div>
+        <CertificateInputFields />
       </Grid.Panel>
       <CertificateActionsButtons />
     </Form>
