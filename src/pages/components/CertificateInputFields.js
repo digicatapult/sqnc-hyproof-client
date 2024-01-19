@@ -8,7 +8,7 @@ export default function CertificateInputFields() {
         <FlexContainerWrap>
           <FlexLargeItem>InfoPickerStartAndEndTime</FlexLargeItem>
           <FlexItem>InfoPickerEnergyUse</FlexItem>
-          <FlexItem style={{ flexGrow: 0 }}>InfoPickerBatchSize</FlexItem>
+          <FlexItem>InfoPickerBatchSize</FlexItem>
         </FlexContainerWrap>
       </MarginedDiv>
     </>
@@ -28,9 +28,8 @@ const FlexContainerWrap = styled.div`
 
 const FlexItem = styled.div`
   margin: 8px 8px 45px 8px;
-  height: 110px;
-  line-height: 110px;
-  // 24 + 86
+  height: 110px; /* 24 + 86 */
+  line-height: 110px; /* 24 + 86 */
   min-width: 270px;
   flex-grow: 1;
 
