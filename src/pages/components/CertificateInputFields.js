@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import CertificateTimeInterval from './CertificateTimeInterval'
+
 export default function CertificateInputFields() {
   return (
     <>
@@ -15,7 +17,10 @@ export default function CertificateInputFields() {
                   <InputHalfWrap>StartTime</InputHalfWrap>
                 </InputWrapLeftDiv>
               </GrowingDiv>
-              <FixedWidthSmallDiv>00H 00M</FixedWidthSmallDiv>
+              <CertificateTimeInterval
+                sTimestamp={'2024-01-01 00:00:00'}
+                eTimestamp={'2024-01-01 23:59:59'}
+              />
               <GrowingDiv>
                 <InputHeadingDiv>End timestamp of energy use</InputHeadingDiv>
                 <InputWrapRightDiv>
@@ -118,15 +123,6 @@ const ContainerFullWidthWrapDiv = styled.div`
 
 const GrowingDiv = styled.div`
   flex-grow: 1;
-`
-
-const FixedWidthSmallDiv = styled.div`
-  margin-top: 28px;
-  height: 82px;
-  line-height: 82px;
-  width: 98px;
-  text-align: center;
-  background: #27847a;
 `
 
 const InputWrap = styled.div`
