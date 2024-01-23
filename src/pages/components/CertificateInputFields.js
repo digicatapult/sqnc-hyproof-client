@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
+import InputFieldDate from './InputFieldDate'
+import InputFieldTime from './InputFieldTime'
+// TODO: Import energy usage and bash size
 
 export default function CertificateInputFields() {
+  const [sdVal, setSdVal] = useState('2024-01-01')
+  const [stVal, setStVal] = useState('00:00')
+  const [edVal, setEdVal] = useState('2024-01-01')
+  const [etVal, setEtVal] = useState('23:55')
+  // TODO: Add: enVal, setEnVal & szVal, setSzVal
+
+  const handleSdChgeVal = (e) => setSdVal(e.target.value)
+  const handleStChgeVal = (e) => setStVal(e.target.value)
+  const handleEdChgeVal = (e) => setEdVal(e.target.value)
+  const handleEtChgeVal = (e) => setEtVal(e.target.value)
+  // TODO: Add handleEnChgeVal & handleSzChgeVal
+
   return (
     <>
       <MarginedDiv>
@@ -13,19 +28,48 @@ export default function CertificateInputFields() {
               <GrowingDiv>
                 <InputHeadingDiv>Start timestamp of energy use</InputHeadingDiv>
                 <InputWrapLeftDiv>
-                  <InputHalfWrap>StartDate</InputHalfWrap>
-                  <InputHalfWrap>StartTime</InputHalfWrap>
+                  <InputHalfWrap>
+                    <InputFieldDate
+                      val={sdVal}
+                      onChangeVal={handleSdChgeVal}
+                      name="sd"
+                      id="sd"
+                    />
+                  </InputHalfWrap>
+                  <InputHalfWrap>
+                    <InputFieldTime
+                      val={stVal}
+                      onChangeVal={handleStChgeVal}
+                      name="st"
+                      id="st"
+                    />
+                  </InputHalfWrap>
                 </InputWrapLeftDiv>
               </GrowingDiv>
               <CertificateTimeInterval
-                sTimestamp={'2024-01-01 00:00:00'}
-                eTimestamp={'2024-01-01 23:59:59'}
+                // sTimestamp={'2024-01-01 00:00:00'} eTimestamp={'2024-02-01 23:59:59'}
+                sTimestamp={`${sdVal} ${stVal}`}
+                eTimestamp={`${edVal} ${etVal}`}
               />
               <GrowingDiv>
                 <InputHeadingDiv>End timestamp of energy use</InputHeadingDiv>
                 <InputWrapRightDiv>
-                  <InputHalfWrap>EndDate</InputHalfWrap>
-                  <InputHalfWrap>EndTime</InputHalfWrap>
+                  <InputHalfWrap>
+                    <InputFieldDate
+                      val={edVal}
+                      onChangeVal={handleEdChgeVal}
+                      name="ed"
+                      id="ed"
+                    />
+                  </InputHalfWrap>
+                  <InputHalfWrap>
+                    <InputFieldTime
+                      val={etVal}
+                      onChangeVal={handleEtChgeVal}
+                      name="et"
+                      id="et"
+                    />
+                  </InputHalfWrap>
                 </InputWrapRightDiv>
               </GrowingDiv>
             </ContainerFlexNoWrapDiv>
@@ -35,7 +79,7 @@ export default function CertificateInputFields() {
               <InputHeadingDiv>Electric energy use</InputHeadingDiv>
               <InputWrapDiv>
                 <InputWrap>
-                  Lore ipsum dolores est sit amen test lore ipsum
+                  InputFieldEnergy ( &lt;InputFieldEnergy /&gt; )
                 </InputWrap>
               </InputWrapDiv>
             </ContainerFullWidthWrapDiv>
@@ -45,7 +89,7 @@ export default function CertificateInputFields() {
               <InputHeadingDiv>H2 batch size</InputHeadingDiv>
               <InputWrapDiv>
                 <InputWrap>
-                  Lore ipsum dolores est sit amen test lore ipsum
+                  InputFieldSize ( &lt;InputFieldSize /&gt; )
                 </InputWrap>
               </InputWrapDiv>
             </ContainerFullWidthWrapDiv>
@@ -130,6 +174,7 @@ const InputWrap = styled.div`
   display: block;
   height: 52px;
   line-height: 52px;
+  // padding-left: 15px;
 
   background: rgba(200, 200, 200, 0.5);
 `
@@ -140,6 +185,7 @@ const InputHalfWrap = styled.div`
   height: 52px;
   line-height: 52px;
   float: left;
+  // padding-left: 15px;
 
   background: rgba(200, 200, 200, 0.5);
 `
