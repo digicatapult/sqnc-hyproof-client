@@ -4,20 +4,23 @@ import styled from 'styled-components'
 import CertificateTimeInterval from './CertificateTimeInterval'
 import InputFieldDate from './InputFieldDate'
 import InputFieldTime from './InputFieldTime'
-// TODO: Import energy usage and bash size
+import InputFieldEnergy from './InputFieldEnergy'
+import InputFieldSize from './InputFieldSize'
 
 export default function CertificateInputFields() {
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')
   const [edVal, setEdVal] = useState('2024-01-01')
   const [etVal, setEtVal] = useState('23:55')
-  // TODO: Add: enVal, setEnVal & szVal, setSzVal
+  const [enVal, setEnVal] = useState('')
+  const [szVal, setSzVal] = useState('')
 
   const handleSdChgeVal = (e) => setSdVal(e.target.value)
   const handleStChgeVal = (e) => setStVal(e.target.value)
   const handleEdChgeVal = (e) => setEdVal(e.target.value)
   const handleEtChgeVal = (e) => setEtVal(e.target.value)
-  // TODO: Add handleEnChgeVal & handleSzChgeVal
+  const handleEnChgeVal = (e) => setEnVal(e.target.value)
+  const handleSzChgeVal = (e) => setSzVal(e.target.value)
 
   return (
     <>
@@ -79,7 +82,12 @@ export default function CertificateInputFields() {
               <InputHeadingDiv>Electric energy use</InputHeadingDiv>
               <InputWrapDiv>
                 <InputWrap>
-                  InputFieldEnergy ( &lt;InputFieldEnergy /&gt; )
+                  <InputFieldEnergy
+                    val={enVal}
+                    onChangeVal={handleEnChgeVal}
+                    name="en"
+                    id="en"
+                  />
                 </InputWrap>
               </InputWrapDiv>
             </ContainerFullWidthWrapDiv>
@@ -89,7 +97,12 @@ export default function CertificateInputFields() {
               <InputHeadingDiv>H2 batch size</InputHeadingDiv>
               <InputWrapDiv>
                 <InputWrap>
-                  InputFieldSize ( &lt;InputFieldSize /&gt; )
+                  <InputFieldSize
+                    val={szVal}
+                    onChangeVal={handleSzChgeVal}
+                    name="sz"
+                    id="sz"
+                  />
                 </InputWrap>
               </InputWrapDiv>
             </ContainerFullWidthWrapDiv>
