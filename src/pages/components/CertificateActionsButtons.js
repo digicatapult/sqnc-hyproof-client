@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
 export default function CertificateActionsButtons() {
+  const [isWaitingVal, setIsWaitingVal] = useState(false)
+
   function handleClickSaveDraft() {
     alert('Saved')
   }
   function handleCancelDraft() {
     alert('Cancelled')
   }
-  function handleClickSubmit(e) {
-    // TODO: Add waiting animation
+  const handleClickSubmit = (e) => {
     e.preventDefault()
-    e.target.form.requestSubmit()
+    setIsWaitingVal(true)
+    setTimeout(() => {
+      e.target.form.requestSubmit()
+    }, 2000)
   }
 
   return (
@@ -51,6 +55,7 @@ export default function CertificateActionsButtons() {
                 onClick={handleClickSubmit}
               >
                 Submit
+                {isWaitingVal && <span>...</span>}
               </LargeButton>
             </Grid.Panel>
           </Grid>
@@ -99,4 +104,12 @@ const LargeButton = styled(SmallButton)`
   color: #33e58c;
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
+`
+
+const HiddenSpan = styled.span`
+  display: none;
+`
+
+const ShownSpan = styled.span`
+  display: inherit;
 `
