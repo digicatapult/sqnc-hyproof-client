@@ -48,6 +48,7 @@ const CompanyName = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 45px;
+  white-space: nowrap;
 `
 
 const LiveIndicator = styled.picture``
