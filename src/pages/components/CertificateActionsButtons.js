@@ -6,12 +6,8 @@ import { Grid, Button } from '@digicatapult/ui-component-library'
 export default function CertificateActionsButtons() {
   const [isWaitingVal, setIsWaitingVal] = useState(false)
 
-  function handleClickSaveDraft() {
-    alert('Saved')
-  }
-  function handleCancelDraft() {
-    alert('Cancelled')
-  }
+  const handleClickSaveDraft = () => alert('Saved')
+  const handleCancelDraft = () => alert('Cancelled')
   const handleClickSubmit = (e) => {
     e.preventDefault()
     setIsWaitingVal(true)
