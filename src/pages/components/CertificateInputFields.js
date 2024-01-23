@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react' // , { useState }
 import styled from 'styled-components'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
@@ -7,20 +7,33 @@ import InputFieldTime from './InputFieldTime'
 import InputFieldEnergy from './InputFieldEnergy'
 import InputFieldSize from './InputFieldSize'
 
-export default function CertificateInputFields() {
-  const [sdVal, setSdVal] = useState('2024-01-01')
-  const [stVal, setStVal] = useState('00:00')
-  const [edVal, setEdVal] = useState('2024-01-01')
-  const [etVal, setEtVal] = useState('23:55')
-  const [enVal, setEnVal] = useState('')
-  const [szVal, setSzVal] = useState('')
+export default function CertificateInputFields({
+  sdVal,
+  handleSdChgeVal,
+  stVal,
+  handleStChgeVal,
+  edVal,
+  handleEdChgeVal,
+  etVal,
+  handleEtChgeVal,
+  enVal,
+  handleEnChgeVal,
+  szVal,
+  handleSzChgeVal,
+}) {
+  // const [sdVal, setSdVal] = useState('2024-01-01')
+  // const [stVal, setStVal] = useState('00:00')
+  // const [edVal, setEdVal] = useState('2024-01-01')
+  // const [etVal, setEtVal] = useState('23:55')
+  // const [enVal, setEnVal] = useState('')
+  // const [szVal, setSzVal] = useState('')
 
-  const handleSdChgeVal = (e) => setSdVal(e.target.value)
-  const handleStChgeVal = (e) => setStVal(e.target.value)
-  const handleEdChgeVal = (e) => setEdVal(e.target.value)
-  const handleEtChgeVal = (e) => setEtVal(e.target.value)
-  const handleEnChgeVal = (e) => setEnVal(e.target.value)
-  const handleSzChgeVal = (e) => setSzVal(e.target.value)
+  // const handleSdChgeVal = (e) => setSdVal(e.target.value)
+  // const handleStChgeVal = (e) => setStVal(e.target.value)
+  // const handleEdChgeVal = (e) => setEdVal(e.target.value)
+  // const handleEtChgeVal = (e) => setEtVal(e.target.value)
+  // const handleEnChgeVal = (e) => setEnVal(e.target.value)
+  // const handleSzChgeVal = (e) => setSzVal(e.target.value)
 
   return (
     <>
@@ -50,7 +63,6 @@ export default function CertificateInputFields() {
                 </InputWrapLeftDiv>
               </GrowingDiv>
               <CertificateTimeInterval
-                // sTimestamp={'2024-01-01 00:00:00'} eTimestamp={'2024-02-01 23:59:59'}
                 sTimestamp={`${sdVal} ${stVal}`}
                 eTimestamp={`${edVal} ${etVal}`}
               />
