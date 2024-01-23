@@ -105,11 +105,3 @@ const LargeButton = styled(SmallButton)`
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
 `
-
-const HiddenSpan = styled.span`
-  display: none;
-`
-
-const ShownSpan = styled.span`
-  display: inherit;
-`
