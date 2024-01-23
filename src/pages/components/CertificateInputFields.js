@@ -147,11 +147,6 @@ const FlexDiv = styled.div`
   line-height: 110px;
   min-width: 270px;
   flex-grow: 1;
-
-  background: gold;
-  color: black;
-  font-weight: bold;
-  font-size: 8px;
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
@@ -162,8 +157,6 @@ const InputHeadingDiv = styled.div`
   color: #1a1a1a;
   height: 28px;
   font: 500 15px/28px Roboto;
-
-  background: #a9ffb1;
 `
 
 const InputWrapDiv = styled.div`
@@ -174,8 +167,6 @@ const InputWrapDiv = styled.div`
   border: 1px solid #a9a9a9;
   border-radius: 10px 10px 10px 10px;
   padding: 15px 0;
-
-  background: #6cff7b;
 `
 
 const InputWrapLeftDiv = styled(InputWrapDiv)`
@@ -199,9 +190,6 @@ const InputWrap = styled.div`
   display: block;
   height: 52px;
   line-height: 52px;
-  // padding-left: 15px;
-
-  background: rgba(200, 200, 200, 0.5);
 `
 
 const InputHalfWrap = styled.div`
@@ -210,7 +198,4 @@ const InputHalfWrap = styled.div`
   height: 52px;
   line-height: 52px;
   float: left;
-  // padding-left: 15px;
-
-  background: rgba(200, 200, 200, 0.5);
 `
