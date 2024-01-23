@@ -1,4 +1,4 @@
-import React from 'react' // , { useState }
+import React from 'react'
 import styled from 'styled-components'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
@@ -21,20 +21,6 @@ export default function CertificateInputFields({
   szVal,
   handleSzChgeVal,
 }) {
-  // const [sdVal, setSdVal] = useState('2024-01-01')
-  // const [stVal, setStVal] = useState('00:00')
-  // const [edVal, setEdVal] = useState('2024-01-01')
-  // const [etVal, setEtVal] = useState('23:55')
-  // const [enVal, setEnVal] = useState('')
-  // const [szVal, setSzVal] = useState('')
-
-  // const handleSdChgeVal = (e) => setSdVal(e.target.value)
-  // const handleStChgeVal = (e) => setStVal(e.target.value)
-  // const handleEdChgeVal = (e) => setEdVal(e.target.value)
-  // const handleEtChgeVal = (e) => setEtVal(e.target.value)
-  // const handleEnChgeVal = (e) => setEnVal(e.target.value)
-  // const handleSzChgeVal = (e) => setSzVal(e.target.value)
-
   return (
     <>
       <MarginedDiv>
