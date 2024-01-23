@@ -11,6 +11,7 @@ export default function CertificateActionsButtons() {
     alert('Cancelled')
   }
   function handleClickSubmit(e) {
+    // TODO: Add waiting animation
     e.preventDefault()
     e.target.form.requestSubmit()
   }
