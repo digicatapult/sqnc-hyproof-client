@@ -5,24 +5,22 @@ import styled from 'styled-components'
 export default function InputFieldEnergy({ val, onChangeVal, name }) {
   const [id] = useId()
   return (
-    <>
-      <Label2>
-        <Span2>Energy use</Span2>
-        <Input2
-          name={name}
-          value={val}
-          onChange={(e) => onChangeVal(e)}
-          placeholder="0.0 kWh"
-          list={id}
-        />
-        <datalist id={id}>
-          {Array.from(Array(2 * 20).keys()).map((e) => {
-            const r = (e + 1) / 2
-            return <option key={e} value={`${r.toFixed(1)} MWh`} />
-          })}
-        </datalist>
-      </Label2>
-    </>
+    <Label2>
+      <Span2>Energy use</Span2>
+      <Input2
+        name={name}
+        value={val}
+        onChange={(e) => onChangeVal(e)}
+        placeholder="0.0 kWh"
+        list={id}
+      />
+      <datalist id={id}>
+        {Array.from(Array(2 * 20).keys()).map((e) => {
+          const r = (e + 1) / 2
+          return <option key={e} value={`${r.toFixed(1)} MWh`} />
+        })}
+      </datalist>
+    </Label2>
   )
 }
 

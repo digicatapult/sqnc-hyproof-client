@@ -5,17 +5,15 @@ import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
 export default function InputFieldTime({ val, onChangeVal, name }) {
   return (
-    <>
-      <Label2>
-        <BgSpan2>Time</BgSpan2>
-        <Input2
-          name={name}
-          value={val}
-          onChange={(e) => onChangeVal(e)}
-          placeholder="00:00"
-        />
-      </Label2>
-    </>
+    <Label2>
+      <BgSpan2>Time</BgSpan2>
+      <Input2
+        name={name}
+        value={val}
+        onChange={(e) => onChangeVal(e)}
+        placeholder="00:00"
+      />
+    </Label2>
   )
 }
 

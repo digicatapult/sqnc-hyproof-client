@@ -5,17 +5,15 @@ import BgIconDateSVG from '../../assets/images/icon-date.svg'
 
 export default function InputFieldDate({ val, onChangeVal, name }) {
   return (
-    <>
-      <Label2>
-        <BgSpan2>Date</BgSpan2>
-        <Input2
-          name={name}
-          value={val}
-          onChange={(e) => onChangeVal(e)}
-          placeholder="01/01/2024"
-        />
-      </Label2>
-    </>
+    <Label2>
+      <BgSpan2>Date</BgSpan2>
+      <Input2
+        name={name}
+        value={val}
+        onChange={(e) => onChangeVal(e)}
+        placeholder="01/01/2024"
+      />
+    </Label2>
   )
 }
 
