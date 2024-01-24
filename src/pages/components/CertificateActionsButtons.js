@@ -17,47 +17,45 @@ export default function CertificateActionsButtons() {
   }
 
   return (
-    <>
-      <Sidebar area="sidebar">
-        <PaddedDiv>
-          <Grid
-            areas={[
-              ['div-left', 'div-right'],
-              ['div-double', 'div-double'],
-            ]}
-            rows={['40px', '60px']}
-            columns={['1fr', '1fr']}
-            gap="20px 10px"
-          >
-            <Grid.Panel area="div-left">
-              <SmallButton
-                variant="roundedPronounced"
-                onClick={handleClickSaveDraft}
-              >
-                Save draft
-              </SmallButton>
-            </Grid.Panel>
-            <Grid.Panel area="div-right">
-              <SmallButton
-                variant="roundedPronounced"
-                onClick={handleCancelDraft}
-              >
-                Cancel
-              </SmallButton>
-            </Grid.Panel>
-            <Grid.Panel area="div-double">
-              <LargeButton
-                variant="roundedPronounced"
-                onClick={handleClickSubmit}
-              >
-                Submit
-                {isWaitingVal && <span>...</span>}
-              </LargeButton>
-            </Grid.Panel>
-          </Grid>
-        </PaddedDiv>
-      </Sidebar>
-    </>
+    <Sidebar area="sidebar">
+      <PaddedDiv>
+        <Grid
+          areas={[
+            ['div-left', 'div-right'],
+            ['div-double', 'div-double'],
+          ]}
+          rows={['40px', '60px']}
+          columns={['1fr', '1fr']}
+          gap="20px 10px"
+        >
+          <Grid.Panel area="div-left">
+            <SmallButton
+              variant="roundedPronounced"
+              onClick={handleClickSaveDraft}
+            >
+              Save draft
+            </SmallButton>
+          </Grid.Panel>
+          <Grid.Panel area="div-right">
+            <SmallButton
+              variant="roundedPronounced"
+              onClick={handleCancelDraft}
+            >
+              Cancel
+            </SmallButton>
+          </Grid.Panel>
+          <Grid.Panel area="div-double">
+            <LargeButton
+              variant="roundedPronounced"
+              onClick={handleClickSubmit}
+            >
+              Submit
+              {isWaitingVal && <span>...</span>}
+            </LargeButton>
+          </Grid.Panel>
+        </Grid>
+      </PaddedDiv>
+    </Sidebar>
   )
 }
 
