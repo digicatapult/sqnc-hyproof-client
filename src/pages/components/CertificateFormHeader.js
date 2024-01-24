@@ -7,34 +7,32 @@ import BgImageSVG from '../../assets/images/molecules-bg-repeat.svg'
 
 export default function CertificateFormHeader() {
   return (
-    <>
-      <GreenBgDiv>
-        <WrapperDiv>
-          <Section
-            background="#e4e4e4"
-            headingGap="0ch"
-            headingLevel={3}
-            headingSize="0em"
-            height="auto"
-            padding="1ch 1ch"
-            title=""
-            width="33%"
-          >
-            <UnorderedList>
-              <ListItem>
-                Hydrogen Producer: <strong>Heidi</strong>
-              </ListItem>
-              <ListItem>
-                Energy Producer: <strong>Emma</strong>
-              </ListItem>
-              <ListItem>
-                Regulator: <strong>Reginald</strong>
-              </ListItem>
-            </UnorderedList>
-          </Section>
-        </WrapperDiv>
-      </GreenBgDiv>
-    </>
+    <GreenBgDiv>
+      <WrapperDiv>
+        <Section
+          background="#e4e4e4"
+          headingGap="0ch"
+          headingLevel={3}
+          headingSize="0em"
+          height="auto"
+          padding="1ch 1ch"
+          title=""
+          width="33%"
+        >
+          <UnorderedList>
+            <ListItem>
+              Hydrogen Producer: <strong>Heidi</strong>
+            </ListItem>
+            <ListItem>
+              Energy Producer: <strong>Emma</strong>
+            </ListItem>
+            <ListItem>
+              Regulator: <strong>Reginald</strong>
+            </ListItem>
+          </UnorderedList>
+        </Section>
+      </WrapperDiv>
+    </GreenBgDiv>
   )
 }
 
