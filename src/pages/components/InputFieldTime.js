@@ -6,10 +6,20 @@ import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 export default function InputFieldTime({ val, onChangeVal, name, id }) {
   return (
     <>
+      <Label2>
+        <BgSpan2>Time</BgSpan2>
+        <Input2
+          name={name}
+          id={id} // DELETE
+          value={val}
+          onChange={(e) => onChangeVal(e)}
+          placeholder="00:00"
+        />
+      </Label2>
+      {/*
       <Label htmlFor={id}>
         <BgTimeSpan>&nbsp;</BgTimeSpan>Time
       </Label>
-      {/* <Input defaultValue="00:00" type="time" /> */}
       <Input
         name={name}
         id={id}
@@ -17,37 +27,58 @@ export default function InputFieldTime({ val, onChangeVal, name, id }) {
         onChange={(e) => onChangeVal(e)}
         placeholder="00:00"
       />
+      */}
+      {/* <Input defaultValue="00:00" type="time" /> */}
     </>
   )
 }
 
-const Label = styled.label`
-  display: flex;
-  width: calc(100% - 15px);
-  height: 26px;
-  line-height: 26px;
-  margin-left: 15px;
+const Label2 = styled.label`
+  display: grid;
+  width: 100%;
   color: #7b9390;
   font: 500 14px/26px Roboto;
 `
 
-const BgTimeSpan = styled.span`
-  width: 26px;
-  height: 26px;
-  background: transparent url(${BgIconTimeSVG}) no-repeat;
+// const Label = styled.label`
+//   display: flex;
+//   width: calc(100% - 0px);
+//   height: 26px;
+//   // line-height: 26px;
+//   // margin-left: 15px;
+//   color: #7b9390;
+//   font: 500 14px/26px Roboto;
+// `
+
+const BgSpan2 = styled.span`
+  width: 100%;
+  display: flex;
+  &::before {
+    content: '';
+    display: grid;
+    width: 26px;
+    height: 26px;
+    background: transparent url(${BgIconTimeSVG}) no-repeat;
+  }
 `
 
-const Input = styled.input.attrs({ type: 'time' })`
-  display: flex;
-  width: calc(100% - 15px);
+// const BgTimeSpan = styled.span`
+//   width: 26px;
+//   height: 26px;
+//   background: transparent url(${BgIconTimeSVG}) no-repeat;
+// `
+
+const Input2 = styled.input.attrs({ type: 'time' })`
+  width: 100%;
   height: 26px;
+  min-width: 110px;
   font: 500 18px/26px Roboto;
   color: #aebcbb;
-  margin-left: 15px;
   background: transparent;
   outline: 0;
   border: none;
   position: relative;
+  z-index: 0;
   &::-webkit-calendar-picker-indicator {
     position: absolute;
     top: unset;
@@ -56,6 +87,7 @@ const Input = styled.input.attrs({ type: 'time' })`
     height: 100%;
     background: transparent;
     color: transparent;
+    z-index: 1;
   }
   &::-webkit-inner-spin-button {
     z-index: 1;
@@ -76,3 +108,44 @@ const Input = styled.input.attrs({ type: 'time' })`
     color: #000000;
   }
 `
+
+// const Input = styled.input.attrs({ type: 'time' })`
+//   display: flex;
+//   width: calc(100% - 0px);
+//   height: 26px;
+//   min-width: 90px;
+//   font: 500 18px/26px Roboto;
+//   color: #aebcbb;
+//   // margin-left: 15px;
+//   background: transparent;
+//   outline: 0;
+//   border: none;
+//   position: relative;
+//   &::-webkit-calendar-picker-indicator {
+//     position: absolute;
+//     top: unset;
+//     left: unset;
+//     width: 100%;
+//     height: 100%;
+//     background: transparent;
+//     color: transparent;
+//   }
+//   &::-webkit-inner-spin-button {
+//     z-index: 1;
+//   }
+//   &::-webkit-clear-button {
+//     z-index: 1;
+//   }
+//   &::-webkit-input-placeholder {
+//     color: #aebcbb;
+//   }
+//   &::placeholder {
+//     color: #aebcbb;
+//   }
+//   &:active {
+//     color: #000000;
+//   }
+//   &:hover {
+//     color: #000000;
+//   }
+// `

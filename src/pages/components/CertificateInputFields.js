@@ -178,8 +178,12 @@ const InputWrap = styled.div`
 
 const InputHalfWrap = styled.div`
   width: 50%;
-  display: block;
+  // display: block;
+  // float: left;
   height: 52px;
   line-height: 52px;
-  float: left;
+
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
 `
