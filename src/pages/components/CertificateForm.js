@@ -92,5 +92,5 @@ const TimelineDisclaimer = styled('div')`
   color: #33e58c;
   opacity: 0.5;
   font-size: 12px;
-  line-height: 20px; /* 166.667% */
+  line-height: 20px;
 `
