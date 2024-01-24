@@ -80,7 +80,6 @@ export default function CertificateInputFields({
                     val={enVal}
                     onChangeVal={handleEnChgeVal}
                     name="en"
-                    id="en"
                   />
                 </InputWrap>
               </InputWrapDiv>
@@ -95,7 +94,6 @@ export default function CertificateInputFields({
                     val={szVal}
                     onChangeVal={handleSzChgeVal}
                     name="sz"
-                    id="sz"
                   />
                 </InputWrap>
               </InputWrapDiv>
@@ -174,11 +172,8 @@ const InputWrap = styled.div`
 
 const InputHalfWrap = styled.div`
   width: 50%;
-  // display: block;
-  // float: left;
   height: 52px;
   line-height: 52px;
-
   display: flex;
   flex-direction: column;
   padding-left: 15px;
