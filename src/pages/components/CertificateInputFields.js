@@ -23,7 +23,7 @@ export default function CertificateInputFields({
 }) {
   return (
     <>
-      <MarginedDiv>
+      <PaddedDiv>
         <ContainerFlexWrapDiv>
           <FlexLargeDiv>
             <ContainerFlexNoWrapDiv>
@@ -106,13 +106,13 @@ export default function CertificateInputFields({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         </ContainerFlexWrapDiv>
-      </MarginedDiv>
+      </PaddedDiv>
     </>
   )
 }
 
-const MarginedDiv = styled.div`
-  margin: 8px;
+const PaddedDiv = styled.div`
+  padding: 8px;
 `
 
 const ContainerFlexWrapDiv = styled.div`
