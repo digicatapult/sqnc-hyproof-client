@@ -39,7 +39,7 @@ export default function CertificateForm() {
 
   return (
     <>
-      <Timeline area="timeline">timeline</Timeline>
+      <Timeline area="timeline">Timeline</Timeline>
       <Form action="" onSubmit={handleSubmit}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
