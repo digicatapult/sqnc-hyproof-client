@@ -113,8 +113,6 @@ export default function CertificateInputFields({
 
 const MarginedDiv = styled.div`
   margin: 8px;
-
-  background: #d8ffca;
 `
 
 const ContainerFlexWrapDiv = styled.div`
