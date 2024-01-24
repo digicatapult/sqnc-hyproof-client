@@ -3,14 +3,13 @@ import styled from 'styled-components'
 
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 
-export default function InputFieldDate({ val, onChangeVal, name, id }) {
+export default function InputFieldDate({ val, onChangeVal, name }) {
   return (
     <>
       <Label2>
         <BgSpan2>Date</BgSpan2>
         <Input2
           name={name}
-          id={id} // DELETE
           value={val}
           onChange={(e) => onChangeVal(e)}
           placeholder="01/01/2024"

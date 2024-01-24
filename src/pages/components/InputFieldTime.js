@@ -3,14 +3,13 @@ import styled from 'styled-components'
 
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
-export default function InputFieldTime({ val, onChangeVal, name, id }) {
+export default function InputFieldTime({ val, onChangeVal, name }) {
   return (
     <>
       <Label2>
         <BgSpan2>Time</BgSpan2>
         <Input2
           name={name}
-          id={id} // DELETE
           value={val}
           onChange={(e) => onChangeVal(e)}
           placeholder="00:00"

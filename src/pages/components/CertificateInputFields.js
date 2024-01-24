@@ -35,7 +35,6 @@ export default function CertificateInputFields({
                       val={sdVal}
                       onChangeVal={handleSdChgeVal}
                       name="sd"
-                      id="sd"
                     />
                   </InputHalfWrap>
                   <InputHalfWrap>
@@ -43,7 +42,6 @@ export default function CertificateInputFields({
                       val={stVal}
                       onChangeVal={handleStChgeVal}
                       name="st"
-                      id="st"
                     />
                   </InputHalfWrap>
                 </InputWrapLeftDiv>
@@ -60,7 +58,6 @@ export default function CertificateInputFields({
                       val={edVal}
                       onChangeVal={handleEdChgeVal}
                       name="ed"
-                      id="ed"
                     />
                   </InputHalfWrap>
                   <InputHalfWrap>
@@ -68,7 +65,6 @@ export default function CertificateInputFields({
                       val={etVal}
                       onChangeVal={handleEtChgeVal}
                       name="et"
-                      id="et"
                     />
                   </InputHalfWrap>
                 </InputWrapRightDiv>
