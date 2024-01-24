@@ -4,23 +4,11 @@ import styled from 'styled-components'
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 
 export default function CertificateForm(props) {
-  const [items, setItems] = React.useState(props.items || undefined)
-
-  React.useEffect(() => {
-    // This is for api to retrieve status of a certificate
-    // once updated delete [timelineItems] variable
-    if (!items) {
-      fetch('localhost:3001/some-link/{id}')
-        .then((res) => res.json())
-        .then((data) => setItems(data))
-    }
-  }, [items])
-
   return (
     <Form>
       <TimelineWrapper area="timeline">
         <Timeline {...props}>
-          {items.map(({ message, ...rest }) => (
+          {props.items.map(({ message, ...rest }) => (
             <Timeline.Item key={rest.title} {...props} {...rest}>
               {message && <p>{message}</p>}
             </Timeline.Item>
