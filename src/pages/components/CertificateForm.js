@@ -9,7 +9,7 @@ import CertificateActionsButtons from './CertificateActionsButtons'
 
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
-export default function CertificateForm() {
+export default function CertificateForm(props) {
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')
   const [edVal, setEdVal] = useState('2024-01-01')
