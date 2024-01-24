@@ -94,12 +94,3 @@ const TimelineDisclaimer = styled('div')`
   font-size: 12px;
   line-height: 20px; /* 166.667% */
 `
-
-const Sidebar = styled(Grid.Panel)`
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  min-width: 400px;
-  color: white;
-  background: #0c3b38;
-`
