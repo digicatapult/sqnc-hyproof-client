@@ -24,18 +24,21 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const obj = {
-      startDateVal: sdVal,
-      startTimeVal: stVal,
-      endDateVal: edVal,
-      endTimeVal: etVal,
-      energyVal: enVal,
-      sizeVal: szVal,
-    }
-    alert('DATA:\n' + JSON.stringify(obj, null, 2))
-  }
+  const handleSubmit = useCallback(
+    (event) => {
+      event.preventDefault()
+      const obj = {
+        startDateVal: sdVal,
+        startTimeVal: stVal,
+        endDateVal: edVal,
+        endTimeVal: etVal,
+        energyVal: enVal,
+        sizeVal: szVal,
+      }
+      alert('DATA:\n' + JSON.stringify(obj, null, 2))
+    },
+    [sdVal, stVal, edVal, etVal, enVal, szVal]
+  )
 
   return (
     <>
