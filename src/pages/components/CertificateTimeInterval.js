@@ -34,11 +34,9 @@ const convIntervalToStr = (s, e) => {
 
 export default function CertificateTimeInterval({ sTimestamp, eTimestamp }) {
   return (
-    <>
-      <FixedWidthSmallDiv>
-        {convIntervalToStr(sTimestamp, eTimestamp)}
-      </FixedWidthSmallDiv>
-    </>
+    <FixedWidthSmallDiv>
+      {convIntervalToStr(sTimestamp, eTimestamp)}
+    </FixedWidthSmallDiv>
   )
 }
 
