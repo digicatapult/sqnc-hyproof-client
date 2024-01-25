@@ -5,9 +5,9 @@ import styled from 'styled-components'
 export default function InputFieldSize({ val, onChangeVal, name }) {
   const [id] = useId()
   return (
-    <Label2>
-      <Span2>H2 batch</Span2>
-      <Input2
+    <Label>
+      <Span>H2 batch</Span>
+      <Input
         name={name}
         value={val}
         onChange={(e) => onChangeVal(e)}
@@ -20,11 +20,11 @@ export default function InputFieldSize({ val, onChangeVal, name }) {
           return <option key={e} value={`${r.toFixed(1)} MWh`} />
         })}
       </datalist>
-    </Label2>
+    </Label>
   )
 }
 
-const Label2 = styled.label`
+const Label = styled.label`
   display: grid;
   width: 100%;
   color: #7b9390;
@@ -32,12 +32,12 @@ const Label2 = styled.label`
   padding-left: 15px;
 `
 
-const Span2 = styled.span`
+const Span = styled.span`
   width: 100%;
   display: flex;
 `
 
-const Input2 = styled.input`
+const Input = styled.input`
   width: 100%;
   height: 26px;
   min-width: 110px;

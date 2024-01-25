@@ -5,26 +5,26 @@ import BgIconDateSVG from '../../assets/images/icon-date.svg'
 
 export default function InputFieldDate({ val, onChangeVal, name }) {
   return (
-    <Label2>
-      <BgSpan2>Date</BgSpan2>
-      <Input2
+    <Label>
+      <BgSpan>Date</BgSpan>
+      <Input
         name={name}
         value={val}
         onChange={(e) => onChangeVal(e)}
         placeholder="01/01/2024"
       />
-    </Label2>
+    </Label>
   )
 }
 
-const Label2 = styled.label`
+const Label = styled.label`
   display: grid;
   width: 100%;
   color: #7b9390;
   font: 500 14px/26px Roboto;
 `
 
-const BgSpan2 = styled.span`
+const BgSpan = styled.span`
   width: 100%;
   display: flex;
   &::before {
@@ -36,7 +36,7 @@ const BgSpan2 = styled.span`
   }
 `
 
-const Input2 = styled.input.attrs({ type: 'date' })`
+const Input = styled.input.attrs({ type: 'date' })`
   width: 100%;
   height: 26px;
   min-width: 110px;
