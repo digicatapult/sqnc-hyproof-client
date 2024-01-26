@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
@@ -32,6 +33,29 @@ export default function CertificateActionsButtons() {
   // check w/
   // u=http://localhost:8000/v1/certificate ; len=$(curl -s $u | jq length) ; curl -s $u | jq .[$((r - 1))]
   const handleClick = () => {
+    // setLoading(true)
+    // const url = 'http://localhost:8000/v1/certificate'
+    // const bodyObj = {
+    //   energy_consumed_wh: 2000000,
+    //   production_start_time: '2024-01-25T10:00:00.000Z',
+    //   production_end_time: '2024-01-25T20:00:00.000Z',
+    //   regulator: 'Reginald',
+    //   energy_owner: 'Emma',
+    //   hydrogen_quantity_wh: 2000000,
+    // }
+    // fetch(url, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(bodyObj),
+    // })
+    //   .then((r) => r.json())
+    //   .then((data) => setData(data))
+    //   .catch((error) => {
+    //     setError(error)
+    //     setLoading(false)
+    //   })
+    //   .finally(() => setLoading(false))
+
     setLoading(true)
     const url = 'http://localhost:8000/v1/certificate'
     const bodyObj = {
@@ -42,18 +66,18 @@ export default function CertificateActionsButtons() {
       energy_owner: 'Emma',
       hydrogen_quantity_wh: 2000000,
     }
-    fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj),
-    })
-      .then((r) => r.json())
-      .then((data) => setData(data))
+    axios
+      .post(url, bodyObj, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((response) => {
+        setData(response.data)
+        setLoading(false)
+      })
       .catch((error) => {
         setError(error)
         setLoading(false)
       })
-      .finally(() => setLoading(false))
   }
   // END
 
