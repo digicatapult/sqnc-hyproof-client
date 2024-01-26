@@ -29,10 +29,12 @@ export default function CertificateActionsButtons() {
   }
 
   // START
-  // check w/ u=http://localhost:8000/v1/certificate ; len=$(curl -s $u | jq length) ; curl -s $u | jq .[$((r - 1))]
+  // check w/
+  // u=http://localhost:8000/v1/certificate ; len=$(curl -s $u | jq length) ; curl -s $u | jq .[$((r - 1))]
   const handleClick = () => {
+    setLoading(true)
     const url = 'http://localhost:8000/v1/certificate'
-    const obj = {
+    const bodyObj = {
       energy_consumed_wh: 2000000,
       production_start_time: '2024-01-25T10:00:00.000Z',
       production_end_time: '2024-01-25T20:00:00.000Z',
@@ -40,21 +42,18 @@ export default function CertificateActionsButtons() {
       energy_owner: 'Emma',
       hydrogen_quantity_wh: 2000000,
     }
-    setLoading(true)
     fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(bodyObj),
     })
       .then((r) => r.json())
-      .then((data) => {
-        setData(data)
-        setLoading(false)
-      })
+      .then((data) => setData(data))
       .catch((error) => {
         setError(error)
         setLoading(false)
       })
+      .finally(() => setLoading(false))
   }
   // END
 
@@ -101,7 +100,7 @@ export default function CertificateActionsButtons() {
               {loading == false && data != null && <span>Submitted</span>}
               {loading && <span>...</span>}
             </button>
-            {error && <div>ERROR</div>}
+            {error && <div>ERROR: {JSON.stringify(error)}</div>}
             {data && <div>{JSON.stringify(data)}</div>}
           </Grid.Panel>
         </Grid>
