@@ -2,10 +2,11 @@ import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
-
 import CertificateInputFields from './CertificateInputFields'
 import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
+
+import useAxios from '../../hooks/use-axios'
 
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
@@ -17,6 +18,12 @@ export default function CertificateForm(props) {
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
 
+  // const [data, setData] = useState(null)
+  // const [error, setError] = useState('')
+  // const [loading, setLoading] = useState(false)
+
+  const { data, error, loading, callApiFn } = useAxios()
+
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
   const handleEdChgeVal = useCallbackChVal(setEdVal)
@@ -24,21 +31,36 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmit = useCallback(
-    (event) => {
-      event.preventDefault()
-      const obj = {
-        startDateVal: sdVal,
-        startTimeVal: stVal,
-        endDateVal: edVal,
-        endTimeVal: etVal,
-        energyVal: enVal,
-        sizeVal: szVal,
-      }
-      alert('DATA:\n' + JSON.stringify(obj, null, 2))
-    },
-    [sdVal, stVal, edVal, etVal, enVal, szVal]
-  )
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    callApiFn()
+    // setLoading(true)
+    // const wait = (ms) => new Promise((res) => setTimeout(res, ms))
+    // await wait(5000)
+    // if (Math.random() < 0.1) {
+    //   setError('Error')
+    //   setLoading(false)
+    // } else {
+    //   setData({ data: 101 })
+    //   setLoading(false)
+    // }
+  }
+
+  // const handleSubmitOld = useCallback(
+  //   (event) => {
+  //     event.preventDefault()
+  //     const obj = {
+  //       startDateVal: sdVal,
+  //       startTimeVal: stVal,
+  //       endDateVal: edVal,
+  //       endTimeVal: etVal,
+  //       energyVal: enVal,
+  //       sizeVal: szVal,
+  //     }
+  //     alert('DATA:\n' + JSON.stringify(obj, null, 2))
+  //   },
+  //   [sdVal, stVal, edVal, etVal, enVal, szVal]
+  // )
 
   return (
     <>
@@ -70,7 +92,11 @@ export default function CertificateForm(props) {
             handleSzChgeVal={handleSzChgeVal}
           />
         </Grid.Panel>
-        <CertificateActionsButtons />
+        <CertificateActionsButtons
+          data={data}
+          error={error}
+          loading={loading}
+        />
       </Form>
     </>
   )

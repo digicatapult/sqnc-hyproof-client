@@ -1,20 +1,14 @@
-import React, { useState } from 'react'
+import React /*, { useState }*/ from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import useAxios from '../../hooks/use-axios'
+// import useAxios from '../../hooks/use-axios'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
-export default function CertificateActionsButtons() {
-  // START
-  // const [data, setData] = useState(null)
-  // const [error, setError] = useState('')
-  // const [loading, setLoading] = useState(false)
-  // END
+export default function CertificateActionsButtons({ data, error, loading }) {
+  // const [isWaitingVal, setIsWaitingVal] = useState(false)
 
-  const [isWaitingVal, setIsWaitingVal] = useState(false)
-
-  const { data, error, loading, callApiFn } = useAxios()
+  // const { data, error, loading, callApiFn } = useAxios()
 
   const handleClickSaveDraft = (e) => {
     e.preventDefault()
@@ -24,50 +18,13 @@ export default function CertificateActionsButtons() {
     e.preventDefault()
     alert('Cancelled')
   }
-  const handleClickSubmit = (e) => {
-    e.preventDefault()
-    setIsWaitingVal(true)
-    setTimeout(() => {
-      e.target.form.requestSubmit()
-    }, 2000)
-  }
-
-  // const { callApiFn } = useHttp()
-
-  // START
-  // check w/
-  // u=http://localhost:8000/v1/certificate ; len=$(curl -s $u | jq length) ; curl -s $u | jq .[$((r - 1))]
-  // const handleClick = () => {
-  //   setLoading(true)
-  //   const url = 'http://localhost:8000/v1/certificate'
-  //   const bodyObj = {
-  //     energy_consumed_wh: 2000000,
-  //     production_start_time: '2024-01-25T10:00:00.000Z',
-  //     production_end_time: '2024-01-25T20:00:00.000Z',
-  //     regulator: 'Reginald',
-  //     energy_owner: 'Emma',
-  //     hydrogen_quantity_wh: 2000000,
-  //   }
-  //   const defaultHeaders = { 'content-type': 'application/json' }
-  //
-  //   axios
-  //     .post(url, bodyObj, { headers: defaultHeaders })
-  //     .then(async (res) => {
-  //       // Eight second artificial delay
-  //       const wait = (ms) => new Promise((res) => setTimeout(res, ms))
-  //       await wait(8000)
-  //
-  //       setData(res.data)
-  //     })
-  //     .catch((err) => {
-  //       setError(err)
-  //       setLoading(false)
-  //     })
-  //     .finally(() => setLoading(false))
-  //
-  //   callApiFn({ url, method: 'POST', body: bodyObj, headers: defaultHeaders })
+  // const handleClickSubmit = (e) => {
+  //   e.preventDefault()
+  //   setIsWaitingVal(true)
+  //   setTimeout(() => {
+  //     e.target.form.requestSubmit()
+  //   }, 2000)
   // }
-  // END
 
   return (
     <Sidebar area="sidebar">
@@ -98,7 +55,14 @@ export default function CertificateActionsButtons() {
             </SmallButton>
           </Grid.Panel>
           <Grid.Panel area="div-double">
-            <LargeButton
+            <LargeButton disabled={loading} variant="roundedPronounced">
+              {loading == false && data == null && <Span>Submit</Span>}
+              {loading == false && data != null && <Span>Submitted</Span>}
+              {loading && <AnimatedSpan>...</AnimatedSpan>}
+              {error && <Span>Error</Span>}
+            </LargeButton>
+
+            {/* <LargeButton
               onClick={() => callApiFn()}
               type="button"
               disabled={loading}
@@ -108,30 +72,22 @@ export default function CertificateActionsButtons() {
               {loading == false && data != null && <Span>Submitted</Span>}
               {loading && <AnimatedSpan>...</AnimatedSpan>}
               {error && <Span>Error</Span>}
-            </LargeButton>
-            <br />
-            <hr />
+            </LargeButton> */}
             {data && (
-              <div style={{ width: '266px' }}>{JSON.stringify(data)}</div>
+              <div style={{ width: '266px', fontSize: '9px' }}>
+                <br />
+                <hr />
+                {JSON.stringify(data, null, 2)}
+              </div>
             )}
-            <br />
-            <hr />
 
-            <LargeButton
+            {/* <LargeButton
               variant="roundedPronounced"
               onClick={handleClickSubmit}
             >
               Submit
               {isWaitingVal && <span>...</span>}
-            </LargeButton>
-
-            {/*
-            <button type="button" disabled={loading} onClick={handleClick}>
-              {loading == false && data == null && <span>Submit</span>}
-              {loading == false && data != null && <span>Submitted</span>}
-              {loading && <span>...</span>}
-            </button>
-            */}
+            </LargeButton> */}
           </Grid.Panel>
         </Grid>
       </PaddedDiv>
