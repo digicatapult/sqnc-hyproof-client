@@ -44,6 +44,7 @@ export default function CertificateActionsButtons() {
       hydrogen_quantity_wh: 2000000,
     }
     const defaultHeaders = { 'content-type': 'application/json' }
+
     axios
       .post(url, bodyObj, { headers: defaultHeaders })
       .then((res) => setData(res.data))
@@ -93,13 +94,27 @@ export default function CertificateActionsButtons() {
             </LargeButton>
             <br />
             <hr />
+            <LargeButton
+              onClick={handleClick}
+              disabled={loading}
+              variant="roundedPronounced"
+              type="button"
+            >
+              {loading == false && data == null && <span>Submit</span>}
+              {loading == false && data != null && <span>Submitted</span>}
+              {loading && <span>...</span>}
+              {error && <div>ERROR: {JSON.stringify(error)}</div>}
+            </LargeButton>
+            {/*
             <button type="button" disabled={loading} onClick={handleClick}>
               {loading == false && data == null && <span>Submit</span>}
               {loading == false && data != null && <span>Submitted</span>}
               {loading && <span>...</span>}
             </button>
-            {error && <div>ERROR: {JSON.stringify(error)}</div>}
-            {data && <div>{JSON.stringify(data)}</div>}
+            */}
+            {data && (
+              <div style={{ width: '266px' }}>{JSON.stringify(data)}</div>
+            )}
           </Grid.Panel>
         </Grid>
       </PaddedDiv>
@@ -128,13 +143,10 @@ const SmallButton = styled(Button)`
   font-style: normal;
   font-weight: 500;
   white-space: nowrap;
-
   font-size: 15.5px;
-
   color: #ffffff;
   border: 1px solid #ffffff !important;
   background: #124338 !important;
-
   &:hover {
     opacity: 0.6;
   }
@@ -142,7 +154,6 @@ const SmallButton = styled(Button)`
 
 const LargeButton = styled(SmallButton)`
   font-size: 21px;
-
   color: #33e58c;
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
