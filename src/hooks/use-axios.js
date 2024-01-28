@@ -10,7 +10,6 @@ function useAxios() {
 
   const callApiFn = () => {
     setLoading(true)
-    const method = 'post'
     const origin = 'http://localhost:8000'
     const path = '/v1/certificate'
     const body = {
@@ -21,8 +20,11 @@ function useAxios() {
       energy_owner: 'Emma',
       hydrogen_quantity_wh: 2000000,
     }
-    const defaultHeaders = { 'content-type': 'application/json' }
-    axios[method](origin + path, body, { headers: defaultHeaders })
+    const headers = { 'content-type': 'application/json' }
+
+    const method = 'post'
+
+    axios[method](origin + path, body, { headers: headers })
       .then(async (res) => {
         const wait = (ms) => new Promise((res) => setTimeout(res, ms))
         if (DELAY > 0) await wait(DELAY)
