@@ -33,7 +33,18 @@ export default function CertificateForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    callApiFn()
+    const body = {
+      energy_consumed_wh: 2000000,
+      production_start_time: '2024-01-25T10:00:00.000Z',
+      production_end_time: '2024-01-25T20:00:00.000Z',
+      regulator: 'Reginald',
+      energy_owner: 'Emma',
+      hydrogen_quantity_wh: 2000000,
+    }
+    const origin = 'http://localhost:8000'
+    const path = '/v1/certificate'
+    const url = `${origin}${path}`
+    callApiFn(url, body)
     // setLoading(true)
     // const wait = (ms) => new Promise((res) => setTimeout(res, ms))
     // await wait(5000)
