@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
@@ -47,7 +47,13 @@ export default function CertificateActionsButtons() {
 
     axios
       .post(url, bodyObj, { headers: defaultHeaders })
-      .then((res) => setData(res.data))
+      .then(async (res) => {
+        // Eight second artificial delay
+        const wait = (ms) => new Promise((res) => setTimeout(res, ms))
+        await wait(8000)
+
+        setData(res.data)
+      })
       .catch((err) => {
         setError(err)
         setLoading(false)
@@ -102,7 +108,7 @@ export default function CertificateActionsButtons() {
             >
               {loading == false && data == null && <span>Submit</span>}
               {loading == false && data != null && <span>Submitted</span>}
-              {loading && <span>...</span>}
+              {loading && <AnimatedSpan>...</AnimatedSpan>}
               {error && <div>ERROR: {JSON.stringify(error)}</div>}
             </LargeButton>
             {/*
@@ -157,4 +163,21 @@ const LargeButton = styled(SmallButton)`
   color: #33e58c;
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
+`
+
+const RevealAnimation = keyframes`
+  from {
+    width: 0px;
+  }
+  to {
+    width: 22px;
+  }
+`
+
+const AnimatedSpan = styled.span`
+  overflow: hidden;
+  display: inline-flex;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: ${RevealAnimation} 1s steps(4, end) infinite;
 `
