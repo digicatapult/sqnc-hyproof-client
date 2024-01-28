@@ -34,6 +34,12 @@ function useAxios() {
         const wait = (ms) => new Promise((res) => setTimeout(res, ms))
         if (DELAY > 0) await wait(DELAY)
         setData(res.data)
+        const { status } = res
+        if (status >= 400) {
+          setError(res)
+        } else {
+          setData(res.data)
+        }
       })
       .catch((err) => {
         setError(err)
