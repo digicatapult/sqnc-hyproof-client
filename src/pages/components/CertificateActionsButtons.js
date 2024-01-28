@@ -93,7 +93,7 @@ export default function CertificateActionsButtons() {
             </LargeButton>
             <br />
             <hr />
-            <button type="button" disabled="false" onClick={handleClick}>
+            <button type="button" disabled={loading} onClick={handleClick}>
               {loading == false && data == null && <span>Submit</span>}
               {loading == false && data != null && <span>Submitted</span>}
               {loading && <span>...</span>}
