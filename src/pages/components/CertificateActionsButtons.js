@@ -33,29 +33,6 @@ export default function CertificateActionsButtons() {
   // check w/
   // u=http://localhost:8000/v1/certificate ; len=$(curl -s $u | jq length) ; curl -s $u | jq .[$((r - 1))]
   const handleClick = () => {
-    // setLoading(true)
-    // const url = 'http://localhost:8000/v1/certificate'
-    // const bodyObj = {
-    //   energy_consumed_wh: 2000000,
-    //   production_start_time: '2024-01-25T10:00:00.000Z',
-    //   production_end_time: '2024-01-25T20:00:00.000Z',
-    //   regulator: 'Reginald',
-    //   energy_owner: 'Emma',
-    //   hydrogen_quantity_wh: 2000000,
-    // }
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(bodyObj),
-    // })
-    //   .then((r) => r.json())
-    //   .then((data) => setData(data))
-    //   .catch((error) => {
-    //     setError(error)
-    //     setLoading(false)
-    //   })
-    //   .finally(() => setLoading(false))
-
     setLoading(true)
     const url = 'http://localhost:8000/v1/certificate'
     const bodyObj = {
@@ -66,18 +43,15 @@ export default function CertificateActionsButtons() {
       energy_owner: 'Emma',
       hydrogen_quantity_wh: 2000000,
     }
+    const defaultHeaders = { 'content-type': 'application/json' }
     axios
-      .post(url, bodyObj, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then((response) => {
-        setData(response.data)
+      .post(url, bodyObj, { headers: defaultHeaders })
+      .then((res) => setData(res.data))
+      .catch((err) => {
+        setError(err)
         setLoading(false)
       })
-      .catch((error) => {
-        setError(error)
-        setLoading(false)
-      })
+      .finally(() => setLoading(false))
   }
   // END
 
@@ -119,7 +93,7 @@ export default function CertificateActionsButtons() {
             </LargeButton>
             <br />
             <hr />
-            <button type="button" onClick={handleClick}>
+            <button type="button" disabled="false" onClick={handleClick}>
               {loading == false && data == null && <span>Submit</span>}
               {loading == false && data != null && <span>Submitted</span>}
               {loading && <span>...</span>}
