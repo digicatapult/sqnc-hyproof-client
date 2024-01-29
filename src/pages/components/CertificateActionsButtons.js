@@ -1,15 +1,9 @@
-import React /*, { useState }*/ from 'react'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
-
-// import useAxios from '../../hooks/use-axios'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
 export default function CertificateActionsButtons({ data, error, loading }) {
-  // const [isWaitingVal, setIsWaitingVal] = useState(false)
-
-  // const { data, error, loading, callApiFn } = useAxios()
-
   const handleClickSaveDraft = (e) => {
     e.preventDefault()
     alert('Saved')
@@ -18,13 +12,6 @@ export default function CertificateActionsButtons({ data, error, loading }) {
     e.preventDefault()
     alert('Cancelled')
   }
-  // const handleClickSubmit = (e) => {
-  //   e.preventDefault()
-  //   setIsWaitingVal(true)
-  //   setTimeout(() => {
-  //     e.target.form.requestSubmit()
-  //   }, 2000)
-  // }
 
   return (
     <Sidebar area="sidebar">
@@ -62,17 +49,6 @@ export default function CertificateActionsButtons({ data, error, loading }) {
               {error && <Span>Error</Span>}
             </LargeButton>
 
-            {/* <LargeButton
-              onClick={() => callApiFn()}
-              type="button"
-              disabled={loading}
-              variant="roundedPronounced"
-            >
-              {loading == false && data == null && <Span>Submit</Span>}
-              {loading == false && data != null && <Span>Submitted</Span>}
-              {loading && <AnimatedSpan>...</AnimatedSpan>}
-              {error && <Span>Error</Span>}
-            </LargeButton> */}
             {data && (
               <div style={{ width: '266px', fontSize: '9px' }}>
                 <br />
@@ -80,14 +56,6 @@ export default function CertificateActionsButtons({ data, error, loading }) {
                 {JSON.stringify(data, null, 2)}
               </div>
             )}
-
-            {/* <LargeButton
-              variant="roundedPronounced"
-              onClick={handleClickSubmit}
-            >
-              Submit
-              {isWaitingVal && <span>...</span>}
-            </LargeButton> */}
           </Grid.Panel>
         </Grid>
       </PaddedDiv>
