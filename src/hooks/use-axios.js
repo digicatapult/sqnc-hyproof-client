@@ -1,21 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const DELAY = 4 * 1000 // Artificial delay in ms
 
-function useAxios() {
+function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const callApiFn = (
-    url,
-    body,
-    method,
-    headers = { 'content-type': 'application/json' }
-  ) => {
+  const callApiFn = (url, body, method, headers) => {
     setLoading(true)
     const options = body ? [url, body, { headers }] : [url, { headers }]
+    headers = headers || { 'content-type': 'application/json' }
     method = method || (body ? 'post' : 'get')
     // const body = {
     //   energy_consumed_wh: 2000000,
@@ -49,6 +45,14 @@ function useAxios() {
         setLoading(false)
       })
   }
+
+  useEffect(() => {
+    if (!run) {
+      return
+    }
+    callApiFn(urlRun, bodyRun, methodRun, headersRun)
+  }, [run, urlRun, bodyRun, methodRun, headersRun])
+
   return { data, error, loading, callApiFn }
 }
 
