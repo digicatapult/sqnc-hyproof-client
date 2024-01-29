@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 const DELAY = 4 * 1000 // Artificial delay in ms
@@ -8,7 +8,7 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const callApiFn = (url, body, method, headers) => {
+  const callApiFn = useCallback((url, body, method, headers) => {
     setLoading(true)
     const options = body ? [url, body, { headers }] : [url, { headers }]
     headers = headers || { 'content-type': 'application/json' }
@@ -33,14 +33,14 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
       .finally(() => {
         setLoading(false)
       })
-  }
+  }, [])
 
   useEffect(() => {
     if (!run) {
       return
     }
     callApiFn(urlRun, bodyRun, methodRun, headersRun)
-  }, [run, urlRun, bodyRun, methodRun, headersRun])
+  }, [run, urlRun, bodyRun, methodRun, headersRun, callApiFn])
 
   return { data, error, loading, callApiFn }
 }
