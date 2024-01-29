@@ -6,10 +6,9 @@ import CertificateForm from './components/CertificateForm'
 import { Context } from '../utils/Context'
 import { timelineProps } from '../assets/copy/timeline-props'
 
-
 export default function Certificates() {
-  const { current, update, ...rest } = React.useContext(Context)
-  const persona = rest[current] || null
+  const { current, update, ...personas } = React.useContext(Context)
+  const [persona] = React.useState(personas[current])
 
   return (
     <>

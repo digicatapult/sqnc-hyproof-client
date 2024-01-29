@@ -1,14 +1,18 @@
 import React from 'react'
 
-
 export const initState = {
   current: 'heidi',
-  emma: {},
+  emma: {
+    color: '#AAED93',
+  },
   heidi: {
     name: 'Heidi Heidi',
-    company: "Heidi's Hydroelectric Hydrogen"
+    company: "Heidi's Hydroelectric Hydrogen",
+    color: '#FDB6D4',
   },
-  reginald: {},
+  reginald: {
+    color: '#FCF281',
+  },
 }
 
 export const Context = React.createContext({
@@ -25,8 +29,8 @@ export const ContextProvider = ({ children }) => {
     ...initState,
     update: (key, val) => {
       const update = { [key]: { ...state[key], ...val } }
-      setState({ ...state, [key]: update }) 
-    }
+      setState({ ...state, [key]: update })
+    },
   })
 
   return <Context.Provider value={state}>{children}</Context.Provider>
