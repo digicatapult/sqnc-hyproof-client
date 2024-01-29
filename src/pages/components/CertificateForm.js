@@ -31,15 +31,25 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
+    const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
+    const sd = sdVal || '2024-01-01'
+    const st = stVal || '10:00'
+    const ed = edVal || '2024-01-01'
+    const et = etVal || '20:00'
+    const re = 'Reginald'
+    const eo = 'Emma'
+    const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
+    const startTimestamp = `${sd}T${st}:00.000Z`
+    const endTimestamp = `${ed}T${et}:00.000Z`
     const body = {
-      energy_consumed_wh: 2000000,
-      production_start_time: '2024-01-25T10:00:00.000Z',
-      production_end_time: '2024-01-25T20:00:00.000Z',
-      regulator: 'Reginald',
-      energy_owner: 'Emma',
-      hydrogen_quantity_wh: 2000000,
+      energy_consumed_wh: parseInt(en),
+      production_start_time: startTimestamp,
+      production_end_time: endTimestamp,
+      regulator: re,
+      energy_owner: eo,
+      hydrogen_quantity_wh: parseInt(sz),
     }
     const origin = 'http://localhost:8000'
     const path = '/v1/certificate'
