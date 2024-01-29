@@ -10,7 +10,6 @@ import { timelineProps } from '../assets/copy/timeline-props'
 export default function Certificates() {
   const { current, update, ...rest } = React.useContext(Context)
   const persona = rest[current] || null
-  console.log({ current, persona })
 
   return (
     <>
