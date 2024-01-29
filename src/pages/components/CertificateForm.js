@@ -18,10 +18,6 @@ export default function CertificateForm(props) {
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
 
-  // const [data, setData] = useState(null)
-  // const [error, setError] = useState('')
-  // const [loading, setLoading] = useState(false)
-
   const { data, error, loading, callApiFn } = useAxios()
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
@@ -55,33 +51,7 @@ export default function CertificateForm(props) {
     const path = '/v1/certificate'
     const url = `${origin}${path}`
     callApiFn(url, body)
-    // setLoading(true)
-    // const wait = (ms) => new Promise((res) => setTimeout(res, ms))
-    // await wait(5000)
-    // if (Math.random() < 0.1) {
-    //   setError('Error')
-    //   setLoading(false)
-    // } else {
-    //   setData({ data: 101 })
-    //   setLoading(false)
-    // }
   }
-
-  // const handleSubmitOld = useCallback(
-  //   (event) => {
-  //     event.preventDefault()
-  //     const obj = {
-  //       startDateVal: sdVal,
-  //       startTimeVal: stVal,
-  //       endDateVal: edVal,
-  //       endTimeVal: etVal,
-  //       energyVal: enVal,
-  //       sizeVal: szVal,
-  //     }
-  //     alert('DATA:\n' + JSON.stringify(obj, null, 2))
-  //   },
-  //   [sdVal, stVal, edVal, etVal, enVal, szVal]
-  // )
 
   return (
     <>
