@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback /*, useEffect*/ } from 'react'
 import styled from 'styled-components'
 
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
@@ -17,21 +17,31 @@ export default function CertificateForm(props) {
   const [etVal, setEtVal] = useState('23:55')
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
-  const [certSubmittedLocal, setCertSubmittedLocal] = useState(false)
-  const [certSubmittedChain, setCertSubmittedChain] = useState(false)
+  // const [certSubmittedLocal, setCertSubmittedLocal] = useState(false)
+  // const [certSubmittedChain, setCertSubmittedChain] = useState(false)
+
+  const [dataLocal, setDataLocal] = useState(null)
+  const [dataChain, setDataChain] = useState(null)
+  const [dataFinal, setDataFinal] = useState(null)
 
   const {
-    data: dataLocal,
+    // data: dataLocal,
     error: errorLocal,
     loading: loadingLocal,
     callApiFn: callApiFnLocal,
   } = useAxios()
 
   const {
-    data: dataChain,
+    // data: dataChain,
     error: errorChain,
     loading: loadingChain,
     callApiFn: callApiFnChain,
+  } = useAxios()
+
+  const {
+    error: errorFinal,
+    loading: loadingFinal,
+    callApiFn: callApiFnFinal,
   } = useAxios()
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
@@ -41,66 +51,108 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmitStepLocal = (e) => {
-    e.preventDefault()
-    const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
-    const sd = sdVal || '2024-01-01'
-    const st = stVal || '10:00'
-    const ed = edVal || '2024-01-01'
-    const et = etVal || '20:00'
-    const re = 'Reginald'
-    const eo = 'Emma'
-    const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
-    const startTimestamp = `${sd}T${st}:00.000Z`
-    const endTimestamp = `${ed}T${et}:00.000Z`
-    const body = {
-      energy_consumed_wh: parseInt(en),
-      production_start_time: startTimestamp,
-      production_end_time: endTimestamp,
-      regulator: re,
-      energy_owner: eo,
-      hydrogen_quantity_wh: parseInt(sz),
-    }
-    const origin = 'http://localhost:8000'
-    const path = '/v1/certificate'
-    const url = `${origin}${path}`
-    callApiFnLocal(url, body)
-  }
-
-  const handleSubmitStepChain = useCallback(
-    (heidiLocalId) => {
-      const body = {}
+  const handleSubmitStepLocal = useCallback(
+    (e) => {
+      e.preventDefault()
+      const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
+      const sd = sdVal || '2024-01-01'
+      const st = stVal || '10:00'
+      const ed = edVal || '2024-01-01'
+      const et = etVal || '20:00'
+      const re = 'Reginald'
+      const eo = 'Emma'
+      const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
+      const startTimestamp = `${sd}T${st}:00.000Z`
+      const endTimestamp = `${ed}T${et}:00.000Z`
+      const body = {
+        energy_consumed_wh: parseInt(en),
+        production_start_time: startTimestamp,
+        production_end_time: endTimestamp,
+        regulator: re,
+        energy_owner: eo,
+        hydrogen_quantity_wh: parseInt(sz),
+      }
       const origin = 'http://localhost:8000'
-      const path = `/v1/certificate/${heidiLocalId}/initiation`
+      const path = '/v1/certificate'
       const url = `${origin}${path}`
-      callApiFnChain(url, body)
+      callApiFnLocal(url, body).then((d) => {
+        setDataLocal(d)
+        const heidiLocalId = d?.id
+        const body = {}
+        const origin = 'http://localhost:8000'
+        const path = `/v1/certificate/${heidiLocalId}/initiation`
+        const url = `${origin}${path}`
+        if (d.state === 'pending') {
+          callApiFnChain(url, body).then((d) => {
+            setDataChain(d)
+            const heidiLocalId = d?.local_id
+            const origin = 'http://localhost:8000'
+            const path = `/v1/certificate/${heidiLocalId}`
+            const url = `${origin}${path}`
+            if (d?.state === 'submitted') {
+              ;(async function () {
+                let isFinalised = false
+                const wait = (ms) => new Promise((res) => setTimeout(res, ms))
+                while (!isFinalised) {
+                  const d = await callApiFnFinal(url)
+                  setDataFinal(d)
+                  if (d?.state === 'initiated') isFinalised = true
+                  if (d?.state === 'initiated') alert(`Data on-chain: ${d.id}`)
+                  await wait(1000)
+                }
+              })()
+            }
+          })
+        }
+      })
     },
-    [callApiFnChain]
+    [
+      enVal,
+      sdVal,
+      stVal,
+      edVal,
+      etVal,
+      szVal,
+      callApiFnLocal,
+      callApiFnChain,
+      callApiFnFinal,
+    ]
   )
 
-  useEffect(() => {
-    if (dataLocal === null) return
-    const state = dataLocal?.state
-    if (state === 'pending') {
-      setCertSubmittedLocal(true)
-      handleSubmitStepChain(dataLocal?.id) // aka: heidi_local_id
-    }
-  }, [dataLocal, handleSubmitStepChain])
+  // const handleSubmitStepChain = useCallback(
+  //   (heidiLocalId) => {
+  //     const body = {}
+  //     const origin = 'http://localhost:8000'
+  //     const path = `/v1/certificate/${heidiLocalId}/initiation`
+  //     const url = `${origin}${path}`
+  //     callApiFnChain(url, body)
+  //   },
+  //   [callApiFnChain]
+  // )
 
-  useEffect(() => {
-    if (dataChain === null) return
-    const state = dataChain?.state
-    if (state === 'submitted' || state === 'initiated') {
-      setCertSubmittedChain(true)
-      alert(`On Chain With Local Id: ${dataChain.local_id}`)
-    }
-  }, [dataChain, handleSubmitStepChain])
+  // useEffect(() => {
+  //   if (dataLocal === null) return
+  //   const state = dataLocal?.state
+  //   if (state === 'pending') {
+  //     setCertSubmittedLocal(true)
+  //     handleSubmitStepChain(dataLocal?.id) // aka: heidi_local_id
+  //   }
+  // }, [dataLocal, handleSubmitStepChain])
 
-  useEffect(() => {
-    if (certSubmittedLocal && certSubmittedChain) {
-      alert('The certificate should be on chain by now!')
-    }
-  }, [certSubmittedLocal, certSubmittedChain])
+  // useEffect(() => {
+  //   if (dataChain === null) return
+  //   const state = dataChain?.state
+  //   if (state === 'submitted' || state === 'initiated') {
+  //     setCertSubmittedChain(true)
+  //     alert(`On Chain With Local Id: ${dataChain.local_id}`)
+  //   }
+  // }, [dataChain, handleSubmitStepChain])
+
+  // useEffect(() => {
+  //   if (certSubmittedLocal && certSubmittedChain) {
+  //     alert('The certificate should be on chain by now!')
+  //   }
+  // }, [certSubmittedLocal, certSubmittedChain])
 
   return (
     <>
@@ -132,10 +184,15 @@ export default function CertificateForm(props) {
             handleSzChgeVal={handleSzChgeVal}
           />
         </Grid.Panel>
-        <CertificateActionsButtons
+        {/* <CertificateActionsButtons
           data={dataChain}
           error={errorLocal || errorChain}
           loading={loadingLocal || loadingChain}
+        /> */}
+        <CertificateActionsButtons
+          data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
+          error={errorLocal || errorChain || errorFinal}
+          loading={loadingLocal || loadingChain || loadingFinal}
         />
       </Form>
     </>
