@@ -1,35 +1,33 @@
 import React from 'react'
 
-export const initState = {
-  current: 'heidi',
-  emma: {
-    color: '#AAED93',
-  },
-  heidi: {
-    name: 'Heidi Heidi',
-    company: "Heidi's Hydroelectric Hydrogen",
-    color: '#FDB6D4',
-  },
-  reginald: {
-    color: '#FCF281',
-  },
-}
-
-export const Context = React.createContext({
-  current: 'heidi',
-  emma: {},
-  heidi: {},
-  reginald: {},
-  update: () => {},
-})
+export const Context = React.createContext({})
 
 // this is a provider for initial and state updates
 export const ContextProvider = ({ children }) => {
   const [state, setState] = React.useState({
-    ...initState,
-    update: (key, val) => {
-      const update = { [key]: { ...state[key], ...val } }
-      setState({ ...state, [key]: update })
+    current: 'heidi',
+    showSelector: true,
+    emma: {
+      name: 'Emma Emma',
+    },
+    heidi: {
+      name: 'Heidi Heidi',
+      company: "Heidi's Hydroelectric Hydrogen",
+    },
+    reginald: {
+      name: 'Reginald Reginald',
+    },
+    update: (val, key) => {
+      if (!val) return state
+      if (!key) return setState({ ...state, ...val })
+
+      setState({
+        ...state,
+        [key]: {
+          ...state[key],
+          ...val,
+        },
+      })
     },
   })
 
