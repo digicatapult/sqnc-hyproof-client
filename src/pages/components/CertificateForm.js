@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
@@ -17,8 +17,22 @@ export default function CertificateForm(props) {
   const [etVal, setEtVal] = useState('23:55')
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
+  const [certSubmittedLocal, setCertSubmittedLocal] = useState(false)
+  const [certSubmittedChain, setCertSubmittedChain] = useState(false)
 
-  const { data, error, loading, callApiFn } = useAxios()
+  const {
+    data: dataLocal,
+    error: errorLocal,
+    loading: loadingLocal,
+    callApiFn: callApiFnLocal,
+  } = useAxios()
+
+  const {
+    data: dataChain,
+    error: errorChain,
+    loading: loadingChain,
+    callApiFn: callApiFnChain,
+  } = useAxios()
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
@@ -27,7 +41,7 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmit = (e) => {
+  const handleSubmitStepLocal = (e) => {
     e.preventDefault()
     const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
     const sd = sdVal || '2024-01-01'
@@ -50,8 +64,43 @@ export default function CertificateForm(props) {
     const origin = 'http://localhost:8000'
     const path = '/v1/certificate'
     const url = `${origin}${path}`
-    callApiFn(url, body)
+    callApiFnLocal(url, body)
   }
+
+  const handleSubmitStepChain = useCallback(
+    (heidiLocalId) => {
+      const body = {}
+      const origin = 'http://localhost:8000'
+      const path = `/v1/certificate/${heidiLocalId}/initiation`
+      const url = `${origin}${path}`
+      callApiFnChain(url, body)
+    },
+    [callApiFnChain]
+  )
+
+  useEffect(() => {
+    if (dataLocal === null) return
+    const state = dataLocal?.state
+    if (state === 'pending') {
+      setCertSubmittedLocal(true)
+      handleSubmitStepChain(dataLocal?.id) // aka: heidi_local_id
+    }
+  }, [dataLocal, handleSubmitStepChain])
+
+  useEffect(() => {
+    if (dataChain === null) return
+    const state = dataChain?.state
+    if (state === 'submitted' || state === 'initiated') {
+      setCertSubmittedChain(true)
+      alert(`On Chain With Local Id: ${dataChain.local_id}`)
+    }
+  }, [dataChain, handleSubmitStepChain])
+
+  useEffect(() => {
+    if (certSubmittedLocal && certSubmittedChain) {
+      alert('The certificate should be on chain by now!')
+    }
+  }, [certSubmittedLocal, certSubmittedChain])
 
   return (
     <>
@@ -65,7 +114,7 @@ export default function CertificateForm(props) {
         </Timeline>
         <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
-      <Form action="" onSubmit={handleSubmit}>
+      <Form action="" onSubmit={handleSubmitStepLocal}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
           <CertificateInputFields
@@ -84,9 +133,9 @@ export default function CertificateForm(props) {
           />
         </Grid.Panel>
         <CertificateActionsButtons
-          data={data}
-          error={error}
-          loading={loading}
+          data={dataChain}
+          error={errorLocal || errorChain}
+          loading={loadingLocal || loadingChain}
         />
       </Form>
     </>
