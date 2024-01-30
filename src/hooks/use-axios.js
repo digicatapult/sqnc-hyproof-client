@@ -24,13 +24,16 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
         setError(res)
       } else {
         setData(res.data)
+        setLoading(false)
+        return res.data
       }
     } catch (err) {
       setError(err)
       setLoading(false)
-    } finally {
-      setLoading(false)
     }
+    // finally {
+    //   setLoading(false)
+    // }
   }, [])
 
   useEffect(() => {
