@@ -70,6 +70,38 @@ In terms of assets, this project contains the following:
 
 ---
 
+## DSCP HyProof Client: Serve Assets Locally
+
+Apart from images ( **`assets/images/`** ) and fonts ( **`assets/fonts/`** ) that stored locally this project makes use of two assets that are stored in CDNs, meaning **`*.min.js`**. Therefore, to work completely off-line add **`react.production.min.js`** and **`react-dom.production.min.js`** to **`./public/`** and change **`index.html`** from:
+
+```html
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+		<!-- ... -->
+  </head>
+  <body><!-- ... --></body>
+</html>
+```
+
+To:
+
+```html
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <script crossorigin src="react.production.min.js"></script>
+    <script crossorigin src="react-dom.production.min.js"></script>
+		<!-- ... -->
+  </head>
+  <body><!-- ... --></body>
+</html>
+```
+
+---
+
 ## DSCP HyProof Client: License
 
 This project is licensed under the **Apache 2.0** license.
