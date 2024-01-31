@@ -14,7 +14,11 @@ export default function Certificates() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <CertificateForm variant="hyproof" {...timelineProps} />
+      <CertificateForm
+        variant="hyproof"
+        origin={persona.origin}
+        {...timelineProps}
+      />
     </>
   )
 }

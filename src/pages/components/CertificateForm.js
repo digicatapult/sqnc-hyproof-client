@@ -11,14 +11,19 @@ import useAxios from '../../hooks/use-axios'
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
 export default function CertificateForm(props) {
+  const origin = props.origin
+
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')
   const [edVal, setEdVal] = useState('2024-01-01')
   const [etVal, setEtVal] = useState('23:55')
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
+
   // const [certSubmittedLocal, setCertSubmittedLocal] = useState(false)
   // const [certSubmittedChain, setCertSubmittedChain] = useState(false)
+
+  const [loading, setLoading] = useState(false)
 
   const [dataLocal, setDataLocal] = useState(null)
   const [dataChain, setDataChain] = useState(null)
@@ -27,20 +32,20 @@ export default function CertificateForm(props) {
   const {
     // data: dataLocal,
     error: errorLocal,
-    loading: loadingLocal,
+    // loading: loadingLocal,
     callApiFn: callApiFnLocal,
   } = useAxios()
 
   const {
     // data: dataChain,
     error: errorChain,
-    loading: loadingChain,
+    // loading: loadingChain,
     callApiFn: callApiFnChain,
   } = useAxios()
 
   const {
     error: errorFinal,
-    loading: loadingFinal,
+    // loading: loadingFinal,
     callApiFn: callApiFnFinal,
   } = useAxios()
 
@@ -54,6 +59,7 @@ export default function CertificateForm(props) {
   const handleSubmitStepLocal = useCallback(
     (e) => {
       e.preventDefault()
+      setLoading(true)
       const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
       const sd = sdVal || '2024-01-01'
       const st = stVal || '10:00'
@@ -72,21 +78,21 @@ export default function CertificateForm(props) {
         energy_owner: eo,
         hydrogen_quantity_wh: parseInt(sz),
       }
-      const origin = 'http://localhost:8000'
+      // const origin = props.origin //'http://localhost:8000'
       const path = '/v1/certificate'
       const url = `${origin}${path}`
       callApiFnLocal(url, body).then((d) => {
         setDataLocal(d)
         const heidiLocalId = d?.id
         const body = {}
-        const origin = 'http://localhost:8000'
+        // const origin = props.origin //'http://localhost:8000'
         const path = `/v1/certificate/${heidiLocalId}/initiation`
         const url = `${origin}${path}`
         if (d.state === 'pending') {
           callApiFnChain(url, body).then((d) => {
             setDataChain(d)
             const heidiLocalId = d?.local_id
-            const origin = 'http://localhost:8000'
+            // const origin = props.origin //'http://localhost:8000'
             const path = `/v1/certificate/${heidiLocalId}`
             const url = `${origin}${path}`
             if (d?.state === 'submitted') {
@@ -97,9 +103,10 @@ export default function CertificateForm(props) {
                   const d = await callApiFnFinal(url)
                   setDataFinal(d)
                   if (d?.state === 'initiated') isFinalised = true
-                  if (d?.state === 'initiated') alert(`Data on-chain: ${d.id}`)
+                  // if (d?.state === 'initiated') alert(`Data on-chain: ${d.id}`)
                   await wait(1000)
                 }
+                setLoading(false)
               })()
             }
           })
@@ -113,6 +120,7 @@ export default function CertificateForm(props) {
       edVal,
       etVal,
       szVal,
+      origin,
       callApiFnLocal,
       callApiFnChain,
       callApiFnFinal,
@@ -192,7 +200,7 @@ export default function CertificateForm(props) {
         <CertificateActionsButtons
           data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
           error={errorLocal || errorChain || errorFinal}
-          loading={loadingLocal || loadingChain || loadingFinal}
+          loading={loading}
         />
       </Form>
     </>
