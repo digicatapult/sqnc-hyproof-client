@@ -31,9 +31,6 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
       setError(err)
       setLoading(false)
     }
-    // finally {
-    //   setLoading(false)
-    // }
   }, [])
 
   useEffect(() => {
