@@ -71,7 +71,7 @@
         "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "@digicatapult/ui-component-library": "^0.16.1",
+        "@digicatapult/ui-component-library": "^0.16.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-id-generator": "^3.0.2",
