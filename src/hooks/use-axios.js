@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
-const DELAY = 4 * 1000 // Artificial delay in ms
+const DELAY = 1 * 1000 // Artificial delay in ms
 
 function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
   const [data, setData] = useState(null)
