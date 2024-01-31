@@ -8,31 +8,32 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const callApiFn = useCallback((url, body, method, headers) => {
+  const callApiFn = useCallback(async (url, body, method, headers) => {
     setLoading(true)
     const options = body ? [url, body, { headers }] : [url, { headers }]
     headers = headers || { 'content-type': 'application/json' }
     method = method || (body ? 'post' : 'get')
 
-    axios[method](...options)
-      .then(async (res) => {
-        const wait = (ms) => new Promise((res) => setTimeout(res, ms))
-        if (DELAY > 0) await wait(DELAY)
+    try {
+      const res = await axios[method](...options)
+      const wait = (ms) => new Promise((res) => setTimeout(res, ms))
+      if (DELAY > 0) await wait(DELAY)
+      setData(res.data)
+      const { status } = res
+      if (status >= 400) {
+        setError(res)
+      } else {
         setData(res.data)
-        const { status } = res
-        if (status >= 400) {
-          setError(res)
-        } else {
-          setData(res.data)
-        }
-      })
-      .catch((err) => {
-        setError(err)
         setLoading(false)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+        return res.data
+      }
+    } catch (err) {
+      setError(err)
+      setLoading(false)
+    }
+    // finally {
+    //   setLoading(false)
+    // }
   }, [])
 
   useEffect(() => {
