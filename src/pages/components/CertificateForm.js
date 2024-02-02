@@ -31,7 +31,7 @@ export default function CertificateForm(props) {
   const { error: errorChain, callApiFn: callApiFnChain } = useAxiosOld()
   const { error: errorFinal, callApiFn: callApiFnFinal } = useAxiosOld()
 
-  const { error, loading, data, callApiFn } = useAxios(false, [])
+  const { error, loading, data, callApiFn } = useAxios(false, ['local'])
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
@@ -40,7 +40,7 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmitStepLocal = useCallback(
+  const handleSubmitStepLocalOld = useCallback(
     (e) => {
       e.preventDefault()
       setLoading2(true)
@@ -106,15 +106,14 @@ export default function CertificateForm(props) {
     ]
   )
 
-  const handleSubmitStepLocalNew = useCallback(
+  const handleSubmitStepLocal = useCallback(
     (e) => {
       e.preventDefault()
-      const origin = 'http://localhost:8000'
       const path = '/v1/certificate'
       const url = `${origin}${path}`
       callApiFn(url)
     },
-    [callApiFn]
+    [origin, callApiFn]
   )
 
   return (
@@ -129,7 +128,7 @@ export default function CertificateForm(props) {
         </Timeline>
         <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
-      <Form action="" onSubmit={handleSubmitStepLocalNew}>
+      <Form action="" onSubmit={handleSubmitStepLocal}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
           <CertificateInputFields
