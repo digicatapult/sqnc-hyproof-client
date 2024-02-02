@@ -6,6 +6,10 @@ import CertificateForm from './components/CertificateForm'
 import { Context } from '../utils/Context'
 import { timelineProps } from '../assets/copy/timeline-props'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 export default function Certificates() {
   const { current, update, ...personas } = React.useContext(Context)
   const [persona] = React.useState(personas[current])
@@ -14,11 +18,13 @@ export default function Certificates() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <CertificateForm
-        variant="hyproof"
-        origin={persona.origin}
-        {...timelineProps}
-      />
+      <QueryClientProvider client={queryClient}>
+        <CertificateForm
+          variant="hyproof"
+          origin={persona.origin}
+          {...timelineProps}
+        />
+      </QueryClientProvider>
     </>
   )
 }

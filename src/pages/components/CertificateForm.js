@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
@@ -5,6 +6,8 @@ import { Grid, Timeline } from '@digicatapult/ui-component-library'
 import CertificateInputFields from './CertificateInputFields'
 import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
+
+import useAxiosOld from '../../hooks/use-axios-old'
 
 import useAxios from '../../hooks/use-axios'
 
@@ -19,14 +22,16 @@ export default function CertificateForm(props) {
   const [etVal, setEtVal] = useState('23:55')
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loading2, setLoading2] = useState(false)
   const [dataLocal, setDataLocal] = useState(null)
   const [dataChain, setDataChain] = useState(null)
   const [dataFinal, setDataFinal] = useState(null)
 
-  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxios()
-  const { error: errorChain, callApiFn: callApiFnChain } = useAxios()
-  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxios()
+  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxiosOld()
+  const { error: errorChain, callApiFn: callApiFnChain } = useAxiosOld()
+  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxiosOld()
+
+  const { error, loading, data, callApiFn } = useAxios(false, [])
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
@@ -38,7 +43,7 @@ export default function CertificateForm(props) {
   const handleSubmitStepLocal = useCallback(
     (e) => {
       e.preventDefault()
-      setLoading(true)
+      setLoading2(true)
       const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
       const sd = sdVal || '2024-01-01'
       const st = stVal || '10:00'
@@ -74,14 +79,13 @@ export default function CertificateForm(props) {
             if (d?.state === 'submitted') {
               ;(async function () {
                 let isFinalised = false
-                const wait = (ms) => new Promise((res) => setTimeout(res, ms))
                 while (!isFinalised) {
                   const d = await callApiFnFinal(url)
                   setDataFinal(d)
                   if (d?.state === 'initiated') isFinalised = true
-                  await wait(1000)
+                  await new Promise((resolve) => setTimeout(resolve, 1000))
                 }
-                setLoading(false)
+                setLoading2(false)
               })()
             }
           })
@@ -102,6 +106,17 @@ export default function CertificateForm(props) {
     ]
   )
 
+  const handleSubmitStepLocalNew = useCallback(
+    (e) => {
+      e.preventDefault()
+      const origin = 'http://localhost:8000'
+      const path = '/v1/certificate'
+      const url = `${origin}${path}`
+      callApiFn(url)
+    },
+    [callApiFn]
+  )
+
   return (
     <>
       <TimelineWrapper area="timeline">
@@ -114,7 +129,7 @@ export default function CertificateForm(props) {
         </Timeline>
         <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
-      <Form action="" onSubmit={handleSubmitStepLocal}>
+      <Form action="" onSubmit={handleSubmitStepLocalNew}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
           <CertificateInputFields
@@ -133,9 +148,10 @@ export default function CertificateForm(props) {
           />
         </Grid.Panel>
         <CertificateActionsButtons
-          data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
+          data={data}
+          // data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
           error={errorLocal || errorChain || errorFinal}
-          loading={loading}
+          loading={loading2}
         />
       </Form>
     </>
