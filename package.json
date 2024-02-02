@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/dscp-hyproof-client",
-    "version": "0.0.17",
+    "version": "0.0.19",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/dscp-hyproof-client",
     "main": "src/index.js",
