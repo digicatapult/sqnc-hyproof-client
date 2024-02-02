@@ -23,15 +23,18 @@ export default function CertificateForm(props) {
   const [enVal, setEnVal] = useState('')
   const [szVal, setSzVal] = useState('')
   const [loading2, setLoading2] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [dataLocal, setDataLocal] = useState(null)
   const [dataChain, setDataChain] = useState(null)
   const [dataFinal, setDataFinal] = useState(null)
 
-  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxiosOld()
-  const { error: errorChain, callApiFn: callApiFnChain } = useAxiosOld()
-  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxiosOld()
+  const { error: errorLocal2, callApiFn: callApiFnLocal2 } = useAxiosOld()
+  const { error: errorChain2, callApiFn: callApiFnChain2 } = useAxiosOld()
+  const { error: errorFinal2, callApiFn: callApiFnFinal2 } = useAxiosOld()
 
-  const { error, loading, data, callApiFn } = useAxios(false, ['local'])
+  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxios(false, [0])
+  const { error: errorChain, callApiFn: callApiFnChain } = useAxios(false, [1])
+  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxios(false, [2])
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
@@ -64,14 +67,14 @@ export default function CertificateForm(props) {
       }
       const path = '/v1/certificate'
       const url = `${origin}${path}`
-      callApiFnLocal(url, body).then((d) => {
+      callApiFnLocal2(url, body).then((d) => {
         setDataLocal(d)
         const heidiLocalId = d?.id
         const body = {}
         const path = `/v1/certificate/${heidiLocalId}/initiation`
         const url = `${origin}${path}`
         if (d.state === 'pending') {
-          callApiFnChain(url, body).then((d) => {
+          callApiFnChain2(url, body).then((d) => {
             setDataChain(d)
             const heidiLocalId = d?.local_id
             const path = `/v1/certificate/${heidiLocalId}`
@@ -80,7 +83,7 @@ export default function CertificateForm(props) {
               ;(async function () {
                 let isFinalised = false
                 while (!isFinalised) {
-                  const d = await callApiFnFinal(url)
+                  const d = await callApiFnFinal2(url)
                   setDataFinal(d)
                   if (d?.state === 'initiated') isFinalised = true
                   await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -100,20 +103,76 @@ export default function CertificateForm(props) {
       etVal,
       szVal,
       origin,
-      callApiFnLocal,
-      callApiFnChain,
-      callApiFnFinal,
+      callApiFnLocal2,
+      callApiFnChain2,
+      callApiFnFinal2,
     ]
   )
 
   const handleSubmitStepLocal = useCallback(
     (e) => {
       e.preventDefault()
+      setLoading(true)
+      const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
+      const sd = sdVal || '2024-01-01'
+      const st = stVal || '10:00'
+      const ed = edVal || '2024-01-01'
+      const et = etVal || '20:00'
+      const re = 'Reginald'
+      const eo = 'Emma'
+      const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
+      const startTimestamp = `${sd}T${st}:00.000Z`
+      const endTimestamp = `${ed}T${et}:00.000Z`
+      const body = {
+        energy_consumed_wh: parseInt(en),
+        production_start_time: startTimestamp,
+        production_end_time: endTimestamp,
+        regulator: re,
+        energy_owner: eo,
+        hydrogen_quantity_wh: parseInt(sz),
+      }
       const path = '/v1/certificate'
       const url = `${origin}${path}`
-      callApiFn(url)
+      callApiFnLocal({ url, body }).then((resLocal) => {
+        setDataLocal(resLocal)
+        if (resLocal?.state === 'pending') {
+          const heidiLocalId = resLocal?.id
+          const path = `/v1/certificate/${heidiLocalId}/initiation`
+          const body = {}
+          const url = `${origin}${path}`
+          callApiFnChain({ url, body }).then((resChain) => {
+            setDataChain(resChain)
+            if (resChain?.state === 'submitted') {
+              const heidiLocalId = resChain?.local_id
+              const path = `/v1/certificate/${heidiLocalId}`
+              const url = `${origin}${path}`
+              ;(async function () {
+                let isFinalised = false
+                while (!isFinalised) {
+                  const res = await callApiFnFinal({ url })
+                  setDataFinal(res)
+                  if (res?.state === 'initiated') isFinalised = true
+                  await new Promise((resolve) => setTimeout(resolve, 1000))
+                }
+                setLoading(false)
+              })()
+            }
+          })
+        }
+      })
     },
-    [origin, callApiFn]
+    [
+      enVal,
+      sdVal,
+      stVal,
+      edVal,
+      etVal,
+      szVal,
+      origin,
+      callApiFnLocal,
+      callApiFnChain,
+      callApiFnFinal,
+    ]
   )
 
   return (
@@ -147,10 +206,9 @@ export default function CertificateForm(props) {
           />
         </Grid.Panel>
         <CertificateActionsButtons
-          data={data}
-          // data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
+          data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
           error={errorLocal || errorChain || errorFinal}
-          loading={loading2}
+          loading={loading}
         />
       </Form>
     </>
