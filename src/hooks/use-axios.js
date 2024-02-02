@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
-const DELAY = 1 * 1000 // Artificial delay in ms
-
 function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
@@ -16,8 +14,6 @@ function useAxios(run = false, urlRun, bodyRun, methodRun, headersRun) {
 
     try {
       const res = await axios[method](...options)
-      const wait = (ms) => new Promise((res) => setTimeout(res, ms))
-      if (DELAY > 0) await wait(DELAY)
       setData(res.data)
       const { status } = res
       if (status >= 400) {
