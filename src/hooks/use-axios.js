@@ -1,17 +1,22 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-console */
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useMutation } from '@tanstack/react-query'
+
 import axios from 'axios'
 
-export default function useAxios(run = false, keys = ['key'], urlRun, bodyRun, methodRun, headersRun) {
+export default function useAxios(
+  run = false,
+  keys = ['key'],
+  urlRun,
+  bodyRun,
+  methodRun,
+  headersRun
+) {
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { /*data, error, loading, */mutateAsync: callApiFn } = useMutation({
+  const { mutateAsync: callApiFn } = useMutation({
     mutationFn: async (url, body, method, headers) => {
       setLoading(true)
       headers = headers || { 'content-type': 'application/json' }
@@ -28,7 +33,7 @@ export default function useAxios(run = false, keys = ['key'], urlRun, bodyRun, m
       setLoading(false)
     },
     cacheTime: 0,
-    queryKey: [ ...keys ],
+    queryKey: [...keys],
   })
 
   useEffect(() => {
