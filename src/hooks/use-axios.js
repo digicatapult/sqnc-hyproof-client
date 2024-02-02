@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import axios from 'axios'
 
@@ -16,30 +16,45 @@ export default function useAxios(
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const queryClient = useQueryClient()
+
   const { mutateAsync: callApiFn } = useMutation({
-    mutationFn: async (url, body, method, headers) => {
+    mutationFn: async (args) => {
       setLoading(true)
-      headers = headers || { 'content-type': 'application/json' }
+      let { url, body, method, headers } = args
       method = method || (body ? 'post' : 'get')
+      headers = headers || { 'content-type': 'application/json' }
       const options = body ? [url, body, { headers }] : [url, { headers }]
-      return await axios[method](...options)
+      try {
+        const res = await axios[method](...options)
+        if (res.status >= 400) return new Error(res.status)
+        return res.data
+      } catch (err) {
+        return new Error(err)
+      }
     },
     onSuccess: async (res) => {
       setData(res.data)
       setLoading(false)
+      queryClient.invalidateQueries(keys)
     },
     onError: async (error) => {
       setError(error)
       setLoading(false)
     },
+    queryKey: [...keys.toString()],
     cacheTime: 0,
-    queryKey: [...keys],
   })
 
   useEffect(() => {
     if (!run) return
 
-    callApiFn(urlRun, bodyRun, methodRun, headersRun)
+    callApiFn({
+      url: urlRun,
+      body: bodyRun,
+      method: methodRun,
+      headers: headersRun,
+    })
   }, [run, urlRun, bodyRun, methodRun, headersRun, callApiFn])
 
   return { data, error, loading, callApiFn }
