@@ -132,6 +132,11 @@ export default function CertificateForm(props) {
           data={dataFinal ? dataFinal : dataChain ? dataChain : dataLocal}
           error={errorLocal || errorChain || errorFinal}
           loading={loading}
+          valid={
+            parseFloat(enVal) > 0 &&
+            parseFloat(szVal) > 0 &&
+            new Date(`${sdVal} ${stVal}`) < new Date(`${edVal} ${etVal}`)
+          }
         />
       </Form>
     </>

@@ -3,7 +3,12 @@ import styled, { keyframes } from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
-export default function CertificateActionsButtons({ data, error, loading }) {
+export default function CertificateActionsButtons({
+  data,
+  error,
+  loading,
+  valid,
+}) {
   const handleClickSaveDraft = (e) => {
     e.preventDefault()
     alert('Saved')
@@ -42,7 +47,10 @@ export default function CertificateActionsButtons({ data, error, loading }) {
             </SmallButton>
           </Grid.Panel>
           <Grid.Panel area="div-double">
-            <LargeButton disabled={loading} variant="roundedPronounced">
+            <LargeButton
+              disabled={loading || !valid}
+              variant="roundedPronounced"
+            >
               {loading == false && data == null && <Span>Submit</Span>}
               {loading == false && data != null && <Span>Submitted</Span>}
               {loading && <AnimatedSpan>...</AnimatedSpan>}
@@ -98,6 +106,10 @@ const LargeButton = styled(SmallButton)`
   color: #33e58c;
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
+  &:disabled {
+    color: #1c774a;
+    border: 1px solid #1c774a !important;
+  }
 `
 
 const RevealAnimation = keyframes`
