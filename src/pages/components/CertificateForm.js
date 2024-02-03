@@ -10,6 +10,28 @@ import useAxios from '../../hooks/use-axios'
 
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
+const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
+  const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
+  const sd = sdVal || '2024-01-01'
+  const st = stVal || '10:00'
+  const ed = edVal || '2024-01-01'
+  const et = etVal || '20:00'
+  const re = 'Reginald'
+  const eo = 'Emma'
+  const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
+  const startTimestamp = `${sd}T${st}:00.000Z`
+  const endTimestamp = `${ed}T${et}:00.000Z`
+  const body = {
+    energy_consumed_wh: parseInt(en),
+    production_start_time: startTimestamp,
+    production_end_time: endTimestamp,
+    regulator: re,
+    energy_owner: eo,
+    hydrogen_quantity_wh: parseInt(sz),
+  }
+  return body
+}
+
 export default function CertificateForm(props) {
   const origin = props.origin
 
@@ -37,56 +59,30 @@ export default function CertificateForm(props) {
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
   const handleSubmitStepLocal = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault()
       setLoading(true)
-      const en = enVal ? (parseFloat(enVal) * 1000000) | 0 : 2000000
-      const sd = sdVal || '2024-01-01'
-      const st = stVal || '10:00'
-      const ed = edVal || '2024-01-01'
-      const et = etVal || '20:00'
-      const re = 'Reginald'
-      const eo = 'Emma'
-      const sz = szVal ? (parseFloat(szVal) * 1000000) | 0 : 3000000
-      const startTimestamp = `${sd}T${st}:00.000Z`
-      const endTimestamp = `${ed}T${et}:00.000Z`
-      const body = {
-        energy_consumed_wh: parseInt(en),
-        production_start_time: startTimestamp,
-        production_end_time: endTimestamp,
-        regulator: re,
-        energy_owner: eo,
-        hydrogen_quantity_wh: parseInt(sz),
-      }
+      const body = callBodyCrafter(enVal, sdVal, stVal, edVal, etVal, szVal)
       const path = '/v1/certificate'
-      const url = `${origin}${path}`
-      callApiFnLocal({ url, body }).then((resLocal) => {
-        setDataLocal(resLocal)
-        if (resLocal?.state === 'pending') {
-          const heidiLocalId = resLocal?.id
-          const path = `/v1/certificate/${heidiLocalId}/initiation`
-          const body = {}
-          const url = `${origin}${path}`
-          callApiFnChain({ url, body }).then((resChain) => {
-            setDataChain(resChain)
-            if (resChain?.state === 'submitted') {
-              const heidiLocalId = resChain?.local_id
-              const path = `/v1/certificate/${heidiLocalId}`
-              const url = `${origin}${path}`
-              ;(async function () {
-                let isFinalised = false
-                while (!isFinalised) {
-                  const res = await callApiFnFinal({ url })
-                  setDataFinal(res)
-                  if (res?.state === 'initiated') isFinalised = true
-                  await new Promise((resolve) => setTimeout(resolve, 1000))
-                }
-                setLoading(false)
-              })()
-            }
-          })
+      const resLocal = await callApiFnLocal({ url: `${origin}${path}`, body })
+      setDataLocal(resLocal)
+      if (resLocal?.state === 'pending') {
+        const path = `/v1/certificate/${resLocal?.id}/initiation`
+        const body = {}
+        const resChain = await callApiFnChain({ url: `${origin}${path}`, body })
+        setDataChain(resChain)
+        if (resChain?.state === 'submitted') {
+          const path = `/v1/certificate/${resChain?.local_id}`
+          let isFinalised = false
+          while (!isFinalised) {
+            const res = await callApiFnFinal({ url: `${origin}${path}` })
+            setDataFinal(res)
+            if (res?.state === 'initiated') isFinalised = true
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+          }
+          setLoading(false)
         }
-      })
+      }
     },
     [
       enVal,
