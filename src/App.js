@@ -51,10 +51,12 @@ export default function App() {
         callback={(e) => setShowSelector(e.isOpen)}
       >
         {Personas.map((persona) => (
-          <SidePanel.Item {...persona} update={() => {
-              console.log(persona)
-              handlePersonaSwitch(persona)
-          }} variant="hyproof" />
+          <SidePanel.Item
+            key={persona.id}
+            {...persona}
+            update={(persona) => handlePersonaSwitch(persona)}
+            variant="hyproof"
+          />
         ))}
       </SidePanel>
       <RouterProvider router={router} />

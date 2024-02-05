@@ -3,7 +3,6 @@ import React from 'react'
 import Nav from './components/Nav'
 import Header from './components/Header'
 import CertificateForm from './components/CertificateForm'
-import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 import { Context } from '../utils/Context'
 import { timelineProps } from '../assets/copy/timeline-props'
 
