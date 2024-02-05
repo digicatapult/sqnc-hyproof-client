@@ -39,7 +39,6 @@ const personas = [
   },
 ]
 
-
 const FullScreenGrid = styled(Grid)`
   height: 100lvh;
   width: 100lvw;
