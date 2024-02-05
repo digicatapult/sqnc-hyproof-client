@@ -39,7 +39,7 @@ module.exports = (vars) => {
           type: 'javascript/auto',
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/i,
+          test: /\.(png|js|svg|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/i,
           type: 'asset',
         },
         {
