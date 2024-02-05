@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation /*, useQueryClient*/ } from '@tanstack/react-query'
 
 import axios from 'axios'
 
 export default function useAxios(
   run = false,
-  keys = ['key'],
+  // keys = ['key'],
   urlRun,
   bodyRun,
   methodRun,
@@ -16,7 +16,7 @@ export default function useAxios(
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const queryClient = useQueryClient()
+  // const queryClient = useQueryClient()
 
   const { mutateAsync: callApiFn } = useMutation({
     mutationFn: async (args) => {
@@ -36,13 +36,13 @@ export default function useAxios(
     onSuccess: async (res) => {
       setData(res.data)
       setLoading(false)
-      queryClient.invalidateQueries(keys)
+      // queryClient.invalidateQueries(keys)
     },
     onError: async (error) => {
       setError(error)
       setLoading(false)
     },
-    queryKey: [...keys.toString()],
+    // queryKey: [...keys.toString()],
     cacheTime: 0,
   })
 
