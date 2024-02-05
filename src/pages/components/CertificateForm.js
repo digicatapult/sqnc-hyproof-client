@@ -47,9 +47,9 @@ export default function CertificateForm(props) {
   const [dataChain, setDataChain] = useState(null)
   const [dataFinal, setDataFinal] = useState(null)
 
-  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxios(false, [0])
-  const { error: errorChain, callApiFn: callApiFnChain } = useAxios(false, [1])
-  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxios(false, [2])
+  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxios(false)
+  const { error: errorChain, callApiFn: callApiFnChain } = useAxios(false)
+  const { error: errorFinal, callApiFn: callApiFnFinal } = useAxios(false)
 
   const handleSdChgeVal = useCallbackChVal(setSdVal)
   const handleStChgeVal = useCallbackChVal(setStVal)
