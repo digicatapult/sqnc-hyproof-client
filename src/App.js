@@ -46,15 +46,17 @@ export default function App() {
       <SidePanel
         width={350}
         variant="hyproof"
-        heading="certificate viewer"
-        title={persona.title}
+        heading="Certificate View"
+        title={persona.name}
         callback={(e) => setShowSelector(e.isOpen)}
       >
         {Personas.map((persona) => (
           <SidePanel.Item
-            key={persona.id}
+            key={persona.id} 
             {...persona}
-            update={(persona) => handlePersonaSwitch(persona)}
+            update={() => {
+              handlePersonaSwitch(persona)
+            }}
             variant="hyproof"
           />
         ))}
