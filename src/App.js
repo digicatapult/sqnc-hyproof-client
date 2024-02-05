@@ -3,26 +3,27 @@ import styled from 'styled-components'
 import { RouterProvider } from 'react-router-dom'
 
 import { router } from './utils/Router'
-import { Grid } from '@digicatapult/ui-component-library'
+import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 import { Context } from './utils/Context'
-
-const colorMap = {
-  emma: '#AAED93',
-  heidi: '#FDB6D4',
-  reginald: '#FCF281',
-}
+import Personas from './assets/copy/personas-details.js'
 
 const FullScreenGrid = styled(Grid)`
   height: 100lvh;
   width: 100lvw;
+  transition-delay: 0.3s;
   overflow: hidden;
+  box-sizing: content-box;
+  transition-property: margin-left border;
+  margin-left: ${({ showSelector }) => (showSelector ? '400px' : '0px')};
   border: ${({ showSelector, color }) =>
     showSelector ? '20px solid ' + color : 'none'};
 `
 
 export default function App() {
-  const { update, current, showSelector } = React.useContext(Context)
-  const color = colorMap[current] || 'none'
+  const [showSelector, setShowSelector] = React.useState(false)
+  const { update, current } = React.useContext(Context)
+
+  const persona = Personas.find(({ id }) => id === current)
 
   const handlePersonaSwitch = (persona) => {
     if (current != persona) {
@@ -30,11 +31,9 @@ export default function App() {
     }
   }
 
-  handlePersonaSwitch('emma')
-
   return (
     <FullScreenGrid
-      color={color}
+      color={persona.background}
       showSelector={showSelector}
       areas={[
         ['home', 'nav', 'nav'],
@@ -44,6 +43,18 @@ export default function App() {
       columns={['auto', '1fr', 'auto']}
       rows={['78px', '98px', '1fr']}
     >
+      <SidePanel
+        width={350}
+        variant="hyproof"
+        heading="certificate viewer"
+        title={persona.title}
+        update={(persona) => console.log(persona)}
+        callback={(e) => setShowSelector(e.isOpen)}
+      >
+        {Personas.map((persona) => (
+          <SidePanel.Item {...persona} variant="hyproof" />
+        ))}
+      </SidePanel>
       <RouterProvider router={router} />
     </FullScreenGrid>
   )
