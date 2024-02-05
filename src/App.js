@@ -27,7 +27,7 @@ export default function App() {
 
   const handlePersonaSwitch = (persona) => {
     if (current != persona) {
-      return update({ current: persona })
+      return update({ current: persona.id })
     }
   }
 
@@ -48,11 +48,13 @@ export default function App() {
         variant="hyproof"
         heading="certificate viewer"
         title={persona.title}
-        update={(persona) => console.log(persona)}
         callback={(e) => setShowSelector(e.isOpen)}
       >
         {Personas.map((persona) => (
-          <SidePanel.Item {...persona} variant="hyproof" />
+          <SidePanel.Item {...persona} update={() => {
+              console.log(persona)
+              handlePersonaSwitch(persona)
+          }} variant="hyproof" />
         ))}
       </SidePanel>
       <RouterProvider router={router} />
