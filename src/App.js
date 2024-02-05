@@ -52,7 +52,7 @@ export default function App() {
       >
         {Personas.map((persona) => (
           <SidePanel.Item
-            key={persona.id} 
+            key={persona.id}
             {...persona}
             update={() => {
               handlePersonaSwitch(persona)
