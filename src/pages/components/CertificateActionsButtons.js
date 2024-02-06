@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React from 'react'
+import styled, { keyframes } from 'styled-components'
 
 import { Grid, Button } from '@digicatapult/ui-component-library'
 
-export default function CertificateActionsButtons() {
-  const [isWaitingVal, setIsWaitingVal] = useState(false)
-
-  const handleClickSaveDraft = () => alert('Saved')
-  const handleCancelDraft = () => alert('Cancelled')
-  const handleClickSubmit = (e) => {
+export default function CertificateActionsButtons({
+  data,
+  error,
+  loading,
+  valid,
+}) {
+  const handleClickSaveDraft = (e) => {
     e.preventDefault()
-    setIsWaitingVal(true)
-    setTimeout(() => {
-      e.target.form.requestSubmit()
-    }, 2000)
+    alert('Saved')
+  }
+  const handleCancelDraft = (e) => {
+    e.preventDefault()
+    alert('Cancelled')
   }
 
   return (
@@ -46,12 +48,22 @@ export default function CertificateActionsButtons() {
           </Grid.Panel>
           <Grid.Panel area="div-double">
             <LargeButton
+              disabled={loading || !valid}
               variant="roundedPronounced"
-              onClick={handleClickSubmit}
             >
-              Submit
-              {isWaitingVal && <span>...</span>}
+              {loading == false && data == null && <Span>Submit</Span>}
+              {loading == false && data != null && <Span>Submitted</Span>}
+              {loading && <AnimatedSpan>...</AnimatedSpan>}
+              {error && <Span>Error</Span>}
             </LargeButton>
+
+            {data && (
+              <div style={{ width: '266px', fontSize: '9px' }}>
+                <br />
+                <hr />
+                {JSON.stringify(data, null, 2)}
+              </div>
+            )}
           </Grid.Panel>
         </Grid>
       </PaddedDiv>
@@ -80,13 +92,10 @@ const SmallButton = styled(Button)`
   font-style: normal;
   font-weight: 500;
   white-space: nowrap;
-
   font-size: 15.5px;
-
   color: #ffffff;
   border: 1px solid #ffffff !important;
   background: #124338 !important;
-
   &:hover {
     opacity: 0.6;
   }
@@ -94,8 +103,30 @@ const SmallButton = styled(Button)`
 
 const LargeButton = styled(SmallButton)`
   font-size: 21px;
-
   color: #33e58c;
   border: 1px solid #2fe181 !important;
   background: #124338 !important;
+  &:disabled {
+    color: #1c774a;
+    border: 1px solid #1c774a !important;
+  }
 `
+
+const RevealAnimation = keyframes`
+  from {
+    width: 0px;
+  }
+  to {
+    width: 22px;
+  }
+`
+
+const AnimatedSpan = styled.span`
+  overflow: hidden;
+  display: inline-flex;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: ${RevealAnimation} 1s steps(4, end) infinite;
+`
+
+const Span = styled.span``

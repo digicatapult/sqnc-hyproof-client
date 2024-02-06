@@ -29,6 +29,10 @@ const timelineProps = {
   ],
 }
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 export default function Certificates() {
   const { current } = React.useContext(Context)
   const persona = personas.find(({ id }) => id === current)
@@ -36,8 +40,14 @@ export default function Certificates() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.title} />
-      <CertificateForm variant="hyproof" {...timelineProps} />
+      <Header userFullName={persona.name} companyName={persona.company} />
+      <QueryClientProvider client={queryClient}>
+        <CertificateForm
+          variant="hyproof"
+          origin={persona.origin}
+          {...timelineProps}
+        />
+      </QueryClientProvider>
     </>
   )
 }

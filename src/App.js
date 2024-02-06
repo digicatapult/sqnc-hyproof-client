@@ -8,11 +8,12 @@ import { Context } from './utils/Context'
 
 export const personas = [
   {
-    id: 'conor',
-    name: 'Conor Conor',
-    title: 'Conor Conor',
+    id: 'connor',
+    name: 'Connor Connor',
+    title: 'Connor Connor',
     subtitle: 'The Hydrogen Consumer',
     background: '#FDB6D4',
+    origin: 'http://localhost:8030',
   },
   {
     id: 'emma',
@@ -20,6 +21,7 @@ export const personas = [
     title: 'Emma Emma',
     subtitle: 'The Energy Producer',
     background: '#AAED93',
+    origin: 'http://localhost:8010',
   },
   {
     id: 'heidi',
@@ -27,8 +29,8 @@ export const personas = [
     title: 'Heidi Heidi',
     subtitle: 'The Hydrogen Producer',
     company: "Heidi's Hydroelectric Hydrogen",
-    // background: '#FDB6D4',
     background: '#9EDCFA',
+    origin: 'http://localhost:8000',
   },
   {
     id: 'reginald',
@@ -36,6 +38,7 @@ export const personas = [
     title: 'Reginald Reginald',
     subtitle: 'The Regulator',
     background: '#FCF281',
+    origin: 'http://localhost:8020',
   },
 ]
 
