@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Header from './components/Header'
 import CertificateForm from './components/CertificateForm'
 import { Context } from '../utils/Context'
+import { personas } from '../App'
 
 const timelineProps = {
   name: 'UK-HYPROOF-0001',
@@ -29,13 +30,13 @@ const timelineProps = {
 }
 
 export default function Certificates() {
-  const { current, update, ...personas } = React.useContext(Context)
-  const [persona] = React.useState(personas[current])
+  const { current } = React.useContext(Context)
+  const persona = personas.find(({ id }) => id === current)
 
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header userFullName={persona.name} companyName={persona.title} />
       <CertificateForm variant="hyproof" {...timelineProps} />
     </>
   )

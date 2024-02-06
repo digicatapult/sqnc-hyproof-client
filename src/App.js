@@ -6,7 +6,7 @@ import { router } from './utils/Router'
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 import { Context } from './utils/Context'
 
-const personas = [
+export const personas = [
   {
     id: 'conor',
     name: 'Conor Conor',
@@ -39,14 +39,17 @@ const personas = [
   },
 ]
 
+// margin-left: ${({ showSelector }) => (showSelector ? '400px' : '0px')};
 const FullScreenGrid = styled(Grid)`
   height: 100lvh;
-  width: 100lvw;
-  transition-delay: 0.3s;
+  width: ${({ showSelector }) =>
+    showSelector ? 'calc(100lvw - 470px)' : '100lvw'};
+  margin-left: ${({ showSelector }) => (showSelector ? '430px' : '0px')};
   overflow: hidden;
   box-sizing: content-box;
-  transition-property: margin-left border;
-  margin-left: ${({ showSelector }) => (showSelector ? '400px' : '0px')};
+  transition:
+    width ease-in-out 0.7s,
+    margin-left ease-in-out 0.7s;
   border: ${({ showSelector, color }) =>
     showSelector ? '20px solid ' + color : 'none'};
 `
@@ -76,7 +79,7 @@ export default function App() {
       rows={['78px', '98px', '1fr']}
     >
       <SidePanel
-        width={350}
+        width={400}
         variant="hyproof"
         heading="Certificate View"
         title={persona.name}
