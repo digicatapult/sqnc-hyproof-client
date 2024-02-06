@@ -39,14 +39,13 @@ export const personas = [
   },
 ]
 
-// margin-left: ${({ showSelector }) => (showSelector ? '400px' : '0px')};
 const FullScreenGrid = styled(Grid)`
   height: 100lvh;
   width: ${({ showSelector }) =>
-    showSelector ? 'calc(100lvw - 470px)' : '100lvw'};
+    showSelector ? 'calc(100lvw - 430px)' : '100lvw'};
   margin-left: ${({ showSelector }) => (showSelector ? '430px' : '0px')};
   overflow: hidden;
-  box-sizing: content-box;
+  box-sizing: border-box;
   transition:
     width ease-in-out 0.7s,
     margin-left ease-in-out 0.7s;
