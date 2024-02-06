@@ -6,17 +6,9 @@ export const Context = React.createContext({})
 export const ContextProvider = ({ children }) => {
   const [state, setState] = React.useState({
     current: 'heidi',
-    showSelector: true,
-    emma: {
-      name: 'Emma Emma',
-    },
-    heidi: {
-      name: 'Heidi Heidi',
-      company: "Heidi's Hydroelectric Hydrogen",
-    },
-    reginald: {
-      name: 'Reginald Reginald',
-    },
+    emma: {},
+    heidi: {},
+    reginald: {},
     update: (val, key) => {
       if (!val) return state
       if (!key) return setState({ ...state, ...val })
