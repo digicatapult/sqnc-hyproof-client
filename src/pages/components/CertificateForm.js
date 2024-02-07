@@ -147,6 +147,7 @@ const Form = styled.form`
   display: grid;
   grid: subgrid / subgrid;
   grid-area: 1 / 1 / -1 / -1;
+  overflow: hidden;
 `
 
 const TimelineWrapper = styled(Grid.Panel)`

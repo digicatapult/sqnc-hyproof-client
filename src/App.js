@@ -45,25 +45,28 @@ export const personas = [
 const FullScreenGrid = styled(Grid)`
   height: 100lvh;
   width: ${({ showSelector }) =>
-    showSelector ? 'calc(100lvw - 430px)' : '100lvw'};
-  margin-left: ${({ showSelector }) => (showSelector ? '430px' : '0px')};
+    showSelector ? 'calc(100lvw - 450x)' : '100lvw'};
+  margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
   overflow: hidden;
   box-sizing: border-box;
+  background-color: ${({ showSelector, color }) =>
+    showSelector ? color : 'white'};
   transition:
+    background-color ease 0.1s,
     width ease-in-out 0.7s,
+    padding ease-in-out 0.7s,
     margin-left ease-in-out 0.7s;
-  border: ${({ showSelector, color }) =>
-    showSelector ? '20px solid ' + color : 'none'};
+  padding: ${({ showSelector }) => (showSelector ? '20px' : '0px')};
 `
 
 export default function App() {
-  const [showSelector, setShowSelector] = React.useState(false)
   const { update, current } = React.useContext(Context)
 
+  const [showSelector, setShowSelector] = React.useState(false)
   const persona = personas.find(({ id }) => id === current)
 
   const handlePersonaSwitch = (persona) => {
-    if (current != persona) {
+    if (current !== persona.id) {
       return update({ current: persona.id })
     }
   }
@@ -87,13 +90,11 @@ export default function App() {
         title={persona.name}
         callback={(e) => setShowSelector(e.isOpen)}
       >
-        {personas.map((persona) => (
+        {personas.map((el) => (
           <SidePanel.Item
-            key={persona.id}
-            {...persona}
-            update={() => {
-              handlePersonaSwitch(persona)
-            }}
+            {...el}
+            key={el.id}
+            update={(_, persona) => handlePersonaSwitch(persona)}
             variant="hyproof"
           />
         ))}

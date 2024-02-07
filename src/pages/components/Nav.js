@@ -37,6 +37,8 @@ export default function Nav() {
 const Home = styled(Grid.Panel)`
   display: flex;
   align-items: center;
+  background: white;
+  overflow: hidden;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;

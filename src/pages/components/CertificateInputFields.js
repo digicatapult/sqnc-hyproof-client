@@ -107,6 +107,8 @@ export default function CertificateInputFields({
 
 const PaddedDiv = styled.div`
   padding: 8px;
+  height: 100%;
+  background: white;
 `
 
 const ContainerFlexWrapDiv = styled.div`
