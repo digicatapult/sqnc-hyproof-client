@@ -57,10 +57,6 @@ const FullScreenGrid = styled(Grid)`
     padding ease-in-out 0.7s,
     margin-left ease-in-out 0.7s;
   padding: ${({ showSelector }) => (showSelector ? '20px' : '0px')};
-
-  &:before {
-    content: '';
-  }
 `
 
 export default function App() {
