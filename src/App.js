@@ -20,6 +20,7 @@ export const personas = [
     name: 'Emma Emma',
     title: 'Emma Emma',
     subtitle: 'The Energy Producer',
+    company: "Emma's Energy LTD",
     background: '#AAED93',
     origin: 'http://localhost:8010',
   },
@@ -41,23 +42,6 @@ export const personas = [
     origin: 'http://localhost:8020',
   },
 ]
-
-const FullScreenGrid = styled(Grid)`
-  height: 100lvh;
-  width: ${({ showSelector }) =>
-    showSelector ? 'calc(100lvw - 450x)' : '100lvw'};
-  margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
-  overflow: hidden;
-  box-sizing: border-box;
-  background-color: ${({ showSelector, color }) =>
-    showSelector ? color : 'white'};
-  transition:
-    background-color ease 0.1s,
-    width ease-in-out 0.7s,
-    padding ease-in-out 0.7s,
-    margin-left ease-in-out 0.7s;
-  padding: ${({ showSelector }) => (showSelector ? '20px' : '0px')};
-`
 
 export default function App() {
   const { update, current } = React.useContext(Context)
@@ -103,3 +87,20 @@ export default function App() {
     </FullScreenGrid>
   )
 }
+
+const FullScreenGrid = styled(Grid)`
+  height: 100lvh;
+  width: ${({ showSelector }) =>
+    showSelector ? 'calc(100lvw - 450x)' : '100lvw'};
+  margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: ${({ showSelector, color }) =>
+    showSelector ? color : 'white'};
+  transition:
+    background-color ease 0.1s,
+    width ease-in-out 0.7s,
+    padding ease-in-out 0.7s,
+    margin-left ease-in-out 0.7s;
+  padding: ${({ showSelector }) => (showSelector ? '20px' : '0px')};
+`
