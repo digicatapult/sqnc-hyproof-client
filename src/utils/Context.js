@@ -7,6 +7,10 @@ export const ContextProvider = ({ children }) => {
   const [state, setState] = React.useState({
     current: 'heidi',
     currentId: '',
+    currentCommitmentSalt: '',
+    currentEnergyConsumedWh: 0,
+    currentProductionStartTime: '',
+    currentProductionEndTime: '',
     emma: {},
     heidi: {},
     reginald: {},
