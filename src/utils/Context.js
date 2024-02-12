@@ -6,6 +6,7 @@ export const Context = React.createContext({})
 export const ContextProvider = ({ children }) => {
   const [state, setState] = React.useState({
     current: 'heidi',
+    currentId: '',
     emma: {},
     heidi: {},
     reginald: {},
