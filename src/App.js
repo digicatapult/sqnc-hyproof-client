@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RouterProvider } from 'react-router-dom'
+// import { RouterProvider } from 'react-router-dom'
 
-import { router } from './utils/Router'
+// import { router } from './utils/Router'
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 import { Context } from './utils/Context'
+
+import Certificates from './pages/Certificates'
 
 export const personas = [
   {
@@ -83,7 +85,8 @@ export default function App() {
           />
         ))}
       </SidePanel>
-      <RouterProvider router={router} />
+      <Certificates />
+      {/* <RouterProvider router={router} /> */}
     </FullScreenGrid>
   )
 }
