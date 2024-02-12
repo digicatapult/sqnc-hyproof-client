@@ -26,9 +26,10 @@ export default function Nav() {
           }}
         >
           <AppBar.Item>what we do</AppBar.Item>
-          <AppBar.Item active={true} href="/certificates">
-            certificates
-          </AppBar.Item>
+          {/* <AppBar.Item active={true} href="/certificates"> */}
+          {/* certificates */}
+          {/* </AppBar.Item> */}
+          <AppBar.Item active={true}>certificates</AppBar.Item>
           <AppBar.Item>contact us</AppBar.Item>
         </AppBar>
       </Grid.Panel>
