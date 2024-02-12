@@ -9,6 +9,7 @@ import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
 
 import useAxios from '../../hooks/use-axios'
+import { useNavigate } from 'react-router-dom'
 
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
@@ -62,6 +63,8 @@ export default function CertificateForm(props) {
 
   const { update } = React.useContext(Context)
 
+  const navigate = useNavigate()
+
   const handleSubmitStepLocal = useCallback(
     async (e) => {
       e.preventDefault()
@@ -98,6 +101,7 @@ export default function CertificateForm(props) {
             currentProductionStartTime,
             currentProductionEndTime,
           })
+          navigate(`/certificate/${resChain.local_id}/embed`)
         }
       }
     },
@@ -113,6 +117,7 @@ export default function CertificateForm(props) {
       callApiFnChain,
       callApiFnFinal,
       update,
+      navigate,
     ]
   )
 
