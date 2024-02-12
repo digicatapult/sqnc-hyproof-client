@@ -47,7 +47,13 @@ export const personas = [
 
 export default function App() {
   const { update, current } = React.useContext(Context)
-  const { currentId } = React.useContext(Context)
+  const {
+    currentId,
+    currentCommitmentSalt,
+    currentEnergyConsumedWh,
+    currentProductionStartTime,
+    currentProductionEndTime,
+  } = React.useContext(Context)
 
   const [showSelector, setShowSelector] = React.useState(false)
   const persona = personas.find(({ id }) => id === current)
@@ -88,7 +94,25 @@ export default function App() {
       </SidePanel>
       <Certificates />
       {currentId == '' && <>||</>}
-      {currentId != '' && <code>&nbsp;current local cert id:{currentId}</code>}
+      {(currentId != '' || currentCommitmentSalt != '') && (
+        <>
+          <code>
+            cur id: {currentId} <br />
+            currentCommitmentSalt: {currentCommitmentSalt} <br />
+            currentEnergyConsumedWh: {currentEnergyConsumedWh} <br />
+            currentProductionStartTime: {currentProductionStartTime} <br />
+            currentProductionEndTime: {currentProductionEndTime} <br />
+          </code>
+          <button
+            onClick={async () => {
+              const res = await fetch('https://swapi.dev/api/planets/1')
+              alert(res)
+            }}
+          >
+            Click
+          </button>
+        </>
+      )}
       {/* <RouterProvider router={router} /> */}
     </FullScreenGrid>
   )
