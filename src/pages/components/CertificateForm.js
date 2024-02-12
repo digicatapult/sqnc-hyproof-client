@@ -85,7 +85,19 @@ export default function CertificateForm(props) {
             await new Promise((resolve) => setTimeout(resolve, 1000))
           }
           setLoading(false)
-          update({ currentId: resChain?.local_id })
+          const {
+            commitment_salt: currentCommitmentSalt,
+            energy_consumed_wh: currentEnergyConsumedWh,
+            production_start_time: currentProductionStartTime,
+            production_end_time: currentProductionEndTime,
+          } = resLocal
+          update({
+            currentId: resChain.local_id,
+            currentCommitmentSalt,
+            currentEnergyConsumedWh,
+            currentProductionStartTime,
+            currentProductionEndTime,
+          })
         }
       }
     },
