@@ -88,7 +88,7 @@ export default function App() {
       </SidePanel>
       <Certificates />
       {currentId == '' && <>||</>}
-      {currentId != '' && <b>:{currentId}:</b>}
+      {currentId != '' && <code>&nbsp;current local cert id:{currentId}</code>}
       {/* <RouterProvider router={router} /> */}
     </FullScreenGrid>
   )
