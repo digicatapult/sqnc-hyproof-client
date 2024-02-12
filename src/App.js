@@ -87,7 +87,7 @@ export default function App() {
         ))}
       </SidePanel>
       <Certificates />
-      {currentId == '' && <></>}
+      {currentId == '' && <>||</>}
       {currentId != '' && <b>:{currentId}:</b>}
       {/* <RouterProvider router={router} /> */}
     </FullScreenGrid>
