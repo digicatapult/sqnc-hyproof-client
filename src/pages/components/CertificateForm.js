@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 
+import { Context } from '../../utils/Context'
+
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 import CertificateInputFields from './CertificateInputFields'
 import CertificateFormHeader from './CertificateFormHeader'
@@ -58,6 +60,8 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
+  const { update } = React.useContext(Context)
+
   const handleSubmitStepLocal = useCallback(
     async (e) => {
       e.preventDefault()
@@ -81,6 +85,7 @@ export default function CertificateForm(props) {
             await new Promise((resolve) => setTimeout(resolve, 1000))
           }
           setLoading(false)
+          update({ currentId: resChain?.local_id })
         }
       }
     },
@@ -95,6 +100,7 @@ export default function CertificateForm(props) {
       callApiFnLocal,
       callApiFnChain,
       callApiFnFinal,
+      update,
     ]
   )
 
