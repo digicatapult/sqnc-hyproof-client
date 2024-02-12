@@ -47,6 +47,7 @@ export const personas = [
 
 export default function App() {
   const { update, current } = React.useContext(Context)
+  const { currentId } = React.useContext(Context)
 
   const [showSelector, setShowSelector] = React.useState(false)
   const persona = personas.find(({ id }) => id === current)
@@ -86,6 +87,8 @@ export default function App() {
         ))}
       </SidePanel>
       <Certificates />
+      {currentId == '' && <></>}
+      {currentId != '' && <b>:{currentId}:</b>}
       {/* <RouterProvider router={router} /> */}
     </FullScreenGrid>
   )
