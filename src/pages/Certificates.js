@@ -6,6 +6,8 @@ import CertificateForm from './components/CertificateForm'
 import { Context } from '../utils/Context'
 import { personas } from '../App'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 const timelineProps = {
   name: 'UK-HYPROOF-0001',
   disclaimer:
@@ -28,8 +30,6 @@ const timelineProps = {
     },
   ],
 }
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
 
