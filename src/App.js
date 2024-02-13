@@ -67,6 +67,7 @@ function CertificateCo2Embedder() {
   let { id } = useParams()
 
   const {
+    current,
     currentId,
     currentCommitmentSalt,
     currentEnergyConsumedWh,
@@ -78,7 +79,8 @@ function CertificateCo2Embedder() {
     <>
       <h3>Cert Embed Id: {id}</h3>
       <hr />
-      {currentId != '' && (
+      {current == 'heidi' && <>Switch2Emma</>}
+      {current == 'emma' && (
         <code>
           cur id: {currentId} <br />
           currentCommitmentSalt: {currentCommitmentSalt} <br />
@@ -96,14 +98,29 @@ function CertificateCo2Embedder() {
 }
 
 export default function App() {
-  const { update, current } = React.useContext(Context)
+  const {
+    update,
+    current,
+    currentId,
+    currentCommitmentSalt,
+    currentEnergyConsumedWh,
+    currentProductionStartTime,
+    currentProductionEndTime,
+  } = React.useContext(Context)
 
   const [showSelector, setShowSelector] = React.useState(false)
   const persona = personas.find(({ id }) => id === current)
 
   const handlePersonaSwitch = (persona) => {
     if (current !== persona.id) {
-      return update({ current: persona.id })
+      return update({
+        current: persona.id,
+        currentId,
+        currentCommitmentSalt,
+        currentEnergyConsumedWh,
+        currentProductionStartTime,
+        currentProductionEndTime,
+      })
     }
   }
 
