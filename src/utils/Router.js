@@ -12,49 +12,45 @@ import {
 import { Context } from './Context'
 
 import Certificates from '../pages/Certificates'
+import CertificatesViewAll from '../pages/CertificatesViewAll'
+import CertificateNotProvided from '../pages/CertificateNotProvided'
+import CertificateViewer from '../pages/CertificateViewer'
+import CertificateCo2Embedder from '../pages/CertificateCo2Embedder'
+import Error404 from '../pages/Error404'
 
-function Certificate() {
-  let { id } = useParams()
-  return (
-    <>
-      <h3>CertIndex: {id}</h3>
-    </>
-  )
-}
-
-function CertificateCo2Embedder() {
-  let { id } = useParams()
-
-  const {
-    current,
-    currentId,
-    currentCommitmentSalt,
-    currentEnergyConsumedWh,
-    currentProductionStartTime,
-    currentProductionEndTime,
-  } = React.useContext(Context)
-
-  return (
-    <>
-      <h3>Cert Embed Id: {id}</h3>
-      <hr />
-      {current == 'heidi' && <>Switch2Emma</>}
-      {current == 'emma' && (
-        <code>
-          cur id: {currentId} <br />
-          currentCommitmentSalt: {currentCommitmentSalt} <br />
-          currentEnergyConsumedWh: {currentEnergyConsumedWh} <br />
-          currentProductionStartTime: {currentProductionStartTime} <br />
-          currentProductionEndTime: {currentProductionEndTime} <br />
-          TODO: embed the co2 data w/ <br />
-          GET /v1/certificate ( get the latest that matches the above ) <br />
-          POST v1/certificate/$emma_local_id <br />
-          POST v1/certificate/$emma_local_id/issuance
-        </code>
-      )}
-    </>
-  )
-}
+// function CertificateCo2Embedder() {
+//   let { id } = useParams()
+// 
+//   const {
+//     current,
+//     currentId,
+//     currentCommitmentSalt,
+//     currentEnergyConsumedWh,
+//     currentProductionStartTime,
+//     currentProductionEndTime,
+//   } = React.useContext(Context)
+// 
+//   return (
+//     <>
+//       <h3>Cert Embed Id: {id}</h3>
+//       <hr />
+//       {current == 'heidi' && <>Switch2Emma</>}
+//       {current == 'emma' && (
+//         <code>
+//           cur id: {currentId} <br />
+//           currentCommitmentSalt: {currentCommitmentSalt} <br />
+//           currentEnergyConsumedWh: {currentEnergyConsumedWh} <br />
+//           currentProductionStartTime: {currentProductionStartTime} <br />
+//           currentProductionEndTime: {currentProductionEndTime} <br />
+//           TODO: embed the co2 data w/ <br />
+//           GET /v1/certificate ( get the latest that matches the above ) <br />
+//           POST v1/certificate/$emma_local_id <br />
+//           POST v1/certificate/$emma_local_id/issuance
+//         </code>
+//       )}
+//     </>
+//   )
+// }
 
 export default function Routes() {
   return (
@@ -62,17 +58,17 @@ export default function Routes() {
       router={createBrowserRouter(
         createRoutesFromElements(
           <>
-            <Route path="/" element={<Outlet />}>
-              <Route index element={<Certificates />} />
-              <Route path="certificate" element={<Outlet />}>
-                <Route index element={<h2>CertificateIndex</h2>} />
-                <Route path=":id" element={<Outlet />}>
-                  <Route index element={<Certificate />} />
-                  <Route path="embed" element={<CertificateCo2Embedder />} />
-                </Route>
+            {/* The below should be renamed to CertificateCreator / Initiator */}
+            <Route path="/" element={<Certificates />} />
+            <Route path="/certificates" element={<CertificatesViewAll />} />
+            <Route path="/certificate" element={<Outlet />}>
+              <Route index element={<CertificateNotProvided />} />
+              <Route path=":id" element={<Outlet />}>
+                <Route index element={<CertificateViewer />} />
+                <Route path="embed" element={<CertificateCo2Embedder />} />
               </Route>
             </Route>
-            <Route path="*" element={<>404</>} />
+            <Route path="*" element={<Error404 />} />
           </>
         )
       )}
