@@ -1,23 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-// import { RouterProvider } from 'react-router-dom'
-// import { router } from './utils/Router'
-// import {
-//   RouterProvider,
-//   createBrowserRouter,
-//   createRoutesFromElements,
-//   Route,
-//   Outlet,
-//   useParams,
-// } from 'react-router-dom'
+import Routes from './utils/Router'
 
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
+
 import { Context } from './utils/Context'
-
-// import Certificates from './pages/Certificates'
-
-import Routes from './utils/Router'
 
 export const personas = [
   {
@@ -56,54 +44,12 @@ export const personas = [
   },
 ]
 
-// function Certificate() {
-//   let { id } = useParams()
-//   return (
-//     <>
-//       <h3>CertIndex: {id}</h3>
-//     </>
-//   )
-// }
-
-// function CertificateCo2Embedder() {
-//   let { id } = useParams()
-//
-//   const {
-//     current,
-//     currentId,
-//     currentCommitmentSalt,
-//     currentEnergyConsumedWh,
-//     currentProductionStartTime,
-//     currentProductionEndTime,
-//   } = React.useContext(Context)
-//
-//   return (
-//     <>
-//       <h3>Cert Embed Id: {id}</h3>
-//       <hr />
-//       {current == 'heidi' && <>Switch2Emma</>}
-//       {current == 'emma' && (
-//         <code>
-//           cur id: {currentId} <br />
-//           currentCommitmentSalt: {currentCommitmentSalt} <br />
-//           currentEnergyConsumedWh: {currentEnergyConsumedWh} <br />
-//           currentProductionStartTime: {currentProductionStartTime} <br />
-//           currentProductionEndTime: {currentProductionEndTime} <br />
-//           TODO: embed the co2 data w/ <br />
-//           GET /v1/certificate ( get the latest that matches the above ) <br />
-//           POST v1/certificate/$emma_local_id <br />
-//           POST v1/certificate/$emma_local_id/issuance
-//         </code>
-//       )}
-//     </>
-//   )
-// }
-
 export default function App() {
   const {
     update,
     current,
     currentId,
+    currentCommitment,
     currentCommitmentSalt,
     currentEnergyConsumedWh,
     currentProductionStartTime,
@@ -118,6 +64,7 @@ export default function App() {
       return update({
         current: persona.id,
         currentId,
+        currentCommitment,
         currentCommitmentSalt,
         currentEnergyConsumedWh,
         currentProductionStartTime,
@@ -154,32 +101,6 @@ export default function App() {
           />
         ))}
       </SidePanel>
-      {/* <Certificates /> */}
-      {/* {currentId == '' && <></>} */}
-      {/* {(currentId != '' || currentCommitmentSalt != '') && ( */}
-      {/* <>{currentCommitmentSalt}</> */}
-      {/* )} */}
-      {/* <RouterProvider router={router} /> */}
-      {/* <RouterProvider
-        router={createBrowserRouter(
-          createRoutesFromElements(
-            <>
-              <Route path="/" element={<Outlet />}>
-                <Route index element={<Certificates />} />
-                <Route path="certificate" element={<Outlet />}>
-                  <Route index element={<h2>CertificateIndex</h2>} />
-                  <Route path=":id" element={<Outlet />}>
-                    <Route index element={<Certificate />} />
-                    <Route path="embed" element={<CertificateCo2Embedder />} />
-                  </Route>
-                </Route>
-              </Route>
-              <Route path="*" element={<>404</>} />
-            </>
-          )
-        )}
-      /> */}
-      {/* <BrowserRouter /> */}
       <Routes />
     </FullScreenGrid>
   )
