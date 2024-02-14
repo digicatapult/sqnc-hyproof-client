@@ -65,7 +65,7 @@ export default function CertificateForm(props) {
 
   const navigate = useNavigate()
 
-  const handleSubmitStepLocal = useCallback(
+  const handleSubmitStep = useCallback(
     async (e) => {
       e.preventDefault()
       setLoading(true)
@@ -135,7 +135,7 @@ export default function CertificateForm(props) {
         </Timeline>
         <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
-      <Form action="" onSubmit={handleSubmitStepLocal}>
+      <Form action="" onSubmit={handleSubmitStep}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
           <CertificateInputFields
