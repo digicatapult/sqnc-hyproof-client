@@ -4,6 +4,10 @@ import { useMutation } from '@tanstack/react-query'
 
 import axios from 'axios'
 
+// Custom hook for making HTTP requests
+// Notes:
+// Can be used with useAxios(true, '...') for an automatic call on component mount.
+// Also, can be used with useAxios(false, '...') for a manual call.
 export default function useAxios(
   run = false,
   urlRun,
