@@ -89,6 +89,7 @@ export default function CertificateForm(props) {
           }
           setLoading(false)
           const {
+            commitment: currentCommitment,
             commitment_salt: currentCommitmentSalt,
             energy_consumed_wh: currentEnergyConsumedWh,
             production_start_time: currentProductionStartTime,
@@ -96,6 +97,7 @@ export default function CertificateForm(props) {
           } = resLocal
           update({
             currentId: resChain.local_id,
+            currentCommitment,
             currentCommitmentSalt,
             currentEnergyConsumedWh,
             currentProductionStartTime,
