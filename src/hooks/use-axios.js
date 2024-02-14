@@ -49,7 +49,7 @@ export default function useAxios(
       body: bodyRun,
       method: methodRun,
       headers: headersRun,
-    })
+    }).then((data) => setData(data))
   }, [run, urlRun, bodyRun, methodRun, headersRun, callApiFn])
 
   return { data, error, loading, callApiFn }
