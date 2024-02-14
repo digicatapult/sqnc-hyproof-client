@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+// import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
 
@@ -8,19 +9,23 @@ import Header from './components/Header'
 import { Context } from '../utils/Context'
 import { personas } from '../App'
 
-import { useParams } from 'react-router-dom'
+import CertificateCo2NonEmbedderView from './components/CertificateCo2NonEmbedderView'
+import CertificateCo2Post from './components/CertificateCo2Post'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function CertificateCo2Embedder() {
   const {
     current,
-    currentId,
+    // currentId,
+    currentCommitment,
     currentCommitmentSalt,
     currentEnergyConsumedWh,
     currentProductionStartTime,
     currentProductionEndTime,
   } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
-  let { id } = useParams()
+  // let { id } = useParams()
   return (
     <>
       <Nav />
@@ -29,26 +34,34 @@ export default function CertificateCo2Embedder() {
       <MainWrapper>
         <Grid.Panel area="main">
           <Container>
-            <Text>
-              <h3>Cert Embed Id: {id}</h3>
-              <hr />
-              {current == 'heidi' && <>Switch2Emma</>}
-              {current == 'emma' && (
-                <code>
-                  cur id: {currentId} <br />
-                  currentCommitmentSalt: {currentCommitmentSalt} <br />
-                  currentEnergyConsumedWh: {currentEnergyConsumedWh} <br />
-                  currentProductionStartTime: {currentProductionStartTime}{' '}
-                  <br />
-                  currentProductionEndTime: {currentProductionEndTime} <br />
-                  TODO: embed the co2 data w/ <br />
-                  GET /v1/certificate ( get the latest that matches the above ){' '}
-                  <br />
-                  POST v1/certificate/$emma_local_id <br />
-                  POST v1/certificate/$emma_local_id/issuance
-                </code>
-              )}
-            </Text>
+            {current != 'emma' && (
+              <b>
+                <CertificateCo2NonEmbedderView />
+              </b>
+            )}
+            {current == 'emma' && (
+              <>
+                {currentCommitment == '' ||
+                currentCommitmentSalt == '' ||
+                currentEnergyConsumedWh == 0 ||
+                currentProductionStartTime == '' ||
+                currentProductionEndTime == '' ? (
+                  <Text>
+                    ContextError: Missing salt or hash energy or start or end
+                  </Text>
+                ) : (
+                  <QueryClientProvider client={new QueryClient()}>
+                    <CertificateCo2Post
+                      hash={currentCommitment}
+                      salt={currentCommitmentSalt}
+                      energy={currentEnergyConsumedWh}
+                      start={currentProductionStartTime}
+                      end={currentProductionEndTime}
+                    />
+                  </QueryClientProvider>
+                )}
+              </>
+            )}
           </Container>
         </Grid.Panel>
         <Sidebar area="sidebar"></Sidebar>
@@ -85,9 +98,10 @@ const Container = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
+  background: white;
 `
 
-const Text = styled.h2`
+const Text = styled.h1`
   margin: auto 5px;
   text-align: center;
 `
