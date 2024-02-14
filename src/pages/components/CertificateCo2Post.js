@@ -14,6 +14,7 @@ export default function CertificateCo2Post({ hash, salt, energy, start, end }) {
   const { data: all, error: errorAll, loading: loadingAll } = useAxios(true, u)
 
   const [certVanilla, setCertVanilla] = useState(null)
+  const [certId, setCertId] = useState('')
 
   const [loading, setLoading] = useState(false)
   const [errorCompute, setComputeError] = useState('')
@@ -32,6 +33,7 @@ export default function CertificateCo2Post({ hash, salt, energy, start, end }) {
       return
     }
     setCertVanilla(certFound)
+    setCertId(certFound.id)
     handleSubmitStep()
   }, [all, hash, handleSubmitStep])
 
@@ -52,6 +54,7 @@ export default function CertificateCo2Post({ hash, salt, energy, start, end }) {
       <hr />
       certVanilla: {JSON.stringify(certVanilla)}
       <hr />
+      certId: {certId}
       <hr />
     </>
   )
