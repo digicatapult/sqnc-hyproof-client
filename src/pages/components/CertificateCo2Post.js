@@ -8,53 +8,65 @@ import useAxios from '../../hooks/use-axios'
 export default function CertificateCo2Post({ hash, salt, energy, start, end }) {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
+
   const origin = persona.origin
   const path = '/v1/certificate'
   const u = `${origin}${path}`
-  const { data: all, error: errorAll, loading: loadingAll } = useAxios(true, u)
-
-  const [certVanilla, setCertVanilla] = useState(null)
-  const [certId, setCertId] = useState('')
+  const { data: dataAll, error, loading: loadingAll } = useAxios(true, u)
 
   const [loading, setLoading] = useState(false)
+  const [dataCertEmpty, setDataCertEmpty] = useState(null)
+
   const [errorCompute, setComputeError] = useState('')
 
-  const handleSubmitStep = useCallback(async () => {
-    setLoading(true)
-    alert(Math.random())
-    setLoading(false)
-  }, [])
+  const { error: errorLocal, callApiFn: callApiFnLocal } = useAxios(false)
+
+  const handleSubmitStep = useCallback(
+    async (certId) => {
+      setLoading(true)
+      const path = `/v1/certificate/${certId}`
+      const url = `${origin}${path}`
+      const body = {
+        commitment_salt: salt,
+        energy_consumed_wh: energy,
+        production_start_time: start,
+        production_end_time: end,
+      }
+      const method = 'put'
+      const resLocal = await callApiFnLocal({ url, body, method })
+      setLoading(false)
+      alert('PUTcallResult' + JSON.stringify(resLocal, null, 2))
+    },
+    [origin, salt, energy, start, end, callApiFnLocal]
+  )
 
   useEffect(() => {
-    if (!all) return
-    const certFound = all.find(({ commitment }) => commitment === hash)
+    if (!dataAll) return
+    const certFound = dataAll.find(({ commitment }) => commitment === hash)
     if (certFound == undefined) {
       setComputeError('ErrorNoCertWithGivenHash')
       return
     }
-    setCertVanilla(certFound)
-    setCertId(certFound.id)
-    handleSubmitStep()
-  }, [all, hash, handleSubmitStep])
+    if (!certFound.id) return
+    if (certFound.id == dataCertEmpty?.id) return
+    setDataCertEmpty(certFound)
+    handleSubmitStep(certFound.id)
+  }, [dataAll, hash, dataCertEmpty?.id, handleSubmitStep])
 
   if (loadingAll || loading) return <p>Loading...</p>
-  if (errorAll || error)
-    return <p>Err:{JSON.stringify({ errorAll, errorCompute })}</p>
+  if (error || errorCompute || errorLocal)
+    return <p>Err:{JSON.stringify({ error, errorCompute, errorLocal })}</p>
   return (
     <>
-      <p>Data: {all ? JSON.stringify(all.length) : 0}</p>
       <hr />
-      <small>Data: {all ? JSON.stringify(all[all.length - 1]) : 0}</small>
+      hash: {hash} <br /> salt: {salt} <br />
+      energy: {energy} | start: {start} | end: {end} <br />
       <hr />
-      hash: {hash} <br />
-      salt: {salt} <br />
-      energy: {energy} <br />
-      start: {start} <br />
-      end: {end} <br />
-      <hr />
-      certVanilla: {JSON.stringify(certVanilla)}
-      <hr />
-      certId: {certId}
+      <small>
+        <code>
+          {JSON.stringify(dataCertEmpty ? dataCertEmpty : {}, null, 2)}
+        </code>
+      </small>
       <hr />
     </>
   )
