@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import Routes from './utils/Router'
@@ -54,9 +54,9 @@ export default function App() {
     currentEnergyConsumedWh,
     currentProductionStartTime,
     currentProductionEndTime,
-  } = React.useContext(Context)
+  } = useContext(Context)
 
-  const [showSelector, setShowSelector] = React.useState(false)
+  const [showSelector, setShowSelector] = useState(false)
   const persona = personas.find(({ id }) => id === current)
 
   const handlePersonaSwitch = (persona) => {
