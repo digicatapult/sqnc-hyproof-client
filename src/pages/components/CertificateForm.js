@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
 
 import { Context } from '../../utils/Context'
@@ -38,6 +38,8 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
 export default function CertificateForm(props) {
   const origin = props.origin
 
+  const { update } = useContext(Context)
+
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')
   const [edVal, setEdVal] = useState('2024-01-01')
@@ -60,8 +62,6 @@ export default function CertificateForm(props) {
   const handleEtChgeVal = useCallbackChVal(setEtVal)
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
-
-  const { update } = React.useContext(Context)
 
   const navigate = useNavigate()
 
