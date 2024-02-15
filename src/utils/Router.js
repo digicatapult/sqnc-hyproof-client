@@ -21,7 +21,7 @@ export default function Routes() {
       router={createBrowserRouter(
         createRoutesFromElements(
           <>
-            {/* The below should be renamed to CertificateCreator / Initiator */}
+            {/* TODO: The below should be renamed to CertificateCreator / Initiator */}
             <Route path="/" element={<Certificates />} />
             <Route path="/certificates" element={<CertificatesViewAll />} />
             <Route path="/certificate" element={<Outlet />}>
