@@ -11,6 +11,8 @@ import CertificateActionsButtons from './CertificateActionsButtons'
 import useAxios from '../../hooks/use-axios'
 import { useNavigate } from 'react-router-dom'
 
+import { personas } from '../../App'
+
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
 const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
@@ -36,9 +38,9 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
 }
 
 export default function CertificateForm(props) {
-  const origin = props.origin
-
-  const { update } = useContext(Context)
+  const { current, update } = useContext(Context)
+  const persona = personas.find(({ id }) => id === current)
+  const origin = persona.origin
 
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')

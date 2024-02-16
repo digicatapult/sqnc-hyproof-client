@@ -40,11 +40,7 @@ export default function Certificates() {
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
       <QueryClientProvider client={new QueryClient()}>
-        <CertificateForm
-          variant="hyproof"
-          origin={persona.origin}
-          {...timelineProps}
-        />
+        <CertificateForm variant="hyproof" {...timelineProps} />
       </QueryClientProvider>
     </>
   )
