@@ -11,25 +11,25 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=dscp-hyproof-api
+      - POSTGRES_DB=sqnc-hyproof-api
 
-  dscp-hyproof-api:
-    image: digicatapult/dscp-hyproof-api:latest
+  sqnc-hyproof-api:
+    image: digicatapult/sqnc-hyproof-api:latest
     container_name: hyproof-api
     command: /bin/sh -c "
       sleep 40 &&
       npx knex migrate:latest --knexfile build/lib/db/knexfile.ts &&
-      npx @digicatapult/dscp-process-management@latest create -h node -p 9944 -u //Alice -f ./processFlows.json &&
+      npx @digicatapult/sqnc-process-management@latest create -h node -p 9944 -u //Alice -f ./processFlows.json &&
       npm start"
     ports:
       - 3001:3001
     environment:
       - PORT=3001
       - LOG_LEVEL=debug
-      - API_HOST=dscp-node
+      - API_HOST=sqnc-node
       - DB_HOST=postgres-hyproof-api
       - DB_PORT=5432
-      - DB_NAME=dscp-hyproof-api
+      - DB_NAME=sqnc-hyproof-api
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
       - IDENTITY_SERVICE_HOST=identity-service
@@ -50,10 +50,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=dscp-identity-service
+      - POSTGRES_DB=sqnc-identity-service
 
-  dscp-identity-service:
-    image: digicatapult/dscp-identity-service:latest
+  sqnc-identity-service:
+    image: digicatapult/sqnc-identity-service:latest
     container_name: identity-service
     command: /bin/sh -c "
       sleep 30 &&
@@ -63,17 +63,17 @@ services:
       - 3002:3002
     environment:
       - PORT=3002
-      - API_HOST=dscp-node
+      - API_HOST=sqnc-node
       - DB_HOST=postgres-identity-service
       - DB_PORT=5432
-      - DB_NAME=dscp-identity-service
+      - DB_NAME=sqnc-identity-service
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
       - SELF_ADDRESS=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
       - AUTH_TYPE=${AUTH_TYPE:-NONE}
 
-  dscp-node:
-    image: digicatapult/dscp-node:latest
+  sqnc-node:
+    image: digicatapult/sqnc-node:latest
     container_name: node
     command: --base-path /data/
       --dev
