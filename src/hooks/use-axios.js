@@ -31,6 +31,8 @@ export default function useAxios(
         if (res.status >= 400) return new Error(res.status)
         return res.data
       } catch (err) {
+        setLoading(false)
+        setError(err)
         return new Error(err)
       }
     },
