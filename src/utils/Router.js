@@ -10,12 +10,10 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-// import CertificateManager from '../pages/components/Certificate'
 import CertificateManager from '../pages/components/CertificateManager'
-
-// import Error404 from '../pages/Error404'
 import Certificates from '../pages/Certificates'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
+import Error404 from '../pages/Error404'
 
 const CreateViewSwitcher = () => {
   const create = useSearchParams()[0].get('create')
@@ -26,8 +24,6 @@ const CreateViewSwitcher = () => {
 //   const { current } = useContext(Context)
 //   return <>{current != 'emma' ? <>CertificateViewer</> : <>Check_hasCo2</>}</>
 // }
-
-const Error404 = () => <>Error404</>
 
 export default function Routes() {
   return (
