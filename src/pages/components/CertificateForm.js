@@ -83,10 +83,12 @@ export default function CertificateForm(props) {
         if (resChain?.state === 'submitted') {
           const path = `/v1/certificate/${resChain?.local_id}`
           let isFinalised = false
+          let originalTokenId = null
           while (!isFinalised) {
             const res = await callApiFnFinal({ url: `${origin}${path}` })
             setDataFinal(res)
             if (res?.state === 'initiated') isFinalised = true
+            originalTokenId = res?.original_token_id
             await new Promise((resolve) => setTimeout(resolve, 1000))
           }
           setLoading(false)
@@ -98,14 +100,14 @@ export default function CertificateForm(props) {
             production_end_time: currentProductionEndTime,
           } = resLocal
           update({
-            currentId: resChain.local_id,
+            currentId: originalTokenId,
             currentCommitment,
             currentCommitmentSalt,
             currentEnergyConsumedWh,
             currentProductionStartTime,
             currentProductionEndTime,
           })
-          navigate(`/certificate/${resChain.local_id}/embed`)
+          navigate(`/certificate/${originalTokenId}`)
         }
       }
     },
