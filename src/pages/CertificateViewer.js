@@ -62,6 +62,7 @@ const Container = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
+  background: white;
 `
 
 const Text = styled.h2`
