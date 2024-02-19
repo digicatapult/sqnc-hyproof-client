@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 
-export const Context = React.createContext({})
+export const Context = createContext({})
 
 // this is a provider for initial and state updates
 export const ContextProvider = ({ children }) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     current: 'heidi',
+    currentId: '',
+    currentCommitment: '',
+    currentCommitmentSalt: '',
+    currentEnergyConsumedWh: 0,
+    currentProductionStartTime: '',
+    currentProductionEndTime: '',
     emma: {},
     heidi: {},
     reginald: {},

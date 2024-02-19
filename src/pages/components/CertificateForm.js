@@ -1,5 +1,7 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
+
+import { Context } from '../../utils/Context'
 
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 import CertificateInputFields from './CertificateInputFields'
@@ -7,6 +9,9 @@ import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
 
 import useAxios from '../../hooks/use-axios'
+import { useNavigate } from 'react-router-dom'
+
+import { personas } from '../../App'
 
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
@@ -33,7 +38,9 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
 }
 
 export default function CertificateForm(props) {
-  const origin = props.origin
+  const { current, update } = useContext(Context)
+  const persona = personas.find(({ id }) => id === current)
+  const origin = persona.origin
 
   const [sdVal, setSdVal] = useState('2024-01-01')
   const [stVal, setStVal] = useState('00:00')
@@ -58,7 +65,9 @@ export default function CertificateForm(props) {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const handleSubmitStepLocal = useCallback(
+  const navigate = useNavigate()
+
+  const handleSubmitStep = useCallback(
     async (e) => {
       e.preventDefault()
       setLoading(true)
@@ -74,13 +83,31 @@ export default function CertificateForm(props) {
         if (resChain?.state === 'submitted') {
           const path = `/v1/certificate/${resChain?.local_id}`
           let isFinalised = false
+          let originalTokenId = null
           while (!isFinalised) {
             const res = await callApiFnFinal({ url: `${origin}${path}` })
             setDataFinal(res)
             if (res?.state === 'initiated') isFinalised = true
+            originalTokenId = res?.original_token_id
             await new Promise((resolve) => setTimeout(resolve, 1000))
           }
           setLoading(false)
+          const {
+            commitment: currentCommitment,
+            commitment_salt: currentCommitmentSalt,
+            energy_consumed_wh: currentEnergyConsumedWh,
+            production_start_time: currentProductionStartTime,
+            production_end_time: currentProductionEndTime,
+          } = resLocal
+          update({
+            currentId: originalTokenId,
+            currentCommitment,
+            currentCommitmentSalt,
+            currentEnergyConsumedWh,
+            currentProductionStartTime,
+            currentProductionEndTime,
+          })
+          navigate(`/certificate/${originalTokenId}`)
         }
       }
     },
@@ -95,6 +122,8 @@ export default function CertificateForm(props) {
       callApiFnLocal,
       callApiFnChain,
       callApiFnFinal,
+      update,
+      navigate,
     ]
   )
 
@@ -110,7 +139,7 @@ export default function CertificateForm(props) {
         </Timeline>
         <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
-      <Form action="" onSubmit={handleSubmitStepLocal}>
+      <Form action="" onSubmit={handleSubmitStep}>
         <Grid.Panel area="main">
           <CertificateFormHeader />
           <CertificateInputFields

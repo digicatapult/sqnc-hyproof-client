@@ -21,6 +21,10 @@ module.exports = (vars) => {
     devServer: {
       historyApiFallback: true,
       port: 3000,
+      historyApiFallback: {
+        rewrites: [{ from: /./, to: '/index.html' }],
+        index: 'index.html',
+      },
     },
     optimization: {
       nodeEnv: 'production',
@@ -68,7 +72,7 @@ module.exports = (vars) => {
       }),
       new BundleAnalyzerPlugin({
         analyzerMode: 'disabled', // disable analyser. Replace with "server" or "static" to render analyser
-      })
+      }),
     ],
     externals: {
       react: 'React',
