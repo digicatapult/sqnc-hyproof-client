@@ -10,7 +10,7 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-import Certificates from '../pages/Certificates'
+import Certificates from '../pages/CertificateCreator'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
 import CertificateManager from '../pages/components/CertificateManager'
 import Error404 from '../pages/Error404'
