@@ -56,14 +56,6 @@ export default function CertificateActionsButtons({
               {loading && <AnimatedSpan>...</AnimatedSpan>}
               {error && <Span>Error</Span>}
             </LargeButton>
-
-            {data && (
-              <div style={{ width: '266px', fontSize: '9px' }}>
-                <br />
-                <hr />
-                {JSON.stringify(data, null, 2)}
-              </div>
-            )}
           </Grid.Panel>
         </Grid>
       </PaddedDiv>
