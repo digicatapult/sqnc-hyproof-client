@@ -29,6 +29,7 @@ Installs dependencies from **`package.json`**.
 ## SQNC HyProof Client: Usage
 
 ```sh
+npm run build
 npm run start
 ```
 
