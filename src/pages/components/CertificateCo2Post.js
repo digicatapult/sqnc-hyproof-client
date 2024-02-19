@@ -125,7 +125,9 @@ export default function CertificateCo2Post() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <LeftWrapper area="timeline"></LeftWrapper>
+      <LeftWrapper area="timeline">
+        &nbsp; <b style={{ color: '#fff' }}>TimeLine(TBD)</b>
+      </LeftWrapper>
       <MainWrapper>
         <Grid.Panel area="main">
           <Container>
@@ -189,8 +191,10 @@ const Sidebar = styled(Grid.Panel)`
   justify-items: center;
   min-width: 340px;
   color: white;
-  background: #0c3b38;
+  background: #f2fff2;
 `
+
+// Sidebar: background: #0c3b38;
 
 const Container = styled.div`
   display: grid;
