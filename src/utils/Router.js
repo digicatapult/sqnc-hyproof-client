@@ -10,14 +10,14 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-import Certificates from '../pages/CertificateCreator'
+import CertificateCreator from '../pages/CertificateCreator'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
 import CertificateManager from '../pages/components/CertificateManager'
 import Error404 from '../pages/Error404'
 
 const CreateViewSwitcher = () => {
   const create = useSearchParams()[0].get('create')
-  return create ? <Certificates /> : <CertificatesViewAll />
+  return create ? <CertificateCreator /> : <CertificatesViewAll />
 }
 
 export default function Routes() {
@@ -26,7 +26,6 @@ export default function Routes() {
       router={createBrowserRouter(
         createRoutesFromElements(
           <>
-            {/* TODO: Certificates should be renamed to CertificateCreator / Initiator */}
             <Route path="/" element={<Navigate to="/certificate?create=y" />} />
             <Route path="/certificate" element={<Outlet />}>
               <Route index element={<CreateViewSwitcher />} />

@@ -31,7 +31,7 @@ const timelineProps = {
   ],
 }
 
-export default function Certificates() {
+export default function CertificateCreator() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
 
