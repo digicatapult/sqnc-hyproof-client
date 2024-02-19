@@ -1,8 +1,8 @@
-# DSCP HyProof Client
+# SQNC HyProof Client
 
 This repository contains the code for the HyProof front-end ( HyProof Client ).
 
-## DSCP HyProof Client: Description
+## SQNC HyProof Client: Description
 
 This repository contains the front-end for the **HyProof** proof of concept project.
 
@@ -10,13 +10,13 @@ This repository contains the front-end for the **HyProof** proof of concept proj
 
 ---
 
-## DSCP HyProof Client: Configuration
+## SQNC HyProof Client: Configuration
 
 At the moment, this project is configured to use environment variables in a _dot env_ ( `.env` ) file at root level ( although no env variables are need at the moment ).
 
 ---
 
-## DSCP HyProof Client: Installation
+## SQNC HyProof Client: Installation
 
 ```sh
 npm i
@@ -26,7 +26,7 @@ Installs dependencies from **`package.json`**.
 
 ---
 
-## DSCP HyProof Client: Usage
+## SQNC HyProof Client: Usage
 
 ```sh
 npm run start
@@ -38,7 +38,7 @@ Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browse
 
 ---
 
-## DSCP HyProof Client: Dev Usage
+## SQNC HyProof Client: Dev Usage
 
 ```sh
 npm run dev
@@ -50,7 +50,7 @@ Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browse
 
 ---
 
-## DSCP HyProof Client: Build
+## SQNC HyProof Client: Build
 
 ```sh
 npm run build
@@ -60,7 +60,7 @@ Builds the app for production to the build folder.
 
 ---
 
-## DSCP HyProof Client: Assets
+## SQNC HyProof Client: Assets
 
 In terms of assets, this project contains the following:
 
@@ -70,7 +70,7 @@ In terms of assets, this project contains the following:
 
 ---
 
-## DSCP HyProof Client: License
+## SQNC HyProof Client: License
 
 This project is licensed under the **Apache 2.0** license.
 
