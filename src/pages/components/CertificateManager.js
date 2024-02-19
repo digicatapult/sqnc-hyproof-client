@@ -10,7 +10,7 @@ import useAxios from '../../hooks/use-axios'
 import CertificateViewer from '../CertificateViewer'
 import CertificateCo2Post from './CertificateCo2Post'
 
-const CertificateViewerOrEmbedder = () => {
+const CertificateViewPostSwitcher = () => {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
 
@@ -64,7 +64,7 @@ export default function CertificateManager() {
         <>CertificateViewer(Switch2Emma)</>
       ) : (
         <QueryClientProvider client={new QueryClient()}>
-          <CertificateViewerOrEmbedder />
+          <CertificateViewPostSwitcher />
         </QueryClientProvider>
       )}
     </>
