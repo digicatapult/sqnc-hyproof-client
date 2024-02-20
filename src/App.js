@@ -9,12 +9,13 @@ import { Context } from './utils/Context'
 
 export const personas = [
   {
-    id: 'connor',
-    name: 'Connor Connor',
-    title: 'Connor Connor',
-    subtitle: 'The Hydrogen Consumer',
-    background: '#FDB6D4',
-    origin: 'http://localhost:8030',
+    id: 'heidi',
+    name: 'Heidi Heidi',
+    title: 'Heidi Heidi',
+    subtitle: 'The Hydrogen Producer',
+    company: "Heidi's Hydroelectric Hydrogen",
+    background: '#9EDCFA',
+    origin: 'http://localhost:8000',
   },
   {
     id: 'emma',
@@ -26,13 +27,12 @@ export const personas = [
     origin: 'http://localhost:8010',
   },
   {
-    id: 'heidi',
-    name: 'Heidi Heidi',
-    title: 'Heidi Heidi',
-    subtitle: 'The Hydrogen Producer',
-    company: "Heidi's Hydroelectric Hydrogen",
-    background: '#9EDCFA',
-    origin: 'http://localhost:8000',
+    id: 'connor',
+    name: 'Connor Connor',
+    title: 'Connor Connor',
+    subtitle: 'The Hydrogen Consumer',
+    background: '#FDB6D4',
+    origin: 'http://localhost:8030',
   },
   {
     id: 'reginald',
