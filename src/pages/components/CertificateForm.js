@@ -1,18 +1,17 @@
 import React, { useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { Grid, Timeline } from '@digicatapult/ui-component-library'
 
 import { Context } from '../../utils/Context'
-
-import { Grid, Timeline } from '@digicatapult/ui-component-library'
 import CertificateInputFields from './CertificateInputFields'
 import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
-
 import useAxios from '../../hooks/use-axios'
-import { useNavigate } from 'react-router-dom'
-
 import { personas } from '../../App'
 
+const disclaimer =
+  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
 const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
@@ -37,8 +36,10 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
   return body
 }
 
-export default function CertificateForm(props) {
-  const { current, update, ...cert } = useContext(Context)
+export default function CertificateForm() {
+  const { current, update, ...rest } = useContext(Context)
+  const { fetch } = useAxios(false)
+
   const persona = personas.find(({ id }) => id === current)
   const origin = persona.origin
 
@@ -100,6 +101,7 @@ export default function CertificateForm(props) {
             production_end_time: currentProductionEndTime,
           } = resLocal
           update({
+            [current]: resLocal, // persist as a cache
             currentId: originalTokenId,
             currentCommitment,
             currentCommitmentSalt,
@@ -107,7 +109,7 @@ export default function CertificateForm(props) {
             currentProductionStartTime,
             currentProductionEndTime,
           })
-          navigate(`/certificate/${originalTokenId}`)
+          // navigate(`/certificate/${originalTokenId}`)
         }
       }
 
@@ -129,33 +131,49 @@ export default function CertificateForm(props) {
     ]
   )
 
-  const hasInitiated = ['initiated', 'issued'].includes(cert.status)
-  const isIssued = cert.status === 'issued'
-  const disclaimer='Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+  const cert = dataFinal?.state === 'initiated' ? rest[current] : {}
+  React.useEffect(() => {
+    const get = async () => {
+      const url = `${persona.origin}/v1/certificate?id=${dataChain.original_token_id}`
+      const [data] = await fetch({ url })
+
+      update(data, current) // drop in all res for time being so we have all properties
+    }
+
+    if (dataFinal) get()
+  }, [dataFinal])
 
   return (
     <>
       <TimelineWrapper area="timeline">
-        <Timeline name={cert.id || persona.company} disclaimer={disclaimer} variant={'hyproof'}> 
+        <Timeline
+          name={dataChain?.id || persona.company}
+          disclaimer={disclaimer}
+          variant={'hyproof'}
+        >
           <Timeline.Item
-            variant='hyproof'
+            variant="hyproof"
             status={'Initiation'}
-            checked={cert.status !== 'pending'}
+            checked={cert.id}
           >
-            {cert.status !== 'pending' && `certificate request has been created at: ${cert.created_at}`}
+            {cert.id &&
+              `certificate request has been created at: ${cert.created_at}`}
           </Timeline.Item>
           <Timeline.Item
-            variant='hyproof'
+            variant="hyproof"
             status={'Carbon Embodiment'}
-            checked={hasInitiated}
+            checked={cert.embodied_co2}
           >
-              {hasInitiated && `Carbon calculation has been completed at: ${cert.updated_at}`}
+            {persona.embodied_co2 &&
+              `Carbon calculation has been completed at: ${cert.updated_at}`}
           </Timeline.Item>
           <Timeline.Item
-            variant='hyproof'
+            variant="hyproof"
             status={'Issuance'}
-            checked={isIssued}>
-              {isIssued && `Has been issued at: ${cert.updated_at}`}
+            checked={cert.state === 'issued'}
+          >
+            {cert.state === 'issued' &&
+              `Has been issued at: ${cert.updated_at}`}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>

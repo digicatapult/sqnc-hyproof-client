@@ -10,12 +10,11 @@ const root = createRoot(document.getElementById('root'))
 
 root.render(
   <React.StrictMode>
-      <QueryClientProvider client={new QueryClient()}>
-
-    <ContextProvider>
-      <App />
-      <GlobalFonts />
-    </ContextProvider>
-      </QueryClientProvider>
+    <QueryClientProvider client={new QueryClient()}>
+      <ContextProvider>
+        <App />
+        <GlobalFonts />
+      </ContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 )
