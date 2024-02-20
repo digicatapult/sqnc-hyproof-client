@@ -11,7 +11,7 @@ import CertificateViewer from '../CertificateViewer'
 import CertificateCo2Post from './CertificateCo2Post'
 
 const CertificateViewPostSwitcher = () => {
-  const { current } = useContext(Context)
+  const { current, update } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
 
   const { loading, error, callApiFn } = useAxios(false)
@@ -36,6 +36,7 @@ const CertificateViewPostSwitcher = () => {
       // }
       const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 > 0
       setQueriedCert(res)
+      update(res, persona.id) // drop in all res for time being so we have all properties
       setHasCo2(embodiedCo2)
       setIsCo2Checked(true)
     }

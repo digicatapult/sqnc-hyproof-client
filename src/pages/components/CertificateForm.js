@@ -38,7 +38,7 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
 }
 
 export default function CertificateForm(props) {
-  const { current, update } = useContext(Context)
+  const { current, update, ...cert } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
   const origin = persona.origin
 
@@ -110,6 +110,8 @@ export default function CertificateForm(props) {
           navigate(`/certificate/${originalTokenId}`)
         }
       }
+
+      update(resLocal, current)
     },
     [
       enVal,
@@ -127,17 +129,36 @@ export default function CertificateForm(props) {
     ]
   )
 
+  const hasInitiated = ['initiated', 'issued'].includes(cert.status)
+  const isIssued = cert.status === 'issued'
+  const disclaimer='Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+
   return (
     <>
       <TimelineWrapper area="timeline">
-        <Timeline {...props}>
-          {props.items.map(({ message, ...rest }) => (
-            <Timeline.Item key={rest.title} {...props} {...rest}>
-              {message && <p>{message}</p>}
-            </Timeline.Item>
-          ))}
+        <Timeline name={cert.id || persona.company} disclaimer={disclaimer} variant={'hyproof'}> 
+          <Timeline.Item
+            variant='hyproof'
+            status={'Initiation'}
+            checked={cert.status !== 'pending'}
+          >
+            {cert.status !== 'pending' && `certificate request has been created at: ${cert.created_at}`}
+          </Timeline.Item>
+          <Timeline.Item
+            variant='hyproof'
+            status={'Carbon Embodiment'}
+            checked={hasInitiated}
+          >
+              {hasInitiated && `Carbon calculation has been completed at: ${cert.updated_at}`}
+          </Timeline.Item>
+          <Timeline.Item
+            variant='hyproof'
+            status={'Issuance'}
+            checked={isIssued}>
+              {isIssued && `Has been issued at: ${cert.updated_at}`}
+          </Timeline.Item>
         </Timeline>
-        <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
+        <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
       <Form action="" onSubmit={handleSubmitStep}>
         <Grid.Panel area="main">

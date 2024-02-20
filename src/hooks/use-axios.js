@@ -58,5 +58,5 @@ export default function useAxios(
     }).then((data) => setData(data))
   }, [run, urlRun, bodyRun, methodRun, headersRun, callApiFn])
 
-  return { data, error, loading, callApiFn }
+  return { data, error, loading, callApiFn, fetch: callApiFn }
 }
