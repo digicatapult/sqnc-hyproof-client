@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
 
@@ -15,23 +15,42 @@ import useAxios from '../hooks/use-axios'
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
-
   const origin = persona.origin
 
   const { id } = useParams()
 
   const { error, callApiFn } = useAxios(false)
+  const [data, setData] = useState(null)
 
-  // Read the JSON that represents the cert once
-  useEffect(() => {
+  const callApi = useCallback(async () => {
     const path = `/v1/certificate/${id}`
-    const url = `${origin}${path}`
-    callApiFn({ url }).then((res) => {
-      alert(JSON.stringify(res))
-    })
+    let res = null
+    try {
+      res = await callApiFn({ url: `${origin}${path}` })
+    } catch (e) {
+      alert(JSON.stringify(e))
+    }
+    setData(res)
+    // console.log(Math.random())
   }, [id, origin, callApiFn])
 
-  if (error) return <>Err:{JSON.stringify(error)}</>
+  // Query API every second
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await callApi()
+    }, 1 * 1000)
+    const unmountCleanup = () => clearInterval(intervalId)
+    return unmountCleanup
+  }, [callApi])
+
+  // Read the JSON that represents the cert once
+  // useEffect(() => {
+  //   callApiFn({ url }).then((res) => {
+  //     alert(JSON.stringify(res))
+  //   })
+  // }, [id, origin, callApiFn])
+
+  if (error) return <>Err:{JSON.stringify(error?.message)}</>
 
   return (
     <>
@@ -43,7 +62,8 @@ export default function CertificateViewer() {
           <Container>
             <Paper>
               CertificateViewer (viewing ID {id}) <br />
-              ...
+              ... <br />
+              {data && JSON.stringify(data, null, 2)}
             </Paper>
           </Container>
         </Grid.Panel>
