@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
 
@@ -10,10 +10,27 @@ import { personas } from '../App'
 
 import { useParams } from 'react-router-dom'
 
+import useAxios from '../hooks/use-axios'
+
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
-  let { id } = useParams()
+
+  const origin = persona.origin
+
+  const { id } = useParams()
+
+  const { callApiFn } = useAxios(false)
+
+  // Read the JSON that represents the cert once
+  useEffect(() => {
+    const path = `/v1/certificate/${id}`
+    const url = `${origin}${path}`
+    callApiFn({ url }).then((res) => {
+      alert(JSON.stringify(res))
+    })
+  }, [id, origin, callApiFn])
+
   return (
     <>
       <Nav />
@@ -22,10 +39,10 @@ export default function CertificateViewer() {
       <MainWrapper>
         <Grid.Panel area="main">
           <Container>
-            <Text>
+            <Paper>
               CertificateViewer (viewing ID {id}) <br />
               ...
-            </Text>
+            </Paper>
           </Container>
         </Grid.Panel>
         <Sidebar area="sidebar"></Sidebar>
@@ -62,10 +79,14 @@ const Container = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
-  background: white;
+  background: #27847a;
+  padding: 34px;
+  height: 100%;
+  align-content: start;
 `
 
-const Text = styled.h2`
+const Paper = styled.div`
   margin: auto 5px;
-  text-align: center;
+  background: white;
+  // text-align: top;
 `
