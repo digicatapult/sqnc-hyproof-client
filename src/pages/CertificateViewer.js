@@ -100,6 +100,7 @@ const LeftWrapper = styled(Grid.Panel)`
   padding: 20px 0px;
   overflow: hidden;
   background: #0c3b38;
+  width: 400px;
 `
 
 const MainWrapper = styled.div`
