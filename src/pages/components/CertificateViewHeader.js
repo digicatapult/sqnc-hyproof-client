@@ -1,19 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import ApprovalSealLargeSVG from '../../assets/images/approval-seal-large.svg'
 
 export default function CertificateViewHeader({ id }) {
   return (
     <HeaderContainerUnderlined>
       <HeaderContainer>
-        <HeaderImage />
+        <HeaderImageLeft />
         <HeaderTextHeadings>
           <H1>CERTIFICATE</H1>
           <H2>HYDROGEN PRODUCTION</H2>
           <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
         </HeaderTextHeadings>
-        <HeaderImage />
+        <HeaderImageRight />
       </HeaderContainer>
     </HeaderContainerUnderlined>
   )
@@ -29,16 +28,26 @@ const HeaderContainer = styled.div`
   width: 100%;
 `
 
-const HeaderImage = styled.div`
+const HeaderImageLeft = styled.div`
   display: inline-block;
   padding: 10px;
-  width: 16.5%;
+  width: 25%;
   height: 100px;
-
-  background: transparent url(${ApprovalSealLargeSVG}) no-repeat center;
+  background: transparent url(${ApprovalSealLargeSVG}) no-repeat right center;
   background-size: contain;
+  @media (max-width: 1280px) {
+    display: none;
+  }
+`
 
-  @media (max-width: 1200px) {
+const HeaderImageRight = styled.div`
+  display: inline-block;
+  padding: 10px;
+  width: 25%;
+  height: 100px;
+  background: transparent url(${ApprovalSealLargeSVG}) no-repeat left center;
+  background-size: contain;
+  @media (max-width: 1280px) {
     display: none;
   }
 `
@@ -46,15 +55,14 @@ const HeaderImage = styled.div`
 const HeaderTextHeadings = styled.div`
   display: inline-block;
   padding: 0 10px;
-  width: 66%;
-
+  width: 50%;
   color: #27847a;
 `
 
 const H1 = styled.h1`
   display: block;
   font-family: Roboto;
-  font-size: 57px;
+  font-size: 3.15vw; //57px;
   font-style: normal;
   font-weight: 300;
   margin-top: 0px;
