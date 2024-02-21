@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useCallback, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
@@ -30,9 +31,9 @@ export default function CertificateViewer() {
     } catch (e) {
       alert(JSON.stringify(e))
     }
-    setData(res)
-    // console.log(Math.random())
-  }, [id, origin, callApiFn])
+    if (JSON.stringify(res) != JSON.stringify(data)) setData(res)
+    console.log(Math.random())
+  }, [origin, id, data, callApiFn])
 
   // Query API every second
   useEffect(() => {
@@ -43,7 +44,6 @@ export default function CertificateViewer() {
     return unmountCleanup
   }, [callApi])
 
-  // Read the JSON that represents the cert once
   // useEffect(() => {
   //   callApiFn({ url }).then((res) => {
   //     alert(JSON.stringify(res))
@@ -59,13 +59,34 @@ export default function CertificateViewer() {
       <LeftWrapper area="timeline"></LeftWrapper>
       <MainWrapper>
         <Grid.Panel area="main">
-          <Container>
+          <ContainerDiv>
             <Paper>
-              CertificateViewer (viewing ID {id}) <br />
-              ... <br />
-              {data && JSON.stringify(data, null, 2)}
+              {data === null && <>...</>}
+              {data && (
+                <>
+                  <Grid
+                    areas={[
+                      ['div-double', 'div-double'],
+                      ['div-left', 'div-right'],
+                    ]}
+                    rows={['40px', '60px']}
+                    columns={['1fr', '1fr']}
+                    gap="15px"
+                  >
+                    <Grid.Panel area="div-double">
+                      CertificateViewHeader
+                    </Grid.Panel>
+                    <Grid.Panel area="div-left">
+                      CertificateViewOwnership
+                    </Grid.Panel>
+                    <Grid.Panel area="div-right">
+                      CertificateViewDetails
+                    </Grid.Panel>
+                  </Grid>
+                </>
+              )}
             </Paper>
-          </Container>
+          </ContainerDiv>
         </Grid.Panel>
         <Sidebar area="sidebar"></Sidebar>
       </MainWrapper>
@@ -97,7 +118,7 @@ const Sidebar = styled(Grid.Panel)`
   background: #0c3b38;
 `
 
-const Container = styled.div`
+const ContainerDiv = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
@@ -108,7 +129,6 @@ const Container = styled.div`
 `
 
 const Paper = styled.div`
-  margin: auto 5px;
   background: white;
-  // text-align: top;
+  padding: 15px;
 `
