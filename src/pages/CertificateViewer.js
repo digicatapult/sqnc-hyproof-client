@@ -23,7 +23,7 @@ const CertificateViewHeader = () => {
         <HeaderTextHeadings>
           <H1>CERTIFICATE</H1>
           <H2>HYDROGEN PRODUCTION</H2>
-          <H3>HYDROGEN PRODUCTION</H3>
+          <H3>UK-HYPROOF-1</H3>
         </HeaderTextHeadings>
         <HeaderImage />
       </HeaderContainer>
@@ -76,7 +76,7 @@ const H1 = styled.h1`
   font-weight: 300;
   // line-height: 0px;
   margin-top: 0px;
-  margin-bottom: -9px;
+  margin-bottom: -6px;
 `
 
 const H2 = styled.h2`
@@ -86,8 +86,8 @@ const H2 = styled.h2`
   font-style: normal;
   font-weight: bold;
   // line-height: 0px;
-  margin-top: -9px;
-  margin-bottom: -3px;
+  margin-top: -6px;
+  margin-bottom: 2px;
 `
 
 const H3 = styled.h3`
@@ -96,7 +96,7 @@ const H3 = styled.h3`
   font-size: 18.5px;
   font-style: normal;
   font-weight: 300;
-  margin-top: -2px;
+  margin-top: 0px;
   // line-height: 0px;
 `
 
@@ -218,7 +218,7 @@ const Paper = styled.div`
   width: 100%;
   padding: 15px;
   color: #000000;
-  background: #ffffff;
+  background: #efefef;
   overflow: hidden;
   &::before {
     content: '';
@@ -239,7 +239,7 @@ const Paper = styled.div`
     right: 0;
     border-width: 0 40px 40px 0;
     border-style: solid;
-    border-color: transparent #27847a #ffffff transparent;
+    border-color: transparent #27847a #efefef transparent;
     background: transparent;
     display: block;
     width: 0;
