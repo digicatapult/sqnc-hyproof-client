@@ -15,7 +15,7 @@ import useAxios from '../hooks/use-axios'
 
 import ApprovalSealLargeSVG from '../assets/images/approval-seal-large.svg'
 
-const CertificateViewHeader = () => {
+const CertificateViewHeader = ({ id }) => {
   return (
     <HeaderContainerUnderlined>
       <HeaderContainer>
@@ -23,7 +23,7 @@ const CertificateViewHeader = () => {
         <HeaderTextHeadings>
           <H1>CERTIFICATE</H1>
           <H2>HYDROGEN PRODUCTION</H2>
-          <H3>UK-HYPROOF-1</H3>
+          <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
         </HeaderTextHeadings>
         <HeaderImage />
       </HeaderContainer>
@@ -159,7 +159,7 @@ export default function CertificateViewer() {
                     gap="15px"
                   >
                     <Grid.Panel area="div-double">
-                      <CertificateViewHeader />
+                      <CertificateViewHeader id={id} />
                     </Grid.Panel>
                     <Grid.Panel area="div-left">
                       CertificateViewOwnership
