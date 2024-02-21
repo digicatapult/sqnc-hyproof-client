@@ -45,9 +45,7 @@ export default function CertificateViewer() {
   }, [callApi])
 
   // useEffect(() => {
-  //   callApiFn({ url }).then((res) => {
-  //     alert(JSON.stringify(res))
-  //   })
+  //   callApiFn({ url }).then((res) => { alert(JSON.stringify(res)) })
   // }, [id, origin, callApiFn])
 
   if (error) return <>Err:{JSON.stringify(error?.message)}</>
@@ -129,6 +127,22 @@ const ContainerDiv = styled.div`
 `
 
 const Paper = styled.div`
-  background: white;
+  position: relative;
+  width: 100%;
   padding: 15px;
+  color: #000000;
+  background: #ffffff;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 41px 41px 0;
+    border-style: solid;
+    border-color: transparent #27847a #27847a transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
 `
