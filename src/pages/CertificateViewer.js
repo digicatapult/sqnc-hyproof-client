@@ -145,4 +145,16 @@ const Paper = styled.div`
     display: block;
     width: 0;
   }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 40px 40px 0;
+    border-style: solid;
+    border-color: transparent #27847a #ffffff transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
 `
