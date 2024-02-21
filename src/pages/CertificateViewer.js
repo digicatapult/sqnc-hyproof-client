@@ -20,7 +20,7 @@ export default function CertificateViewer() {
 
   const { id } = useParams()
 
-  const { callApiFn } = useAxios(false)
+  const { error, callApiFn } = useAxios(false)
 
   // Read the JSON that represents the cert once
   useEffect(() => {
@@ -30,6 +30,8 @@ export default function CertificateViewer() {
       alert(JSON.stringify(res))
     })
   }, [id, origin, callApiFn])
+
+  if (error) return <>Err:{JSON.stringify(error)}</>
 
   return (
     <>
