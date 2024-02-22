@@ -153,21 +153,21 @@ export default function CertificateForm() {
             title={'Initiation'}
             checked={cert.id}
           >
-            {cert.id && cert.created_at}
+            {cert.id && new Date(cert.created_at).toLocaleString()}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
             checked={cert.embodied_co2}
           >
-            {persona.embodied_co2 && cert.updated_at}
+            {persona.embodied_co2 && new Date(cert.updated_at).toLocaleString()}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issuance'}
             checked={cert.state === 'issued'}
           >
-            {cert.state === 'issued' && cert.updated_at}
+            {cert.state === 'issued' && new Date(cert.updated_at).toLocaleString()}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
