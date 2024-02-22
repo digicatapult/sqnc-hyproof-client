@@ -41,7 +41,7 @@ const CertificateViewPostSwitcher = () => {
       setIsCo2Checked(true)
     }
     callApiFnAsync()
-  }, [id, persona.origin, callApiFn])
+  }, [id, persona, callApiFn, update])
 
   if (loading) return <p>Loading...</p>
   if (error) return <em>{JSON.stringify(error?.message)}</em>

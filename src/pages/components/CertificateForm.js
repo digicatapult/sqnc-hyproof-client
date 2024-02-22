@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 
 import { Context } from '../../utils/Context'
@@ -66,8 +65,6 @@ export default function CertificateForm() {
   const handleEnChgeVal = useCallbackChVal(setEnVal)
   const handleSzChgeVal = useCallbackChVal(setSzVal)
 
-  const navigate = useNavigate()
-
   const handleSubmitStep = useCallback(
     async (e) => {
       e.preventDefault()
@@ -127,7 +124,7 @@ export default function CertificateForm() {
       callApiFnChain,
       callApiFnFinal,
       update,
-      navigate,
+      current,
     ]
   )
 
@@ -141,39 +138,36 @@ export default function CertificateForm() {
     }
 
     if (dataFinal) get()
-  }, [dataFinal])
+  }, [current, dataFinal, update, fetch, dataChain, persona])
 
   return (
     <>
       <TimelineWrapper area="timeline">
         <Timeline
-          name={dataChain?.id || persona.company}
+          name={dataChain?.id && persona.company}
           disclaimer={disclaimer}
           variant={'hyproof'}
         >
           <Timeline.Item
             variant="hyproof"
-            status={'Initiation'}
+            title={'Initiation'}
             checked={cert.id}
           >
-            {cert.id &&
-              `certificate request has been created at: ${cert.created_at}`}
+            {cert.id && cert.created_at}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
-            status={'Carbon Embodiment'}
+            title={'Carbon Embodiment'}
             checked={cert.embodied_co2}
           >
-            {persona.embodied_co2 &&
-              `Carbon calculation has been completed at: ${cert.updated_at}`}
+            {persona.embodied_co2 && cert.updated_at}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
-            status={'Issuance'}
+            title={'Issuance'}
             checked={cert.state === 'issued'}
           >
-            {cert.state === 'issued' &&
-              `Has been issued at: ${cert.updated_at}`}
+            {cert.state === 'issued' && cert.updated_at}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
