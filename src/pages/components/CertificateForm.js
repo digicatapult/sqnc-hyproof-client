@@ -8,6 +8,7 @@ import CertificateFormHeader from './CertificateFormHeader'
 import CertificateActionsButtons from './CertificateActionsButtons'
 import useAxios from '../../hooks/use-axios'
 import { personas } from '../../App'
+import { formatTimelineDate } from '../../utils/helpers'
 
 const disclaimer =
   'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
@@ -153,21 +154,21 @@ export default function CertificateForm() {
             title={'Initiation'}
             checked={cert.id}
           >
-            {cert.id && new Date(cert.created_at).toLocaleString()}
+            {cert.id && formatTimelineDate(cert.created_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
             checked={cert.embodied_co2}
           >
-            {persona.embodied_co2 && new Date(cert.updated_at).toLocaleString()}
+            {persona.embodied_co2 && formatTimelineDate(cert.created_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issuance'}
             checked={cert.state === 'issued'}
           >
-            {cert.state === 'issued' && new Date(cert.updated_at).toLocaleString()}
+            {cert.state === 'issued' && formatTimelineDate(cert.created_at)}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
