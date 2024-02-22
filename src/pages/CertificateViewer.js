@@ -105,11 +105,11 @@ const Small = styled.small`
   display: block;
 `
 
-const CertificateViewOwnership = ({ hOwner, eOwner }) => {
+const CertificateViewOwnership = ({ id, hOwner, eOwner }) => {
   return (
     <>
       <DivLock>
-        <SpanLock>UK-HYPROOF-0001</SpanLock>
+        <SpanLock>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</SpanLock>
       </DivLock>
       <DivRounded>
         <Div>Hydrogen Owner: {hOwner}</Div>
@@ -120,6 +120,121 @@ const CertificateViewOwnership = ({ hOwner, eOwner }) => {
           <Small>Adherence to government standards</Small>
         </DivImageLeft>
       </DivRounded>
+    </>
+  )
+}
+
+const PaddedWrapperDiv = styled.div`
+  padding: 4px;
+  height: calc(100% - 200px);
+
+  text-align: left;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #111111;
+  background: #efefef;
+`
+
+const ContainerFlexWrapDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const FlexDiv = styled.div`
+  margin: 0px 8px 20px 8px;
+  height: 110px;
+  line-height: 110px;
+  min-width: 169px;
+  flex-grow: 1;
+
+  background: #cfcfcf;
+`
+
+const FlexRoundedDiv = styled.div`
+  margin: 0px 8px 20px 8px;
+  height: 110px;
+  line-height: 110px;
+  min-width: 169px;
+  flex-grow: 1;
+
+  border-radius: 10px;
+  background: #33e58c;
+`
+
+const FlexLargeDiv = styled(FlexDiv)`
+  min-width: 354px;
+
+  background: #d8d8d8;
+`
+
+const ContainerFlexNoWrapDiv = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`
+
+const ContainerFullWidthWrapDiv = styled.div`
+  width: 100%;
+`
+
+const GrowingDiv = styled.div`
+  flex-grow: 1;
+`
+
+const HeadingDiv = styled.div`
+  color: #1a1a1a;
+  height: 28px;
+  font: 500 15px/28px Roboto;
+`
+
+const FixedWidthSmallDiv = styled.div`
+  width: 98px;
+  height: 82px;
+  margin-top: 28px;
+  text-align: center;
+  color: #27847a;
+  font: 500 14px/82px Roboto;
+  border-left: 1px solid #27847a;
+  border-right: 1px solid #27847a;
+
+  background: #d2d2d2;
+`
+
+const CertificateViewDetails = () => {
+  return (
+    <>
+      <PaddedWrapperDiv>
+        <ContainerFlexWrapDiv>
+          <FlexLargeDiv>
+            <ContainerFlexNoWrapDiv>
+              <GrowingDiv>
+                <HeadingDiv>StartHeading</HeadingDiv>
+              </GrowingDiv>
+              <FixedWidthSmallDiv>07H 30M</FixedWidthSmallDiv>
+              <GrowingDiv>
+                <HeadingDiv>EndHeading</HeadingDiv>
+              </GrowingDiv>
+              {/* FlexLargeDiv */}
+            </ContainerFlexNoWrapDiv>
+          </FlexLargeDiv>
+          <FlexDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>EnergyHeading</HeadingDiv>
+              {/* FlexDiv */}
+            </ContainerFullWidthWrapDiv>
+          </FlexDiv>
+          <FlexDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>SizeHeading</HeadingDiv>
+              {/* FlexDiv */}
+            </ContainerFullWidthWrapDiv>
+          </FlexDiv>
+          <FlexRoundedDiv>
+            <ContainerFullWidthWrapDiv>FlexRoundedD</ContainerFullWidthWrapDiv>
+          </FlexRoundedDiv>
+        </ContainerFlexWrapDiv>
+      </PaddedWrapperDiv>
     </>
   )
 }
@@ -187,12 +302,13 @@ export default function CertificateViewer() {
                     </Grid.Panel>
                     <Grid.Panel area="div-ownership">
                       <CertificateViewOwnership
+                        id={id}
                         hOwner={data?.hydrogen_owner}
                         eOwner={data?.energy_owner}
                       />
                     </Grid.Panel>
                     <Grid.Panel area="div-details">
-                      CertificateViewDetails
+                      <CertificateViewDetails />
                       <small>{data && JSON.stringify(data, null, 2)}</small>
                     </Grid.Panel>
                   </Grid>
