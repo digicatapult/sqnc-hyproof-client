@@ -116,11 +116,6 @@ const ContainerFlexWrapDiv = styled.div`
   flex-wrap: wrap;
 `
 
-const ContainerFlexNoWrapDiv = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-`
-
 const FlexDiv = styled.div`
   margin: 8px 8px 45px 8px;
   height: 110px;
@@ -131,6 +126,11 @@ const FlexDiv = styled.div`
 
 const FlexLargeDiv = styled(FlexDiv)`
   min-width: 556px;
+`
+
+const ContainerFlexNoWrapDiv = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
 `
 
 const InputHeadingDiv = styled.div`
