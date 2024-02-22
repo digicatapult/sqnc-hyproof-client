@@ -5,17 +5,17 @@ import { Grid, UserIcon } from '@digicatapult/ui-component-library'
 
 import LiveIndicatorSVG from '../../assets/images/liveIndicator.svg'
 
-export default function Header({ userFullName, companyName }) {
+export default function Header({ name, company, background }) {
   return (
     <StyledHeader area="header">
       <UserIcon
-        fullName={userFullName}
-        bgColor="#9EDCFA"
+        fullName={name}
+        bgColor={background}
         outlineColor="white"
         color="#1A1A1A"
         size="70px"
       />
-      <CompanyName>{companyName}</CompanyName>
+      <CompanyName>{company}</CompanyName>
       <LiveIndicator>
         <source srcSet={LiveIndicatorSVG} type="image/png" />
         <img

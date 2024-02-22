@@ -15,7 +15,11 @@ export default function Certificates() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header
+        name={persona.name}
+        company={persona.company}
+        background={persona.background}
+      />
       <QueryClientProvider client={new QueryClient()}>
         <CertificateForm variant="hyproof" />
       </QueryClientProvider>
