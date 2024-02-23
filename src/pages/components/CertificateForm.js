@@ -101,7 +101,6 @@ export default function CertificateForm() {
             production_end_time: currentProductionEndTime,
           } = resLocal
           update({
-            [current]: resLocal, // persist as a cache
             currentId: originalTokenId,
             currentCommitment,
             currentCommitmentSalt,
