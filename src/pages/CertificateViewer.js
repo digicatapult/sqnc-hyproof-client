@@ -19,6 +19,8 @@ import CertificateTimeInterval from './components/CertificateTimeInterval'
 
 import LockerSvg from '../assets/images/locker-icon.svg'
 import SealSvg from '../assets/images/approval-seal-small.svg'
+import BgIconDateSVG from '../assets/images/icon-date.svg'
+import BgIconTimeSVG from '../assets/images/icon-time.svg'
 
 const DivLock = styled.div`
   text-align: left;
@@ -250,17 +252,13 @@ const IconWrap = styled.div`
 const IconDate = styled.span`
   width: 26px;
   height: 26px;
-  background: transparent
-    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==)
-    no-repeat;
+  background: transparent url(${BgIconDateSVG}) no-repeat;
 `
 
 const IconTime = styled.span`
   width: 26px;
   height: 26px;
-  background: transparent
-    url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==)
-    no-repeat;
+  background: transparent url(${BgIconTimeSVG}) no-repeat;
 `
 
 const Text = styled.div`
