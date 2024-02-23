@@ -32,7 +32,6 @@ export default function Routes() {
               <Route index element={<CreateViewSwitcher />} />
               <Route path=":id" element={<CertificateManager />} />
             </Route>
-            <Route path="/create" element={<Certificates />} />
             <Route path="*" element={<Error404 />} />
           </>
         )
