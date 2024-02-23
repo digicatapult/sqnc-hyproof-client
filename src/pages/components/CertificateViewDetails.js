@@ -22,20 +22,20 @@ export default function CertificateViewDetails({
               <ContainerFlexNoWrapDiv>
                 <GrowingDiv>
                   <HeadingDiv>Start timestamp of energy use</HeadingDiv>
-                  <InputWrapDiv>
-                    <InputHalfWrap>
+                  <WrapDiv>
+                    <HalfWrap>
                       <IconWrap>
                         <IconDate></IconDate>Date
                       </IconWrap>
                       <Text>{start.split('T')[0].split('-').join('/')}</Text>
-                    </InputHalfWrap>
-                    <InputHalfWrap>
+                    </HalfWrap>
+                    <HalfWrap>
                       <IconWrap>
                         <IconTime></IconTime>Time
                       </IconWrap>
                       <Text>{start.split('T')[1].split('.')[0]}</Text>
-                    </InputHalfWrap>
-                  </InputWrapDiv>
+                    </HalfWrap>
+                  </WrapDiv>
                 </GrowingDiv>
                 <CertificateTimeInterval
                   sTimestamp={`${start}`}
@@ -43,20 +43,20 @@ export default function CertificateViewDetails({
                 />
                 <GrowingDiv>
                   <HeadingDiv>End timestamp of energy use</HeadingDiv>
-                  <InputWrapDiv>
-                    <InputHalfWrap>
+                  <WrapDiv>
+                    <HalfWrap>
                       <IconWrap>
                         <IconDate></IconDate>Date
                       </IconWrap>
                       <Text>{end.split('T')[0].split('-').join('/')}</Text>
-                    </InputHalfWrap>
-                    <InputHalfWrap>
+                    </HalfWrap>
+                    <HalfWrap>
                       <IconWrap>
                         <IconTime></IconTime>Time
                       </IconWrap>
                       <Text>{end.split('T')[1].split('.')[0]}</Text>
-                    </InputHalfWrap>
-                  </InputWrapDiv>
+                    </HalfWrap>
+                  </WrapDiv>
                 </GrowingDiv>
               </ContainerFlexNoWrapDiv>
             </FlexLargeDiv>
@@ -65,7 +65,7 @@ export default function CertificateViewDetails({
             <FlexDiv>
               <ContainerFullWidthWrapDiv>
                 <HeadingDiv>Electric energy use</HeadingDiv>
-                <InputWrapShortDiv>{energy / 1000000} kWh</InputWrapShortDiv>
+                <WrapShortDiv>{energy / 1000000} kWh</WrapShortDiv>
               </ContainerFullWidthWrapDiv>
             </FlexDiv>
           )}
@@ -73,7 +73,7 @@ export default function CertificateViewDetails({
             <FlexDiv>
               <ContainerFullWidthWrapDiv>
                 <HeadingDiv>H2 batch size</HeadingDiv>
-                <InputWrapShortDiv>{size / 1000000} kWh</InputWrapShortDiv>
+                <WrapShortDiv>{size / 1000000} kWh</WrapShortDiv>
               </ContainerFullWidthWrapDiv>
             </FlexDiv>
           )}
@@ -81,7 +81,7 @@ export default function CertificateViewDetails({
             <FlexRoundedDiv>
               <ContainerFullWidthWrapDiv>
                 <HeadingDiv>Carbon Embodiment</HeadingDiv>
-                <InputWrapDiv>{eco2} g CO2e</InputWrapDiv>
+                <WrapDiv>{eco2} g CO2e</WrapDiv>
               </ContainerFullWidthWrapDiv>
             </FlexRoundedDiv>
           )}
@@ -178,7 +178,7 @@ const HeadingDiv = styled.div`
 //   background: #d2d2d2;
 // `
 
-const InputWrapShortDiv = styled.div`
+const WrapShortDiv = styled.div`
   height: 42px;
   line-height: 42px;
   display: flex;
@@ -187,7 +187,7 @@ const InputWrapShortDiv = styled.div`
   // padding-left: 15px;
 `
 
-const InputWrapDiv = styled.div`
+const WrapDiv = styled.div`
   height: 82px;
   line-height: 82px;
   display: flex;
@@ -195,7 +195,7 @@ const InputWrapDiv = styled.div`
   padding: 15px 0;
 `
 
-const InputHalfWrap = styled.div`
+const HalfWrap = styled.div`
   width: 50%;
   height: 52px;
   line-height: 52px;
