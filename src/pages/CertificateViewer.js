@@ -276,67 +276,74 @@ const CertificateViewDetails = ({ size, start, end, energy, eco2 }) => {
     <>
       <PaddedWrapperDiv>
         <ContainerFlexWrapDiv>
-          <FlexLargeDiv>
-            <ContainerFlexNoWrapDiv>
-              <GrowingDiv>
-                <HeadingDiv>Start timestamp of energy use</HeadingDiv>
-                <InputWrapDiv>
-                  <InputHalfWrap>
-                    <IconWrap>
-                      <IconDate></IconDate>Date
-                    </IconWrap>
-                    <Text>{start.split('T')[0].split('-').join('/')}</Text>
-                  </InputHalfWrap>
-                  <InputHalfWrap>
-                    <IconWrap>
-                      <IconTime></IconTime>Time
-                    </IconWrap>
-                    <Text>{start.split('T')[1].split('.')[0]}</Text>
-                  </InputHalfWrap>
-                </InputWrapDiv>
-              </GrowingDiv>
-              {/* <FixedWidthSmallDiv>07H 30M</FixedWidthSmallDiv> */}
-              <CertificateTimeInterval
-                sTimestamp={`${start}`}
-                eTimestamp={`${end}`}
-              />
-              <GrowingDiv>
-                <HeadingDiv>End timestamp of energy use</HeadingDiv>
-                <InputWrapDiv>
-                  <InputHalfWrap>
-                    <IconWrap>
-                      <IconDate></IconDate>Date
-                    </IconWrap>
-                    <Text>{end.split('T')[0].split('-').join('/')}</Text>
-                  </InputHalfWrap>
-                  <InputHalfWrap>
-                    <IconWrap>
-                      <IconTime></IconTime>Time
-                    </IconWrap>
-                    <Text>{end.split('T')[1].split('.')[0]}</Text>
-                  </InputHalfWrap>
-                </InputWrapDiv>
-              </GrowingDiv>
-            </ContainerFlexNoWrapDiv>
-          </FlexLargeDiv>
-          <FlexDiv>
-            <ContainerFullWidthWrapDiv>
-              <HeadingDiv>Electric energy use</HeadingDiv>
-              <InputWrapShortDiv>{energy / 1000000} kWh</InputWrapShortDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexDiv>
-          <FlexDiv>
-            <ContainerFullWidthWrapDiv>
-              <HeadingDiv>H2 batch size</HeadingDiv>
-              <InputWrapShortDiv>{size / 1000000} kWh</InputWrapShortDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexDiv>
-          <FlexRoundedDiv>
-            <ContainerFullWidthWrapDiv>
-              <HeadingDiv>Carbon Embodiment</HeadingDiv>
-              <InputWrapDiv>{eco2} g CO2e</InputWrapDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexRoundedDiv>
+          {start && end && (
+            <FlexLargeDiv>
+              <ContainerFlexNoWrapDiv>
+                <GrowingDiv>
+                  <HeadingDiv>Start timestamp of energy use</HeadingDiv>
+                  <InputWrapDiv>
+                    <InputHalfWrap>
+                      <IconWrap>
+                        <IconDate></IconDate>Date
+                      </IconWrap>
+                      <Text>{start.split('T')[0].split('-').join('/')}</Text>
+                    </InputHalfWrap>
+                    <InputHalfWrap>
+                      <IconWrap>
+                        <IconTime></IconTime>Time
+                      </IconWrap>
+                      <Text>{start.split('T')[1].split('.')[0]}</Text>
+                    </InputHalfWrap>
+                  </InputWrapDiv>
+                </GrowingDiv>
+                <CertificateTimeInterval
+                  sTimestamp={`${start}`}
+                  eTimestamp={`${end}`}
+                />
+                <GrowingDiv>
+                  <HeadingDiv>End timestamp of energy use</HeadingDiv>
+                  <InputWrapDiv>
+                    <InputHalfWrap>
+                      <IconWrap>
+                        <IconDate></IconDate>Date
+                      </IconWrap>
+                      <Text>{end.split('T')[0].split('-').join('/')}</Text>
+                    </InputHalfWrap>
+                    <InputHalfWrap>
+                      <IconWrap>
+                        <IconTime></IconTime>Time
+                      </IconWrap>
+                      <Text>{end.split('T')[1].split('.')[0]}</Text>
+                    </InputHalfWrap>
+                  </InputWrapDiv>
+                </GrowingDiv>
+              </ContainerFlexNoWrapDiv>
+            </FlexLargeDiv>
+          )}
+          {energy && (
+            <FlexDiv>
+              <ContainerFullWidthWrapDiv>
+                <HeadingDiv>Electric energy use</HeadingDiv>
+                <InputWrapShortDiv>{energy / 1000000} kWh</InputWrapShortDiv>
+              </ContainerFullWidthWrapDiv>
+            </FlexDiv>
+          )}
+          {size && (
+            <FlexDiv>
+              <ContainerFullWidthWrapDiv>
+                <HeadingDiv>H2 batch size</HeadingDiv>
+                <InputWrapShortDiv>{size / 1000000} kWh</InputWrapShortDiv>
+              </ContainerFullWidthWrapDiv>
+            </FlexDiv>
+          )}
+          {eco2 && (
+            <FlexRoundedDiv>
+              <ContainerFullWidthWrapDiv>
+                <HeadingDiv>Carbon Embodiment</HeadingDiv>
+                <InputWrapDiv>{eco2} g CO2e</InputWrapDiv>
+              </ContainerFullWidthWrapDiv>
+            </FlexRoundedDiv>
+          )}
         </ContainerFlexWrapDiv>
       </PaddedWrapperDiv>
     </>
@@ -419,7 +426,6 @@ export default function CertificateViewer() {
                         energy={data?.energy_consumed_wh}
                         eco2={data?.embodied_co2}
                       />
-                      <small>{data && JSON.stringify(data, null, 2)}</small>
                     </Grid.Panel>
                   </Grid>
                 </>
