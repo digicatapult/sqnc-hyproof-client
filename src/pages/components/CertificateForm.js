@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
+import { useNavigate } from 'react-router-dom'
 
 import { Context } from '../../utils/Context'
 import CertificateInputFields from './CertificateInputFields'
@@ -39,6 +40,7 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
 export default function CertificateForm() {
   const { current, update, ...rest } = useContext(Context)
   const { fetch } = useAxios(false)
+  const navigate = useNavigate()
 
   const persona = personas.find(({ id }) => id === current)
   const origin = persona.origin
@@ -114,6 +116,7 @@ export default function CertificateForm() {
       update(resLocal, current)
     },
     [
+      navigate,
       enVal,
       sdVal,
       stVal,
