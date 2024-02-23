@@ -97,12 +97,6 @@ const PaddedWrapperDiv = styled.div`
   min-height: 400px;
 
   text-align: left;
-
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  border: 1px solid #111111;
-  background: #efefef;
 `
 
 const ContainerFlexWrapDiv = styled.div`
@@ -137,8 +131,6 @@ const FlexRoundedDiv = styled.div`
 
 const FlexLargeDiv = styled(FlexDiv)`
   min-width: 354px;
-
-  background: #d8d8d8;
 `
 
 const ContainerFlexNoWrapDiv = styled.div`
