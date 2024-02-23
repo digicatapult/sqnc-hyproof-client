@@ -372,11 +372,11 @@ export default function CertificateViewer() {
     console.log(Math.random())
   }, [origin, id, data, callApiFn])
 
-  // Query API every second
+  // Query API every two seconds
   useEffect(() => {
     const intervalId = setInterval(async () => {
       await callApi()
-    }, 1 * 1000)
+    }, 2 * 1000)
     const unmountCleanup = () => clearInterval(intervalId)
     return unmountCleanup
   }, [callApi])
