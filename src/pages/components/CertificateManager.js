@@ -11,7 +11,7 @@ import CertificateViewer from '../CertificateViewer'
 import CertificateCo2Post from './CertificateCo2Post'
 
 const CertificateViewPostSwitcher = () => {
-  const { current, update } = useContext(Context)
+  const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
 
   const { loading, error, callApiFn } = useAxios(false)
@@ -40,7 +40,7 @@ const CertificateViewPostSwitcher = () => {
       setIsCo2Checked(true)
     }
     callApiFnAsync()
-  }, [id, persona, callApiFn, update])
+  }, [id, persona, callApiFn])
 
   if (loading) return <p>Loading...</p>
   if (error) return <em>{JSON.stringify(error?.message)}</em>
