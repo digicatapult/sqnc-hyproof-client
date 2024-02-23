@@ -129,7 +129,6 @@ export default function CertificateForm() {
     ]
   )
 
-  const cert = dataFinal?.state === 'initiated' ? rest[current] : {}
   React.useEffect(() => {
     const get = async () => {
       const url = `${persona.origin}/v1/certificate/${dataChain.original_token_id}`
@@ -140,6 +139,8 @@ export default function CertificateForm() {
 
     if (dataChain) return get()
   }, [current, dataFinal, update, fetch, dataChain, persona])
+
+  const cert = dataFinal?.state === 'initiated' ? rest[current] : {}
 
   return (
     <>
