@@ -19,6 +19,7 @@ import CertificateTimeInterval from './components/CertificateTimeInterval'
 
 import LockerSvg from '../assets/images/locker-icon.svg'
 import SealSvg from '../assets/images/approval-seal-small.svg'
+import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 import BgIconDateSVG from '../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../assets/images/icon-time.svg'
 
@@ -461,7 +462,8 @@ const ContainerDiv = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
-  background: #27847a;
+  background: #228077 url(${BgMoleculesImageSVG}) repeat;
+  background-size: 50px;
   padding: 34px;
   height: 100%;
   align-content: start;
@@ -481,7 +483,7 @@ const Paper = styled.div`
     right: 0;
     border-width: 0 41px 41px 0;
     border-style: solid;
-    border-color: transparent #27847a #27847a transparent;
+    border-color: transparent #228077 #228077 transparent;
     background: transparent;
     display: block;
     width: 0;
@@ -493,7 +495,7 @@ const Paper = styled.div`
     right: 0;
     border-width: 0 40px 40px 0;
     border-style: solid;
-    border-color: transparent #27847a #efefef transparent;
+    border-color: transparent #228077 #efefef transparent;
     background: transparent;
     display: block;
     width: 0;
