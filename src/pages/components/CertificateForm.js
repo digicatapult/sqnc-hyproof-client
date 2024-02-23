@@ -108,9 +108,7 @@ export default function CertificateForm() {
             currentProductionStartTime,
             currentProductionEndTime,
           })
-          setTimeout(() => {
-            navigate(`/certificate/${originalTokenId}`)
-          }, 60 * 1000)
+          navigate(`/certificate/${originalTokenId}`)
         }
       }
 

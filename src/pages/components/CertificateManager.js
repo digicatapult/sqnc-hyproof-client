@@ -36,7 +36,6 @@ const CertificateViewPostSwitcher = () => {
       // }
       const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 > 0
       setQueriedCert(res)
-      update(res, persona.id) // drop in all res for time being so we have all properties
       setHasCo2(embodiedCo2)
       setIsCo2Checked(true)
     }
