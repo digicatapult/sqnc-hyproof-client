@@ -107,7 +107,7 @@ export default function CertificateForm() {
             currentProductionStartTime,
             currentProductionEndTime,
           })
-          // navigate(`/certificate/${originalTokenId}`)
+          navigate(`/certificate/${originalTokenId}`)
         }
       }
 
