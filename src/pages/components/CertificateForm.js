@@ -138,7 +138,7 @@ export default function CertificateForm() {
       update(data, current) // drop in all res for time being so we have all properties
     }
 
-    if (dataFinal) get()
+    if (dataChain) return get()
   }, [current, dataFinal, update, fetch, dataChain, persona])
 
   return (
