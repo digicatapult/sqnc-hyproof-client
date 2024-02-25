@@ -38,8 +38,9 @@ export default function CertificateViewDetails({
                   </WrapDiv>
                 </GrowingDiv>
                 <CertificateTimeInterval
-                  sTimestamp={`${start}`}
-                  eTimestamp={`${end}`}
+                  sTimestamp={start}
+                  eTimestamp={end}
+                  bgColor="white"
                 />
                 <GrowingDiv>
                   <HeadingDiv>End timestamp of energy use</HeadingDiv>
