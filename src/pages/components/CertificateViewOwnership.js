@@ -56,7 +56,7 @@ const DivRounded = styled.div`
   border-radius: 10px;
   background: #27847a;
   color: #ffffff;
-  padding: 20px;
+  padding: 30px 20px 20px 20px;
   margin: 8px 0;
   text-align: left;
 
@@ -69,7 +69,7 @@ const DivRounded = styled.div`
 
 const Div = styled.div`
   line-height: 30px;
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
 `
 
 const Hr = styled.hr`
