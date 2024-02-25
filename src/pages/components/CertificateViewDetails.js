@@ -33,7 +33,7 @@ export default function CertificateViewDetails({
                       <IconWrap>
                         <IconTime></IconTime>Time
                       </IconWrap>
-                      <Text>{start.split('T')[1].split('.')[0]}</Text>
+                      <Text>{start.split('T')[1].slice(0, 5)}</Text>
                     </HalfWrap>
                   </WrapDiv>
                 </GrowingDiv>
