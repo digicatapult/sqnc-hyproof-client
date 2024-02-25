@@ -131,6 +131,7 @@ const FlexRoundedDiv = styled.div`
 
 const FlexLargeDiv = styled(FlexDiv)`
   min-width: 354px;
+  border-left: 0;
 `
 
 const ContainerFlexNoWrapDiv = styled.div`
@@ -155,6 +156,7 @@ const HeadingDiv = styled.div`
   color: #1a1a1a;
   height: 25px;
   font: 700 15px/25px Roboto;
+  padding-left: 8px;
 `
 
 // const FixedWidthSmallDiv = styled.div`
