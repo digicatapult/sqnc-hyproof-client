@@ -62,12 +62,11 @@ const HeaderTextHeadings = styled.div`
 const H1 = styled.h1`
   display: block;
   font-family: Roboto;
-  font-size: 3.15vw; //57px;
+  font-size: 3.15vw;
   font-style: normal;
   font-weight: 300;
   margin-top: 0px;
   margin-bottom: -6px;
-  // line-height: 0px;
 `
 
 const H2 = styled.h2`
@@ -78,7 +77,6 @@ const H2 = styled.h2`
   font-weight: bold;
   margin-top: -6px;
   margin-bottom: 2px;
-  // line-height: 0px;
 `
 
 const H3 = styled.h3`
@@ -88,5 +86,4 @@ const H3 = styled.h3`
   font-style: normal;
   font-weight: 300;
   margin-top: 0px;
-  // line-height: 0px;
 `

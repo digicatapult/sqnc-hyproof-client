@@ -107,21 +107,15 @@ const ContainerFlexWrapDiv = styled.div`
 
 const FlexDiv = styled.div`
   margin: 0px 8px 20px 8px;
-  // height: 110px;
-  // line-height: 110px;
   min-width: 169px;
   flex-grow: 1;
 
   color: #27847a;
   border-left: 1px solid #27847a;
-
-  // background: #11cfcf;
 `
 
 const FlexRoundedDiv = styled.div`
   margin: 0px 8px 20px 8px;
-  // height: 110px;
-  // line-height: 110px;
   min-width: 169px;
   flex-grow: 1;
   padding: 20px;
@@ -151,9 +145,6 @@ const GrowingDiv = styled.div`
 `
 
 const HeadingDiv = styled.div`
-  // color: #1a1a1a;
-  // height: 28px;
-  // font: 700 15px/28px Roboto;
   color: #1a1a1a;
   height: 25px;
   font: 700 15px/25px Roboto;
@@ -165,7 +156,6 @@ const WrapShortDiv = styled.div`
   line-height: 42px;
   display: flex;
   flex-wrap: nowrap;
-  // padding: 15px 0 auto 0;
   padding-left: 8px;
 `
 
@@ -182,7 +172,6 @@ const WrapPaddedDiv = styled.div`
   line-height: 68px;
   display: flex;
   flex-wrap: nowrap;
-  // padding: 15px 0;
   padding-left: 8px;
   margin-bottom: -18px;
 `

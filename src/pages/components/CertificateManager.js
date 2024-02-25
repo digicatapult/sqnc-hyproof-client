@@ -27,13 +27,12 @@ const CertificateViewPostSwitcher = () => {
       const originalId = id
       const path = `/v1/certificate/${originalId}`
       const url = `${origin}${path}`
-      const res = await callApiFn({ url })
-      // let res = null
-      // try {
-      //   res = await callApiFn({ url })
-      // } catch (e) {
-      //   alert(e)
-      // }
+      let res = null
+      try {
+        res = await callApiFn({ url })
+      } catch (e) {
+        alert(e)
+      }
       const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 > 0
       setQueriedCert(res)
       setHasCo2(embodiedCo2)

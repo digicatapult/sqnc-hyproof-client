@@ -38,7 +38,6 @@ export default function CertificateViewer() {
       alert(JSON.stringify(e))
     }
     if (JSON.stringify(res) != JSON.stringify(data)) setData(res)
-    // console.log(Math.random())
   }, [origin, id, data, callApiFn])
 
   // Query API every two seconds
