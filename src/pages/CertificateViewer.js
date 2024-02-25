@@ -143,7 +143,7 @@ const ContainerDiv = styled.div`
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
   background: #228077 url(${BgMoleculesImageSVG}) repeat;
-  background-size: 50px;
+  background-size: 100px;
   padding: 34px;
   height: 100%;
   align-content: start;
