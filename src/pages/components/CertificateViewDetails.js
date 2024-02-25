@@ -159,19 +159,6 @@ const HeadingDiv = styled.div`
   padding-left: 8px;
 `
 
-// const FixedWidthSmallDiv = styled.div`
-//   width: 98px;
-//   height: 82px;
-//   margin-top: 28px;
-//   text-align: center;
-//   color: #27847a;
-//   font: 500 14px/82px Roboto;
-//   border-left: 1px solid #27847a;
-//   border-right: 1px solid #27847a;
-//
-//   background: #d2d2d2;
-// `
-
 const WrapShortDiv = styled.div`
   height: 42px;
   line-height: 42px;

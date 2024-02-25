@@ -14,15 +14,10 @@ import useAxios from '../hooks/use-axios'
 
 import CertificateViewHeader from './components/CertificateViewHeader'
 
-// import CertificateTimeInterval from './components/CertificateTimeInterval'
-
 import CertificateViewOwnership from './components/CertificateViewOwnership'
 import CertificateViewDetails from './components/CertificateViewDetails'
 
-// import LockerSvg from '../assets/images/locker-icon.svg'
-// import SealSvg from '../assets/images/approval-seal-small.svg'
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
-// import BgIconTimeSVG from '../assets/images/icon-time.svg'
 
 export default function CertificateViewer() {
   const { current } = useContext(Context)
@@ -54,10 +49,6 @@ export default function CertificateViewer() {
     const unmountCleanup = () => clearInterval(intervalId)
     return unmountCleanup
   }, [callApi])
-
-  // useEffect(() => {
-  //   callApiFn({ url }).then((res) => { alert(JSON.stringify(res)) })
-  // }, [id, origin, callApiFn])
 
   if (error) return <>Err:{JSON.stringify(error?.message)}</>
 
