@@ -81,7 +81,7 @@ export default function CertificateViewDetails({
             <FlexRoundedDiv>
               <ContainerFullWidthWrapDiv>
                 <HeadingDiv>Carbon Embodiment</HeadingDiv>
-                <WrapDiv>{eco2} g CO2e</WrapDiv>
+                <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
               </ContainerFullWidthWrapDiv>
             </FlexRoundedDiv>
           )}
@@ -177,8 +177,8 @@ const WrapShortDiv = styled.div`
   line-height: 42px;
   display: flex;
   flex-wrap: nowrap;
-  padding: 15px 0 auto 0;
-  // padding-left: 15px;
+  // padding: 15px 0 auto 0;
+  padding-left: 8px;
 `
 
 const WrapDiv = styled.div`
@@ -187,6 +187,16 @@ const WrapDiv = styled.div`
   display: flex;
   flex-wrap: nowrap;
   padding: 15px 0;
+`
+
+const WrapPaddedDiv = styled.div`
+  height: 68px;
+  line-height: 68px;
+  display: flex;
+  flex-wrap: nowrap;
+  // padding: 15px 0;
+  padding-left: 8px;
+  margin-bottom: -18px;
 `
 
 const HalfWrap = styled.div`
