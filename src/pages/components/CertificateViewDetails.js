@@ -6,16 +6,10 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
-const hasValidDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
-
-const hasValidEnergy = (e) =>
-  e !== null && e !== undefined && isFinite(e) && e > 0
-
-const hasValidSize = (s) =>
-  s !== null && s !== undefined && isFinite(s) && s > 0
-
-const hasValidEco2 = (c) =>
-  c !== null && c !== undefined && isFinite(c) && c >= 0
+const hasDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
+const hasEnergy = (e) => e !== null && e !== undefined && isFinite(e) && e > 0
+const hasSize = (s) => s !== null && s !== undefined && isFinite(s) && s > 0
+const hasEco2 = (c) => c !== null && c !== undefined && isFinite(c) && c >= 0
 
 export default function CertificateViewDetails({
   size,
@@ -27,7 +21,7 @@ export default function CertificateViewDetails({
   return (
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
-        {hasValidDate(start) && hasValidDate(end) && (
+        {hasDate(start) && hasDate(end) && (
           <FlexLargeDiv>
             <ContainerFlexNoWrapDiv>
               <GrowingDiv>
@@ -72,7 +66,7 @@ export default function CertificateViewDetails({
             </ContainerFlexNoWrapDiv>
           </FlexLargeDiv>
         )}
-        {hasValidEnergy(energy) && (
+        {hasEnergy(energy) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Electric energy use</HeadingDiv>
@@ -80,7 +74,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {hasValidSize(size) && (
+        {hasSize(size) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>H2 batch size</HeadingDiv>
@@ -88,7 +82,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {hasValidEco2(eco2) && (
+        {hasEco2(eco2) && (
           <FlexRoundedDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Carbon Embodiment</HeadingDiv>
