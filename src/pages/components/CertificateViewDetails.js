@@ -6,6 +6,8 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
+const isValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
+
 export default function CertificateViewDetails({
   size,
   start,
@@ -69,7 +71,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {size && (
+        {isValidSize(size) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>H2 batch size</HeadingDiv>
@@ -135,7 +137,6 @@ const ContainerFlexNoWrapDiv = styled.div`
 
 const ContainerFullWidthWrapDiv = styled.div`
   padding-left: 5px;
-  width: 100%;
 `
 
 const GrowingDiv = styled.div`
