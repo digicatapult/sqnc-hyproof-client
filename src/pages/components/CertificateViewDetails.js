@@ -6,11 +6,11 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
-const isValidEnergy = (e) => e !== null && e !== undefined && !isNaN(e)
+const hasValidEnergy = (e) => e !== null && e !== undefined && !isNaN(e)
 
-const isValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
+const hasValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
 
-const isValidEco2 = (e) => e !== null && e !== undefined && !isNaN(e) && e > 0
+const hasValidEco2 = (e) => e !== null && e !== undefined && !isNaN(e) && e > 0
 
 export default function CertificateViewDetails({
   size,
@@ -67,7 +67,7 @@ export default function CertificateViewDetails({
             </ContainerFlexNoWrapDiv>
           </FlexLargeDiv>
         )}
-        {isValidEnergy(energy) && (
+        {hasValidEnergy(energy) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Electric energy use</HeadingDiv>
@@ -75,7 +75,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {isValidSize(size) && (
+        {hasValidSize(size) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>H2 batch size</HeadingDiv>
@@ -83,7 +83,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {isValidEco2(eco2) && (
+        {hasValidEco2(eco2) && (
           <FlexRoundedDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Carbon Embodiment</HeadingDiv>
