@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/sqnc-hyproof-client",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/sqnc-hyproof-client",
     "main": "src/index.js",
@@ -72,7 +72,7 @@
         "webpack-dev-server": "^5.0.2"
     },
     "dependencies": {
-    "@digicatapult/ui-component-library": "^0.17.18",
+    "@digicatapult/ui-component-library": "^0.17.19",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-id-generator": "^3.0.2",
