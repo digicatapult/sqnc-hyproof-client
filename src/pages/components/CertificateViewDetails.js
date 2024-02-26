@@ -6,7 +6,11 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
+const isValidEnergy = (e) => e !== null && e !== undefined && !isNaN(e)
+
 const isValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
+
+const isValidEco2 = (e) => e !== null && e !== undefined && !isNaN(e) && e > 0
 
 export default function CertificateViewDetails({
   size,
@@ -63,7 +67,7 @@ export default function CertificateViewDetails({
             </ContainerFlexNoWrapDiv>
           </FlexLargeDiv>
         )}
-        {energy && (
+        {isValidEnergy(energy) && (
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Electric energy use</HeadingDiv>
@@ -79,7 +83,7 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {eco2 && (
+        {isValidEco2(eco2) && (
           <FlexRoundedDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Carbon Embodiment</HeadingDiv>
