@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@digicatapult/ui-component-library'
 
@@ -10,10 +10,47 @@ import { personas } from '../App'
 
 import { useParams } from 'react-router-dom'
 
+import useAxios from '../hooks/use-axios'
+
+import CertificateViewHeader from './components/CertificateViewHeader'
+
+import CertificateViewOwnership from './components/CertificateViewOwnership'
+import CertificateViewDetails from './components/CertificateViewDetails'
+
+import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
+
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
-  let { id } = useParams()
+  const origin = persona.origin
+
+  const { id } = useParams()
+
+  const { error, callApiFn } = useAxios(false)
+  const [data, setData] = useState(null)
+
+  const callApi = useCallback(async () => {
+    const path = `/v1/certificate/${id}`
+    let res = null
+    try {
+      res = await callApiFn({ url: `${origin}${path}` })
+    } catch (e) {
+      alert(JSON.stringify(e))
+    }
+    if (JSON.stringify(res) != JSON.stringify(data)) setData(res)
+  }, [origin, id, data, callApiFn])
+
+  // Query API every two seconds
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      await callApi()
+    }, 2 * 1000)
+    const unmountCleanup = () => clearInterval(intervalId)
+    return unmountCleanup
+  }, [callApi])
+
+  if (error) return <>Err:{JSON.stringify(error?.message)}</>
+
   return (
     <>
       <Nav />
@@ -21,12 +58,44 @@ export default function CertificateViewer() {
       <LeftWrapper area="timeline"></LeftWrapper>
       <MainWrapper>
         <Grid.Panel area="main">
-          <Container>
-            <Text>
-              CertificateViewer (viewing ID {id}) <br />
-              ...
-            </Text>
-          </Container>
+          <ContainerDiv>
+            <Paper>
+              {data === null && <>...</>}
+              {data && (
+                <>
+                  <Grid
+                    areas={[
+                      ['div-header', 'div-header', 'div-header'],
+                      ['div-ownership', 'div-details', 'div-details'],
+                    ]}
+                    rows={['auto', 'auto']}
+                    columns={['1fr', '2fr']}
+                    gap="15px"
+                  >
+                    <Grid.Panel area="div-header">
+                      <CertificateViewHeader id={id} />
+                    </Grid.Panel>
+                    <Grid.Panel area="div-ownership">
+                      <CertificateViewOwnership
+                        id={id}
+                        hOwner={data?.hydrogen_owner}
+                        eOwner={data?.energy_owner}
+                      />
+                    </Grid.Panel>
+                    <Grid.Panel area="div-details">
+                      <CertificateViewDetails
+                        size={data?.hydrogen_quantity_wh}
+                        start={data?.production_start_time}
+                        end={data?.production_end_time}
+                        energy={data?.energy_consumed_wh}
+                        eco2={data?.embodied_co2}
+                      />
+                    </Grid.Panel>
+                  </Grid>
+                </>
+              )}
+            </Paper>
+          </ContainerDiv>
         </Grid.Panel>
         <Sidebar area="sidebar"></Sidebar>
       </MainWrapper>
@@ -40,6 +109,7 @@ const LeftWrapper = styled(Grid.Panel)`
   padding: 20px 0px;
   overflow: hidden;
   background: #0c3b38;
+  width: 400px;
 `
 
 const MainWrapper = styled.div`
@@ -58,14 +128,46 @@ const Sidebar = styled(Grid.Panel)`
   background: #0c3b38;
 `
 
-const Container = styled.div`
+const ContainerDiv = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
-  background: white;
+  background: #228077 url(${BgMoleculesImageSVG}) repeat;
+  background-size: 100px;
+  padding: 34px;
+  height: 100%;
+  align-content: start;
 `
 
-const Text = styled.h2`
-  margin: auto 5px;
-  text-align: center;
+const Paper = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  color: #000000;
+  background: #efefef;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 41px 41px 0;
+    border-style: solid;
+    border-color: transparent #228077 #228077 transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 40px 40px 0;
+    border-style: solid;
+    border-color: transparent #228077 #efefef transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
 `

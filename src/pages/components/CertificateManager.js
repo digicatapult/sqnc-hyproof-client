@@ -24,16 +24,15 @@ const CertificateViewPostSwitcher = () => {
   useEffect(() => {
     const callApiFnAsync = async () => {
       const origin = persona.origin
-      const originalId = id // '4b1d6797-e596-46d7-9add-fe28f3ea03bd' '48104276-9663-4a06-b249-0fb27ba9ce94'
+      const originalId = id
       const path = `/v1/certificate/${originalId}`
       const url = `${origin}${path}`
-      const res = await callApiFn({ url })
-      // let res = null
-      // try {
-      //   res = await callApiFn({ url })
-      // } catch (e) {
-      //   alert(e)
-      // }
+      let res = null
+      try {
+        res = await callApiFn({ url })
+      } catch (e) {
+        alert(e)
+      }
       const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 > 0
       setQueriedCert(res)
       setHasCo2(embodiedCo2)
@@ -61,7 +60,9 @@ export default function CertificateManager() {
   return (
     <>
       {current != 'emma' ? (
-        <>CertificateViewer(Switch2Emma)</>
+        <QueryClientProvider client={new QueryClient()}>
+          <CertificateViewer />
+        </QueryClientProvider>
       ) : (
         <QueryClientProvider client={new QueryClient()}>
           <CertificateViewPostSwitcher />

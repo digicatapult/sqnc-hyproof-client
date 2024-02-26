@@ -32,9 +32,13 @@ const convIntervalToStr = (s, e) => {
   }
 }
 
-export default function CertificateTimeInterval({ sTimestamp, eTimestamp }) {
+export default function CertificateTimeInterval({
+  sTimestamp,
+  eTimestamp,
+  bgColor,
+}) {
   return (
-    <FixedWidthSmallDiv>
+    <FixedWidthSmallDiv bg={bgColor}>
       {convIntervalToStr(sTimestamp, eTimestamp)}
     </FixedWidthSmallDiv>
   )
@@ -47,5 +51,7 @@ const FixedWidthSmallDiv = styled.div`
   text-align: center;
   color: #67a8a1;
   font: 500 14px/82px Roboto;
-  background: #27847a url(${StartEndSpacerSVG}) no-repeat;
+  background-image: url(${StartEndSpacerSVG});
+  background-color: ${({ bg }) => (bg === 'white' ? '#efefef' : '#27847a')};
+  background-repeat: no-repeat;
 `
