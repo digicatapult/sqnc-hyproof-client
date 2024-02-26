@@ -6,6 +6,8 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
+const hasValidDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
+
 const hasValidEnergy = (e) => e !== null && e !== undefined && !isNaN(e)
 
 const hasValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
@@ -22,7 +24,7 @@ export default function CertificateViewDetails({
   return (
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
-        {start && end && (
+        {hasValidDate(start) && hasValidDate(end) && (
           <FlexLargeDiv>
             <ContainerFlexNoWrapDiv>
               <GrowingDiv>
