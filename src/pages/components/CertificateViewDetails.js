@@ -14,81 +14,79 @@ export default function CertificateViewDetails({
   eco2,
 }) {
   return (
-    <>
-      <PaddedWrapperDiv>
-        <ContainerFlexWrapDiv>
-          {start && end && (
-            <FlexLargeDiv>
-              <ContainerFlexNoWrapDiv>
-                <GrowingDiv>
-                  <HeadingDiv>Start timestamp of energy use</HeadingDiv>
-                  <WrapDiv>
-                    <HalfWrap>
-                      <IconWrap>
-                        <IconDate></IconDate>Date
-                      </IconWrap>
-                      <Text>{start.split('T')[0].split('-').join('/')}</Text>
-                    </HalfWrap>
-                    <HalfWrap>
-                      <IconWrap>
-                        <IconTime></IconTime>Time
-                      </IconWrap>
-                      <Text>{start.split('T')[1].slice(0, 5)}</Text>
-                    </HalfWrap>
-                  </WrapDiv>
-                </GrowingDiv>
-                <CertificateTimeInterval
-                  sTimestamp={start}
-                  eTimestamp={end}
-                  bgColor="white"
-                />
-                <GrowingDiv>
-                  <HeadingDiv>End timestamp of energy use</HeadingDiv>
-                  <WrapDiv>
-                    <HalfWrap>
-                      <IconWrap>
-                        <IconDate></IconDate>Date
-                      </IconWrap>
-                      <Text>{end.split('T')[0].split('-').join('/')}</Text>
-                    </HalfWrap>
-                    <HalfWrap>
-                      <IconWrap>
-                        <IconTime></IconTime>Time
-                      </IconWrap>
-                      <Text>{end.split('T')[1].split('.')[0]}</Text>
-                    </HalfWrap>
-                  </WrapDiv>
-                </GrowingDiv>
-              </ContainerFlexNoWrapDiv>
-            </FlexLargeDiv>
-          )}
-          {energy && (
-            <FlexDiv>
-              <ContainerFullWidthWrapDiv>
-                <HeadingDiv>Electric energy use</HeadingDiv>
-                <WrapShortDiv>{energy / 1000000} kWh</WrapShortDiv>
-              </ContainerFullWidthWrapDiv>
-            </FlexDiv>
-          )}
-          {size && (
-            <FlexDiv>
-              <ContainerFullWidthWrapDiv>
-                <HeadingDiv>H2 batch size</HeadingDiv>
-                <WrapShortDiv>{size / 1000000} kWh</WrapShortDiv>
-              </ContainerFullWidthWrapDiv>
-            </FlexDiv>
-          )}
-          {eco2 && (
-            <FlexRoundedDiv>
-              <ContainerFullWidthWrapDiv>
-                <HeadingDiv>Carbon Embodiment</HeadingDiv>
-                <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
-              </ContainerFullWidthWrapDiv>
-            </FlexRoundedDiv>
-          )}
-        </ContainerFlexWrapDiv>
-      </PaddedWrapperDiv>
-    </>
+    <PaddedWrapperDiv>
+      <ContainerFlexWrapDiv>
+        {start && end && (
+          <FlexLargeDiv>
+            <ContainerFlexNoWrapDiv>
+              <GrowingDiv>
+                <HeadingDiv>Start timestamp of energy use</HeadingDiv>
+                <WrapDiv>
+                  <HalfWrap>
+                    <IconWrap>
+                      <IconDate></IconDate>Date
+                    </IconWrap>
+                    <Text>{start.split('T')[0].split('-').join('/')}</Text>
+                  </HalfWrap>
+                  <HalfWrap>
+                    <IconWrap>
+                      <IconTime></IconTime>Time
+                    </IconWrap>
+                    <Text>{start.split('T')[1].slice(0, 5)}</Text>
+                  </HalfWrap>
+                </WrapDiv>
+              </GrowingDiv>
+              <CertificateTimeInterval
+                sTimestamp={start}
+                eTimestamp={end}
+                bgColor="white"
+              />
+              <GrowingDiv>
+                <HeadingDiv>End timestamp of energy use</HeadingDiv>
+                <WrapDiv>
+                  <HalfWrap>
+                    <IconWrap>
+                      <IconDate></IconDate>Date
+                    </IconWrap>
+                    <Text>{end.split('T')[0].split('-').join('/')}</Text>
+                  </HalfWrap>
+                  <HalfWrap>
+                    <IconWrap>
+                      <IconTime></IconTime>Time
+                    </IconWrap>
+                    <Text>{end.split('T')[1].split('.')[0]}</Text>
+                  </HalfWrap>
+                </WrapDiv>
+              </GrowingDiv>
+            </ContainerFlexNoWrapDiv>
+          </FlexLargeDiv>
+        )}
+        {energy && (
+          <FlexDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>Electric energy use</HeadingDiv>
+              <WrapShortDiv>{energy / 1000000} kWh</WrapShortDiv>
+            </ContainerFullWidthWrapDiv>
+          </FlexDiv>
+        )}
+        {size && (
+          <FlexDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>H2 batch size</HeadingDiv>
+              <WrapShortDiv>{size / 1000000} kWh</WrapShortDiv>
+            </ContainerFullWidthWrapDiv>
+          </FlexDiv>
+        )}
+        {eco2 && (
+          <FlexRoundedDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>Carbon Embodiment</HeadingDiv>
+              <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
+            </ContainerFullWidthWrapDiv>
+          </FlexRoundedDiv>
+        )}
+      </ContainerFlexWrapDiv>
+    </PaddedWrapperDiv>
   )
 }
 
