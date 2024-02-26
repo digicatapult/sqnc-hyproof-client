@@ -8,11 +8,14 @@ import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
 const hasValidDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
 
-const hasValidEnergy = (e) => e !== null && e !== undefined && !isNaN(e)
+const hasValidEnergy = (e) =>
+  e !== null && e !== undefined && isFinite(e) && e > 0
 
-const hasValidSize = (s) => s !== null && s !== undefined && !isNaN(s)
+const hasValidSize = (s) =>
+  s !== null && s !== undefined && isFinite(s) && s > 0
 
-const hasValidEco2 = (e) => e !== null && e !== undefined && !isNaN(e) && e > 0
+const hasValidEco2 = (c) =>
+  c !== null && c !== undefined && isFinite(c) && c >= 0
 
 export default function CertificateViewDetails({
   size,
