@@ -20,9 +20,8 @@ import { TimelineDisclaimer } from './components/shared'
 
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
-/* eslint-disable prettier/prettier */
-
-const disclaimer = 'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
+const disclaimer =
+  'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
 export default function CertificateViewer() {
   // Constants
@@ -75,7 +74,7 @@ export default function CertificateViewer() {
         return
       }
       // eslint-disable-next-line no-console
-      console.log(`Co2post:ID#${id}|salt ${salt}|energy ${energy}|start ${start}|end ${end}`)
+      console.log(`PostCo2#${id}|salt ${salt}|e ${energy}|times ${start}${end}`)
       url = `${origin}/v1/certificate/${id}`
       body = {
         commitment_salt: salt,
@@ -118,7 +117,9 @@ export default function CertificateViewer() {
     }, 2 * 1000)
 
     // Cleanup the interval on unmount
-    return () => { clearInterval(intervalId) }
+    return () => {
+      clearInterval(intervalId)
+    }
   }, [curPersona, id, origin, context, fetchCert])
 
   if (errorLast) return <>ErrLast:{errorLast}</>
@@ -285,38 +286,38 @@ const Paper = styled.div`
 // import React, { useCallback, useState, useContext, useEffect } from 'react'
 // import styled from 'styled-components'
 // import { Timeline, Grid } from '@digicatapult/ui-component-library'
-// 
+//
 // import Nav from './components/Nav'
 // import Header from './components/Header'
-// 
+//
 // import { Context } from '../utils/Context'
 // import { personas } from '../App'
-// 
+//
 // import { useParams } from 'react-router-dom'
-// 
+//
 // import useAxios from '../hooks/use-axios'
-// 
+//
 // import CertificateViewHeader from './components/CertificateViewHeader'
 // import CertificateViewOwnership from './components/CertificateViewOwnership'
 // import CertificateViewDetails from './components/CertificateViewDetails'
 // import { formatTimelineDate } from '../utils/helpers'
 // import { TimelineDisclaimer } from './components/shared'
-// 
+//
 // import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
 // const disclaimer =
 //   'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
-// 
+//
 // export default function CertificateViewer() {
 //   const { current } = useContext(Context)
 //   const persona = personas.find(({ id }) => id === current)
 //   const origin = persona.origin
-// 
+//
 //   const { id } = useParams()
-// 
+//
 //   const { error, callApiFn } = useAxios(false)
 //   const [data, setData] = useState(null)
-// 
+//
 //   const callApi = useCallback(async () => {
 //     const path = `/v1/certificate/${id}`
 //     let res = null
@@ -327,7 +328,7 @@ const Paper = styled.div`
 //     }
 //     if (JSON.stringify(res) != JSON.stringify(data)) setData(res)
 //   }, [origin, id, data, callApiFn])
-// 
+//
 //   // Query API every two seconds
 //   useEffect(() => {
 //     const intervalId = setInterval(async () => {
@@ -336,9 +337,9 @@ const Paper = styled.div`
 //     const unmountCleanup = () => clearInterval(intervalId)
 //     return unmountCleanup
 //   }, [callApi])
-// 
+//
 //   if (error) return <>Err:{JSON.stringify(error?.message)}</>
-// 
+//
 //   return (
 //     <>
 //       <Nav />
@@ -419,7 +420,7 @@ const Paper = styled.div`
 //     </>
 //   )
 // }
-// 
+//
 // const LeftWrapper = styled(Grid.Panel)`
 //   max-width: 400px;
 //   max-height: 100%;
@@ -428,7 +429,7 @@ const Paper = styled.div`
 //   background: #0c3b38;
 //   width: 400px;
 // `
-// 
+//
 // const MainWrapper = styled.div`
 //   display: grid;
 //   grid: subgrid / subgrid;
@@ -436,7 +437,7 @@ const Paper = styled.div`
 //   overflow: hidden;
 //   text-align: center;
 // `
-// 
+//
 // const Sidebar = styled(Grid.Panel)`
 //   align-items: center;
 //   justify-items: center;
@@ -444,7 +445,7 @@ const Paper = styled.div`
 //   color: white;
 //   background: #0c3b38;
 // `
-// 
+//
 // const ContainerDiv = styled.div`
 //   display: grid;
 //   height: 100%;
@@ -455,7 +456,7 @@ const Paper = styled.div`
 //   height: 100%;
 //   align-content: start;
 // `
-// 
+//
 // const Paper = styled.div`
 //   position: relative;
 //   width: 100%;
