@@ -209,21 +209,37 @@
 //   }
 // `
 
-import React, { useCallback, useState, useContext, useEffect } from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { Context } from '../utils/Context'
+import useAxios from '../hooks/use-axios'
+import { personas } from '../App'
 
 export default function CertificateViewer() {
+  const { id } = useParams()
   const { current } = useContext(Context)
-  // When component mounts
+  const { origin } = personas.find(({ id }) => id === current)
+  const last = useRef(null)
+  const { callApiFn: fetchCert } = useAxios(false)
+
+  // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
-    const fetchCertificate = async () => { console.log('fetchCertificate'); return 1 }
-    const co2PostIfNeeded = async () => { console.log('co2PostIfNeeded'); return 2 }
-    if (current == 'emma') {
-      fetchCertificate().then(() => co2PostIfNeeded())
+    // Fetch latest certificate
+    const fetchLatestCert = async () => {
+      return await fetchCert({ url: `${origin}/v1/certificate/${id}` })
     }
-    const intervalId = setInterval(async () => { console.log(`set ${Math.random()}`) }, 2 * 1000)
+    // Post co2 if needed
+    const co2PostIfNeeded = async () => { console.log('co2PostIfNeeded'); return 2 }
+    // If Emma then post co2 if not set, as in if co2 key from fetch result is null
+    current == 'emma' && fetchLatestCert().then((c) => co2PostIfNeeded())
+    // Fetch every few secs
+    const intervalId = setInterval(async () => {
+      const latestCert = await fetchLatestCert()
+      console.log('dataCache', Math.random(), JSON.stringify(latestCert))
+      if (JSON.stringify(latestCert) != JSON.stringify(last.current)) last.current = latestCert
+    }, 2 * 1000)
     return () => { clearInterval(intervalId) } // unmountComponent
-  }, [current])
+  }, [current, id, origin, fetchCert])
 
   return (
     <>
@@ -238,6 +254,8 @@ export default function CertificateViewer() {
         }}
       />
       <h3>CertificateViewer</h3>
+      <hr />
+      <small>{last.current && JSON.stringify(last.current)}</small>
     </>
   )
 }
