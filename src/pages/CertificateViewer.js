@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
-import { Grid } from '@digicatapult/ui-component-library'
+import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -16,10 +16,12 @@ import CertificateViewHeader from './components/CertificateViewHeader'
 import CertificateViewOwnership from './components/CertificateViewOwnership'
 import CertificateViewDetails from './components/CertificateViewDetails'
 import { formatTimelineDate } from '../utils/helpers'
+import { TimelineDisclaimer } from './components/shared'
 
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
-const disclaimer = 'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+const disclaimer =
+  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
@@ -57,7 +59,7 @@ export default function CertificateViewer() {
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
       <LeftWrapper area="timeline">
-      <Timeline
+        <Timeline
           name={persona.company}
           disclaimer={disclaimer}
           variant={'hyproof'}
@@ -67,22 +69,21 @@ export default function CertificateViewer() {
             title={'Initiation'}
             checked={data?.created_at}
           >
-            {data?.created_at || null}
+            {data?.created_at && formatTimelineDate(data.created_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
             checked={data?.embodied_co2}
           >
-            {data?.embodied_co2 && formatTimelineDate(data.updated_at)}
+            {data?.embodied_co2 && formatTimelineDate(data?.updated_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issuance'}
-            checked={dataChain?.state === 'issued'}
+            checked={data?.state === 'issued'}
           >
-            {data?.state === 'issued' &&
-              formatTimelineDate(data.updated_at)}
+            {data?.state === 'issued' && formatTimelineDate(data.updated_at)}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>

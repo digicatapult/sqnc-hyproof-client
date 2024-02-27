@@ -10,6 +10,7 @@ import CertificateActionsButtons from './CertificateActionsButtons'
 
 import useAxios from '../../hooks/use-axios'
 import { useNavigate } from 'react-router-dom'
+import { TimelineDisclaimer } from './shared'
 
 import { personas } from '../../App'
 
@@ -208,12 +209,4 @@ const TimelineWrapper = styled(Grid.Panel)`
   padding: 20px 0px;
   overflow: hidden;
   background: #0c3b38;
-`
-
-const TimelineDisclaimer = styled('div')`
-  padding: 50px 20px;
-  color: #33e58c;
-  opacity: 0.5;
-  font-size: 12px;
-  line-height: 20px;
 `

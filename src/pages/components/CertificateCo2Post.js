@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import { Context } from '../../utils/Context'
 import { formatTimelineDate } from '../../utils/helpers'
 import { personas } from '../../App'
+import { TimelineDisclaimer } from './shared'
 
 import useAxios from '../../hooks/use-axios'
 
@@ -239,12 +240,4 @@ const AnimatedSpan = styled.span`
   white-space: nowrap;
   margin: 0 auto;
   animation: ${RevealAnimation} 1s steps(4, end) infinite;
-`
-
-const TimelineDisclaimer = styled('div')`
-  padding: 50px 20px;
-  color: #33e58c;
-  opacity: 0.5;
-  font-size: 12px;
-  line-height: 20px;
 `
