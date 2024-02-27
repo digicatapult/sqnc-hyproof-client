@@ -22,6 +22,7 @@ import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
 const disclaimer =
   'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
