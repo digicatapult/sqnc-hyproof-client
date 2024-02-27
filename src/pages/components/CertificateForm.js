@@ -141,25 +141,25 @@ export default function CertificateForm() {
           <Timeline.Item
             variant="hyproof"
             title={'Initiation'}
-            checked={dataFinal?.id === 'initiated'}
+            checked={dataFinal?.state === 'initiated'}
           >
             {dataFinal?.state === 'initiated' ? dataFinal.created_at : null}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
-            checked={dataChain?.embodied_co2}
+            checked={dataFinal?.embodied_co2}
           >
-            {dataChain?.embodied_co2 &&
+            {dataFinal?.embodied_co2 &&
               formatTimelineDate(dataFinal.updated_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issuance'}
-            checked={dataChain?.state === 'issued'}
+            checked={dataFinal?.state === 'issued'}
           >
-            {dataChain?.state === 'issued' &&
-              formatTimelineDate(dataChain.updated_at)}
+            {dataFinal?.state === 'issued' &&
+              formatTimelineDate(dataFinal.updated_at)}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
