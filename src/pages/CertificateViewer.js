@@ -1,3 +1,25 @@
+import React, { useState, useContext, useEffect } from 'react'
+import { useRef } from 'react'
+import styled from 'styled-components'
+import { Timeline, Grid } from '@digicatapult/ui-component-library'
+
+import Nav from './components/Nav'
+import Header from './components/Header'
+
+import { Context } from '../utils/Context'
+import { personas } from '../App'
+
+import { useParams } from 'react-router-dom'
+
+import useAxios from '../hooks/use-axios'
+
+import CertificateViewHeader from './components/CertificateViewHeader'
+import CertificateViewOwnership from './components/CertificateViewOwnership'
+import CertificateViewDetails from './components/CertificateViewDetails'
+import { TimelineDisclaimer } from './components/shared'
+
+import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
+
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
@@ -209,20 +231,20 @@
 //   }
 // `
 
-import React, { useState, useRef, useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Context } from '../utils/Context'
-import useAxios from '../hooks/use-axios'
-import { personas } from '../App'
+const disclaimer = 'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
+const formatTimelineDate = (d) => new Date(d).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' })
 
 export default function CertificateViewer() {
   // Constants
   const { id } = useParams()
   const context = useContext(Context)
   const { current: curPersona } = context
-  const { origin } = personas.find(({ id }) => id === curPersona)
+  const persona = personas.find(({ id }) => id === curPersona)
+  const { origin } = persona
   const latest = useRef(null)
+  const [data, setData] = useState(null)
   const [errorHash, setErrorHash] = useState('')
+  const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
 
   // const embodiedCo2 = 135
@@ -234,7 +256,14 @@ export default function CertificateViewer() {
 
     // Fetch latest certificate
     const fetchLatestCert = async () => {
-      return await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+      let result = null
+      try {
+        result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+      } catch (e) {
+        setErrorLast(e)
+      }
+      if (!Object.keys(result).length) setErrorLast('404')
+      if (Object.keys(result).length) return result
     }
 
     // Post co2 if needed
@@ -290,14 +319,18 @@ export default function CertificateViewer() {
     intervalId = setInterval(async () => {
       const latestCert = await fetchLatestCert()
       console.log('dataCache', Math.random(), JSON.stringify(latestCert))
-      if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) latest.current = latestCert
+      if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
+        latest.current = latestCert
+        setData(latestCert)
+      }
     }, 2 * 1000)
 
     // Cleanup the interval on unmount
     return () => { clearInterval(intervalId) }
   }, [curPersona, id, origin, context, fetchCert])
 
-  if (errorHash) return <p>ErrHash:{errorHash}</p>
+  if (errorLast) return <>ErrLast:{errorLast}</>
+  if (errorHash) return <>ErrHash:{errorHash}</>
 
   return (
     <>
@@ -306,16 +339,151 @@ export default function CertificateViewer() {
           __html: '#root > div > div > div {animation:none;}\n',
         }}
       />
-      <style
-        dangerouslySetInnerHTML={{
-          __html: '#root > div {background:gray;}\n',
-        }}
-      />
-      <h3>CertificateViewer</h3>
-      <hr />
-      <small>{latest.current && JSON.stringify(latest.current)}</small>
-      <br />
       {/* <small>{loading}</small> */}
+      {/* START */}
+      <Nav />
+      <Header userFullName={persona.name} companyName={persona.company} />
+      <LeftWrapper area="timeline">
+        <Timeline
+          name={persona.company}
+          disclaimer={disclaimer}
+          variant={'hyproof'}
+        >
+          <Timeline.Item
+            variant="hyproof"
+            title={'Initiation'}
+            checked={data?.created_at}
+          >
+            {data?.created_at && formatTimelineDate(data?.created_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Carbon Embodiment'}
+            checked={data?.embodied_co2}
+          >
+            {data?.embodied_co2 && formatTimelineDate(data?.updated_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Issuance'}
+            checked={data?.state === 'issued'}
+          >
+            {data?.state === 'issued' && formatTimelineDate(data.updated_at)}
+          </Timeline.Item>
+        </Timeline>
+        <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
+      </LeftWrapper>
+      <MainWrapper>
+        <Grid.Panel area="main">
+          <ContainerDiv>
+            <Paper>
+              {data === null && <>...</>}
+              {data && (<>
+                <Grid
+                  areas={[
+                    ['div-header', 'div-header', 'div-header'],
+                    ['div-ownership', 'div-details', 'div-details'],
+                  ]}
+                  rows={['auto', 'auto']}
+                  columns={['1fr', '2fr']}
+                  gap="15px"
+                >
+                  <Grid.Panel area="div-header">
+                    <CertificateViewHeader id={id} />
+                  </Grid.Panel>
+                  <Grid.Panel area="div-ownership">
+                    <CertificateViewOwnership
+                      id={id}
+                      hOwner={data?.hydrogen_owner}
+                      eOwner={data?.energy_owner}
+                    />
+                  </Grid.Panel>
+                  <Grid.Panel area="div-details">
+                    <CertificateViewDetails
+                      size={data?.hydrogen_quantity_wh}
+                      start={data?.production_start_time}
+                      end={data?.production_end_time}
+                      energy={data?.energy_consumed_wh}
+                      eco2={data?.embodied_co2}
+                    />
+                  </Grid.Panel>
+                </Grid>
+              </>)}
+            </Paper>
+          </ContainerDiv>
+        </Grid.Panel>
+        <Sidebar area="sidebar"></Sidebar>
+      </MainWrapper>
+      {/* END */}
     </>
   )
 }
+
+const LeftWrapper = styled(Grid.Panel)`
+  max-width: 400px;
+  max-height: 100%;
+  padding: 20px 0px;
+  overflow: hidden;
+  background: #0c3b38;
+  width: 400px;
+`
+
+const MainWrapper = styled.div`
+  display: grid;
+  grid: subgrid / subgrid;
+  grid-area: 2 / 1 / -1 / -1;
+  overflow: hidden;
+  text-align: center;
+`
+
+const Sidebar = styled(Grid.Panel)`
+  align-items: center;
+  justify-items: center;
+  min-width: 340px;
+  color: white;
+  background: #0c3b38;
+`
+
+const ContainerDiv = styled.div`
+  display: grid;
+  height: 100%;
+  grid-area: 1 / 1 / -1 / -1;
+  background: #228077 url(${BgMoleculesImageSVG}) repeat;
+  background-size: 100px;
+  padding: 34px;
+  height: 100%;
+  align-content: start;
+`
+
+const Paper = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  color: #000000;
+  background: #efefef;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 41px 41px 0;
+    border-style: solid;
+    border-color: transparent #228077 #228077 transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 40px 40px 0;
+    border-style: solid;
+    border-color: transparent #228077 #efefef transparent;
+    background: transparent;
+    display: block;
+    width: 0;
+  }
+`
