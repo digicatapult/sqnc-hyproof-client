@@ -41,7 +41,8 @@ const WrapperDiv = styled.div`
 `
 
 const GreenBgDiv = styled.div`
-  background: #228077 url(${BgImageSVG}) repeat 25%;
+  background: #228077 url(${BgImageSVG}) repeat;
+  background-size: 100px;
 `
 
 const UnorderedList = styled.ul`
