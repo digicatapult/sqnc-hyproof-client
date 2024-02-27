@@ -10,9 +10,12 @@ import CertificateActionsButtons from './CertificateActionsButtons'
 
 import useAxios from '../../hooks/use-axios'
 import { useNavigate } from 'react-router-dom'
+import { TimelineDisclaimer } from './shared.js'
 
 import { personas } from '../../App'
 
+const disclaimer =
+  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
 const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
@@ -37,7 +40,7 @@ const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
   return body
 }
 
-export default function CertificateForm(props) {
+export default function CertificateForm() {
   const { current, update } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
   const origin = persona.origin
@@ -130,14 +133,36 @@ export default function CertificateForm(props) {
   return (
     <>
       <TimelineWrapper area="timeline">
-        <Timeline {...props}>
-          {props.items.map(({ message, ...rest }) => (
-            <Timeline.Item key={rest.title} {...props} {...rest}>
-              {message && <p>{message}</p>}
-            </Timeline.Item>
-          ))}
+        <Timeline
+          name={dataChain?.id && persona.company}
+          disclaimer={disclaimer}
+          variant={'hyproof'}
+        >
+          <Timeline.Item
+            variant="hyproof"
+            title={'Initiation'}
+            checked={dataFinal?.state === 'initiated'}
+          >
+            {dataFinal?.state === 'initiated' ? dataFinal.created_at : null}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Carbon Embodiment'}
+            checked={dataFinal?.embodied_co2}
+          >
+            {dataFinal?.embodied_co2 &&
+              formatTimelineDate(dataFinal.updated_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Issuance'}
+            checked={dataFinal?.state === 'issued'}
+          >
+            {dataFinal?.state === 'issued' &&
+              formatTimelineDate(dataFinal.updated_at)}
+          </Timeline.Item>
         </Timeline>
-        <TimelineDisclaimer>{props.disclaimer}</TimelineDisclaimer>
+        <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </TimelineWrapper>
       <Form action="" onSubmit={handleSubmitStep}>
         <Grid.Panel area="main">
@@ -185,12 +210,4 @@ const TimelineWrapper = styled(Grid.Panel)`
   padding: 20px 0px;
   overflow: hidden;
   background: #0c3b38;
-`
-
-const TimelineDisclaimer = styled('div')`
-  padding: 50px 20px;
-  color: #33e58c;
-  opacity: 0.5;
-  font-size: 12px;
-  line-height: 20px;
 `

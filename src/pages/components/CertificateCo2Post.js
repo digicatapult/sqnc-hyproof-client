@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Grid } from '@digicatapult/ui-component-library'
+import { Grid, Timeline } from '@digicatapult/ui-component-library'
 
 import Nav from '../components/Nav'
 import Header from '../components/Header'
@@ -8,11 +8,15 @@ import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 
 import { Context } from '../../utils/Context'
+import { formatTimelineDate } from '../../utils/helpers'
 import { personas } from '../../App'
+import { TimelineDisclaimer } from './shared'
 
 import useAxios from '../../hooks/use-axios'
 
 const embodiedCo2 = 135
+const disclaimer =
+  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
 
 export default function CertificateCo2Post() {
   const { id } = useParams()
@@ -125,7 +129,30 @@ export default function CertificateCo2Post() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <LeftWrapper area="timeline"></LeftWrapper>
+      <LeftWrapper area="timeline">
+        <Timeline
+          name={persona.company}
+          disclaimer={disclaimer}
+          variant={'hyproof'}
+        >
+          <Timeline.Item variant="hyproof" title={'Initiation'} checked={true}>
+            {dataCertFound && formatTimelineDate(dataCertFound.created_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Carbon Embodiment'}
+            checked={dataCertChain?.embodied_co2}
+          >
+            {dataCertChain?.embodied_co2 &&
+              formatTimelineDate(dataCertChain.updated_at)}
+          </Timeline.Item>
+          <Timeline.Item variant="hyproof" title={'Issuance'} checked={false}>
+            {dataCertChain?.state == 'issued' &&
+              formatTimelineDate(dataCertFinal.updated_at)}
+          </Timeline.Item>
+        </Timeline>
+        <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
+      </LeftWrapper>
       <MainWrapper>
         <Grid.Panel area="main">
           <Container>

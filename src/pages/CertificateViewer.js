@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
-import { Grid } from '@digicatapult/ui-component-library'
+import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -13,12 +13,15 @@ import { useParams } from 'react-router-dom'
 import useAxios from '../hooks/use-axios'
 
 import CertificateViewHeader from './components/CertificateViewHeader'
-
 import CertificateViewOwnership from './components/CertificateViewOwnership'
 import CertificateViewDetails from './components/CertificateViewDetails'
+import { formatTimelineDate } from '../utils/helpers'
+import { TimelineDisclaimer } from './components/shared'
 
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
+const disclaimer =
+  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
 export default function CertificateViewer() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
@@ -55,7 +58,36 @@ export default function CertificateViewer() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <LeftWrapper area="timeline"></LeftWrapper>
+      <LeftWrapper area="timeline">
+        <Timeline
+          name={persona.company}
+          disclaimer={disclaimer}
+          variant={'hyproof'}
+        >
+          <Timeline.Item
+            variant="hyproof"
+            title={'Initiation'}
+            checked={data?.created_at}
+          >
+            {data?.created_at && formatTimelineDate(data.created_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Carbon Embodiment'}
+            checked={data?.embodied_co2}
+          >
+            {data?.embodied_co2 && formatTimelineDate(data?.updated_at)}
+          </Timeline.Item>
+          <Timeline.Item
+            variant="hyproof"
+            title={'Issuance'}
+            checked={data?.state === 'issued'}
+          >
+            {data?.state === 'issued' && formatTimelineDate(data.updated_at)}
+          </Timeline.Item>
+        </Timeline>
+        <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
+      </LeftWrapper>
       <MainWrapper>
         <Grid.Panel area="main">
           <ContainerDiv>
