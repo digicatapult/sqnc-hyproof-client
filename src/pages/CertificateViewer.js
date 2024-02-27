@@ -209,37 +209,95 @@
 //   }
 // `
 
-import React, { useRef, useContext, useEffect } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Context } from '../utils/Context'
 import useAxios from '../hooks/use-axios'
 import { personas } from '../App'
 
 export default function CertificateViewer() {
+  // Constants
   const { id } = useParams()
-  const { current } = useContext(Context)
-  const { origin } = personas.find(({ id }) => id === current)
-  const last = useRef(null)
+  const context = useContext(Context)
+  const { current: curPersona } = context
+  const { origin } = personas.find(({ id }) => id === curPersona)
+  const latest = useRef(null)
+  const [errorHash, setErrorHash] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
+
+  // const embodiedCo2 = 135
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
+    // Set empty interval identifier
+    let intervalId = null
+
     // Fetch latest certificate
     const fetchLatestCert = async () => {
       return await fetchCert({ url: `${origin}/v1/certificate/${id}` })
     }
+
     // Post co2 if needed
-    const co2PostIfNeeded = async () => { console.log('co2PostIfNeeded'); return 2 }
-    // If Emma then post co2 if not set, as in if co2 key from fetch result is null
-    current == 'emma' && fetchLatestCert().then((c) => co2PostIfNeeded())
-    // Fetch every few secs
-    const intervalId = setInterval(async () => {
+    const co2PostIfNeeded = async (foundCert) => {
+      let url, body
+      // setLoading(true)
+      const hasCo2 = foundCert?.embodied_co2 !== null
+      if (hasCo2) return
+      const foundCertHash = foundCert?.commitment
+      const {
+        currentCommitment: hash,
+        currentCommitmentSalt: salt,
+        currentEnergyConsumedWh: energy,
+        currentProductionStartTime: start,
+        currentProductionEndTime: end,
+      } = context
+      if (foundCertHash != hash) {
+        setErrorHash('ErrorFoundCertHasWrongHash')
+        return
+      }
+      console.log(`Co2post:ID#${id}|salt ${salt}|energy ${energy}|start ${start}|end ${end}`)
+      url = `${origin}/v1/certificate/${id}`
+      body = {
+        commitment_salt: salt,
+        energy_consumed_wh: energy,
+        production_start_time: start,
+        production_end_time: end,
+      }
+      const resLocal = await fetchCert({ url, body, method: 'put' })
+      // setDataCertLocal(resLocal)
+      if (resLocal?.state !== 'initiated') return
+      url = `${origin}/v1/certificate/${id}/issuance`
+      body = {}
+      const resChain = await fetchCert({ url, body })
+      // setDataCertChain(resChain)
+      if (resChain?.state !== 'submitted') return
+      url = `${origin}/v1/certificate/${id}`
+      let isFinalised = false
+      while (!isFinalised) {
+        const res = await fetchCert({ url })
+        // setDataCertFinal(res)
+        if (res?.state === 'issued') isFinalised = true
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+      // setLoading(false)
+      alert('DONE')
+    }
+
+    // If Emma then post co2 if it hasn't got co2, as in, if no embedded co2 from fetch
+    curPersona === 'emma' && fetchLatestCert().then((c) => co2PostIfNeeded(c))
+
+    // Fetch every few secs ( TODO: add delay ? )
+    intervalId = setInterval(async () => {
       const latestCert = await fetchLatestCert()
       console.log('dataCache', Math.random(), JSON.stringify(latestCert))
-      if (JSON.stringify(latestCert) != JSON.stringify(last.current)) last.current = latestCert
+      if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) latest.current = latestCert
     }, 2 * 1000)
-    return () => { clearInterval(intervalId) } // unmountComponent
-  }, [current, id, origin, fetchCert])
+
+    // Cleanup the interval on unmount
+    return () => { clearInterval(intervalId) }
+  }, [curPersona, id, origin, context, fetchCert])
+
+  if (errorHash) return <p>ErrHash:{errorHash}</p>
 
   return (
     <>
@@ -255,7 +313,9 @@ export default function CertificateViewer() {
       />
       <h3>CertificateViewer</h3>
       <hr />
-      <small>{last.current && JSON.stringify(last.current)}</small>
+      <small>{latest.current && JSON.stringify(latest.current)}</small>
+      <br />
+      {/* <small>{loading}</small> */}
     </>
   )
 }
