@@ -334,13 +334,14 @@ export default function CertificateViewer() {
 
   return (
     <>
+      {/* TODO: Remove this style element */}
       <style
         dangerouslySetInnerHTML={{
           __html: '#root > div > div > div {animation:none;}\n',
         }}
       />
-      {/* <small>{loading}</small> */}
-      {/* START */}
+      {/* TODO: Add some loading spinner */}
+      {/* <>{loading}</> */}
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
       <LeftWrapper area="timeline">
@@ -416,7 +417,6 @@ export default function CertificateViewer() {
         </Grid.Panel>
         <Sidebar area="sidebar"></Sidebar>
       </MainWrapper>
-      {/* END */}
     </>
   )
 }
