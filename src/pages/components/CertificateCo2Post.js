@@ -141,9 +141,10 @@ export default function CertificateCo2Post() {
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
-            checked={false}
+            checked={dataCertChain?.embodied_co2}
           >
-            {dataCertChain && formatTimelineDate(dataCertChain.updated_at)}
+            {dataCertChain?.embodied_co2 &&
+              formatTimelineDate(dataCertChain.updated_at)}
           </Timeline.Item>
           <Timeline.Item variant="hyproof" title={'Issuance'} checked={false}>
             {dataCertChain?.state == 'issued' &&
