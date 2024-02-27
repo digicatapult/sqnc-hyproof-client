@@ -65,9 +65,11 @@ export default function CertificateManager() {
         </QueryClientProvider>
       ) : (
         <QueryClientProvider client={new QueryClient()}>
-          <CertificateViewPostSwitcher />
+          {/* <CertificateViewPostSwitcher /> */}
+          <CertificateViewer />
         </QueryClientProvider>
       )}
+      <b style={{ display: 'none' }}>{typeof CertificateViewPostSwitcher}</b>
     </>
   )
 }
