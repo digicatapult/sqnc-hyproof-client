@@ -33,7 +33,7 @@ const CertificateViewPostSwitcher = () => {
       } catch (e) {
         alert(e)
       }
-      const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 > 0
+      const embodiedCo2 = res?.embodied_co2 != null && res?.embodied_co2 >= 0
       setQueriedCert(res)
       setHasCo2(embodiedCo2)
       setIsCo2Checked(true)
