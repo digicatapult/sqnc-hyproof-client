@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { useRef } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
@@ -21,8 +20,6 @@ import { TimelineDisclaimer } from './components/shared'
 
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 
 const disclaimer = 'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
@@ -77,6 +74,7 @@ export default function CertificateViewer() {
         setErrorHash('ErrorFoundCertHasWrongHash')
         return
       }
+      // eslint-disable-next-line no-console
       console.log(`Co2post:ID#${id}|salt ${salt}|energy ${energy}|start ${start}|end ${end}`)
       url = `${origin}/v1/certificate/${id}`
       body = {
@@ -111,7 +109,8 @@ export default function CertificateViewer() {
     // Fetch every few secs ( TODO: add delay ? )
     intervalId = setInterval(async () => {
       const latestCert = await fetchLatestCert()
-      console.log('dataCache', Math.random(), JSON.stringify(latestCert))
+      // eslint-disable-next-line no-console
+      console.log('dataCache', Math.random(), JSON.stringify(latest.current))
       if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
         latest.current = latestCert
         setData(latestCert)
