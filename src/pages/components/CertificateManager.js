@@ -59,6 +59,7 @@ export default function CertificateManager() {
   const { current } = useContext(Context)
   return (
     <>
+      {/* TODO: Move all the logic to CertificateViewer */}
       {current != 'emma' ? (
         <QueryClientProvider client={new QueryClient()}>
           <CertificateViewer />
