@@ -10,7 +10,7 @@ import CertificateActionsButtons from './CertificateActionsButtons'
 
 import useAxios from '../../hooks/use-axios'
 import { useNavigate } from 'react-router-dom'
-import { TimelineDisclaimer } from './shared'
+import { TimelineDisclaimer } from './shared.js'
 
 import { personas } from '../../App'
 

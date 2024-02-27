@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const TimelineDisclaimer = styled('div')`
   padding: 50px 20px;
