@@ -16,6 +16,7 @@ import useAxios from '../hooks/use-axios'
 import CertificateViewHeader from './components/CertificateViewHeader'
 import CertificateViewOwnership from './components/CertificateViewOwnership'
 import CertificateViewDetails from './components/CertificateViewDetails'
+import { formatTimelineDate } from '../utils/helpers'
 import { TimelineDisclaimer } from './components/shared'
 
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
@@ -232,7 +233,6 @@ import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 // `
 
 const disclaimer = 'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
-const formatTimelineDate = (d) => new Date(d).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' })
 
 export default function CertificateViewer() {
   // Constants
@@ -378,37 +378,39 @@ export default function CertificateViewer() {
           <ContainerDiv>
             <Paper>
               {data === null && <>...</>}
-              {data && (<>
-                <Grid
-                  areas={[
-                    ['div-header', 'div-header', 'div-header'],
-                    ['div-ownership', 'div-details', 'div-details'],
-                  ]}
-                  rows={['auto', 'auto']}
-                  columns={['1fr', '2fr']}
-                  gap="15px"
-                >
-                  <Grid.Panel area="div-header">
-                    <CertificateViewHeader id={id} />
-                  </Grid.Panel>
-                  <Grid.Panel area="div-ownership">
-                    <CertificateViewOwnership
-                      id={id}
-                      hOwner={data?.hydrogen_owner}
-                      eOwner={data?.energy_owner}
-                    />
-                  </Grid.Panel>
-                  <Grid.Panel area="div-details">
-                    <CertificateViewDetails
-                      size={data?.hydrogen_quantity_wh}
-                      start={data?.production_start_time}
-                      end={data?.production_end_time}
-                      energy={data?.energy_consumed_wh}
-                      eco2={data?.embodied_co2}
-                    />
-                  </Grid.Panel>
-                </Grid>
-              </>)}
+              {data && (
+                <>
+                  <Grid
+                    areas={[
+                      ['div-header', 'div-header', 'div-header'],
+                      ['div-ownership', 'div-details', 'div-details'],
+                    ]}
+                    rows={['auto', 'auto']}
+                    columns={['1fr', '2fr']}
+                    gap="15px"
+                  >
+                    <Grid.Panel area="div-header">
+                      <CertificateViewHeader id={id} />
+                    </Grid.Panel>
+                    <Grid.Panel area="div-ownership">
+                      <CertificateViewOwnership
+                        id={id}
+                        hOwner={data?.hydrogen_owner}
+                        eOwner={data?.energy_owner}
+                      />
+                    </Grid.Panel>
+                    <Grid.Panel area="div-details">
+                      <CertificateViewDetails
+                        size={data?.hydrogen_quantity_wh}
+                        start={data?.production_start_time}
+                        end={data?.production_end_time}
+                        energy={data?.energy_consumed_wh}
+                        eco2={data?.embodied_co2}
+                      />
+                    </Grid.Panel>
+                  </Grid>
+                </>
+              )}
             </Paper>
           </ContainerDiv>
         </Grid.Panel>
