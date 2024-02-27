@@ -1,3 +1,5 @@
+import styled from "styled-components"
+
 export const TimelineDisclaimer = styled('div')`
   padding: 50px 20px;
   color: #33e58c;
