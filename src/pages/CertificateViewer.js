@@ -71,8 +71,6 @@ export default function CertificateViewer() {
         setErrorHash('ErrorFoundCertHasWrongHash')
         return
       }
-      // eslint-disable-next-line no-console
-      console.log(`PostCo2#${id}|salt ${salt}|e ${energy}|times ${start}${end}`)
       url = `${origin}/v1/certificate/${id}`
       body = {
         commitment_salt: salt,
@@ -103,19 +101,13 @@ export default function CertificateViewer() {
     // If Emma then post co2 if it hasn't got co2, as in, if no embedded co2 from fetch
     curPersona === 'emma' &&
       fetchLatestCert().then((c) => {
-        // eslint-disable-next-line no-console
-        console.log('done fetchLatestCert')
         co2PostIfNeeded(c).then(() => {
-          // eslint-disable-next-line no-console
-          console.log('done co2PostIfNeeded')
           intervalId = setInterval(async () => {
             const latestCert = await fetchLatestCert()
             if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
               latest.current = latestCert
               setData(latestCert)
             }
-            // eslint-disable-next-line no-console
-            console.log('d', Math.random(), JSON.stringify(latest.current))
           }, 2 * 1000)
         })
       })
@@ -128,8 +120,6 @@ export default function CertificateViewer() {
           latest.current = latestCert
           setData(latestCert)
         }
-        // eslint-disable-next-line no-console
-        console.log('dataCache', Math.random(), JSON.stringify(latest.current))
       }, 2 * 1000))
 
     // Cleanup the interval on unmount
