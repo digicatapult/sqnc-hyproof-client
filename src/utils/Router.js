@@ -10,8 +10,6 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import Certificates from '../pages/Certificates'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
 import CertificateManager from '../pages/components/CertificateManager'
