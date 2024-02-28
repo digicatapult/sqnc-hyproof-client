@@ -32,7 +32,7 @@ export const personas = [
     title: 'Connor Connor',
     subtitle: 'The Hydrogen Consumer',
     background: '#FDB6D4',
-    origin: 'http://localhost:8030',
+    origin: 'http://localhost:8020',
   },
   {
     id: 'reginald',
