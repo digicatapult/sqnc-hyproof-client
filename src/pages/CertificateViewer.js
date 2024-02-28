@@ -127,12 +127,6 @@ export default function CertificateViewer() {
 
   return (
     <>
-      {/* TODO: Remove this style element */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: '#root > div > div > div {animation:none;}\n',
-        }}
-      />
       {/* TODO: Add some loading spinner */}
       {/* <>{loading}</> */}
       <Nav />
