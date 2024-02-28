@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Routes from './utils/Router'
 
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
@@ -74,35 +75,37 @@ export default function App() {
   }
 
   return (
-    <FullScreenGrid
-      color={persona.background}
-      showSelector={showSelector}
-      areas={[
-        ['home', 'nav', 'nav'],
-        ['header', 'header', 'sidebar'],
-        ['timeline', 'main', 'sidebar'],
-      ]}
-      columns={['auto', '1fr', 'auto']}
-      rows={['78px', '98px', '1fr']}
-    >
-      <SidePanel
-        width={400}
-        variant="hyproof"
-        heading="Certificate View"
-        title={persona.name}
-        callback={(e) => setShowSelector(e.isOpen)}
+    <QueryClientProvider client={new QueryClient()}>
+      <FullScreenGrid
+        color={persona.background}
+        showSelector={showSelector}
+        areas={[
+          ['home', 'nav', 'nav'],
+          ['header', 'header', 'sidebar'],
+          ['timeline', 'main', 'sidebar'],
+        ]}
+        columns={['auto', '1fr', 'auto']}
+        rows={['78px', '98px', '1fr']}
       >
-        {personas.map((el) => (
-          <SidePanel.Item
-            {...el}
-            key={el.id}
-            update={(_, persona) => handlePersonaSwitch(persona)}
-            variant="hyproof"
-          />
-        ))}
-      </SidePanel>
-      <Routes />
-    </FullScreenGrid>
+        <SidePanel
+          width={400}
+          variant="hyproof"
+          heading="Certificate View"
+          title={persona.name}
+          callback={(e) => setShowSelector(e.isOpen)}
+        >
+          {personas.map((el) => (
+            <SidePanel.Item
+              {...el}
+              key={el.id}
+              update={(_, persona) => handlePersonaSwitch(persona)}
+              variant="hyproof"
+            />
+          ))}
+        </SidePanel>
+        <Routes />
+      </FullScreenGrid>
+    </QueryClientProvider>
   )
 }
 

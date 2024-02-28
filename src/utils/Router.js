@@ -10,7 +10,7 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import Certificates from '../pages/Certificates'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
@@ -19,13 +19,7 @@ import Error404 from '../pages/Error404'
 
 const CreateViewSwitcher = () => {
   const create = useSearchParams()[0].get('create')
-  return create ? (
-    <QueryClientProvider client={new QueryClient()}>
-      <Certificates />
-    </QueryClientProvider>
-  ) : (
-    <CertificatesViewAll />
-  )
+  return create ? <Certificates /> : <CertificatesViewAll />
 }
 
 export default function Routes() {
@@ -38,14 +32,7 @@ export default function Routes() {
             <Route path="/" element={<Navigate to="/certificate?create=y" />} />
             <Route path="/certificate" element={<Outlet />}>
               <Route index element={<CreateViewSwitcher />} />
-              <Route
-                path=":id"
-                element={
-                  <QueryClientProvider client={new QueryClient()}>
-                    <CertificateManager />
-                  </QueryClientProvider>
-                }
-              />
+              <Route path=":id" element={<CertificateManager />} />
             </Route>
             <Route path="*" element={<Error404 />} />
           </>
