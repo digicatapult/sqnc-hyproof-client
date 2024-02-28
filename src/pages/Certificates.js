@@ -6,7 +6,7 @@ import CertificateForm from './components/CertificateForm'
 import { Context } from '../utils/Context'
 import { personas } from '../App'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export default function Certificates() {
   const { current } = useContext(Context)
@@ -16,9 +16,9 @@ export default function Certificates() {
     <>
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
-      <QueryClientProvider client={new QueryClient()}>
-        <CertificateForm variant="hyproof" />
-      </QueryClientProvider>
+      {/* <QueryClientProvider client={new QueryClient()}> */}
+      <CertificateForm variant="hyproof" />
+      {/* </QueryClientProvider> */}
     </>
   )
 }
