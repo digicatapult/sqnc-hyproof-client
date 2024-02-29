@@ -30,8 +30,10 @@ export default function CertificateViewer() {
   const { current: curPersona } = context
   const persona = personas.find(({ id }) => id === curPersona)
   const { origin } = persona
-  const latest = useRef(null)
+  const buffer = useRef(null)
   const [data, setData] = useState(null)
+  const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
+  const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
@@ -53,10 +55,11 @@ export default function CertificateViewer() {
       if (Object.keys(result).length) return result
     }
 
-    // Post embodied co2 if needed
+    // Post co2 if needed
     const co2PostIfNeeded = async (foundCert) => {
       let url, body
-      // setLoading(true)
+      setPostingStep(1) // setLoading(true)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       const hasCo2 = foundCert?.embodied_co2 !== null
       if (hasCo2) return
       const foundCertHash = foundCert?.commitment
@@ -71,6 +74,7 @@ export default function CertificateViewer() {
         setErrorHash('ErrorFoundCertHasWrongHash')
         return
       }
+
       url = `${origin}/v1/certificate/${id}`
       body = {
         commitment_salt: salt,
@@ -78,24 +82,32 @@ export default function CertificateViewer() {
         production_start_time: start,
         production_end_time: end,
       }
+      setPostingStep(2) // setDataCertLocal(resLocal)
       const resLocal = await fetchCert({ url, body, method: 'put' })
-      // setDataCertLocal(resLocal)
+      setUnconfirmedEco2(resLocal?.embodied_co2)
       if (resLocal?.state !== 'initiated') return
+
       url = `${origin}/v1/certificate/${id}/issuance`
       body = {}
+      setPostingStep(3) // setDataCertChain(resChain)
       const resChain = await fetchCert({ url, body })
-      // setDataCertChain(resChain)
       if (resChain?.state !== 'submitted') return
+
       url = `${origin}/v1/certificate/${id}`
       let isFinalised = false
+      let res = null
+      setPostingStep(4) //
       while (!isFinalised) {
-        const res = await fetchCert({ url })
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        res = await fetchCert({ url })
         // setDataCertFinal(res)
         if (res?.state === 'issued') isFinalised = true
-        await new Promise((resolve) => setTimeout(resolve, 1000))
       }
       // setLoading(false)
-      alert('DONE')
+      // alert('DONE')
+      setPostingStep(5) //
+      buffer.current = res
+      setData(res)
     }
 
     // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch) then start fetch loop
@@ -104,8 +116,8 @@ export default function CertificateViewer() {
         co2PostIfNeeded(c).then(() => {
           intervalId = setInterval(async () => {
             const latestCert = await fetchLatestCert()
-            if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
-              latest.current = latestCert
+            if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+              buffer.current = latestCert
               setData(latestCert)
             }
           }, 2 * 1000)
@@ -116,8 +128,8 @@ export default function CertificateViewer() {
     curPersona !== 'emma' &&
       (intervalId = setInterval(async () => {
         const latestCert = await fetchLatestCert()
-        if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
-          latest.current = latestCert
+        if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+          buffer.current = latestCert
           setData(latestCert)
         }
       }, 2 * 1000))
@@ -200,6 +212,8 @@ export default function CertificateViewer() {
                         end={data?.production_end_time}
                         energy={data?.energy_consumed_wh}
                         eco2={data?.embodied_co2}
+                        unconfirmedEco2={unconfirmedEco2}
+                        step={postingStep}
                       />
                     </Grid.Panel>
                   </Grid>
