@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext, useEffect } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
@@ -21,41 +21,120 @@ import { TimelineDisclaimer } from './components/shared'
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
 const disclaimer =
-  'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+  'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
+
 export default function CertificateViewer() {
-  const { current } = useContext(Context)
-  const persona = personas.find(({ id }) => id === current)
-  const origin = persona.origin
-
+  // Constants
   const { id } = useParams()
-
-  const { error, callApiFn } = useAxios(false)
+  const context = useContext(Context)
+  const { current: curPersona } = context
+  const persona = personas.find(({ id }) => id === curPersona)
+  const { origin } = persona
+  const latest = useRef(null)
   const [data, setData] = useState(null)
+  const [errorHash, setErrorHash] = useState('')
+  const [errorLast, setErrorLast] = useState('')
+  const { callApiFn: fetchCert } = useAxios(false)
 
-  const callApi = useCallback(async () => {
-    const path = `/v1/certificate/${id}`
-    let res = null
-    try {
-      res = await callApiFn({ url: `${origin}${path}` })
-    } catch (e) {
-      alert(JSON.stringify(e))
-    }
-    if (JSON.stringify(res) != JSON.stringify(data)) setData(res)
-  }, [origin, id, data, callApiFn])
-
-  // Query API every two seconds
+  // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
-    const intervalId = setInterval(async () => {
-      await callApi()
-    }, 2 * 1000)
-    const unmountCleanup = () => clearInterval(intervalId)
-    return unmountCleanup
-  }, [callApi])
+    // Set empty interval identifier
+    let intervalId = null
 
-  if (error) return <>Err:{JSON.stringify(error?.message)}</>
+    // Fetch latest certificate
+    const fetchLatestCert = async () => {
+      let result = null
+      try {
+        result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+      } catch (e) {
+        setErrorLast(e)
+      }
+      if (!Object.keys(result).length) setErrorLast('404')
+      if (Object.keys(result).length) return result
+    }
+
+    // Post co2 if needed
+    const co2PostIfNeeded = async (foundCert) => {
+      let url, body
+      // setLoading(true)
+      const hasCo2 = foundCert?.embodied_co2 !== null
+      if (hasCo2) return
+      const foundCertHash = foundCert?.commitment
+      const {
+        currentCommitment: hash,
+        currentCommitmentSalt: salt,
+        currentEnergyConsumedWh: energy,
+        currentProductionStartTime: start,
+        currentProductionEndTime: end,
+      } = context
+      if (foundCertHash != hash) {
+        setErrorHash('ErrorFoundCertHasWrongHash')
+        return
+      }
+      url = `${origin}/v1/certificate/${id}`
+      body = {
+        commitment_salt: salt,
+        energy_consumed_wh: energy,
+        production_start_time: start,
+        production_end_time: end,
+      }
+      const resLocal = await fetchCert({ url, body, method: 'put' })
+      // setDataCertLocal(resLocal)
+      if (resLocal?.state !== 'initiated') return
+      url = `${origin}/v1/certificate/${id}/issuance`
+      body = {}
+      const resChain = await fetchCert({ url, body })
+      // setDataCertChain(resChain)
+      if (resChain?.state !== 'submitted') return
+      url = `${origin}/v1/certificate/${id}`
+      let isFinalised = false
+      while (!isFinalised) {
+        const res = await fetchCert({ url })
+        // setDataCertFinal(res)
+        if (res?.state === 'issued') isFinalised = true
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+      // setLoading(false)
+      alert('DONE')
+    }
+
+    // If Emma then post co2 if it hasn't got co2, as in, if no embedded co2 from fetch
+    curPersona === 'emma' &&
+      fetchLatestCert().then((c) => {
+        co2PostIfNeeded(c).then(() => {
+          intervalId = setInterval(async () => {
+            const latestCert = await fetchLatestCert()
+            if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
+              latest.current = latestCert
+              setData(latestCert)
+            }
+          }, 2 * 1000)
+        })
+      })
+
+    // Fetch every few secs ( TODO: add delay ? )
+    curPersona !== 'emma' &&
+      (intervalId = setInterval(async () => {
+        const latestCert = await fetchLatestCert()
+        if (JSON.stringify(latestCert) != JSON.stringify(latest.current)) {
+          latest.current = latestCert
+          setData(latestCert)
+        }
+      }, 2 * 1000))
+
+    // Cleanup the interval on unmount
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [curPersona, id, origin, context, fetchCert])
+
+  if (errorLast) return <>ErrLast:{errorLast}</>
+  if (errorHash) return <>ErrHash:{errorHash}</>
 
   return (
     <>
+      {/* TODO: Add some loading spinner */}
+      {/* <>{loading}</> */}
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
       <LeftWrapper area="timeline">
@@ -69,7 +148,7 @@ export default function CertificateViewer() {
             title={'Initiation'}
             checked={data?.created_at}
           >
-            {data?.created_at && formatTimelineDate(data.created_at)}
+            {data?.created_at && formatTimelineDate(data?.created_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
