@@ -34,6 +34,7 @@ export default function CertificateViewer() {
   const [data, setData] = useState(null)
   const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
   const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
+  const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
@@ -55,10 +56,11 @@ export default function CertificateViewer() {
       if (Object.keys(result).length) return result
     }
 
-    // Post co2 if needed
+    // Post embodied co2 if needed
     const co2PostIfNeeded = async (foundCert) => {
       let url, body
       setPostingStep(1) // setLoading(true)
+      setPosting(true)
       await new Promise((resolve) => setTimeout(resolve, 1000))
       const hasCo2 = foundCert?.embodied_co2 !== null
       if (hasCo2) return
@@ -106,6 +108,7 @@ export default function CertificateViewer() {
       // setLoading(false)
       // alert('DONE')
       setPostingStep(5) //
+      setPosting(false)
       buffer.current = res
       setData(res)
     }
@@ -214,6 +217,7 @@ export default function CertificateViewer() {
                         eco2={data?.embodied_co2}
                         unconfirmedEco2={unconfirmedEco2}
                         step={postingStep}
+                        posting={posting}
                       />
                     </Grid.Panel>
                   </Grid>
