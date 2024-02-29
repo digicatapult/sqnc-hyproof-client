@@ -16,6 +16,7 @@ import { personas } from '../../App'
 
 const disclaimer =
   'Your certification status is dynamic and may change  over time. Always refer to this page for the most up-to-date status.'
+
 const useCallbackChVal = (set) => useCallback((e) => set(e.target.value), [set])
 
 const callBodyCrafter = (enVal, sdVal, stVal, edVal, etVal, szVal) => {
