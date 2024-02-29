@@ -98,7 +98,7 @@ export default function CertificateViewer() {
       alert('DONE')
     }
 
-    // If Emma then post co2 if it hasn't got co2, as in, if no embedded co2 from fetch
+    // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch) then start fetch loop
     curPersona === 'emma' &&
       fetchLatestCert().then((c) => {
         co2PostIfNeeded(c).then(() => {
@@ -112,7 +112,7 @@ export default function CertificateViewer() {
         })
       })
 
-    // Fetch every few secs ( TODO: add delay ? )
+    // Start fetch loop ( fetch every few secs ) if not Emma
     curPersona !== 'emma' &&
       (intervalId = setInterval(async () => {
         const latestCert = await fetchLatestCert()

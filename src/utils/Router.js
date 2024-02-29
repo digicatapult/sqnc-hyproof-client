@@ -12,7 +12,6 @@ import {
 
 import Certificates from '../pages/Certificates'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
-// import CertificateManager from '../pages/components/CertificateManager'
 import CertificateViewer from '../pages/CertificateViewer'
 import Error404 from '../pages/Error404'
 
@@ -31,7 +30,6 @@ export default function Routes() {
             <Route path="/" element={<Navigate to="/certificate?create=y" />} />
             <Route path="/certificate" element={<Outlet />}>
               <Route index element={<CreateViewSwitcher />} />
-              {/* <Route path=":id" element={<CertificateManager />} /> */}
               <Route path=":id" element={<CertificateViewer />} />
             </Route>
             <Route path="*" element={<Error404 />} />
