@@ -53,7 +53,7 @@ export default function CertificateViewer() {
       if (Object.keys(result).length) return result
     }
 
-    // Post co2 if needed
+    // Post embodied co2 if needed
     const co2PostIfNeeded = async (foundCert) => {
       let url, body
       // setLoading(true)
