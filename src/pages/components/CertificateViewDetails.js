@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 
@@ -103,8 +104,12 @@ export default function CertificateViewDetails({
                 <IconWrap>
                   {!hasEco2(eco2) && posting && (
                     <>
-                      <IconSpinner></IconSpinner>
-                      Calculating and Posting Carbon Embodiment
+                      <IconSpinner>
+                        <svg viewBox="0 0 29 29">
+                          <path d="M14.5 2 a 12.5 12.5 0 0 1 0 25 a 12.5 12.5 0 0 1 0 -25" />
+                        </svg>
+                      </IconSpinner>
+                      Calculating & Posting Carbon Embodiment
                     </>
                   )}
                   {hasEco2(eco2) && !posting && <>Carbon Embodiment</>}
@@ -154,21 +159,6 @@ const FlexRoundedDiv = styled.div`
   background: ${({ bg }) => (bg === 'grey' ? '#efefef' : '#33e58c')};
 `
 
-// const FlexGreyRoundedDiv = styled(FlexRoundedDiv)`
-//   background: grey;
-// `
-
-// const BlackDiv = styled(FlexRoundedDiv)`
-//   padding: 10px;
-//   border-radius: 0;
-//   height: 28px;
-//   line-height: 68px;
-//   margin-top: 20px;
-//   padding-left: 8px;
-//
-//   background: #404040;
-// `
-
 const GreySpan = styled.span`
   margin: 20px 0px;
   min-width: 100px;
@@ -176,13 +166,6 @@ const GreySpan = styled.span`
   padding-left: 0px;
 
   background: #d9d9d9;
-`
-
-const IconSpinner = styled.span`
-  width: 29px;
-  height: 29px;
-  margin-right: 10px;
-  background: transparent url(${BgSpinnerSVG}) no-repeat;
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
@@ -263,6 +246,39 @@ const IconTime = styled.span`
   width: 26px;
   height: 26px;
   background: transparent url(${BgIconTimeSVG}) no-repeat;
+`
+
+const Animation = keyframes`
+  0% {
+    stroke-dasharray: 0 78.5399;
+  }
+`
+
+const IconSpinner = styled.span`
+  width: 29px;
+  height: 29px;
+  margin-right: 10px;
+  background: transparent url(${BgSpinnerSVG}) no-repeat;
+
+  & svg {
+    width: 29px
+    height: 29px
+    fill: none;
+
+    & path {
+      fill: none;
+
+      stroke: #3e3e3e;
+
+      // stroke: #33e58c;
+
+      stroke-width: 4;
+      stroke-linecap: butt;
+      stroke-dasharray: 78.5399 78.5399;
+
+      animation: ${Animation} 18s ease-out forwards;
+    }
+  }
 `
 
 const Text = styled.div`
