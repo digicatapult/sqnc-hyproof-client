@@ -17,6 +17,8 @@ export default function CertificateViewDetails({
   end,
   energy,
   eco2,
+  posting,
+  unconfirmedEco2,
 }) {
   return (
     <PaddedWrapperDiv>
@@ -90,6 +92,32 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexRoundedDiv>
         )}
+        {posting && !unconfirmedEco2 && (
+          <FlexGreyRoundedDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>
+                <IconWrap>
+                  <IconDate></IconDate>Heading
+                </IconWrap>
+              </HeadingDiv>
+              <WrapPaddedDiv>
+                <BlackDiv />
+              </WrapPaddedDiv>
+            </ContainerFullWidthWrapDiv>
+          </FlexGreyRoundedDiv>
+        )}
+        {posting && unconfirmedEco2 && (
+          <FlexGreyRoundedDiv>
+            <ContainerFullWidthWrapDiv>
+              <HeadingDiv>
+                <IconWrap>
+                  <IconDate></IconDate>Heading
+                </IconWrap>
+              </HeadingDiv>
+              <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
+            </ContainerFullWidthWrapDiv>
+          </FlexGreyRoundedDiv>
+        )}
       </ContainerFlexWrapDiv>
     </PaddedWrapperDiv>
   )
@@ -125,6 +153,21 @@ const FlexRoundedDiv = styled.div`
 
   border-radius: 10px;
   background: #33e58c;
+`
+
+const FlexGreyRoundedDiv = styled(FlexRoundedDiv)`
+  background: grey;
+`
+
+const BlackDiv = styled(FlexRoundedDiv)`
+  padding: 10px;
+  border-radius: 0;
+  height: 28px;
+  line-height: 68px;
+  margin-top: 20px;
+  padding-left: 8px;
+
+  background: #404040;
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
