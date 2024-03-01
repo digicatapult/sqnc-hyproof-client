@@ -103,7 +103,8 @@ export default function CertificateViewDetails({
                 <IconWrap>
                   {!hasEco2(eco2) && posting && (
                     <>
-                      <IconSpinner></IconSpinner>Calculating Carbon Embodiment
+                      <IconSpinner></IconSpinner>
+                      Calculating and Posting Carbon Embodiment
                     </>
                   )}
                   {hasEco2(eco2) && !posting && <>Carbon Embodiment</>}
@@ -175,6 +176,13 @@ const GreySpan = styled.span`
   padding-left: 0px;
 
   background: #d9d9d9;
+`
+
+const IconSpinner = styled.span`
+  width: 29px;
+  height: 29px;
+  margin-right: 10px;
+  background: transparent url(${BgSpinnerSVG}) no-repeat;
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
@@ -255,13 +263,6 @@ const IconTime = styled.span`
   width: 26px;
   height: 26px;
   background: transparent url(${BgIconTimeSVG}) no-repeat;
-`
-
-const IconSpinner = styled.span`
-  width: 29px;
-  height: 29px;
-  margin-right: 10px;
-  background: transparent url(${BgSpinnerSVG}) no-repeat;
 `
 
 const Text = styled.div`
