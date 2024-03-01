@@ -32,8 +32,8 @@ export default function CertificateViewer() {
   const { origin } = persona
   const buffer = useRef(null)
   const [data, setData] = useState(null)
-  // const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   // const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
+  // const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
