@@ -32,7 +32,7 @@ export default function CertificateViewer() {
   const { origin } = persona
   const buffer = useRef(null)
   const [data, setData] = useState(null)
-  const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
+  // const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
   // const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
@@ -86,7 +86,7 @@ export default function CertificateViewer() {
       }
       // setPostingStep(2) // setDataCertLocal(resLocal)
       const resLocal = await fetchCert({ url, body, method: 'put' })
-      setUnconfirmedEco2(resLocal?.embodied_co2)
+      // setUnconfirmedEco2(resLocal?.embodied_co2)
       if (resLocal?.state !== 'initiated') return
 
       url = `${origin}/v1/certificate/${id}/issuance`
@@ -215,7 +215,7 @@ export default function CertificateViewer() {
                         end={data?.production_end_time}
                         energy={data?.energy_consumed_wh}
                         eco2={data?.embodied_co2}
-                        unconfirmedEco2={unconfirmedEco2}
+                        // unconfirmedEco2={unconfirmedEco2}
                         // step={postingStep}
                         posting={posting}
                       />
