@@ -224,18 +224,6 @@ const IconWrap = styled.div`
   color: #1a1a1a;
 `
 
-const IconDate = styled.span`
-  width: 26px;
-  height: 26px;
-  background: transparent url(${BgIconDateSVG}) no-repeat;
-`
-
-const IconTime = styled.span`
-  width: 26px;
-  height: 26px;
-  background: transparent url(${BgIconTimeSVG}) no-repeat;
-`
-
 const Animation = keyframes`
   0% {
     stroke-dasharray: 0 78.5399;
@@ -256,9 +244,7 @@ const IconSpinner = styled.span`
     & path {
       fill: none;
 
-      stroke: #3e3e3e;
-
-      // stroke: #33e58c;
+      stroke: #33e58c;
 
       stroke-width: 4;
       stroke-linecap: butt;
@@ -267,6 +253,18 @@ const IconSpinner = styled.span`
       animation: ${Animation} 18s ease-out forwards;
     }
   }
+`
+
+const IconDate = styled.span`
+  width: 26px;
+  height: 26px;
+  background: transparent url(${BgIconDateSVG}) no-repeat;
+`
+
+const IconTime = styled.span`
+  width: 26px;
+  height: 26px;
+  background: transparent url(${BgIconTimeSVG}) no-repeat;
 `
 
 const Text = styled.div`
