@@ -96,8 +96,7 @@ export default function CertificateViewDetails({
           </FlexRoundedDiv>
         )}
         {/* NEW */}
-        {/* hasEco2(eco2) || posting */}
-        {(2 == 2 || 1 == 1) && (
+        {(hasEco2(eco2) || posting) && (
           <FlexRoundedDiv bg={posting === true ? 'grey' : 'green'}>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>
@@ -107,9 +106,6 @@ export default function CertificateViewDetails({
                       <IconSpinner></IconSpinner>Calculating Carbon Embodiment
                     </>
                   )}
-                  <>
-                    <IconSpinner></IconSpinner>Calculating Carbon Embodiment
-                  </>
                   {hasEco2(eco2) && !posting && <>Carbon Embodiment</>}
                 </IconWrap>
               </HeadingDiv>
