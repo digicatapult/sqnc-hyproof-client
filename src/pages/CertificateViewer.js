@@ -33,7 +33,6 @@ export default function CertificateViewer() {
   const buffer = useRef(null)
   const [data, setData] = useState(null)
   // const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
-  // const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
@@ -59,7 +58,7 @@ export default function CertificateViewer() {
     // Post embodied co2 if needed
     const co2PostIfNeeded = async (foundCert) => {
       let url, body
-      // setPostingStep(1) // setLoading(true)
+
       setPosting(true)
       await new Promise((resolve) => setTimeout(resolve, 1000))
       const hasCo2 = foundCert?.embodied_co2 !== null
@@ -86,7 +85,6 @@ export default function CertificateViewer() {
       }
       // setPostingStep(2) // setDataCertLocal(resLocal)
       const resLocal = await fetchCert({ url, body, method: 'put' })
-      // setUnconfirmedEco2(resLocal?.embodied_co2)
       if (resLocal?.state !== 'initiated') return
 
       url = `${origin}/v1/certificate/${id}/issuance`
@@ -105,8 +103,6 @@ export default function CertificateViewer() {
         // setDataCertFinal(res)
         if (res?.state === 'issued') isFinalised = true
       }
-      // setLoading(false)
-      // alert('DONE')
       // setPostingStep(5) //
       setPosting(false)
       buffer.current = res
@@ -148,8 +144,6 @@ export default function CertificateViewer() {
 
   return (
     <>
-      {/* TODO: Add some loading spinner */}
-      {/* <>{loading}</> */}
       <Nav />
       <Header userFullName={persona.name} companyName={persona.company} />
       <LeftWrapper area="timeline">
@@ -186,6 +180,7 @@ export default function CertificateViewer() {
         <Grid.Panel area="main">
           <ContainerDiv>
             <Paper>
+              {/* TODO: Add some {loading} spinner */}
               {data === null && <>...</>}
               {data && (
                 <>
