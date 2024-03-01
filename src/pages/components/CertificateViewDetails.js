@@ -6,6 +6,8 @@ import CertificateTimeInterval from './CertificateTimeInterval'
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
+import BgSpinnerSVG from '../../assets/images/spinner-progress.svg'
+
 const hasDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
 const hasEnergy = (e) => e !== null && e !== undefined && isFinite(e) && e > 0
 const hasSize = (s) => s !== null && s !== undefined && isFinite(s) && s > 0
@@ -18,7 +20,7 @@ export default function CertificateViewDetails({
   energy,
   eco2,
   posting,
-  unconfirmedEco2,
+  // unconfirmedEco2,
 }) {
   return (
     <PaddedWrapperDiv>
@@ -84,7 +86,8 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {hasEco2(eco2) && (
+        {/* OLD: hasEco2(eco2) */}
+        {true == false && (
           <FlexRoundedDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Carbon Embodiment</HeadingDiv>
@@ -92,31 +95,30 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexRoundedDiv>
         )}
-        {posting && !unconfirmedEco2 && (
-          <FlexGreyRoundedDiv>
+        {/* NEW */}
+        {/* hasEco2(eco2) || posting */}
+        {(2 == 2 || 1 == 1) && (
+          <FlexRoundedDiv bg={posting === true ? 'grey' : 'green'}>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>
                 <IconWrap>
-                  <IconDate></IconDate>Heading
+                  {!hasEco2(eco2) && posting && (
+                    <>
+                      <IconSpinner></IconSpinner>Calculating Carbon Embodiment
+                    </>
+                  )}
+                  <>
+                    <IconSpinner></IconSpinner>Calculating Carbon Embodiment
+                  </>
+                  {hasEco2(eco2) && !posting && <>Carbon Embodiment</>}
                 </IconWrap>
               </HeadingDiv>
               <WrapPaddedDiv>
-                <BlackDiv />
+                {!hasEco2(eco2) && posting && <GreySpan></GreySpan>}
+                {hasEco2(eco2) && !posting && `${eco2} g CO2e`}
               </WrapPaddedDiv>
             </ContainerFullWidthWrapDiv>
-          </FlexGreyRoundedDiv>
-        )}
-        {posting && unconfirmedEco2 && (
-          <FlexGreyRoundedDiv>
-            <ContainerFullWidthWrapDiv>
-              <HeadingDiv>
-                <IconWrap>
-                  <IconDate></IconDate>Heading
-                </IconWrap>
-              </HeadingDiv>
-              <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexGreyRoundedDiv>
+          </FlexRoundedDiv>
         )}
       </ContainerFlexWrapDiv>
     </PaddedWrapperDiv>
@@ -152,22 +154,31 @@ const FlexRoundedDiv = styled.div`
   padding: 20px;
 
   border-radius: 10px;
-  background: #33e58c;
+  background: ${({ bg }) => (bg === 'grey' ? '#efefef' : '#33e58c')};
 `
 
-const FlexGreyRoundedDiv = styled(FlexRoundedDiv)`
-  background: grey;
-`
+// const FlexGreyRoundedDiv = styled(FlexRoundedDiv)`
+//   background: grey;
+// `
 
-const BlackDiv = styled(FlexRoundedDiv)`
+// const BlackDiv = styled(FlexRoundedDiv)`
+//   padding: 10px;
+//   border-radius: 0;
+//   height: 28px;
+//   line-height: 68px;
+//   margin-top: 20px;
+//   padding-left: 8px;
+//
+//   background: #404040;
+// `
+
+const GreySpan = styled.span`
+  margin: 20px 0px;
+  min-width: 100px;
   padding: 10px;
-  border-radius: 0;
-  height: 28px;
-  line-height: 68px;
-  margin-top: 20px;
-  padding-left: 8px;
+  padding-left: 0px;
 
-  background: #404040;
+  background: #d9d9d9;
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
@@ -248,6 +259,13 @@ const IconTime = styled.span`
   width: 26px;
   height: 26px;
   background: transparent url(${BgIconTimeSVG}) no-repeat;
+`
+
+const IconSpinner = styled.span`
+  width: 29px;
+  height: 29px;
+  margin-right: 10px;
+  background: transparent url(${BgSpinnerSVG}) no-repeat;
 `
 
 const Text = styled.div`
