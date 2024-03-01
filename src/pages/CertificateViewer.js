@@ -33,7 +33,7 @@ export default function CertificateViewer() {
   const buffer = useRef(null)
   const [data, setData] = useState(null)
   const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
-  const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
+  // const [postingStep, setPostingStep] = useState(0) // 1, 2, 3, 4, 5
   const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
@@ -59,7 +59,7 @@ export default function CertificateViewer() {
     // Post embodied co2 if needed
     const co2PostIfNeeded = async (foundCert) => {
       let url, body
-      setPostingStep(1) // setLoading(true)
+      // setPostingStep(1) // setLoading(true)
       setPosting(true)
       await new Promise((resolve) => setTimeout(resolve, 1000))
       const hasCo2 = foundCert?.embodied_co2 !== null
@@ -84,21 +84,21 @@ export default function CertificateViewer() {
         production_start_time: start,
         production_end_time: end,
       }
-      setPostingStep(2) // setDataCertLocal(resLocal)
+      // setPostingStep(2) // setDataCertLocal(resLocal)
       const resLocal = await fetchCert({ url, body, method: 'put' })
       setUnconfirmedEco2(resLocal?.embodied_co2)
       if (resLocal?.state !== 'initiated') return
 
       url = `${origin}/v1/certificate/${id}/issuance`
       body = {}
-      setPostingStep(3) // setDataCertChain(resChain)
+      // setPostingStep(3) // setDataCertChain(resChain)
       const resChain = await fetchCert({ url, body })
       if (resChain?.state !== 'submitted') return
 
       url = `${origin}/v1/certificate/${id}`
       let isFinalised = false
       let res = null
-      setPostingStep(4) //
+      // setPostingStep(4) //
       while (!isFinalised) {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         res = await fetchCert({ url })
@@ -107,7 +107,7 @@ export default function CertificateViewer() {
       }
       // setLoading(false)
       // alert('DONE')
-      setPostingStep(5) //
+      // setPostingStep(5) //
       setPosting(false)
       buffer.current = res
       setData(res)
@@ -216,7 +216,7 @@ export default function CertificateViewer() {
                         energy={data?.energy_consumed_wh}
                         eco2={data?.embodied_co2}
                         unconfirmedEco2={unconfirmedEco2}
-                        step={postingStep}
+                        // step={postingStep}
                         posting={posting}
                       />
                     </Grid.Panel>
@@ -273,7 +273,7 @@ const Paper = styled.div`
   width: 100%;
   padding: 15px;
   color: #000000;
-  background: #efefef;
+  background: #ffffff;
   overflow: hidden;
   &::before {
     content: '';
@@ -294,7 +294,7 @@ const Paper = styled.div`
     right: 0;
     border-width: 0 40px 40px 0;
     border-style: solid;
-    border-color: transparent #228077 #efefef transparent;
+    border-color: transparent #228077 #ffffff transparent;
     background: transparent;
     display: block;
     width: 0;
