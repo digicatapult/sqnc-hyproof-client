@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -21,7 +20,6 @@ export default function CertificateViewDetails({
   energy,
   eco2,
   posting,
-  // unconfirmedEco2,
 }) {
   return (
     <PaddedWrapperDiv>
@@ -87,16 +85,6 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {/* OLD: hasEco2(eco2) */}
-        {true == false && (
-          <FlexRoundedDiv>
-            <ContainerFullWidthWrapDiv>
-              <HeadingDiv>Carbon Embodiment</HeadingDiv>
-              <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexRoundedDiv>
-        )}
-        {/* NEW */}
         {(hasEco2(eco2) || posting) && (
           <FlexRoundedDiv bg={posting === true ? 'grey' : 'green'}>
             <ContainerFullWidthWrapDiv>
