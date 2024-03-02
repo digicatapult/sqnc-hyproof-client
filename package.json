@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/sqnc-hyproof-client",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/sqnc-hyproof-client",
     "main": "src/index.js",
