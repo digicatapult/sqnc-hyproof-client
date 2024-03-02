@@ -144,16 +144,27 @@ const FlexRoundedDiv = styled.div`
   padding: 20px;
 
   border-radius: 10px;
-  background: ${({ bg }) => (bg === 'grey' ? '#efefef' : '#33e58c')};
+  background: ${({ bg }) => (bg === 'grey' ? '#f8f8f8' : '#33e58c')};
+`
+
+const Shimmer = keyframes`
+  to {
+    background-position-x: 120%;
+  }
 `
 
 const GreySpan = styled.span`
   margin: 20px 0px;
-  min-width: 100px;
+  min-width: 180px;
   padding: 10px;
   padding-left: 0px;
 
-  background: #d9d9d9;
+  background-color: gray;
+
+  background: linear-gradient(-82deg, #eee 42%, #fafafa 50%, #efefef 58%) -50% / 150%;
+  background-position-x: -50%;
+  animation: ${Shimmer} 1.5s linear infinite;
+}
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
