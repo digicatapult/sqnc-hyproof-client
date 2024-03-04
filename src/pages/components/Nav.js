@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import LogoPNG from '../../assets/images/hii-logo.png'
-import LogoWebP from '../../assets/images/hii-logo.webp'
+import LogoSVG from '../../assets/images/hii-logo.svg'
 
 import { Grid, AppBar, Button } from '@digicatapult/ui-component-library'
 
@@ -11,9 +10,7 @@ export default function Nav() {
     <>
       <Home area="home">
         <HomeIcon>
-          <source srcSet={LogoWebP} type="image/webp" />
-          <source srcSet={LogoPNG} type="image/png" />
-          <img src={LogoPNG} alt="HII Initiative Logo" height="80px" />
+          <img src={LogoSVG} alt="HII Initiative Logo" height="80px" />
         </HomeIcon>
         <Button variant="square">Home</Button>
       </Home>
