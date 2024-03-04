@@ -82,13 +82,11 @@ export default function CertificateViewer() {
         production_start_time: start,
         production_end_time: end,
       }
-      // setPostingStep(2) // setDataCertLocal(resLocal)
       const resLocal = await fetchCert({ url, body, method: 'put' })
       if (resLocal?.state !== 'initiated') return
 
       url = `${origin}/v1/certificate/${id}/issuance`
       body = {}
-      // setPostingStep(3) // setDataCertChain(resChain)
       const resChain = await fetchCert({ url, body })
       if (resChain?.state !== 'submitted') return
 
@@ -176,7 +174,6 @@ export default function CertificateViewer() {
         <Grid.Panel area="main">
           <ContainerDiv>
             <Paper>
-              {/* TODO: Add some {loading} spinner */}
               {data === null && <>...</>}
               {data && (
                 <Grid
