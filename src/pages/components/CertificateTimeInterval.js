@@ -52,6 +52,6 @@ const FixedWidthSmallDiv = styled.div`
   color: #67a8a1;
   font: 500 14px/82px Roboto;
   background-image: url(${StartEndSpacerSVG});
-  background-color: ${({ bg }) => (bg === 'white' ? '#efefef' : '#27847a')};
+  background-color: ${({ bg }) => (bg === 'white' ? '#ffffff' : '#27847a')};
   background-repeat: no-repeat;
 `

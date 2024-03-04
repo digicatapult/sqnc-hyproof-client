@@ -1,10 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
+
+import BgSpinnerSVG from '../../assets/images/spinner-progress.svg'
 
 const hasDate = (d) => typeof d === 'string' && !isNaN(Date.parse(d))
 const hasEnergy = (e) => e !== null && e !== undefined && isFinite(e) && e > 0
@@ -17,6 +19,7 @@ export default function CertificateViewDetails({
   end,
   energy,
   eco2,
+  posting,
 }) {
   return (
     <PaddedWrapperDiv>
@@ -82,11 +85,28 @@ export default function CertificateViewDetails({
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
-        {hasEco2(eco2) && (
-          <FlexRoundedDiv>
+        {(hasEco2(eco2) || posting) && (
+          <FlexRoundedDiv bg={posting === true ? 'grey' : 'green'}>
             <ContainerFullWidthWrapDiv>
-              <HeadingDiv>Carbon Embodiment</HeadingDiv>
-              <WrapPaddedDiv>{eco2} g CO2e</WrapPaddedDiv>
+              <HeadingDiv>
+                <IconWrap>
+                  {!hasEco2(eco2) && posting && (
+                    <>
+                      <IconSpinner>
+                        <svg viewBox="0 0 29 29">
+                          <path d="M14.5 2 a 12.5 12.5 0 0 1 0 25 a 12.5 12.5 0 0 1 0 -25" />
+                        </svg>
+                      </IconSpinner>
+                      Calculating & Posting Carbon Embodiment
+                    </>
+                  )}
+                  {hasEco2(eco2) && !posting && <>Carbon Embodiment</>}
+                </IconWrap>
+              </HeadingDiv>
+              <WrapPaddedDiv>
+                {!hasEco2(eco2) && posting && <GreySpan></GreySpan>}
+                {hasEco2(eco2) && !posting && `${eco2} g CO2e`}
+              </WrapPaddedDiv>
             </ContainerFullWidthWrapDiv>
           </FlexRoundedDiv>
         )}
@@ -124,7 +144,27 @@ const FlexRoundedDiv = styled.div`
   padding: 20px;
 
   border-radius: 10px;
-  background: #33e58c;
+  background: ${({ bg }) => (bg === 'grey' ? '#f8f8f8' : '#33e58c')};
+`
+
+const Shimmer = keyframes`
+  to {
+    background-position-x: 120%;
+  }
+`
+
+const GreySpan = styled.span`
+  margin: 20px 0px;
+  min-width: 180px;
+  padding: 10px;
+  padding-left: 0px;
+
+  background-color: gray;
+
+  background: linear-gradient(-82deg, #eee 42%, #fafafa 50%, #efefef 58%) -50% / 150%;
+  background-position-x: -50%;
+  animation: ${Shimmer} 1.5s linear infinite;
+}
 `
 
 const FlexLargeDiv = styled(FlexDiv)`
@@ -193,6 +233,37 @@ const IconWrap = styled.div`
   height: 26px;
   font: 500 14px/26px Roboto;
   color: #1a1a1a;
+`
+
+const Animation = keyframes`
+  0% {
+    stroke-dasharray: 0 78.5399;
+  }
+`
+
+const IconSpinner = styled.span`
+  width: 29px;
+  height: 29px;
+  margin-right: 10px;
+  background: transparent url(${BgSpinnerSVG}) no-repeat;
+
+  & svg {
+    width: 29px
+    height: 29px
+    fill: none;
+
+    & path {
+      fill: none;
+
+      stroke: #33e58c;
+
+      stroke-width: 4;
+      stroke-linecap: butt;
+      stroke-dasharray: 78.5399 78.5399;
+
+      animation: ${Animation} 18s ease-out forwards;
+    }
+  }
 `
 
 const IconDate = styled.span`
