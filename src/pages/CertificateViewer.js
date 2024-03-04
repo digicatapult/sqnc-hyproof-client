@@ -32,7 +32,6 @@ export default function CertificateViewer() {
   const { origin } = persona
   const buffer = useRef(null)
   const [data, setData] = useState(null)
-  // const [unconfirmedEco2, setUnconfirmedEco2] = useState(null)
   const [posting, setPosting] = useState(false)
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
@@ -96,14 +95,11 @@ export default function CertificateViewer() {
       url = `${origin}/v1/certificate/${id}`
       let isFinalised = false
       let res = null
-      // setPostingStep(4) //
       while (!isFinalised) {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         res = await fetchCert({ url })
-        // setDataCertFinal(res)
         if (res?.state === 'issued') isFinalised = true
       }
-      // setPostingStep(5) //
       setPosting(false)
       buffer.current = res
       setData(res)
@@ -183,40 +179,36 @@ export default function CertificateViewer() {
               {/* TODO: Add some {loading} spinner */}
               {data === null && <>...</>}
               {data && (
-                <>
-                  <Grid
-                    areas={[
-                      ['div-header', 'div-header', 'div-header'],
-                      ['div-ownership', 'div-details', 'div-details'],
-                    ]}
-                    rows={['auto', 'auto']}
-                    columns={['1fr', '2fr']}
-                    gap="15px"
-                  >
-                    <Grid.Panel area="div-header">
-                      <CertificateViewHeader id={id} />
-                    </Grid.Panel>
-                    <Grid.Panel area="div-ownership">
-                      <CertificateViewOwnership
-                        id={id}
-                        hOwner={data?.hydrogen_owner}
-                        eOwner={data?.energy_owner}
-                      />
-                    </Grid.Panel>
-                    <Grid.Panel area="div-details">
-                      <CertificateViewDetails
-                        size={data?.hydrogen_quantity_wh}
-                        start={data?.production_start_time}
-                        end={data?.production_end_time}
-                        energy={data?.energy_consumed_wh}
-                        eco2={data?.embodied_co2}
-                        // unconfirmedEco2={unconfirmedEco2}
-                        // step={postingStep}
-                        posting={posting}
-                      />
-                    </Grid.Panel>
-                  </Grid>
-                </>
+                <Grid
+                  areas={[
+                    ['div-header', 'div-header', 'div-header'],
+                    ['div-ownership', 'div-details', 'div-details'],
+                  ]}
+                  rows={['auto', 'auto']}
+                  columns={['1fr', '2fr']}
+                  gap="15px"
+                >
+                  <Grid.Panel area="div-header">
+                    <CertificateViewHeader id={id} />
+                  </Grid.Panel>
+                  <Grid.Panel area="div-ownership">
+                    <CertificateViewOwnership
+                      id={id}
+                      hOwner={data?.hydrogen_owner}
+                      eOwner={data?.energy_owner}
+                    />
+                  </Grid.Panel>
+                  <Grid.Panel area="div-details">
+                    <CertificateViewDetails
+                      size={data?.hydrogen_quantity_wh}
+                      start={data?.production_start_time}
+                      end={data?.production_end_time}
+                      energy={data?.energy_consumed_wh}
+                      eco2={data?.embodied_co2}
+                      posting={posting}
+                    />
+                  </Grid.Panel>
+                </Grid>
               )}
             </Paper>
           </ContainerDiv>
