@@ -13,6 +13,9 @@ const hasEnergy = (e) => e !== null && e !== undefined && isFinite(e) && e > 0
 const hasSize = (s) => s !== null && s !== undefined && isFinite(s) && s > 0
 const hasEco2 = (c) => c !== null && c !== undefined && isFinite(c) && c >= 0
 
+const convToKg = (g) => (g / 1000).toFixed(1)
+const convIfMoreThanKg = (g) => (g > 999 ? `${convToKg(g)} kg` : `${g} g`)
+
 export default function CertificateViewDetails({
   size,
   start,
@@ -105,7 +108,7 @@ export default function CertificateViewDetails({
               </HeadingDiv>
               <WrapPaddedDiv>
                 {!hasEco2(eco2) && posting && <GreySpan></GreySpan>}
-                {hasEco2(eco2) && !posting && `${eco2} g CO2e`}
+                {hasEco2(eco2) && !posting && `${convIfMoreThanKg(eco2)} CO2e`}
               </WrapPaddedDiv>
             </ContainerFullWidthWrapDiv>
           </FlexRoundedDiv>
