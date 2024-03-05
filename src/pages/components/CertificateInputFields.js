@@ -22,86 +22,84 @@ export default function CertificateInputFields({
   handleSzChgeVal,
 }) {
   return (
-    <>
-      <PaddedDiv>
-        <ContainerFlexWrapDiv>
-          <FlexLargeDiv>
-            <ContainerFlexNoWrapDiv>
-              <GrowingDiv>
-                <InputHeadingDiv>Start timestamp of energy use</InputHeadingDiv>
-                <InputWrapLeftDiv>
-                  <InputHalfWrap>
-                    <InputFieldDate
-                      val={sdVal}
-                      onChangeVal={handleSdChgeVal}
-                      name="sd"
-                    />
-                  </InputHalfWrap>
-                  <InputHalfWrap>
-                    <InputFieldTime
-                      val={stVal}
-                      onChangeVal={handleStChgeVal}
-                      name="st"
-                    />
-                  </InputHalfWrap>
-                </InputWrapLeftDiv>
-              </GrowingDiv>
-              <CertificateTimeInterval
-                sTimestamp={`${sdVal} ${stVal}`}
-                eTimestamp={`${edVal} ${etVal}`}
-              />
-              <GrowingDiv>
-                <InputHeadingDiv>End timestamp of energy use</InputHeadingDiv>
-                <InputWrapRightDiv>
-                  <InputHalfWrap>
-                    <InputFieldDate
-                      val={edVal}
-                      onChangeVal={handleEdChgeVal}
-                      name="ed"
-                    />
-                  </InputHalfWrap>
-                  <InputHalfWrap>
-                    <InputFieldTime
-                      val={etVal}
-                      onChangeVal={handleEtChgeVal}
-                      name="et"
-                    />
-                  </InputHalfWrap>
-                </InputWrapRightDiv>
-              </GrowingDiv>
-            </ContainerFlexNoWrapDiv>
-          </FlexLargeDiv>
-          <FlexDiv>
-            <ContainerFullWidthWrapDiv>
-              <InputHeadingDiv>Electric energy use</InputHeadingDiv>
-              <InputWrapDiv>
-                <InputWrap>
-                  <InputFieldEnergy
-                    val={enVal}
-                    onChangeVal={handleEnChgeVal}
-                    name="en"
+    <PaddedDiv>
+      <ContainerFlexWrapDiv>
+        <FlexLargeDiv>
+          <ContainerFlexNoWrapDiv>
+            <GrowingDiv>
+              <InputHeadingDiv>Start timestamp of energy use</InputHeadingDiv>
+              <InputWrapLeftDiv>
+                <InputHalfWrap>
+                  <InputFieldDate
+                    val={sdVal}
+                    onChangeVal={handleSdChgeVal}
+                    name="sd"
                   />
-                </InputWrap>
-              </InputWrapDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexDiv>
-          <FlexDiv>
-            <ContainerFullWidthWrapDiv>
-              <InputHeadingDiv>H2 batch size</InputHeadingDiv>
-              <InputWrapDiv>
-                <InputWrap>
-                  <InputFieldSize
-                    val={szVal}
-                    onChangeVal={handleSzChgeVal}
-                    name="sz"
+                </InputHalfWrap>
+                <InputHalfWrap>
+                  <InputFieldTime
+                    val={stVal}
+                    onChangeVal={handleStChgeVal}
+                    name="st"
                   />
-                </InputWrap>
-              </InputWrapDiv>
-            </ContainerFullWidthWrapDiv>
-          </FlexDiv>
-        </ContainerFlexWrapDiv>
-      </PaddedDiv>
-    </>
+                </InputHalfWrap>
+              </InputWrapLeftDiv>
+            </GrowingDiv>
+            <CertificateTimeInterval
+              sTimestamp={`${sdVal} ${stVal}`}
+              eTimestamp={`${edVal} ${etVal}`}
+            />
+            <GrowingDiv>
+              <InputHeadingDiv>End timestamp of energy use</InputHeadingDiv>
+              <InputWrapRightDiv>
+                <InputHalfWrap>
+                  <InputFieldDate
+                    val={edVal}
+                    onChangeVal={handleEdChgeVal}
+                    name="ed"
+                  />
+                </InputHalfWrap>
+                <InputHalfWrap>
+                  <InputFieldTime
+                    val={etVal}
+                    onChangeVal={handleEtChgeVal}
+                    name="et"
+                  />
+                </InputHalfWrap>
+              </InputWrapRightDiv>
+            </GrowingDiv>
+          </ContainerFlexNoWrapDiv>
+        </FlexLargeDiv>
+        <FlexDiv>
+          <ContainerFullWidthWrapDiv>
+            <InputHeadingDiv>Electric energy use</InputHeadingDiv>
+            <InputWrapDiv>
+              <InputWrap>
+                <InputFieldEnergy
+                  val={enVal}
+                  onChangeVal={handleEnChgeVal}
+                  name="en"
+                />
+              </InputWrap>
+            </InputWrapDiv>
+          </ContainerFullWidthWrapDiv>
+        </FlexDiv>
+        <FlexDiv>
+          <ContainerFullWidthWrapDiv>
+            <InputHeadingDiv>H2 batch size</InputHeadingDiv>
+            <InputWrapDiv>
+              <InputWrap>
+                <InputFieldSize
+                  val={szVal}
+                  onChangeVal={handleSzChgeVal}
+                  name="sz"
+                />
+              </InputWrap>
+            </InputWrapDiv>
+          </ContainerFullWidthWrapDiv>
+        </FlexDiv>
+      </ContainerFlexWrapDiv>
+    </PaddedDiv>
   )
 }
 
