@@ -73,7 +73,7 @@ export default function CertificateViewDetails({
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>Electric energy use</HeadingDiv>
-              <WrapShortDiv>{energy / 1000000} kWh</WrapShortDiv>
+              <WrapShortDiv>{energy / 1000000} MWh</WrapShortDiv>
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
@@ -81,7 +81,7 @@ export default function CertificateViewDetails({
           <FlexDiv>
             <ContainerFullWidthWrapDiv>
               <HeadingDiv>H2 batch size</HeadingDiv>
-              <WrapShortDiv>{size / 1000000} kWh</WrapShortDiv>
+              <WrapShortDiv>{size / 1000000} MWh</WrapShortDiv>
             </ContainerFullWidthWrapDiv>
           </FlexDiv>
         )}
