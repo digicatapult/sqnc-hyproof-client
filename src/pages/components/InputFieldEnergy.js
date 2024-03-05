@@ -11,7 +11,7 @@ export default function InputFieldEnergy({ val, onChangeVal, name }) {
         name={name}
         value={val}
         onChange={(e) => onChangeVal(e)}
-        placeholder="0.0 kWh"
+        placeholder="0.0 MWh"
         list={id}
       />
       <datalist id={id}>
