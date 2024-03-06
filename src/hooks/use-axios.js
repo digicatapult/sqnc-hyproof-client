@@ -37,8 +37,10 @@ export default function useAxios(
       }
     },
     onSuccess: async (res) => {
-      setData(res.data)
       setLoading(false)
+      return res instanceof Error
+        ? setError(res.message)
+        : setData(res.data || res)
     },
     onError: async (error) => {
       setError(error)
