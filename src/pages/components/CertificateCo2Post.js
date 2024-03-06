@@ -8,7 +8,7 @@ import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 
 import { Context } from '../../utils/Context'
-import { formatTimelineDate } from '../../utils/helpers'
+import { formatDate } from '../../utils/helpers'
 import { personas } from '../../App'
 import { TimelineDisclaimer } from './shared'
 
@@ -136,7 +136,7 @@ export default function CertificateCo2Post() {
           variant={'hyproof'}
         >
           <Timeline.Item variant="hyproof" title={'Initiation'} checked={true}>
-            {dataCertFound && formatTimelineDate(dataCertFound.created_at)}
+            {dataCertFound && formatDate(dataCertFound.created_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
@@ -144,11 +144,11 @@ export default function CertificateCo2Post() {
             checked={dataCertChain?.embodied_co2}
           >
             {dataCertChain?.embodied_co2 &&
-              formatTimelineDate(dataCertChain.updated_at)}
+              formatDate(dataCertChain.updated_at)}
           </Timeline.Item>
           <Timeline.Item variant="hyproof" title={'Issuance'} checked={false}>
             {dataCertChain?.state == 'issued' &&
-              formatTimelineDate(dataCertFinal.updated_at)}
+              formatDate(dataCertFinal.updated_at)}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>

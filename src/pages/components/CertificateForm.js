@@ -151,16 +151,14 @@ export default function CertificateForm() {
             title={'Carbon Embodiment'}
             checked={dataFinal?.embodied_co2}
           >
-            {dataFinal?.embodied_co2 &&
-              formatTimelineDate(dataFinal.updated_at)}
+            {dataFinal?.embodied_co2 && formatDate(dataFinal.updated_at)}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issuance'}
             checked={dataFinal?.state === 'issued'}
           >
-            {dataFinal?.state === 'issued' &&
-              formatTimelineDate(dataFinal.updated_at)}
+            {dataFinal?.state === 'issued' && formatDate(dataFinal.updated_at)}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
