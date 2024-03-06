@@ -10,6 +10,7 @@ import { stateToStatus, NameCell } from './components/shared'
 import { personas } from '../App'
 import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/use-axios'
+import { formatTimelineDate } from '../utils/helpers'
 
 const headersMap = {
   heidi: [
@@ -31,6 +32,13 @@ export default function CertificatesViewAll() {
   const persona = personas.find(({ id }) => id === current)
   const url = `${persona.origin}/v1/certificate`
 
+  const checkCO2 = (cert) =>
+    cert.embodied_co2 && ['issued', 'pending', 'initiated'].includes(cert.state)
+      ? 'co2'
+      : cert.state
+  const formatName = (cert) =>
+    `SQNC-HYPROOF-${(cert.original_token_id || '0').toString().padStart(4, '0')}`
+
   React.useEffect(() => {
     if (!data) fetch({ url })
   }, [data, fetch, url])
@@ -42,7 +50,6 @@ export default function CertificatesViewAll() {
         userFullName={persona.name}
         companyName={error || persona.company}
       />
-      <Timeline area="timeline"></Timeline>
       <Main area="main">
         {(loading || error) && (
           <Spinner
@@ -54,7 +61,7 @@ export default function CertificatesViewAll() {
         {data && (
           <Table
             action={(item) =>
-              navigate(`/certificate/${item.original_token_id}`)
+              navigate(`/certificate/${item.original_token_id || item.id}`)
             }
             headers={headersMap[current]}
             rows={data.map((cert) => [
@@ -62,19 +69,22 @@ export default function CertificatesViewAll() {
                   - create rows/cels per persona using "headersMap as an example"*/
               <NameCell
                 key={cert.id}
-                date={new Date(cert.created_at).toISOString()}
-                name={`SQNC-HYPROOF-${cert.original_token_id.toString().padStart(4, '0')}`}
+                date={formatTimelineDate(cert.created_at)}
+                name={formatName(cert)}
               />,
-              `${cert.hydrogen_quantity_wh}`,
-              `${cert.energy_consumed_wh}`,
-              `${cert.embodied_co2}`,
-              stateToStatus[(cert.embodied_co2 && 'co2') || cert.state],
+              `${cert.hydrogen_quantity_wh / 1000000} MWh`,
+              `${cert.energy_consumed_wh / 1000000} MWh`,
+              cert?.embodied_co2 ? `${cert.embodied_co2} g CO2e` : '',
+              stateToStatus[checkCO2(cert)],
             ])}
             variant="hyproof"
           />
         )}
         {data?.length === 0 && 'nothing to render'}
       </Main>
+      {/* due to layout have to define */}
+      <Timeline area="timeline" />
+      <Sidebar area="main" />
     </>
   )
 }
@@ -82,12 +92,16 @@ export default function CertificatesViewAll() {
 const Timeline = styled(Grid.Panel)`
   background: rgb(39, 132, 122);
 `
+const Sidebar = styled(Grid.Panel)`
+  background: rgb(39, 132, 122);
+`
 
 const Main = styled(Grid.Panel)`
   background: rgb(39, 132, 122);
   color: #fff;
-  width: 100%;
-  align-self: center;
+  width: 80%;
+  align-self: start;
+  font-family: Roboto;
   height: 100%;
   padding: 28px;
 `

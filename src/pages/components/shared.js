@@ -32,7 +32,7 @@ export const StatusCell = ({ color = '#27847a', Icon, status }) => (
 
 export const stateToStatus = {
   pending: <StatusCell Icon={CertificatePendingIcon} status={'Pending'} />,
-  initiated: <StatusCell Icon={CertificatePendingIcon} status={'Pending'} />,
+  initiated: <StatusCell Icon={CertificatePendingIcon} status={'Initiated'} />,
   issued: <StatusCell Icon={CertificateIssuedIcon} status={'Issued'} />,
   revoked: (
     <StatusCell
@@ -68,10 +68,9 @@ const Status = styled('div')`
 
   text-align: center;
   font-family: Roboto;
-  font-size: 12px;
-  font-style: normal;
+  font-size: 10px;
   font-weight: 400;
-  line-height: 10px; /* 83.333% */
+  line-height: 12px; /* 83.333% */
 `
 
 const Date = styled('div')`
@@ -79,7 +78,6 @@ const Date = styled('div')`
 
   font-family: Roboto;
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
   line-height: 10px; /* 83.333% */
 `
@@ -87,16 +85,16 @@ const Date = styled('div')`
 const Row = styled('div')`
   display: flex;
   flex-direction: row;
+  font-family: Roboto;
   gap: 5px;
   align-items: center;
 `
 
 const Col = styled('div')`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 `
 export const TimelineDisclaimer = styled('div')`
   padding: 50px 20px;
