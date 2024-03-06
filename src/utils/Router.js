@@ -33,6 +33,7 @@ export default function Routes() {
               <Route path=":id" element={<CertificateViewer />} />
             </Route>
             <Route path="*" element={<Error404 />} />
+            <Route path="/certificates" element={<CertificatesViewAll />} />
           </>
         )
       )}
