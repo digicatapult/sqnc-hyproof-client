@@ -74,7 +74,9 @@ export default function CertificatesViewAll() {
               />,
               `${cert.hydrogen_quantity_wh / 1000000} MWh`,
               `${cert.energy_consumed_wh / 1000000} MWh`,
-              cert?.embodied_co2 ? `${cert.embodied_co2 / 1000} g CO2e` : '',
+              cert?.embodied_co2
+                ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
+                : '',
               stateToStatus[checkCO2(cert)],
             ])}
             variant="hyproof"
