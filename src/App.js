@@ -98,6 +98,7 @@ export default function App() {
             <SidePanel.Item
               {...el}
               key={el.id}
+              active={el.id === current}
               update={(_, persona) => handlePersonaSwitch(persona)}
               variant="hyproof"
             />
