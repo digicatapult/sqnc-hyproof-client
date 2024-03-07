@@ -18,8 +18,6 @@ import CertificateViewDetails from './components/CertificateViewDetails'
 import { formatDate } from '../utils/helpers'
 import { TimelineDisclaimer } from './components/shared'
 
-import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
-
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -245,8 +243,6 @@ const ContainerDiv = styled.div`
   display: grid;
   height: 100%;
   grid-area: 1 / 1 / -1 / -1;
-  background: #228077 url(${BgMoleculesImageSVG}) repeat;
-  background-size: 100px;
   padding: 34px;
   height: 100%;
   align-content: start;

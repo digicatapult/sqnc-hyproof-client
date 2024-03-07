@@ -5,7 +5,6 @@ import { Grid, Spinner, Table } from '@digicatapult/ui-component-library'
 import Nav from './components/Nav'
 import Header from './components/Header'
 
-import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 import { Context } from '../utils/Context'
 import { stateToStatus, NameCell } from './components/shared'
 import { personas } from '../App'
@@ -13,11 +12,10 @@ import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/use-axios'
 import { formatDate, formatCertName, checkCO2Status } from '../utils/helpers'
 
-// TODO call identity?
 const mapOwner = {
   '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY': 'Heidi',
   '5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y': 'Regulator',
-  '': 'Emma',
+  '5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty': 'Emma',
 }
 
 const headersMap = {
@@ -30,9 +28,9 @@ const headersMap = {
   ],
   emma: [
     'Date',
-    'Electric energy use',
-    'Production Start',
-    'Production End',
+    'H2 Batch size',
+    'H2 Certificate holder',
+    'Carbon Embodiment',
     'Status',
   ],
   reginald: [
@@ -44,7 +42,22 @@ const headersMap = {
   ],
 }
 
-const aggregateData = (data, id) => {
+const aggregateData = (data, id = 'default') => {
+  const defaultRow = (certs) =>
+    certs.map((cert) => [
+      <NameCell
+        key={cert.id}
+        date={formatDate(cert.created_at)}
+        name={formatCertName(cert)}
+      />,
+      `${cert.hydrogen_quantity_wh / 1000000} MWh`,
+      mapOwner[cert.hydrogen_owner] || 'unknown',
+      cert?.embodied_co2
+        ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
+        : '',
+      stateToStatus[checkCO2Status(cert)],
+    ])
+
   const rowsMap = {
     heidi: (certs) =>
       certs.map((cert) => [
@@ -60,21 +73,8 @@ const aggregateData = (data, id) => {
           : '',
         stateToStatus[checkCO2Status(cert)],
       ]),
-    emma: (certs) => [...certs],
-    reginald: (certs) =>
-      certs.map((cert) => [
-        <NameCell
-          key={cert.id}
-          date={formatDate(cert.created_at)}
-          name={formatCertName(cert)}
-        />,
-        `${cert.hydrogen_quantity_wh / 1000000} MWh`,
-        mapOwner[cert.hydrogen_owner] || 'unknown',
-        cert?.embodied_co2
-          ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
-          : '',
-        stateToStatus[checkCO2Status(cert)],
-      ]),
+    emma: (certs) => defaultRow(certs),
+    reginald: (certs) => defaultRow(certs),
   }
 
   return rowsMap[id](data)
@@ -119,27 +119,25 @@ export default function CertificatesViewAll() {
         )}
         {data?.length === 0 && 'nothing to render'}
       </Main>
-      {/* due to layout have to define */}
       <Timeline area="timeline" />
-      <Sidebar area="main" />
+      <Sidebar area="sidebar" />
+      {/* <Button variant={'roundedShadow'}>Create</Button>*/}
     </>
   )
 }
 
-const Timeline = styled(Grid.Panel)`
-  background: #228077 url(${BgMoleculesImageSVG}) repeat;
-  background-size: 100px;
-`
+const Timeline = styled(Grid.Panel)``
 const Sidebar = styled(Grid.Panel)`
-  background: #228077 url(${BgMoleculesImageSVG}) repeat;
-  background-size: 100px;
+  align-items: center;
+  background: #0c3b38;
+  justify-items: center;
+  width: 300px;
+  color: white;
 `
 
 const Main = styled(Grid.Panel)`
-  background: #228077 url(${BgMoleculesImageSVG}) repeat;
-  background-size: 100px;
   color: #fff;
-  width: 80%;
+  width: 100%;
   align-self: start;
   font-family: Roboto;
   height: 100%;

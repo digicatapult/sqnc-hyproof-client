@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Routes from './utils/Router'
+import BgMoleculesImageSVG from './assets/images/molecules-bg-repeat.svg'
 
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 
@@ -117,8 +118,10 @@ const FullScreenGrid = styled(Grid)`
   margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
   overflow: hidden;
   box-sizing: border-box;
-  background-color: ${({ showSelector, color }) =>
-    showSelector ? color : 'white'};
+  background: ${({ showSelector, color }) =>
+    showSelector ? color : `${color} url(${BgMoleculesImageSVG}) repeat`};
+  background-size: 100px;
+
   transition:
     background-color ease 0.1s,
     width ease-in-out 0.7s,
