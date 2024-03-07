@@ -109,13 +109,21 @@ export default function CertificateViewer() {
     if (curPersona === 'emma') {
       fetchLatestCert().then((c) => {
         co2PostIfNeeded(c).then(() => {
-          intervalId = setInterval(async () => {
-            const latestCert = await fetchLatestCert()
+          fetchLatestCert().then((latestCert) => {
             if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
               buffer.current = latestCert
               setData(latestCert)
+              intervalId = setInterval(async () => {
+                const latestCert = await fetchLatestCert()
+                if (
+                  JSON.stringify(latestCert) != JSON.stringify(buffer.current)
+                ) {
+                  buffer.current = latestCert
+                  setData(latestCert)
+                }
+              }, 9 * 1000)
             }
-          }, 2 * 1000)
+          })
         })
       })
     }
