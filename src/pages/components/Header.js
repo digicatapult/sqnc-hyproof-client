@@ -38,7 +38,6 @@ const StyledHeader = styled(Grid.Panel)`
   align-items: center;
   background: #1a1a1a;
   width: 100%;
-  height: 100%;
   padding: 0px 28px;
 `
 

@@ -76,34 +76,61 @@ export default function App() {
 
   return (
     <QueryClientProvider client={new QueryClient()}>
+      <SidePanel
+        width={400}
+        variant="hyproof"
+        heading="Certificate View"
+        title={persona.name}
+        callback={(e) => setShowSelector(e.isOpen)}
+      >
+        {personas.map((el) => (
+          <SidePanel.Item
+            {...el}
+            key={el.id}
+            active={el.id === current}
+            update={(_, persona) => handlePersonaSwitch(persona)}
+            variant="hyproof"
+          />
+        ))}
+      </SidePanel>
       <FullScreenGrid
         color={persona.background}
         showSelector={showSelector}
         areas={[
-          ['home', 'nav', 'nav'],
-          ['header', 'header', 'sidebar'],
-          ['timeline', 'main', 'sidebar'],
+          ['home', 'nav'],
+          ['header', 'header'],
+          ['timeline', 'main'],
+          ['timeline', 'sidebar'],
         ]}
-        columns={['auto', '1fr', 'auto']}
-        rows={['78px', '98px', '1fr']}
+        columns={['minmax(min-content, 1fr)', '2fr']}
+        rows={['78px', '98px', '1fr', 'auto']}
+        byWidth={[
+          {
+            minWidth: 1000,
+            areas: [
+              ['home', 'nav', 'nav'],
+              ['header', 'header', 'sidebar'],
+              ['timeline', 'main', 'sidebar'],
+            ],
+            columns: [
+              'minmax(min-content, 1.5fr)',
+              '4fr',
+              'minmax(min-content, 1.5fr)',
+            ],
+            rows: ['78px', '98px', '1fr'],
+          },
+          {
+            minWidth: 1500,
+            areas: [
+              ['home', 'nav', 'nav'],
+              ['header', 'header', 'sidebar'],
+              ['timeline', 'main', 'sidebar'],
+            ],
+            columns: ['320px', '1fr', '320px'],
+            rows: ['78px', '98px', '1fr'],
+          },
+        ]}
       >
-        <SidePanel
-          width={400}
-          variant="hyproof"
-          heading="Certificate View"
-          title={persona.name}
-          callback={(e) => setShowSelector(e.isOpen)}
-        >
-          {personas.map((el) => (
-            <SidePanel.Item
-              {...el}
-              key={el.id}
-              active={el.id === current}
-              update={(_, persona) => handlePersonaSwitch(persona)}
-              variant="hyproof"
-            />
-          ))}
-        </SidePanel>
         <Routes />
       </FullScreenGrid>
     </QueryClientProvider>
@@ -117,12 +144,10 @@ const FullScreenGrid = styled(Grid)`
   margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
   overflow: hidden;
   box-sizing: border-box;
-  background-color: ${({ showSelector, color }) =>
-    showSelector ? color : 'white'};
   transition:
-    background-color ease 0.1s,
     width ease-in-out 0.7s,
-    padding ease-in-out 0.7s,
+    border ease-in-out 0.7s,
     margin-left ease-in-out 0.7s;
-  padding: ${({ showSelector }) => (showSelector ? '20px' : '0px')};
+  border: ${({ showSelector, color }) =>
+    `${showSelector ? '20px' : '0px'} solid ${color}`};
 `

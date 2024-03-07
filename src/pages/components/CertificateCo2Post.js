@@ -196,7 +196,6 @@ export default function CertificateCo2Post() {
 }
 
 const LeftWrapper = styled(Grid.Panel)`
-  max-width: 400px;
   max-height: 100%;
   padding: 20px 0px;
   overflow: hidden;
@@ -214,7 +213,6 @@ const MainWrapper = styled.div`
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   justify-items: center;
-  min-width: 340px;
   color: white;
   background: #0c3b38;
 `
