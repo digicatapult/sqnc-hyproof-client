@@ -59,7 +59,6 @@ export default function CertificateViewer() {
       let url, body
 
       setPosting(true)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
       const hasCo2 = foundCert?.embodied_co2 !== null
       if (hasCo2) {
         setPosting(false)
@@ -123,7 +122,7 @@ export default function CertificateViewer() {
 
     // Start fetch loop ( fetch every few secs ) if not Emma
     if (curPersona !== 'emma') {
-      fetchLatestCert().then(async (latestCert) => {
+      fetchLatestCert().then((latestCert) => {
         if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
           buffer.current = latestCert
           setData(latestCert)
