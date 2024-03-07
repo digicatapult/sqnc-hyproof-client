@@ -118,14 +118,21 @@ export default function CertificateViewer() {
       })
 
     // Start fetch loop ( fetch every few secs ) if not Emma
-    curPersona !== 'emma' &&
-      (intervalId = setInterval(async () => {
-        const latestCert = await fetchLatestCert()
+    if (curPersona !== 'emma') {
+      fetchLatestCert().then(async (latestCert) => {
         if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
           buffer.current = latestCert
           setData(latestCert)
+          intervalId = setInterval(async () => {
+            const latestCert = await fetchLatestCert()
+            if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+              buffer.current = latestCert
+              setData(latestCert)
+            }
+          }, 2 * 1000)
         }
-      }, 2 * 1000))
+      })
+    }
 
     // Cleanup the interval on unmount
     return () => {
