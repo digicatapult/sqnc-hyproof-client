@@ -155,14 +155,6 @@ const InputWrapRightDiv = styled(InputWrapDiv)`
   border-radius: 0 10px 10px 0px;
 `
 
-const ContainerFullWidthWrapDiv = styled.div`
-  width: 100%;
-`
-
-const GrowingDiv = styled.div`
-  flex-grow: 1;
-`
-
 const InputWrap = styled.div`
   width: 100%;
   display: block;
