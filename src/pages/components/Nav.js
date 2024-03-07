@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import LogoSVG from '../../assets/images/hii-logo.svg'
 
-import { Grid, AppBar, Button } from '@digicatapult/ui-component-library'
+import { Grid, AppBar } from '@digicatapult/ui-component-library'
 
 export default function Nav() {
   const path = window.location.pathname

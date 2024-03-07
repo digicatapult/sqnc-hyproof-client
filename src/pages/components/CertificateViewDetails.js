@@ -185,18 +185,8 @@ const GreySpan = styled.span`
 }
 `
 
-const ContainerFlexNoWrapDiv = styled.div`
-  padding-left: 5px;
-  display: flex;
-  flex-wrap: nowrap;
-`
-
 const ContainerFullWidthWrapDiv = styled.div`
   padding-left: 5px;
-`
-
-const GrowingDiv = styled.div`
-  flex-grow: 1;
 `
 
 const HeadingDiv = styled.div`
