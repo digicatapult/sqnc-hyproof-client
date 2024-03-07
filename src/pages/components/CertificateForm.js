@@ -204,7 +204,6 @@ const Form = styled.form`
 `
 
 const TimelineWrapper = styled(Grid.Panel)`
-  max-width: 400px;
   max-height: 100%;
   padding: 20px 0px;
   overflow: hidden;

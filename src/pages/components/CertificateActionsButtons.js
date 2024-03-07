@@ -21,43 +21,20 @@ export default function CertificateActionsButtons({
   return (
     <Sidebar area="sidebar">
       <PaddedDiv>
-        <Grid
-          areas={[
-            ['div-left', 'div-right'],
-            ['div-double', 'div-double'],
-          ]}
-          rows={['40px', '60px']}
-          columns={['1fr', '1fr']}
-          gap="20px 10px"
-        >
-          <Grid.Panel area="div-left">
-            <SmallButton
-              variant="roundedPronounced"
-              onClick={handleClickSaveDraft}
-            >
-              Save draft
-            </SmallButton>
-          </Grid.Panel>
-          <Grid.Panel area="div-right">
-            <SmallButton
-              variant="roundedPronounced"
-              onClick={handleCancelDraft}
-            >
-              Cancel
-            </SmallButton>
-          </Grid.Panel>
-          <Grid.Panel area="div-double">
-            <LargeButton
-              disabled={loading || !valid}
-              variant="roundedPronounced"
-            >
-              {loading == false && data == null && <Span>Submit</Span>}
-              {loading == false && data != null && <Span>Submitted</Span>}
-              {loading && <AnimatedSpan>...</AnimatedSpan>}
-              {error && <Span>Error</Span>}
-            </LargeButton>
-          </Grid.Panel>
-        </Grid>
+        <SmallButton variant="roundedPronounced" onClick={handleClickSaveDraft}>
+          Save draft
+        </SmallButton>
+
+        <SmallButton variant="roundedPronounced" onClick={handleCancelDraft}>
+          Cancel
+        </SmallButton>
+
+        <LargeButton disabled={loading || !valid} variant="roundedPronounced">
+          {loading == false && data == null && <Span>Submit</Span>}
+          {loading == false && data != null && <Span>Submitted</Span>}
+          {loading && <AnimatedSpan>...</AnimatedSpan>}
+          {error && <Span>Error</Span>}
+        </LargeButton>
       </PaddedDiv>
     </Sidebar>
   )
@@ -66,41 +43,45 @@ export default function CertificateActionsButtons({
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   justify-items: center;
-  min-width: 340px;
   color: white;
   background: #0c3b38;
 `
 
 const PaddedDiv = styled.div`
-  padding: 34px 21px;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 34px 21px;
 `
 
 const SmallButton = styled(Button)`
-  width: 100%;
-  min-width: 132px;
-  height: 100% !important;
+  flex: 1 0 110px;
+  min-height: 40px;
+  display: block;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   white-space: nowrap;
   font-size: 15.5px;
   color: #ffffff;
-  border: 1px solid #ffffff !important;
-  background: #124338 !important;
+  border: 1px solid #ffffff;
+  background: #124338;
   &:hover {
     opacity: 0.6;
   }
 `
 
 const LargeButton = styled(SmallButton)`
+  min-width: 100%;
+  min-height: 60px;
   font-size: 21px;
   color: #33e58c;
-  border: 1px solid #2fe181 !important;
-  background: #124338 !important;
+  border: 1px solid #2fe181;
+  background: #124338;
   &:disabled {
     color: #1c774a;
-    border: 1px solid #1c774a !important;
+    border: 1px solid #1c774a;
   }
 `
 

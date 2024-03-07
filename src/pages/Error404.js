@@ -36,7 +36,6 @@ const MainWrapper = styled.div`
 
 const Container = styled.div`
   display: grid;
-  height: 100%;
   grid-area: 1 / 1 / -1 / -1;
 `
 

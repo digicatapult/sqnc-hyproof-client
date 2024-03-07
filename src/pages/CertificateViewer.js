@@ -215,12 +215,10 @@ export default function CertificateViewer() {
 }
 
 const LeftWrapper = styled(Grid.Panel)`
-  max-width: 400px;
   max-height: 100%;
   padding: 20px 0px;
   overflow: hidden;
   background: #0c3b38;
-  width: 400px;
 `
 
 const MainWrapper = styled.div`
@@ -234,17 +232,15 @@ const MainWrapper = styled.div`
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   justify-items: center;
-  min-width: 340px;
+
   color: white;
   background: #0c3b38;
 `
 
 const ContainerDiv = styled.div`
   display: grid;
-  height: 100%;
   grid-area: 1 / 1 / -1 / -1;
   padding: 34px;
-  height: 100%;
   align-content: start;
 `
 

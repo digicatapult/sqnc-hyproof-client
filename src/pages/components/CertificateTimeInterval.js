@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Grid } from '@digicatapult/ui-component-library'
 
 import StartEndSpacerSVG from '../../assets/images/start-end-spacer-bg.svg'
 
@@ -38,20 +39,21 @@ export default function CertificateTimeInterval({
   bgColor,
 }) {
   return (
-    <FixedWidthSmallDiv bg={bgColor}>
+    <FixedWidthSmallDiv area="interval" bg={bgColor}>
       {convIntervalToStr(sTimestamp, eTimestamp)}
     </FixedWidthSmallDiv>
   )
 }
 
-const FixedWidthSmallDiv = styled.div`
-  width: 98px;
-  height: 82px;
-  margin-top: 28px;
-  text-align: center;
+const FixedWidthSmallDiv = styled(Grid.Panel)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
   color: #67a8a1;
-  font: 500 14px/82px Roboto;
+  font: 500 14px Roboto;
   background-image: url(${StartEndSpacerSVG});
+  background-position: center;
   background-color: ${({ bg }) => (bg === 'white' ? '#ffffff' : '#27847a')};
   background-repeat: no-repeat;
 `
