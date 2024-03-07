@@ -46,7 +46,7 @@ const aggregateData = (data, id = 'default') => {
   const defaultRow = (certs) =>
     certs.map((cert) => [
       <NameCell
-        key={cert.id}
+        key={cert.original_token_id}
         date={formatDate(cert.created_at)}
         name={formatCertName(cert)}
       />,
@@ -62,7 +62,7 @@ const aggregateData = (data, id = 'default') => {
     heidi: (certs) =>
       certs.map((cert) => [
         <NameCell
-          key={cert.id}
+          key={cert.original_token_id}
           date={formatDate(cert.created_at)}
           name={formatCertName(cert)}
         />,
@@ -109,8 +109,8 @@ export default function CertificatesViewAll() {
         )}
         {data && (
           <Table
-            action={(cert) =>
-              navigate(`/certificate/${cert.original_token_id || cert.id}`)
+            action={([{ key: original_token_id }]) =>
+              navigate(`/certificate/${original_token_id}`)
             }
             headers={headersMap[current]}
             rows={aggregateData(data, current)}
