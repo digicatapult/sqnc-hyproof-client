@@ -52,7 +52,6 @@ const Input = styled.input.attrs({ type: 'time' })`
     top: unset;
     left: unset;
     width: 100%;
-    height: 100%;
     background: transparent;
     color: transparent;
     z-index: 1;

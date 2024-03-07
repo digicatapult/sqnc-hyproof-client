@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Grid } from '@digicatapult/ui-component-library'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 import InputFieldDate from './InputFieldDate'
@@ -24,10 +25,23 @@ export default function CertificateInputFields({
   return (
     <PaddedDiv>
       <ContainerFlexWrapDiv>
-        <FlexLargeDiv>
-          <ContainerFlexNoWrapDiv>
-            <GrowingDiv>
-              <InputHeadingDiv>Start timestamp of energy use</InputHeadingDiv>
+        <FlexDiv>
+          <Grid
+            areas={[
+              ['label_start', '-', 'label_end'],
+              ['inputs_start', 'interval', 'inputs_end'],
+            ]}
+            columns={[
+              'minmax(min-content, 1fr)',
+              'auto',
+              'minmax(min-content, 1fr)',
+            ]}
+            rows={['auto', 'auto']}
+          >
+            <Grid.Panel area="label_start">
+              <InputHeadingDiv>Start of energy use</InputHeadingDiv>
+            </Grid.Panel>
+            <Grid.Panel area="inputs_start">
               <InputWrapLeftDiv>
                 <InputHalfWrap>
                   <InputFieldDate
@@ -44,13 +58,15 @@ export default function CertificateInputFields({
                   />
                 </InputHalfWrap>
               </InputWrapLeftDiv>
-            </GrowingDiv>
+            </Grid.Panel>
             <CertificateTimeInterval
               sTimestamp={`${sdVal} ${stVal}`}
               eTimestamp={`${edVal} ${etVal}`}
             />
-            <GrowingDiv>
-              <InputHeadingDiv>End timestamp of energy use</InputHeadingDiv>
+            <Grid.Panel area="label_end">
+              <InputHeadingDiv>End of energy use</InputHeadingDiv>
+            </Grid.Panel>
+            <Grid.Panel area="inputs_end">
               <InputWrapRightDiv>
                 <InputHalfWrap>
                   <InputFieldDate
@@ -67,36 +83,32 @@ export default function CertificateInputFields({
                   />
                 </InputHalfWrap>
               </InputWrapRightDiv>
-            </GrowingDiv>
-          </ContainerFlexNoWrapDiv>
-        </FlexLargeDiv>
-        <FlexDiv>
-          <ContainerFullWidthWrapDiv>
-            <InputHeadingDiv>Electric energy use</InputHeadingDiv>
-            <InputWrapDiv>
-              <InputWrap>
-                <InputFieldEnergy
-                  val={enVal}
-                  onChangeVal={handleEnChgeVal}
-                  name="en"
-                />
-              </InputWrap>
-            </InputWrapDiv>
-          </ContainerFullWidthWrapDiv>
+            </Grid.Panel>
+          </Grid>
         </FlexDiv>
         <FlexDiv>
-          <ContainerFullWidthWrapDiv>
-            <InputHeadingDiv>H2 batch size</InputHeadingDiv>
-            <InputWrapDiv>
-              <InputWrap>
-                <InputFieldSize
-                  val={szVal}
-                  onChangeVal={handleSzChgeVal}
-                  name="sz"
-                />
-              </InputWrap>
-            </InputWrapDiv>
-          </ContainerFullWidthWrapDiv>
+          <InputHeadingDiv>Electric energy use</InputHeadingDiv>
+          <InputWrapDiv>
+            <InputWrap>
+              <InputFieldEnergy
+                val={enVal}
+                onChangeVal={handleEnChgeVal}
+                name="en"
+              />
+            </InputWrap>
+          </InputWrapDiv>
+        </FlexDiv>
+        <FlexDiv>
+          <InputHeadingDiv>H2 batch size</InputHeadingDiv>
+          <InputWrapDiv>
+            <InputWrap>
+              <InputFieldSize
+                val={szVal}
+                onChangeVal={handleSzChgeVal}
+                name="sz"
+              />
+            </InputWrap>
+          </InputWrapDiv>
         </FlexDiv>
       </ContainerFlexWrapDiv>
     </PaddedDiv>
@@ -104,47 +116,35 @@ export default function CertificateInputFields({
 }
 
 const PaddedDiv = styled.div`
+  max-width: 900px;
+  margin-inline: auto;
   padding: 8px;
-  height: 100%;
   background: white;
 `
 
 const ContainerFlexWrapDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-`
-
-const ContainerFlexNoWrapDiv = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
+  gap: 15px;
 `
 
 const FlexDiv = styled.div`
-  margin: 8px 8px 45px 8px;
-  height: 110px;
-  line-height: 110px;
-  min-width: 270px;
   flex-grow: 1;
-`
-
-const FlexLargeDiv = styled(FlexDiv)`
-  min-width: 556px;
 `
 
 const InputHeadingDiv = styled.div`
   color: #1a1a1a;
-  height: 28px;
-  font: 500 15px/28px Roboto;
+  font: 500 15px Roboto;
+  padding-top: 12px;
+  padding-bottom: 8px;
 `
 
 const InputWrapDiv = styled.div`
-  height: 82px;
-  line-height: 82px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   border: 1px solid #a9a9a9;
   border-radius: 10px 10px 10px 10px;
-  padding: 15px 0;
+  padding: 10px;
 `
 
 const InputWrapLeftDiv = styled(InputWrapDiv)`
@@ -155,14 +155,6 @@ const InputWrapRightDiv = styled(InputWrapDiv)`
   border-radius: 0 10px 10px 0px;
 `
 
-const ContainerFullWidthWrapDiv = styled.div`
-  width: 100%;
-`
-
-const GrowingDiv = styled.div`
-  flex-grow: 1;
-`
-
 const InputWrap = styled.div`
   width: 100%;
   display: block;
@@ -171,7 +163,6 @@ const InputWrap = styled.div`
 `
 
 const InputHalfWrap = styled.div`
-  width: 50%;
   height: 52px;
   line-height: 52px;
   display: flex;
