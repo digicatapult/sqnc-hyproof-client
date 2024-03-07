@@ -139,7 +139,11 @@ export default function CertificateViewer() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header
+        userFullName={persona.name}
+        companyName={persona.company}
+        color={persona.background}
+      />
       <LeftWrapper area="timeline">
         <Timeline
           name={persona.company}

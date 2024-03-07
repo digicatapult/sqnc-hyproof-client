@@ -10,9 +10,8 @@ export default function Nav() {
     <>
       <Home area="home">
         <HomeIcon>
-          <img src={LogoSVG} alt="HII Initiative Logo" height="80px" />
+          <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
         </HomeIcon>
-        <Button variant="square">Home</Button>
       </Home>
       <Grid.Panel area="nav">
         <AppBar

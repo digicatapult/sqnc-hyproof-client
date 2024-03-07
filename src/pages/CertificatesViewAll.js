@@ -49,6 +49,7 @@ export default function CertificatesViewAll() {
       <Header
         userFullName={persona.name}
         companyName={error || persona.company}
+        color={persona.background}
       />
       <Main area="main">
         {(loading || error) && (
