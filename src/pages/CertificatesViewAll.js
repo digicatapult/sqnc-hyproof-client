@@ -50,7 +50,7 @@ const aggregateData = (data, id = 'default') => {
         date={formatDate(cert.created_at)}
         name={formatCertName(cert)}
       />,
-      `${cert.hydrogen_quantity_wh / 1000000} MWh`,
+      `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
       mapOwner[cert.hydrogen_owner] || 'unknown',
       cert?.embodied_co2
         ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
@@ -66,8 +66,8 @@ const aggregateData = (data, id = 'default') => {
           date={formatDate(cert.created_at)}
           name={formatCertName(cert)}
         />,
-        `${cert.hydrogen_quantity_wh / 1000000} MWh`,
-        `${cert.energy_consumed_wh / 1000000} MWh`,
+        `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
+        `${(cert.energy_consumed_wh / 1000000).toFixed(1)} MWh`,
         cert?.embodied_co2
           ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
           : '',
