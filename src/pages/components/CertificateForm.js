@@ -201,8 +201,7 @@ export default function CertificateForm() {
 const Form = styled.form`
   display: grid;
   grid: subgrid / subgrid;
-  grid-area: 1 / 1 / -1 / -1;
-  overflow: hidden;
+  grid-area: 2 / 2 / -1 / -1;
 `
 
 const TimelineWrapper = styled(Grid.Panel)`
