@@ -141,7 +141,7 @@ export default function App() {
 }
 
 const FullScreenGrid = styled(Grid)`
-  height: 100lvh;
+  min-height: 100lvh;
   padding: ${({ showSelector }) =>
     showSelector ? '20px 20px 20px min(10lvw, 400px)' : '0px'};
   overflow: hidden;
