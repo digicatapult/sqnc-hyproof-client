@@ -29,6 +29,7 @@ export default function CertificateViewer() {
   const context = useContext(Context)
   const { current: curPersona } = context
   const persona = personas.find(({ id }) => id === curPersona)
+  const { name, company, background } = persona
   const { origin } = persona
   const buffer = useRef(null)
   const [data, setData] = useState(null)
@@ -187,7 +188,7 @@ export default function CertificateViewer() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header userFullName={name} companyName={company} bg={background} />
       <LeftWrapper area="timeline">
         <Timeline
           name={persona.company}

@@ -30,6 +30,7 @@ export default function CertificatesViewAll() {
   const navigate = useNavigate()
 
   const persona = personas.find(({ id }) => id === current)
+  const { name, company, background } = persona
   const url = `${persona.origin}/v1/certificate`
 
   const checkCO2 = (cert) =>
@@ -47,8 +48,9 @@ export default function CertificatesViewAll() {
     <>
       <Nav />
       <Header
-        userFullName={persona.name}
-        companyName={error || persona.company}
+        userFullName={name}
+        bg={background}
+        companyName={error || company}
       />
       <Main area="main">
         {(loading || error) && (
@@ -66,7 +68,7 @@ export default function CertificatesViewAll() {
             headers={headersMap[current]}
             rows={data.map((cert) => [
               /* TODO with other cert viewing stories
-                  - create rows/cels per persona using "headersMap as an example"*/
+                  - create rows/cells per persona using "headersMap as an example"*/
               <NameCell
                 key={cert.id}
                 date={formatTimelineDate(cert.created_at)}

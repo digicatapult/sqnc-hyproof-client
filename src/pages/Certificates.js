@@ -9,11 +9,12 @@ import { personas } from '../App'
 export default function Certificates() {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
+  const { name, company, background } = persona
 
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header userFullName={name} companyName={company} bg={background} />
       <CertificateForm variant="hyproof" />
     </>
   )
