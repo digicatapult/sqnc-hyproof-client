@@ -26,7 +26,8 @@ export default function Routes() {
       router={createBrowserRouter(
         createRoutesFromElements(
           <>
-            <Route path="/" element={<Navigate to="/certificate?create=y" />} />
+            {/* <Route path="/" element={<Navigate to="/certificate?create=y" />} /> */}
+            <Route path="/" element={<Navigate to="/certificate" />} />
             <Route path="/certificate" element={<Outlet />}>
               <Route index element={<CreateViewSwitcher />} />
               <Route path=":id" element={<CertificateViewer />} />
