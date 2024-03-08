@@ -5,12 +5,12 @@ import { Grid, UserIcon } from '@digicatapult/ui-component-library'
 
 import LiveIndicatorSVG from '../../assets/images/liveIndicator.svg'
 
-export default function Header({ userFullName, companyName }) {
+export default function Header({ userFullName, companyName, color }) {
   return (
     <StyledHeader area="header">
       <UserIcon
         fullName={userFullName}
-        bgColor="#9EDCFA"
+        bgColor={color}
         outlineColor="white"
         color="#1A1A1A"
         size="70px"
@@ -34,10 +34,10 @@ const StyledHeader = styled(Grid.Panel)`
   color: white;
   display: grid;
   grid-template-columns: auto 1fr auto auto;
+  min-height: 98px;
   gap: 33px;
   align-items: center;
   background: #1a1a1a;
-  width: 100%;
   padding: 0px 28px;
 `
 
@@ -47,7 +47,6 @@ const CompanyName = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 45px;
-  white-space: nowrap;
 `
 
 const LiveIndicator = styled.picture``

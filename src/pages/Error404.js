@@ -13,7 +13,11 @@ export default function Error404() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header
+        userFullName={persona.name}
+        companyName={persona.company}
+        color={persona.background}
+      />
       <MainWrapper>
         <Container>
           <Text>

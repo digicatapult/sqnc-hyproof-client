@@ -13,7 +13,11 @@ export default function Certificates() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header
+        userFullName={persona.name}
+        companyName={persona.company}
+        color={persona.background}
+      />
       <CertificateForm variant="hyproof" />
     </>
   )

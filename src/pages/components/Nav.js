@@ -3,16 +3,15 @@ import styled from 'styled-components'
 
 import LogoSVG from '../../assets/images/hii-logo.svg'
 
-import { Grid, AppBar, Button } from '@digicatapult/ui-component-library'
+import { Grid, AppBar } from '@digicatapult/ui-component-library'
 
 export default function Nav() {
+  const path = window.location.pathname
+
   return (
     <>
       <Home area="home">
-        <HomeIcon>
-          <img src={LogoSVG} alt="HII Initiative Logo" height="80px" />
-        </HomeIcon>
-        <Button variant="square">Home</Button>
+        <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
       </Home>
       <Grid.Panel area="nav">
         <AppBar
@@ -22,8 +21,15 @@ export default function Nav() {
             accent: '#FFF',
           }}
         >
-          <AppBar.Item>what we do</AppBar.Item>
-          <AppBar.Item active={true}>certificates</AppBar.Item>
+          <AppBar.Item href="/what-we-do" active={path === '/what-we-do'}>
+            what we do
+          </AppBar.Item>
+          <AppBar.Item
+            href="/certificate"
+            active={path.startsWith('/certificate')}
+          >
+            certificates
+          </AppBar.Item>
         </AppBar>
       </Grid.Panel>
     </>
@@ -39,5 +45,3 @@ const Home = styled(Grid.Panel)`
   padding-left: 20px;
   padding-right: 20px;
 `
-
-const HomeIcon = styled.picture``

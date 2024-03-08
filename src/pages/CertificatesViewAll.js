@@ -4,6 +4,7 @@ import { Grid, Spinner, Table } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
+import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
 
 import { Context } from '../utils/Context'
 import { stateToStatus, NameCell } from './components/shared'
@@ -98,8 +99,9 @@ export default function CertificatesViewAll() {
       <Header
         userFullName={persona.name}
         companyName={error || persona.company}
+        color={persona.background}
       />
-      <Main area="main">
+      <Main>
         {(loading || error) && (
           <Spinner
             text={error || 'loading...'}
@@ -119,14 +121,11 @@ export default function CertificatesViewAll() {
         )}
         {data?.length === 0 && 'nothing to render'}
       </Main>
-      <Timeline area="timeline" />
-      <Sidebar area="sidebar" />
-      {/* <Button variant={'roundedShadow'}>Create</Button>*/}
+      <Sidebar area="sidebar"></Sidebar>
     </>
   )
 }
 
-const Timeline = styled(Grid.Panel)``
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   background: #0c3b38;
@@ -135,11 +134,20 @@ const Sidebar = styled(Grid.Panel)`
   color: white;
 `
 
-const Main = styled(Grid.Panel)`
+const Main = styled.div`
+  grid-row: 3;
+  grid-column: 1 / 3;
+  isolation: isolate;
+  background: #228077 url(${BgMoleculesImageSVG}) repeat;
+  background-size: 100px;
   color: #fff;
-  width: 100%;
   align-self: start;
   font-family: Roboto;
   height: 100%;
   padding: 28px;
+
+  & > * {
+    margin-inline: auto;
+    max-width: 1200px;
+  }
 `
