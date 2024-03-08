@@ -39,9 +39,6 @@ export default function CertificateViewer() {
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
-    // Set empty interval identifier
-    let intervalId = null
-
     // Fetch latest certificate
     const fetchLatestCert = async () => {
       let result = null
@@ -59,7 +56,7 @@ export default function CertificateViewer() {
       let url, body
 
       setPosting(true)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       const hasCo2 = foundCert?.embodied_co2 !== null
       if (hasCo2) return
       const foundCertHash = foundCert?.commitment
@@ -103,33 +100,27 @@ export default function CertificateViewer() {
       setData(res)
     }
 
-    // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch) then start fetch loop
-    curPersona === 'emma' &&
-      fetchLatestCert().then((c) => {
-        co2PostIfNeeded(c).then(() => {
-          intervalId = setInterval(async () => {
-            const latestCert = await fetchLatestCert()
-            if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
-              buffer.current = latestCert
-              setData(latestCert)
-            }
-          }, 2 * 1000)
-        })
-      })
+    let fetchAndUpdate = async () => {
+      const latestCert = await fetchLatestCert()
+      if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+        buffer.current = latestCert
+        setData(latestCert)
+      }
+      return latestCert
+    }
 
-    // Start fetch loop ( fetch every few secs ) if not Emma
-    curPersona !== 'emma' &&
-      (intervalId = setInterval(async () => {
-        const latestCert = await fetchLatestCert()
-        if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
-          buffer.current = latestCert
-          setData(latestCert)
-        }
-      }, 2 * 1000))
+    const fetchPromise = fetchAndUpdate()
+    const intervalId = setInterval(fetchAndUpdate, 2 * 1000)
+
+    // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch)
+    if (curPersona === 'emma') {
+      fetchPromise.then(co2PostIfNeeded)
+    }
 
     // Cleanup the interval on unmount
     return () => {
       clearInterval(intervalId)
+      setPosting(false)
     }
   }, [curPersona, id, origin, context, fetchCert])
 
@@ -139,7 +130,11 @@ export default function CertificateViewer() {
   return (
     <>
       <Nav />
-      <Header userFullName={persona.name} companyName={persona.company} />
+      <Header
+        userFullName={persona.name}
+        companyName={persona.company}
+        color={persona.background}
+      />
       <LeftWrapper area="timeline">
         <Timeline
           name={persona.company}
@@ -171,45 +166,52 @@ export default function CertificateViewer() {
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </LeftWrapper>
       <MainWrapper>
-        <Grid.Panel area="main">
-          <ContainerDiv>
-            <Paper>
-              {data === null && <>...</>}
-              {data && (
-                <Grid
-                  areas={[
-                    ['div-header', 'div-header', 'div-header'],
-                    ['div-ownership', 'div-details', 'div-details'],
-                  ]}
-                  rows={['auto', 'auto']}
-                  columns={['1fr', '2fr']}
-                  gap="15px"
-                >
-                  <Grid.Panel area="div-header">
-                    <CertificateViewHeader id={id} />
-                  </Grid.Panel>
-                  <Grid.Panel area="div-ownership">
-                    <CertificateViewOwnership
-                      id={id}
-                      hOwner={data?.hydrogen_owner}
-                      eOwner={data?.energy_owner}
-                    />
-                  </Grid.Panel>
-                  <Grid.Panel area="div-details">
-                    <CertificateViewDetails
-                      size={data?.hydrogen_quantity_wh}
-                      start={data?.production_start_time}
-                      end={data?.production_end_time}
-                      energy={data?.energy_consumed_wh}
-                      eco2={data?.embodied_co2}
-                      posting={posting}
-                    />
-                  </Grid.Panel>
-                </Grid>
-              )}
-            </Paper>
-          </ContainerDiv>
-        </Grid.Panel>
+        <MainContainer area="main">
+          <Paper>
+            {data === null && <>...</>}
+            {data && (
+              <Grid
+                areas={[['div-header'], ['div-ownership'], ['div-details']]}
+                rows={['auto', 'auto', 'auto']}
+                columns={['auto']}
+                gap="15px"
+                byWidth={[
+                  {
+                    minWidth: 1300,
+                    areas: [
+                      ['div-header', 'div-header', 'div-header'],
+                      ['div-ownership', 'div-details', 'div-details'],
+                    ],
+                    rows: ['auto', 'auto'],
+                    columns: ['1fr', '2fr'],
+                    gap: '15px',
+                  },
+                ]}
+              >
+                <Grid.Panel area="div-header">
+                  <CertificateViewHeader id={id} />
+                </Grid.Panel>
+                <Grid.Panel area="div-ownership">
+                  <CertificateViewOwnership
+                    id={id}
+                    hOwner={data?.hydrogen_owner}
+                    eOwner={data?.energy_owner}
+                  />
+                </Grid.Panel>
+                <Grid.Panel area="div-details">
+                  <CertificateViewDetails
+                    size={data?.hydrogen_quantity_wh}
+                    start={data?.production_start_time}
+                    end={data?.production_end_time}
+                    energy={data?.energy_consumed_wh}
+                    eco2={data?.embodied_co2}
+                    posting={posting}
+                  />
+                </Grid.Panel>
+              </Grid>
+            )}
+          </Paper>
+        </MainContainer>
         <Sidebar area="sidebar"></Sidebar>
       </MainWrapper>
     </>
@@ -239,9 +241,8 @@ const Sidebar = styled(Grid.Panel)`
   background: #0c3b38;
 `
 
-const ContainerDiv = styled.div`
+const MainContainer = styled(Grid.Panel)`
   display: grid;
-  grid-area: 1 / 1 / -1 / -1;
   background: #228077 url(${BgMoleculesImageSVG}) repeat;
   background-size: 100px;
   padding: 34px;
@@ -250,7 +251,8 @@ const ContainerDiv = styled.div`
 
 const Paper = styled.div`
   position: relative;
-  width: 100%;
+  max-width: 1000px;
+  margin-inline: auto;
   padding: 15px;
   color: #000000;
   background: #ffffff;

@@ -32,6 +32,7 @@ export const personas = [
     name: 'Reginald Reginald',
     title: 'Reginald Reginald',
     subtitle: 'The Regulator',
+    company: "Reginald's Hydrogen Regulator",
     background: '#FCF281',
     origin: 'http://localhost:8020',
   },
@@ -40,6 +41,7 @@ export const personas = [
     name: 'Connor Connor',
     title: 'Connor Connor',
     subtitle: 'The Hydrogen Consumer',
+    company: "Conor's Consuming LTD",
     background: '#FDB6D4',
     origin: 'http://localhost:8020',
   },
@@ -76,23 +78,6 @@ export default function App() {
 
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <SidePanel
-        width={400}
-        variant="hyproof"
-        heading="Certificate View"
-        title={persona.name}
-        callback={(e) => setShowSelector(e.isOpen)}
-      >
-        {personas.map((el) => (
-          <SidePanel.Item
-            {...el}
-            key={el.id}
-            active={el.id === current}
-            update={(_, persona) => handlePersonaSwitch(persona)}
-            variant="hyproof"
-          />
-        ))}
-      </SidePanel>
       <FullScreenGrid
         color={persona.background}
         showSelector={showSelector}
@@ -103,7 +88,7 @@ export default function App() {
           ['timeline', 'sidebar'],
         ]}
         columns={['minmax(min-content, 1fr)', '2fr']}
-        rows={['78px', '98px', '1fr', 'auto']}
+        rows={['auto', 'auto', '1fr', 'auto']}
         byWidth={[
           {
             minWidth: 1000,
@@ -117,7 +102,7 @@ export default function App() {
               '4fr',
               'minmax(min-content, 1.5fr)',
             ],
-            rows: ['78px', '98px', '1fr'],
+            rows: ['auto', 'auto', '1fr'],
           },
           {
             minWidth: 1500,
@@ -127,10 +112,28 @@ export default function App() {
               ['timeline', 'main', 'sidebar'],
             ],
             columns: ['320px', '1fr', '320px'],
-            rows: ['78px', '98px', '1fr'],
+            rows: ['auto', 'auto', '1fr'],
           },
         ]}
       >
+        <SidePanel
+          width="400px"
+          variant="hyproof"
+          heading="Certificate View"
+          title={persona.name}
+          isOpen={false}
+          callback={(e) => setShowSelector(e.isOpen)}
+        >
+          {personas.map((el) => (
+            <SidePanel.Item
+              {...el}
+              key={el.id}
+              active={el.id === current}
+              update={(_, persona) => handlePersonaSwitch(persona)}
+              variant="hyproof"
+            />
+          ))}
+        </SidePanel>
         <Routes />
       </FullScreenGrid>
     </QueryClientProvider>
@@ -138,16 +141,34 @@ export default function App() {
 }
 
 const FullScreenGrid = styled(Grid)`
-  height: 100lvh;
-  width: ${({ showSelector }) =>
-    showSelector ? 'calc(100lvw - 450x)' : '100lvw'};
-  margin-left: ${({ showSelector }) => (showSelector ? '450px' : '0px')};
+  min-height: 100lvh;
+  padding: ${({ showSelector }) =>
+    showSelector ? '20px 20px 20px min(10lvw, 400px)' : '0px'};
   overflow: hidden;
   box-sizing: border-box;
-  transition:
-    width ease-in-out 0.7s,
-    border ease-in-out 0.7s,
-    margin-left ease-in-out 0.7s;
-  border: ${({ showSelector, color }) =>
-    `${showSelector ? '20px' : '0px'} solid ${color}`};
+  transition: padding ease-in-out 0.7s;
+
+  isolation: isolate;
+  & > *:first-child {
+    z-index: 1;
+  }
+  & > *:not(:first-child) {
+    z-index: -1;
+  }
+  &::before {
+    content: '';
+    position: fixed;
+    z-index: -3;
+    inset: 0px;
+    background: ${({ color }) => color || 'white'};
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    inset: ${({ showSelector }) =>
+      showSelector ? '20px 20px 20px min(10lvw, 400px)' : '0px'};
+    transition: inset ease-in-out 0.7s;
+    background: white;
+  }
 `

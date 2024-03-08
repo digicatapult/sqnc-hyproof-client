@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Grid } from '@digicatapult/ui-component-library'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 
@@ -27,10 +28,23 @@ export default function CertificateViewDetails({
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
         {hasDate(start) && hasDate(end) && (
-          <FlexLargeDiv>
-            <ContainerFlexNoWrapDiv>
-              <GrowingDiv>
-                <HeadingDiv>Start timestamp of energy use</HeadingDiv>
+          <FlexDiv>
+            <Grid
+              areas={[
+                ['label_start', '-', 'label_end'],
+                ['inputs_start', 'interval', 'inputs_end'],
+              ]}
+              columns={[
+                'minmax(min-content, 1fr)',
+                'auto',
+                'minmax(min-content, 1fr)',
+              ]}
+              rows={['auto', 'auto']}
+            >
+              <Grid.Panel area="label_start">
+                <HeadingDiv>Start of energy use</HeadingDiv>
+              </Grid.Panel>
+              <Grid.Panel area="inputs_start">
                 <WrapDiv>
                   <HalfWrap>
                     <IconWrap>
@@ -45,14 +59,16 @@ export default function CertificateViewDetails({
                     <Text>{start.split('T')[1].slice(0, 5)}</Text>
                   </HalfWrap>
                 </WrapDiv>
-              </GrowingDiv>
+              </Grid.Panel>
               <CertificateTimeInterval
                 sTimestamp={start}
                 eTimestamp={end}
                 bgColor="white"
               />
-              <GrowingDiv>
-                <HeadingDiv>End timestamp of energy use</HeadingDiv>
+              <Grid.Panel area="label_end">
+                <HeadingDiv>End of energy use</HeadingDiv>
+              </Grid.Panel>
+              <Grid.Panel area="inputs_end">
                 <WrapDiv>
                   <HalfWrap>
                     <IconWrap>
@@ -67,9 +83,9 @@ export default function CertificateViewDetails({
                     <Text>{end.split('T')[1].split('.')[0]}</Text>
                   </HalfWrap>
                 </WrapDiv>
-              </GrowingDiv>
-            </ContainerFlexNoWrapDiv>
-          </FlexLargeDiv>
+              </Grid.Panel>
+            </Grid>
+          </FlexDiv>
         )}
         {hasEnergy(energy) && (
           <FlexDiv>
@@ -169,23 +185,8 @@ const GreySpan = styled.span`
 }
 `
 
-const FlexLargeDiv = styled(FlexDiv)`
-  min-width: 354px;
-  border-left: 0;
-`
-
-const ContainerFlexNoWrapDiv = styled.div`
-  padding-left: 5px;
-  display: flex;
-  flex-wrap: nowrap;
-`
-
 const ContainerFullWidthWrapDiv = styled.div`
   padding-left: 5px;
-`
-
-const GrowingDiv = styled.div`
-  flex-grow: 1;
 `
 
 const HeadingDiv = styled.div`
@@ -204,10 +205,8 @@ const WrapShortDiv = styled.div`
 `
 
 const WrapDiv = styled.div`
-  height: 82px;
-  line-height: 82px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 15px 0;
 `
 
@@ -221,9 +220,6 @@ const WrapPaddedDiv = styled.div`
 `
 
 const HalfWrap = styled.div`
-  width: 50%;
-  height: 52px;
-  line-height: 52px;
   display: flex;
   flex-direction: column;
   padding-left: 10px;
