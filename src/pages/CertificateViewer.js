@@ -148,6 +148,7 @@ export default function CertificateViewer() {
     // Cleanup the interval on unmount
     return () => {
       clearInterval(intervalId)
+      setPosting(false)
     }
   }, [curPersona, id, origin, context, fetchCert])
 
