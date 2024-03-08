@@ -28,19 +28,19 @@ export const personas = [
     origin: 'http://localhost:8010',
   },
   {
-    id: 'connor',
-    name: 'Connor Connor',
-    title: 'Connor Connor',
-    subtitle: 'The Hydrogen Consumer',
-    background: '#FDB6D4',
-    origin: 'http://localhost:8020',
-  },
-  {
     id: 'reginald',
     name: 'Reginald Reginald',
     title: 'Reginald Reginald',
     subtitle: 'The Regulator',
     background: '#FCF281',
+    origin: 'http://localhost:8020',
+  },
+  {
+    id: 'connor',
+    name: 'Connor Connor',
+    title: 'Connor Connor',
+    subtitle: 'The Hydrogen Consumer',
+    background: '#FDB6D4',
     origin: 'http://localhost:8020',
   },
 ]
