@@ -105,45 +105,74 @@ export default function CertificateViewer() {
       setData(res)
     }
 
+    // Useful fn that fetches the latest cert and updates data if it has changed
+    const fetchAndUpdate = async () => {
+      const latestCert = await fetchLatestCert()
+      if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+        buffer.current = latestCert
+        setData(latestCert)
+      }
+      return latestCert
+    }
+
+    // The promisified version of the previously defined fn
+    const fetchAndUpdatePromise = fetchAndUpdate()
+
     // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch) then start fetch loop
     if (curPersona === 'emma') {
       fetchLatestCert().then((c) => {
         co2PostIfNeeded(c).then(() => {
-          fetchLatestCert().then((latestCert) => {
-            if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
-              buffer.current = latestCert
-              setData(latestCert)
-              intervalId = setInterval(async () => {
-                const latestCert = await fetchLatestCert()
-                if (
-                  JSON.stringify(latestCert) != JSON.stringify(buffer.current)
-                ) {
-                  buffer.current = latestCert
-                  setData(latestCert)
-                }
-              }, 9 * 1000)
-            }
+          fetchAndUpdatePromise.then(() => {
+            intervalId = setInterval(fetchAndUpdate, 2 * 1000)
           })
         })
       })
     }
+    // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch) then start fetch loop OLD
+    // if (curPersona === 'emma') {
+    //   fetchLatestCert().then((c) => {
+    //     co2PostIfNeeded(c).then(() => {
+    //       fetchLatestCert().then((latestCert) => {
+    //         if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+    //           buffer.current = latestCert
+    //           setData(latestCert)
+    //           intervalId = setInterval(async () => {
+    //             const latestCert = await fetchLatestCert()
+    //             if (
+    //               JSON.stringify(latestCert) != JSON.stringify(buffer.current)
+    //             ) {
+    //               buffer.current = latestCert
+    //               setData(latestCert)
+    //             }
+    //           }, 9 * 1000)
+    //         }
+    //       })
+    //     })
+    //   })
+    // }
 
     // Start fetch loop ( fetch every few secs ) if not Emma
     if (curPersona !== 'emma') {
-      fetchLatestCert().then((latestCert) => {
-        if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
-          buffer.current = latestCert
-          setData(latestCert)
-          intervalId = setInterval(async () => {
-            const latestCert = await fetchLatestCert()
-            if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
-              buffer.current = latestCert
-              setData(latestCert)
-            }
-          }, 2 * 1000)
-        }
+      fetchAndUpdatePromise.then(() => {
+        intervalId = setInterval(fetchAndUpdate, 2 * 1000)
       })
     }
+    // Start fetch loop ( fetch every few secs ) if not Emma OLD
+    // if (curPersona !== 'emma') {
+    //   fetchLatestCert().then((latestCert) => {
+    //     if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+    //       buffer.current = latestCert
+    //       setData(latestCert)
+    //       intervalId = setInterval(async () => {
+    //         const latestCert = await fetchLatestCert()
+    //         if (JSON.stringify(latestCert) != JSON.stringify(buffer.current)) {
+    //           buffer.current = latestCert
+    //           setData(latestCert)
+    //         }
+    //       }, 2 * 1000)
+    //     }
+    //   })
+    // }
 
     // Cleanup the interval on unmount
     return () => {
