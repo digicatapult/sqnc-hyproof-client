@@ -1,12 +1,23 @@
 import React from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
+
+import { Link } from 'react-router-dom'
 
 import LogoSVG from '../../assets/images/hii-logo.svg'
 
 import { Grid, AppBar } from '@digicatapult/ui-component-library'
+import { Dialog } from '@digicatapult/ui-component-library'
 
 export default function Nav() {
   const path = window.location.pathname
+
+  const dialogRef = useRef(null)
+  const inactive = (e) => e.preventDefault()
+  const showPopup = (e) => {
+    e.preventDefault()
+    dialogRef.current?.show()
+  }
 
   return (
     <>
@@ -21,17 +32,44 @@ export default function Nav() {
             accent: '#FFF',
           }}
         >
-          <AppBar.Item href="/what-we-do" active={path === '/what-we-do'}>
+          {/* OLD */}
+          {/* <AppBar.Item href="/what-we-do" active={path === '/what-we-do'}>
             what we do
-          </AppBar.Item>
-          <AppBar.Item
+          </AppBar.Item> */}
+          {/* <AppBar.Item
             href="/certificate"
             active={path.startsWith('/certificate')}
           >
             certificates
+          </AppBar.Item> */}
+          {/* OLD END */}
+
+          {/* Inactive app item w/ Link since only Link avoids discarding the context */}
+          <AppBar.Item onClick={inactive}>
+            <WhiteLink onClick={showPopup}>what we do</WhiteLink>
           </AppBar.Item>
+          <AppBar.Item
+            onClick={inactive}
+            active={path.startsWith('/certificate')}
+          >
+            <WhiteLink to="/certificate">certificates</WhiteLink>
+          </AppBar.Item>
+
+          {/* Alternative */}
+          {/* <AppBar.Item href="." onClick={showPopup}>
+            what we do
+          </AppBar.Item> */}
+          {/* <AppBar.Item
+            href="/certificate"
+            active={path.startsWith('/certificate')}
+          >
+            certificates
+          </AppBar.Item> */}
         </AppBar>
       </Grid.Panel>
+      <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </Dialog>
     </>
   )
 }
@@ -44,4 +82,12 @@ const Home = styled(Grid.Panel)`
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
+`
+
+const WhiteLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: #dbe9e8;
+  }
 `
