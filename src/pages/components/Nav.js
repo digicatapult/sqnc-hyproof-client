@@ -1,13 +1,11 @@
-import React from 'react'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
 
 import LogoSVG from '../../assets/images/hii-logo.svg'
 
-import { Grid, AppBar } from '@digicatapult/ui-component-library'
-import { Dialog } from '@digicatapult/ui-component-library'
+import { Grid, AppBar, Dialog } from '@digicatapult/ui-component-library'
 
 export default function Nav() {
   const path = window.location.pathname
