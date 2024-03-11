@@ -88,11 +88,9 @@ export default function CertificatesViewAll() {
         {data?.length === 0 && 'nothing to render'}
       </Main>
       <Sidebar area="sidebar">
-        <PaddedDiv>
-          <LargeButton variant="roundedPronounced">
-            <Link to="/certificate?create=y">New Certificate</Link>
-          </LargeButton>
-        </PaddedDiv>
+        <LargeButton variant="roundedPronounced">
+          <Link to="/certificate?create=y">New Certificate</Link>
+        </LargeButton>
       </Sidebar>
     </>
   )
@@ -103,6 +101,8 @@ const Sidebar = styled(Grid.Panel)`
   justify-items: center;
   color: white;
   background: #0c3b38;
+  gap: 10px;
+  padding: 34px 21px;
 `
 
 const Main = styled.div`
@@ -121,13 +121,6 @@ const Main = styled.div`
     margin-inline: auto;
     max-width: 1200px;
   }
-`
-
-const PaddedDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 34px 21px;
 `
 
 const LargeButton = styled(Button)`
