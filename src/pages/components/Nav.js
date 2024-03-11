@@ -20,7 +20,9 @@ export default function Nav() {
   return (
     <>
       <Home area="home">
-        <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
+        <Link to="/">
+          <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
+        </Link>
       </Home>
       <Grid.Panel area="nav">
         <AppBar
