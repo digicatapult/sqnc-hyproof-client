@@ -41,7 +41,7 @@ export const personas = [
     name: 'Connor Connor',
     title: 'Connor Connor',
     subtitle: 'The Hydrogen Consumer',
-    company: "Conor's Consuming LTD",
+    company: "Connor's Consuming LTD",
     background: '#FDB6D4',
     origin: 'http://localhost:8020',
   },

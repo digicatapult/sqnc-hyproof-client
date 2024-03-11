@@ -1,17 +1,28 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
+
+import { Link } from 'react-router-dom'
 
 import LogoSVG from '../../assets/images/hii-logo.svg'
 
-import { Grid, AppBar } from '@digicatapult/ui-component-library'
+import { Grid, AppBar, Dialog } from '@digicatapult/ui-component-library'
 
 export default function Nav() {
   const path = window.location.pathname
 
+  const dialogRef = useRef(null)
+  const inactive = (e) => e.preventDefault()
+  const showPopup = (e) => {
+    e.preventDefault()
+    dialogRef.current?.show()
+  }
+
   return (
     <>
       <Home area="home">
-        <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
+        <Link to="/">
+          <img src={LogoSVG} alt="HII Initiative Logo" height="76px" />
+        </Link>
       </Home>
       <Grid.Panel area="nav">
         <AppBar
@@ -21,17 +32,20 @@ export default function Nav() {
             accent: '#FFF',
           }}
         >
-          <AppBar.Item href="/what-we-do" active={path === '/what-we-do'}>
-            what we do
+          <AppBar.Item onClick={inactive}>
+            <WhiteLink onClick={showPopup}>what we do</WhiteLink>
           </AppBar.Item>
           <AppBar.Item
-            href="/certificate"
+            onClick={inactive}
             active={path.startsWith('/certificate')}
           >
-            certificates
+            <WhiteLink to="/certificate">certificates</WhiteLink>
           </AppBar.Item>
         </AppBar>
       </Grid.Panel>
+      <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </Dialog>
     </>
   )
 }
@@ -44,4 +58,12 @@ const Home = styled(Grid.Panel)`
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
+`
+
+const WhiteLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  &:hover {
+    color: #dbe9e8;
+  }
 `
