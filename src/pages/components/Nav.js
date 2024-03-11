@@ -32,19 +32,6 @@ export default function Nav() {
             accent: '#FFF',
           }}
         >
-          {/* OLD */}
-          {/* <AppBar.Item href="/what-we-do" active={path === '/what-we-do'}>
-            what we do
-          </AppBar.Item> */}
-          {/* <AppBar.Item
-            href="/certificate"
-            active={path.startsWith('/certificate')}
-          >
-            certificates
-          </AppBar.Item> */}
-          {/* OLD END */}
-
-          {/* Inactive app item w/ Link since only Link avoids discarding the context */}
           <AppBar.Item onClick={inactive}>
             <WhiteLink onClick={showPopup}>what we do</WhiteLink>
           </AppBar.Item>
@@ -54,17 +41,6 @@ export default function Nav() {
           >
             <WhiteLink to="/certificate">certificates</WhiteLink>
           </AppBar.Item>
-
-          {/* Alternative */}
-          {/* <AppBar.Item href="." onClick={showPopup}>
-            what we do
-          </AppBar.Item> */}
-          {/* <AppBar.Item
-            href="/certificate"
-            active={path.startsWith('/certificate')}
-          >
-            certificates
-          </AppBar.Item> */}
         </AppBar>
       </Grid.Panel>
       <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
