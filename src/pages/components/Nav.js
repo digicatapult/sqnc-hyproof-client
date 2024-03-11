@@ -15,7 +15,7 @@ export default function Nav() {
   const inactive = (e) => e.preventDefault()
   const showPopup = (e) => {
     e.preventDefault()
-    dialogRef.current?.show()
+    dialogRef.current?.showModal()
   }
 
   return (
@@ -44,7 +44,16 @@ export default function Nav() {
           </AppBar.Item>
         </AppBar>
       </Grid.Panel>
-      <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
+      <Dialog
+        width="fit-content"
+        height="95ch"
+        margin="40px auto"
+        padding="0px"
+        modalBackdropColor="rgba(26, 26, 26, 0.9)"
+        borderRadius="0px"
+        useModal={true}
+        ref={dialogRef}
+      >
         <WhoWeArePopup />
       </Dialog>
     </>
