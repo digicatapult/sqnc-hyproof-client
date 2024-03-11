@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
 
-import LogoSVG from '../../assets/images/hii-logo.svg'
-
 import { Grid, AppBar, Dialog } from '@digicatapult/ui-component-library'
+
+import LogoSVG from '../../assets/images/hii-logo.svg'
+import WhoWeArePopup from './WhoWeArePopup'
 
 export default function Nav() {
   const path = window.location.pathname
@@ -44,7 +45,7 @@ export default function Nav() {
         </AppBar>
       </Grid.Panel>
       <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <WhoWeArePopup />
       </Dialog>
     </>
   )
