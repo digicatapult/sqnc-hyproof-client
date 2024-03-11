@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Grid, Spinner, Table } from '@digicatapult/ui-component-library'
 
+import { Link } from 'react-router-dom'
+import { Button } from '@digicatapult/ui-component-library'
+
 import Nav from './components/Nav'
 import Header from './components/Header'
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
@@ -84,12 +87,21 @@ export default function CertificatesViewAll() {
         )}
         {data?.length === 0 && 'nothing to render'}
       </Main>
-      <Sidebar area="sidebar"></Sidebar>
+      <Sidebar area="sidebar">
+        <PaddedDiv>
+          <LargeButton variant="roundedPronounced">
+            <Link to="/certificate?create=y">New Certificate</Link>
+          </LargeButton>
+        </PaddedDiv>
+      </Sidebar>
     </>
   )
 }
 
 const Sidebar = styled(Grid.Panel)`
+  align-items: center;
+  justify-items: center;
+  color: white;
   background: #0c3b38;
 `
 
@@ -108,5 +120,36 @@ const Main = styled.div`
   & > * {
     margin-inline: auto;
     max-width: 1200px;
+  }
+`
+
+const PaddedDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 34px 21px;
+`
+
+const LargeButton = styled(Button)`
+  min-height: 60px;
+  width: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  white-space: nowrap;
+  color: #33e58c;
+  border: 1px solid #2fe181;
+  background: #124338;
+  &:hover {
+    opacity: 0.6;
+  }
+  &:disabled {
+    color: #1c774a;
+    border: 1px solid #1c774a;
+  }
+  & a {
+    color: #33e58c;
+    text-decoration: none;
   }
 `
