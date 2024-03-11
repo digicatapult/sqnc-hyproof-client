@@ -111,9 +111,11 @@ export default function CertificatesViewAll() {
         )}
         {data && (
           <Table
-            action={([{ key: original_token_id }]) =>
-              navigate(`/certificate/${original_token_id}`)
-            }
+            action={([{ key: original_token_id }]) => {
+              if (original_token_id === null)
+                return navigate(`/certificate/${original_token_id}`)
+              window.alert(`Warning! Token_ID = ${original_token_id}`)
+            }}
             headers={headersMap[current]}
             rows={aggregateData(data, current)}
             variant="hyproof"
@@ -130,8 +132,6 @@ const Sidebar = styled(Grid.Panel)`
   align-items: center;
   background: #0c3b38;
   justify-items: center;
-  width: 300px;
-  color: white;
 `
 
 const Main = styled.div`
