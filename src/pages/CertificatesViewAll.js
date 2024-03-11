@@ -13,12 +13,6 @@ import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/use-axios'
 import { formatDate, formatCertName, checkCO2Status } from '../utils/helpers'
 
-const mapOwner = {
-  '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY': 'Heidi',
-  '5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y': 'Regulator',
-  '5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty': 'Emma',
-}
-
 const headersMap = {
   heidi: [
     'Date',
@@ -52,7 +46,7 @@ const aggregateData = (data, id = 'default') => {
         name={formatCertName(cert)}
       />,
       `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
-      mapOwner[cert.hydrogen_owner] || 'unknown',
+      cert.hydrogen_owner || 'unknown',
       cert?.embodied_co2
         ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
         : '',
