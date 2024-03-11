@@ -45,7 +45,7 @@ export default function Nav() {
         </AppBar>
       </Grid.Panel>
       <Dialog
-        width="fit-content"
+        width="99ch"
         height="95ch"
         margin="40px auto"
         padding="0px"
