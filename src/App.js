@@ -152,7 +152,7 @@ const FullScreenGrid = styled(Grid)`
   & > *:first-child {
     z-index: 1;
   }
-  & > *:not(:first-child) {
+  & > *:not(:first-child):not(dialog) {
     z-index: -1;
   }
   &::before {
