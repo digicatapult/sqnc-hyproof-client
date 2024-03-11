@@ -133,10 +133,7 @@ const PaddedDiv = styled.div`
 const LargeButton = styled(Button)`
   min-height: 60px;
   width: 100%;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 21px;
+  font: normal 500 21px Roboto;
   white-space: nowrap;
   color: #33e58c;
   border: 1px solid #2fe181;
