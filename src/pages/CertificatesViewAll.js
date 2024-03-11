@@ -1,9 +1,13 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Grid, Spinner, Table } from '@digicatapult/ui-component-library'
+import {
+  Grid,
+  Spinner,
+  Table,
+  Button,
+} from '@digicatapult/ui-component-library'
 
 import { Link } from 'react-router-dom'
-import { Button } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -97,10 +101,10 @@ export default function CertificatesViewAll() {
 }
 
 const Sidebar = styled(Grid.Panel)`
+  background: #0c3b38;
   align-items: center;
   justify-items: center;
   color: white;
-  background: #0c3b38;
   gap: 10px;
   padding: 34px 21px;
 `
