@@ -13,7 +13,7 @@ export const personas = [
   {
     id: 'heidi',
     name: 'Heidi Heidi',
-    title: 'Hydrogen Producer',
+    title: 'Heidi',
     subtitle: 'The Hydrogen Producer',
     company: 'Heidi the Hydrogen Producer',
     background: '#9EDCFA',
@@ -22,7 +22,7 @@ export const personas = [
   {
     id: 'emma',
     name: 'Emma Emma',
-    title: 'Energy Producer',
+    title: 'Emma',
     subtitle: 'The Energy Producer',
     company: 'Emma the Energy Producer',
     background: '#AAED93',
@@ -31,7 +31,7 @@ export const personas = [
   {
     id: 'reginald',
     name: 'Reginald Reginald',
-    title: 'Regulator',
+    title: 'Reginald',
     subtitle: 'The Regulator',
     company: 'Reginald the Regulator',
     background: '#FCF281',
@@ -40,7 +40,7 @@ export const personas = [
   {
     id: 'connor',
     name: 'Connor Connor',
-    title: 'Consumer',
+    title: 'Connor',
     subtitle: 'The Hydrogen Consumer',
     company: 'Connor the Consumer',
     background: '#FDB6D4',
@@ -127,8 +127,7 @@ export default function App() {
         <SidePanel
           width="400px"
           variant="hyproof"
-          heading="Certificate View"
-          title={persona.title}
+          heading={persona.subtitle.replace('The ', '')}
           isOpen={false}
           callback={(e) => setShowSelector(e.isOpen)}
         >
