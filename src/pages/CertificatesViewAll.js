@@ -42,6 +42,13 @@ const headersMap = {
     'Carbon Embodiment',
     'Status',
   ],
+  connor: [
+    'Date',
+    'H2 Batch size',
+    'H2 Certificate holder',
+    'Carbon Embodiment',
+    'Status',
+  ],
 }
 
 const aggregateData = (data, id = 'default') => {
@@ -77,6 +84,7 @@ const aggregateData = (data, id = 'default') => {
       ]),
     emma: (certs) => defaultRow(certs),
     reginald: (certs) => defaultRow(certs),
+    connor: (certs) => defaultRow(certs),
   }
 
   return rowsMap[id](data)
