@@ -50,6 +50,7 @@ export const personas = [
 
 export default function App() {
   const {
+    reset,
     update,
     current,
     currentId,
@@ -65,6 +66,7 @@ export default function App() {
 
   const resetDemonstrator = (e) => {
     e.preventDefault()
+    reset()
     window.location.replace('/')
   }
 
