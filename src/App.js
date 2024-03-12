@@ -7,6 +7,7 @@ import Routes from './utils/Router'
 import { Grid, SidePanel } from '@digicatapult/ui-component-library'
 
 import { Context } from './utils/Context'
+import ResetIcon from './assets/images/reset-icon.svg'
 
 export const personas = [
   {
@@ -61,6 +62,11 @@ export default function App() {
 
   const [showSelector, setShowSelector] = useState(false)
   const persona = personas.find(({ id }) => id === current)
+
+  const resetDemonstrator = (e) => {
+    e.preventDefault()
+    window.location.replace('/')
+  }
 
   const handlePersonaSwitch = (persona) => {
     if (current !== persona.id) {
@@ -134,6 +140,7 @@ export default function App() {
             />
           ))}
         </SidePanel>
+        <ResetButton onClick={resetDemonstrator} />
         <Routes />
       </FullScreenGrid>
     </QueryClientProvider>
@@ -170,5 +177,21 @@ const FullScreenGrid = styled(Grid)`
       showSelector ? '20px 20px 20px min(10lvw, 400px)' : '0px'};
     transition: inset ease-in-out 0.7s;
     background: white;
+  }
+`
+
+const ResetButton = styled.button`
+  width: 74px;
+  height: 74px;
+  left: 45px;
+  bottom: 45px;
+  position: absolute;
+  z-index: 1 !important;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  background-image: url(${ResetIcon});
+  &:hover {
+    opacity: 0.6;
   }
 `
