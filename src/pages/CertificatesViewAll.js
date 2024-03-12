@@ -1,6 +1,13 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Grid, Spinner, Table } from '@digicatapult/ui-component-library'
+import {
+  Grid,
+  Spinner,
+  Table,
+  Button,
+} from '@digicatapult/ui-component-library'
+
+import { Link } from 'react-router-dom'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -106,9 +113,10 @@ export default function CertificatesViewAll() {
         {data && (
           <Table
             action={([{ key: original_token_id }]) => {
-              if (original_token_id === null)
-                return navigate(`/certificate/${original_token_id}`)
-              window.alert(`Warning! Token_ID = ${original_token_id}`)
+              if (original_token_id === 'null') {
+                return window.alert(`Warning! Token_ID = ${original_token_id}`)
+              }
+              navigate(`/certificate/${original_token_id}`)
             }}
             headers={headersMap[current]}
             rows={aggregateData(data, current)}
@@ -117,7 +125,11 @@ export default function CertificatesViewAll() {
         )}
         {data?.length === 0 && 'nothing to render'}
       </Main>
-      <Sidebar area="sidebar"></Sidebar>
+      <Sidebar area="sidebar">
+        <LargeButton variant="roundedPronounced">
+          <Link to="/certificate?create=y">New Certificate</Link>
+        </LargeButton>
+      </Sidebar>
     </>
   )
 }
@@ -125,7 +137,11 @@ export default function CertificatesViewAll() {
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   background: #0c3b38;
+  align-items: center;
   justify-items: center;
+  color: white;
+  gap: 10px;
+  padding: 34px 21px;
 `
 
 const Main = styled.div`
@@ -143,5 +159,26 @@ const Main = styled.div`
   & > * {
     margin-inline: auto;
     max-width: 1200px;
+  }
+`
+
+const LargeButton = styled(Button)`
+  min-height: 60px;
+  width: 100%;
+  font: normal 500 21px Roboto;
+  white-space: nowrap;
+  color: #33e58c;
+  border: 1px solid #2fe181;
+  background: #124338;
+  &:hover {
+    opacity: 0.6;
+  }
+  &:disabled {
+    color: #1c774a;
+    border: 1px solid #1c774a;
+  }
+  & a {
+    color: #33e58c;
+    text-decoration: none;
   }
 `

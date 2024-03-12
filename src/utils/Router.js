@@ -13,6 +13,7 @@ import {
 import Certificates from '../pages/Certificates'
 import CertificatesViewAll from '../pages/CertificatesViewAll'
 import CertificateViewer from '../pages/CertificateViewer'
+import Error404 from '../pages/Error404'
 
 const CreateViewSwitcher = () => {
   const create = useSearchParams()[0].get('create')
@@ -25,12 +26,12 @@ export default function Routes() {
       router={createBrowserRouter(
         createRoutesFromElements(
           <>
-            <Route path="/" element={<Navigate to="/certificate?create=y" />} />
+            <Route path="/" element={<Navigate to="/certificate" />} />
             <Route path="/certificate" element={<Outlet />}>
               <Route index element={<CreateViewSwitcher />} />
               <Route path=":id" element={<CertificateViewer />} />
             </Route>
-            <Route path="/certificates" element={<CertificatesViewAll />} />
+            <Route path="*" element={<Error404 />} />
           </>
         )
       )}
