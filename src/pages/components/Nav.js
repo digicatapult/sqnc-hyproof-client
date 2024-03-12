@@ -54,7 +54,7 @@ export default function Nav() {
         useModal={true}
         ref={dialogRef}
       >
-        <WhoWeArePopup />
+        <WhoWeArePopup handleClick={dialogRef.current?.close()} />
       </Dialog>
     </>
   )
