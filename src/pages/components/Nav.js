@@ -12,7 +12,6 @@ export default function Nav() {
   const path = window.location.pathname
 
   const dialogRef = useRef(null)
-  const inactive = (e) => e.preventDefault()
   const showPopup = (e) => {
     e.preventDefault()
     dialogRef.current?.showModal()
@@ -33,14 +32,14 @@ export default function Nav() {
             accent: '#FFF',
           }}
         >
-          <AppBar.Item onClick={inactive}>
-            <WhiteLink onClick={showPopup}>what we do</WhiteLink>
+          <AppBar.Item onClick={showPopup} active={false}>
+            what we do
           </AppBar.Item>
           <AppBar.Item
-            onClick={inactive}
+            href="/certificate"
             active={path.startsWith('/certificate')}
           >
-            <WhiteLink to="/certificate">certificates</WhiteLink>
+            certificates
           </AppBar.Item>
         </AppBar>
       </Grid.Panel>
@@ -70,12 +69,4 @@ const Home = styled(Grid.Panel)`
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-`
-
-const WhiteLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-  &:hover {
-    color: #dbe9e8;
-  }
 `
