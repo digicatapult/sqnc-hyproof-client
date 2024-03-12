@@ -139,8 +139,8 @@ export default function App() {
               variant="hyproof"
             />
           ))}
+          <ResetButton onClick={resetDemonstrator} />
         </SidePanel>
-        <ResetButton onClick={resetDemonstrator} />
         <Routes />
       </FullScreenGrid>
     </QueryClientProvider>
