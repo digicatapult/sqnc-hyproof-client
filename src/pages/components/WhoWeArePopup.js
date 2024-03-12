@@ -3,7 +3,7 @@ import { Button } from '@digicatapult/ui-component-library'
 
 import styled from 'styled-components'
 
-import { Section, Grid, H1, H2 } from '@digicatapult/ui-component-library'
+import { Section, H1, H2 } from '@digicatapult/ui-component-library'
 
 export default function WhoWeArePopup({ handleClick }) {
   return (
