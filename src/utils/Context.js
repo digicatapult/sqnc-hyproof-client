@@ -19,7 +19,6 @@ let initState = defaultState
 try {
   initState = JSON.parse(localStorage.getItem(stateKey)) || initState
 } catch (e) {
-  console.log('Error loading state from local storage: ', e.message)
   localStorage.removeItem(stateKey)
 }
 
