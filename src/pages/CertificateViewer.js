@@ -57,7 +57,10 @@ export default function CertificateViewer() {
       setPosting(true)
 
       const hasCo2 = foundCert?.embodied_co2 !== null
-      if (hasCo2) return
+      if (hasCo2) {
+        setPosting(false)
+        return
+      }
       const foundCertHash = foundCert?.commitment
       const {
         currentCommitment: hash,
