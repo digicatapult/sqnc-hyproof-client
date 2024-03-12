@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 import { Link } from 'react-router-dom'
 
-import LogoSVG from '../../assets/images/hii-logo.svg'
-
 import { Grid, AppBar, Dialog } from '@digicatapult/ui-component-library'
+
+import LogoSVG from '../../assets/images/hii-logo.svg'
+import WhoWeArePopup from './WhoWeArePopup'
 
 export default function Nav() {
   const path = window.location.pathname
@@ -14,7 +15,7 @@ export default function Nav() {
   const inactive = (e) => e.preventDefault()
   const showPopup = (e) => {
     e.preventDefault()
-    dialogRef.current?.show()
+    dialogRef.current?.showModal()
   }
 
   return (
@@ -43,8 +44,19 @@ export default function Nav() {
           </AppBar.Item>
         </AppBar>
       </Grid.Panel>
-      <Dialog width="40ch" margin="20px auto" padding="9px" ref={dialogRef}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <Dialog
+        width="99ch"
+        maxHeight="90lvh"
+        margin="auto auto"
+        padding="0px"
+        modalBackdropColor="rgba(26, 26, 26, 0.9)"
+        borderRadius="0px"
+        boxShadow="0px"
+        includeClose={false}
+        useModal={true}
+        ref={dialogRef}
+      >
+        <WhoWeArePopup handleClick={dialogRef.current?.close()} />
       </Dialog>
     </>
   )
