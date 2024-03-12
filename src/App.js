@@ -13,36 +13,36 @@ export const personas = [
   {
     id: 'heidi',
     name: 'Heidi Heidi',
-    title: 'Heidi Heidi',
+    title: 'Hydrogen Producer',
     subtitle: 'The Hydrogen Producer',
-    company: "Heidi's Hydroelectric Hydrogen",
+    company: 'Heidi the Hydrogen Producer',
     background: '#9EDCFA',
     origin: 'http://localhost:8000',
   },
   {
     id: 'emma',
     name: 'Emma Emma',
-    title: 'Emma Emma',
+    title: 'Energy Producer',
     subtitle: 'The Energy Producer',
-    company: "Emma's Energy LTD",
+    company: 'Emma the Energy Producer',
     background: '#AAED93',
     origin: 'http://localhost:8010',
   },
   {
     id: 'reginald',
     name: 'Reginald Reginald',
-    title: 'Reginald Reginald',
+    title: 'Regulator',
     subtitle: 'The Regulator',
-    company: "Reginald's Hydrogen Regulator",
+    company: 'Reginald the Regulator',
     background: '#FCF281',
     origin: 'http://localhost:8020',
   },
   {
     id: 'connor',
     name: 'Connor Connor',
-    title: 'Connor Connor',
+    title: 'Consumer',
     subtitle: 'The Hydrogen Consumer',
-    company: "Connor's Consuming LTD",
+    company: 'Connor the Consumer',
     background: '#FDB6D4',
     origin: 'http://localhost:8020',
   },
@@ -128,7 +128,7 @@ export default function App() {
           width="400px"
           variant="hyproof"
           heading="Certificate View"
-          title={persona.name}
+          title={persona.title}
           isOpen={false}
           callback={(e) => setShowSelector(e.isOpen)}
         >
