@@ -46,11 +46,13 @@ export default function Nav() {
       </Grid.Panel>
       <Dialog
         width="99ch"
-        height="95ch"
-        margin="40px auto"
+        maxHeight="90lvh"
+        margin="auto auto"
         padding="0px"
         modalBackdropColor="rgba(26, 26, 26, 0.9)"
         borderRadius="0px"
+        boxShadow="0px"
+        includeClose={false}
         useModal={true}
         ref={dialogRef}
       >
