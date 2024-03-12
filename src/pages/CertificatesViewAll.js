@@ -18,7 +18,7 @@ import { stateToStatus, NameCell } from './components/shared'
 import { personas } from '../App'
 import { useNavigate } from 'react-router-dom'
 import useAxios from '../hooks/use-axios'
-import { formatTimelineDate } from '../utils/helpers'
+import { formatDate, formatCertName, checkCO2Status } from '../utils/helpers'
 
 const headersMap = {
   heidi: [
@@ -28,8 +28,66 @@ const headersMap = {
     'Carbon Embodiment',
     'Status',
   ],
-  emma: ['Date', 'Commitment'],
-  reginald: [],
+  emma: [
+    'Date',
+    'H2 Batch size',
+    'H2 Certificate holder',
+    'Carbon Embodiment',
+    'Status',
+  ],
+  reginald: [
+    'Date',
+    'H2 Batch size',
+    'H2 Certificate holder',
+    'Carbon Embodiment',
+    'Status',
+  ],
+  connor: [
+    'Date',
+    'H2 Batch size',
+    'H2 Certificate holder',
+    'Carbon Embodiment',
+    'Status',
+  ],
+}
+
+const aggregateData = (data, id = 'default') => {
+  const defaultRow = (certs) =>
+    certs.map((cert) => [
+      <NameCell
+        key={cert.original_token_id}
+        date={formatDate(cert.created_at)}
+        name={formatCertName(cert)}
+      />,
+      `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
+      cert.hydrogen_owner || 'unknown',
+      cert?.embodied_co2
+        ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
+        : '',
+      stateToStatus[checkCO2Status(cert)],
+    ])
+
+  const rowsMap = {
+    heidi: (certs) =>
+      certs.map((cert) => [
+        <NameCell
+          key={cert.original_token_id}
+          date={formatDate(cert.created_at)}
+          name={formatCertName(cert)}
+        />,
+        `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
+        `${(cert.energy_consumed_wh / 1000000).toFixed(1)} MWh`,
+        cert?.embodied_co2
+          ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
+          : '',
+        stateToStatus[checkCO2Status(cert)],
+      ]),
+    emma: (certs) => defaultRow(certs),
+    reginald: (certs) => defaultRow(certs),
+    connor: (certs) => defaultRow(certs),
+  }
+
+  return rowsMap[id](data)
 }
 
 export default function CertificatesViewAll() {
@@ -39,13 +97,6 @@ export default function CertificatesViewAll() {
 
   const persona = personas.find(({ id }) => id === current)
   const url = `${persona.origin}/v1/certificate`
-
-  const checkCO2 = (cert) =>
-    cert.embodied_co2 && ['issued', 'pending', 'initiated'].includes(cert.state)
-      ? 'co2'
-      : cert.state
-  const formatName = (cert) =>
-    `SQNC-HYPROOF-${(cert.original_token_id || '0').toString().padStart(4, '0')}`
 
   React.useEffect(() => {
     if (!data) fetch({ url })
@@ -69,23 +120,14 @@ export default function CertificatesViewAll() {
         )}
         {data && (
           <Table
-            action={([item]) => navigate(`/certificate/${item.key}`)}
+            action={([{ key: original_token_id }]) => {
+              if (original_token_id === 'null') {
+                return window.alert(`Warning! Token_ID = ${original_token_id}`)
+              }
+              navigate(`/certificate/${original_token_id}`)
+            }}
             headers={headersMap[current]}
-            rows={data.map((cert) => [
-              /* TODO with other cert viewing stories
-                  - create rows/cels per persona using "headersMap as an example"*/
-              <NameCell
-                key={cert.original_token_id || cert.id}
-                date={formatTimelineDate(cert.created_at)}
-                name={formatName(cert)}
-              />,
-              `${cert.hydrogen_quantity_wh / 1000000} MWh`,
-              `${cert.energy_consumed_wh / 1000000} MWh`,
-              cert?.embodied_co2
-                ? `${(cert.embodied_co2 / 1000).toFixed(1)} Kg CO2e`
-                : '',
-              stateToStatus[checkCO2(cert)],
-            ])}
+            rows={aggregateData(data, current)}
             variant="hyproof"
           />
         )}
@@ -101,6 +143,7 @@ export default function CertificatesViewAll() {
 }
 
 const Sidebar = styled(Grid.Panel)`
+  align-items: center;
   background: #0c3b38;
   align-items: center;
   justify-items: center;
