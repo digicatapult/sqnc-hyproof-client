@@ -27,6 +27,12 @@ export default function CertificateViewDetails({
   return (
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
+        {true == true && (
+          <FullWidthDiv>
+            <GreenText>Timestamp of Certificate Issuance</GreenText>
+            <GreenBoldText>YYYY/MM/DD, HH:MM</GreenBoldText>
+          </FullWidthDiv>
+        )}
         {hasDate(start) && hasDate(end) && (
           <FlexDiv>
             <Grid
@@ -139,6 +145,12 @@ const PaddedWrapperDiv = styled.div`
   min-height: 400px;
 
   text-align: left;
+`
+
+const FullWidthDiv = styled.div`
+  margin: 8px 8px 20px 8px;
+  width: 100%;
+  background: #ededed;
 `
 
 const ContainerFlexWrapDiv = styled.div`
@@ -274,6 +286,14 @@ const IconTime = styled.span`
   width: 26px;
   height: 26px;
   background: transparent url(${BgIconTimeSVG}) no-repeat;
+`
+
+const GreenText = styled.div`
+  //
+`
+
+const GreenBoldText = styled.div`
+  //
 `
 
 const Text = styled.div`
