@@ -150,7 +150,7 @@ const PaddedWrapperDiv = styled.div`
 const FullWidthDiv = styled.div`
   margin: 8px 8px 20px 8px;
   width: 100%;
-  background: #ededed;
+  // background: #ededed;
 `
 
 const ContainerFlexWrapDiv = styled.div`
@@ -289,11 +289,24 @@ const IconTime = styled.span`
 `
 
 const GreenText = styled.div`
-  //
+  color: #27847a;
+  font: normal 400 18.4px/0 Roboto;
+  // font-family: Roboto;
+  // font-size: 18.4px;
+  // font-style: normal;
+  // font-weight: 400;
+  // line-height: 0px; /* 0% */
 `
 
 const GreenBoldText = styled.div`
-  //
+  color: #27847a;
+  font: normal 700 18.4px/0 Roboto;
+  margin: 26px 0 8px 0;
+  // font-family: Roboto;
+  // font-size: 18.4px;
+  // font-style: normal;
+  // font-weight: 700;
+  // line-height: 0px; /* 0% */
 `
 
 const Text = styled.div`
