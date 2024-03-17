@@ -4,6 +4,8 @@ import { Grid } from '@digicatapult/ui-component-library'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 
+import { formatDate } from '../../utils/helpers'
+
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
@@ -15,12 +17,6 @@ const hasSize = (s) => s !== null && s !== undefined && isFinite(s) && s > 0
 const hasEco2 = (c) => c !== null && c !== undefined && isFinite(c) && c >= 0
 
 const convToKg = (g) => `${(g / 1000).toFixed(1)} kg`
-
-const formatDate = (date) =>
-  new Date(date).toLocaleString('en-GB', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  })
 
 export default function CertificateViewDetails({
   size,
@@ -37,7 +33,6 @@ export default function CertificateViewDetails({
         {hasEco2(eco2) && (
           <FullWidthDiv>
             <GreenText>Timestamp of Certificate Issuance</GreenText>
-            {/* <GreenBoldText>YYYY/MM/DD, HH:MM</GreenBoldText> */}
             <GreenBoldText>{formatDate(timestamp)}</GreenBoldText>
           </FullWidthDiv>
         )}
