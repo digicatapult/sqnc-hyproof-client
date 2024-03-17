@@ -16,6 +16,12 @@ const hasEco2 = (c) => c !== null && c !== undefined && isFinite(c) && c >= 0
 
 const convToKg = (g) => `${(g / 1000).toFixed(1)} kg`
 
+const formatDate = (date) =>
+  new Date(date).toLocaleString('en-GB', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  })
+
 export default function CertificateViewDetails({
   size,
   start,
@@ -23,6 +29,7 @@ export default function CertificateViewDetails({
   energy,
   eco2,
   posting,
+  timestamp,
 }) {
   return (
     <PaddedWrapperDiv>
@@ -30,7 +37,8 @@ export default function CertificateViewDetails({
         {hasEco2(eco2) && (
           <FullWidthDiv>
             <GreenText>Timestamp of Certificate Issuance</GreenText>
-            <GreenBoldText>YYYY/MM/DD, HH:MM</GreenBoldText>
+            {/* <GreenBoldText>YYYY/MM/DD, HH:MM</GreenBoldText> */}
+            <GreenBoldText>{formatDate(timestamp)}</GreenBoldText>
           </FullWidthDiv>
         )}
         {hasDate(start) && hasDate(end) && (
@@ -150,7 +158,6 @@ const PaddedWrapperDiv = styled.div`
 const FullWidthDiv = styled.div`
   margin: 8px 8px 20px 8px;
   width: 100%;
-  // background: #ededed;
 `
 
 const ContainerFlexWrapDiv = styled.div`
