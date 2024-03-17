@@ -208,6 +208,7 @@ export default function CertificateViewer() {
                     energy={data?.energy_consumed_wh}
                     eco2={data?.embodied_co2}
                     posting={posting}
+                    timestamp={data?.updated_at}
                   />
                 </Grid.Panel>
               </Grid>
