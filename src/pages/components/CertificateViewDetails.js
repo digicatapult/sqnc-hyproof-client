@@ -4,6 +4,8 @@ import { Grid } from '@digicatapult/ui-component-library'
 
 import CertificateTimeInterval from './CertificateTimeInterval'
 
+import { formatDate } from '../../utils/helpers'
+
 import BgIconDateSVG from '../../assets/images/icon-date.svg'
 import BgIconTimeSVG from '../../assets/images/icon-time.svg'
 
@@ -23,10 +25,17 @@ export default function CertificateViewDetails({
   energy,
   eco2,
   posting,
+  timestamp,
 }) {
   return (
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
+        {hasEco2(eco2) && (
+          <FullWidthDiv>
+            <GreenText>Timestamp of Certificate Issuance</GreenText>
+            <GreenBoldText>{formatDate(timestamp)}</GreenBoldText>
+          </FullWidthDiv>
+        )}
         {hasDate(start) && hasDate(end) && (
           <FlexDiv>
             <Grid
@@ -139,6 +148,11 @@ const PaddedWrapperDiv = styled.div`
   min-height: 400px;
 
   text-align: left;
+`
+
+const FullWidthDiv = styled.div`
+  margin: 8px 8px 20px 8px;
+  width: 100%;
 `
 
 const ContainerFlexWrapDiv = styled.div`
@@ -276,9 +290,19 @@ const IconTime = styled.span`
   background: transparent url(${BgIconTimeSVG}) no-repeat;
 `
 
+const GreenText = styled.div`
+  color: #27847a;
+  font: normal 400 18.4px/0 Roboto;
+`
+
+const GreenBoldText = styled.div`
+  color: #27847a;
+  font: normal 700 18.4px/0 Roboto;
+  margin: 26px 0 8px 0;
+`
+
 const Text = styled.div`
   display: flex;
-  width: 100%;
   height: 26px;
   min-width: 90px;
   font: 500 18px/26px Roboto;
