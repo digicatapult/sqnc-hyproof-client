@@ -7,8 +7,6 @@ import {
   Button,
 } from '@digicatapult/ui-component-library'
 
-import { Link } from 'react-router-dom'
-
 import Nav from './components/Nav'
 import Header from './components/Header'
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
