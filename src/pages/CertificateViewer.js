@@ -145,7 +145,7 @@ export default function CertificateViewer() {
         >
           <Timeline.Item
             variant="hyproof"
-            title={'Initiation'}
+            title={'Initiated'}
             checked={data?.created_at}
           >
             {data?.created_at && formatDate(data?.created_at)}
@@ -159,7 +159,7 @@ export default function CertificateViewer() {
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
-            title={'Issuance'}
+            title={'Issued'}
             checked={data?.state === 'issued'}
           >
             {data?.state === 'issued' && formatDate(data.updated_at)}
