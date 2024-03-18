@@ -135,13 +135,10 @@ export default function CertificatesViewAll() {
       </Main>
       <Sidebar area="sidebar">
         {persona.id == 'heidi' && (
-          <>
-            <div>Button to go here</div>
-          </>
+          <LargeButton variant="roundedPronounced">
+            <Link to="/certificate?create=y">New Certificate!</Link>
+          </LargeButton>
         )}
-        <LargeButton variant="roundedPronounced">
-          <Link to="/certificate?create=y">New Certificate!</Link>
-        </LargeButton>
       </Sidebar>
     </>
   )
