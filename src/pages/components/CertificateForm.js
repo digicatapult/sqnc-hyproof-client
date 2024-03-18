@@ -141,7 +141,7 @@ export default function CertificateForm() {
         >
           <Timeline.Item
             variant="hyproof"
-            title={'Initiation'}
+            title={'Initiated'}
             checked={dataFinal?.state === 'initiated'}
           >
             {dataFinal?.state === 'initiated' ? dataFinal.created_at : null}

@@ -139,7 +139,7 @@ export default function CertificateCo2Post() {
           disclaimer={disclaimer}
           variant={'hyproof'}
         >
-          <Timeline.Item variant="hyproof" title={'Initiation'} checked={true}>
+          <Timeline.Item variant="hyproof" title={'Initiated'} checked={true}>
             {dataCertFound && formatDate(dataCertFound.created_at)}
           </Timeline.Item>
           <Timeline.Item

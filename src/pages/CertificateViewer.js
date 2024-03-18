@@ -145,7 +145,7 @@ export default function CertificateViewer() {
         >
           <Timeline.Item
             variant="hyproof"
-            title={'Initiation'}
+            title={'Initiated'}
             checked={data?.created_at}
           >
             {data?.created_at && formatDate(data?.created_at)}
