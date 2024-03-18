@@ -5,7 +5,7 @@ export const formatDate = (date) =>
   })
 
 export const checkCO2Status = (cert) =>
-  cert.embodied_co2 && ['issued', 'pending', 'initiated'].includes(cert.state)
+  cert.embodied_co2 && ['pending', 'initiated'].includes(cert.state)
     ? 'co2'
     : cert.state
 

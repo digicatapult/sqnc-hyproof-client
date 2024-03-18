@@ -8,6 +8,7 @@
     "scripts": {
         "lint": "eslint --ext .js .",
         "lint:fix": "eslint --ext .js ./src --fix",
+        "init": "./scripts/initialise_demo.mjs",
         "dev": "webpack-dev-server --mode=development",
         "start": "serve -s ./build",
         "build": "./node_modules/.bin/webpack --mode=production",
