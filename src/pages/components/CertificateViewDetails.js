@@ -293,20 +293,12 @@ const IconTime = styled.span`
 const GreenText = styled.div`
   color: #27847a;
   font: normal 400 18.4px/0 Roboto;
-
-  @media (max-width: 1280px) {
-    font: normal 400 15.4px/0 Roboto;
-  }
 `
 
 const GreenBoldText = styled.div`
   color: #27847a;
   font: normal 700 18.4px/0 Roboto;
   margin: 26px 0 8px 0;
-
-  @media (max-width: 1280px) {
-    font: normal 700 15.4px/0 Roboto;
-  }
 `
 
 const Text = styled.div`
