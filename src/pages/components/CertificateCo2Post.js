@@ -150,7 +150,7 @@ export default function CertificateCo2Post() {
             {dataCertChain?.embodied_co2 &&
               formatDate(dataCertChain.updated_at)}
           </Timeline.Item>
-          <Timeline.Item variant="hyproof" title={'Issuance'} checked={false}>
+          <Timeline.Item variant="hyproof" title={'Issued'} checked={false}>
             {dataCertChain?.state == 'issued' &&
               formatDate(dataCertFinal.updated_at)}
           </Timeline.Item>

@@ -155,7 +155,7 @@ export default function CertificateForm() {
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
-            title={'Issuance'}
+            title={'Issued'}
             checked={dataFinal?.state === 'issued'}
           >
             {dataFinal?.state === 'issued' && formatDate(dataFinal.updated_at)}
