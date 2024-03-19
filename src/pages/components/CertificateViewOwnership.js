@@ -15,8 +15,8 @@ export default function CertificateViewOwnership({ id, hOwner, eOwner }) {
         <Div>Energy Owner: {eOwner}</Div>
         <Hr />
         <DivImageLeft>
-          <Div>LCHS</Div>
-          <Small>Adherence to government standards</Small>
+          <Div>Hydrogen Certificate</Div>
+          <Small>Adherence to offical standards</Small>
         </DivImageLeft>
       </DivRounded>
     </>
