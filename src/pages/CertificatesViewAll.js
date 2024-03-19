@@ -7,8 +7,6 @@ import {
   Button,
 } from '@digicatapult/ui-component-library'
 
-import { Link } from 'react-router-dom'
-
 import Nav from './components/Nav'
 import Header from './components/Header'
 import BgMoleculesImageSVG from '../assets/images/molecules-bg-repeat.svg'
@@ -97,6 +95,7 @@ export default function CertificatesViewAll() {
 
   const persona = personas.find(({ id }) => id === current)
   const url = `${persona.origin}/v1/certificate`
+  const redirectToCreate = () => navigate('/certificate?create=y')
 
   React.useEffect(() => {
     if (!data) fetch({ url })
@@ -135,8 +134,8 @@ export default function CertificatesViewAll() {
       </Main>
       <Sidebar area="sidebar">
         {persona.id === 'heidi' && (
-          <LargeButton variant="roundedPronounced">
-            <Link to="/certificate?create=y">New Certificate</Link>
+          <LargeButton onClick={redirectToCreate} variant="roundedPronounced">
+            New Certificate
           </LargeButton>
         )}
       </Sidebar>
