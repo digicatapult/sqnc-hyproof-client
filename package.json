@@ -6,7 +6,7 @@
     "main": "src/index.js",
     "sideEffects": false,
     "scripts": {
-        "lint": "eslint --ext .js .",
+        "lint": "eslint --ext .js,.mjs .",
         "lint:fix": "eslint --ext .js ./src --fix",
         "init": "./scripts/initialise_demo.mjs",
         "dev": "webpack-dev-server --mode=development",

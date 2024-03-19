@@ -1,4 +1,5 @@
 #!/usr/bin/env -S node --no-warnings
+/* eslint-disable no-console */
 
 import { randomUUID } from 'node:crypto'
 
@@ -161,12 +162,12 @@ async function initiateCertificate(hydrogenProducerPort, energyProviderPort) {
     const initiatedCert = await waitForCertificateState(
       certId,
       'initiated',
-      8000
+      hydrogenProducerPort
     )
     await waitForCertificateState(
       initiatedCert.original_token_id,
       'initiated',
-      8010
+      energyProviderPort
     )
     return initiatedCert
   }
@@ -254,7 +255,7 @@ const [hydrogenSelf, energySelf, regulatorSelf] = await Promise.all([
 ])
 const identityMap = { hydrogenSelf, energySelf, regulatorSelf }
 
-console.log('Setting aliases for each persona')
+console.log('Setting aliases')
 
 await Promise.all([
   await setIdentities(identityMap, 9000),
