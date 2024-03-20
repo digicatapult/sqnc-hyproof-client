@@ -90,8 +90,6 @@ The system will now send this data to the shared ledger via the API and display 
 
 The panel on the left hand side of the screen will indicate when the certificate has been successfully `Initiated` on the ledger.
 
-![Left panel](./left_panel_initiated.png)
-
 It is now time to change persona to `Emma the Energy Supplier`. 
 
 ### 2. Emma the Energy Supplier completes the certificate
