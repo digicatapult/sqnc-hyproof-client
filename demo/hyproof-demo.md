@@ -55,7 +55,7 @@ Load your web browser and navigate to `localhost:3000`. The demonstrator works i
 
 This brings up the landing page of the **HyProof Demonstrator** as shown below:
 
->image of landing page
+![Landing page](./landing_page.png)
 
 The landing page of the demo shows a list of existing certificates for individual batches of hydrogen. Each one represents a different amount of hydrogen that has been certified, alongside the embodied CO~2~ for each batch, and some other details.
 
@@ -80,7 +80,7 @@ In order to obtain a certificate for a new batch of hydrogen, click on the `New 
 
 This will bring up an input page where Heidi records the start and end time of hydrogen production, the batch size to be certified, and the amount of electricity that was used to generate the hydrogen.
 
->image of data entry page
+![Data entry page](./data_entry.png)
 
 When you've finished entering all of the relevant information, click the `Submit` button in the right hand panel.
 
@@ -90,7 +90,7 @@ The system will now send this data to the shared ledger via the API and display 
 
 The panel on the left hand side of the screen will indicate when the certificate has been successfully `Initiated` on the ledger.
 
->image of left panel showing initiated
+![Left panel](./left_panel_initiated.png)
 
 It is now time to change persona to `Emma the Energy Supplier`. 
 
@@ -104,7 +104,7 @@ This opens a drawer showing the 4 personas available in the demonstrator. Select
 
 `Emma`'s work is automatically carried out by the system itself in the background. 
 
->image of emma's system in busy state
+![Emma busy](./emma_busy.png)
 
 What is happening is as follows:
 
@@ -126,7 +126,7 @@ What is happening is as follows:
 
 5. The system updates the certificate into a final `Issued` state
 
->image of final issued certificate
+![Final certificate](./final_certificate.png)
 
 ### 3. Viewing the final certificate
 
@@ -139,7 +139,7 @@ Taking a look at the final certificate, it is clear to see the following valuabl
 
 The system also protects against certain personas obtaining information that they should not be allowed to see. This can be demonstrated by keeping the current certificate on the screen and switching between personas using the left hand drawer.
 
-`Heidi` and `Emma` will see a certificate that has been generated from their local databases where they first entered or calculated the data, and the information recorded on the ledger itself. As a result, both `Heidi` and `Emma` can see all of the data associated with a batch of hydrogen they collaboratively certified.
+`Heidi` and `Emma` see a certificate that has been generated from their local databases where they first entered or calculated the data, and the information recorded on the ledger itself. As a result, both `Heidi` and `Emma` can see all of the data associated with a batch of hydrogen they collaboratively certified.
 
 `Reginald` and `Connor` do not have access to the private data that `Heidi` shared with `Emma`, so they do not have access to:
 
@@ -148,6 +148,8 @@ The system also protects against certain personas obtaining information that the
 - `Emma`'s knowledge of her `carbon intensity` over that period
 
 This means that these two personas only see the total batch size and the total carbon embodiment of that batch.
+
+![Reginald's view](./reginald_view.png)
 
 If the `Regulator` wanted to obtain additional information for audit purposes, they could request this directly from `Heidi` or `Emma`.
 
@@ -165,7 +167,7 @@ In order to demonstrate this functionality, we now switch to the persona of `Reg
 
 >Reginald's view
 
-`Reginald the Regulator` has identified a problem with this latest hydrogen certificate. 
+`Reginald the Regulator` has identified a problem with this latest hydrogen certificate.
 
 Click on the `Revoke Certificate` button on the right hand side. This will pop up a form that asks you to supply the reasons for revocation.
 
