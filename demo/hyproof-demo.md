@@ -94,7 +94,7 @@ It is now time to change persona to `Emma the Energy Supplier`.
 
 You should first change persona by pressing the right arrow just below the `Hydrogen Innovation Initiative` logo in the top left hand side of the screen.
 
->Image showing arrow highlighted
+![Drawer arrow](./drawer_arrow.png)
 
 This opens a drawer showing the 4 personas available in the demonstrator. Select `Emma` and the background will turn green indicating a successful switch. Close the drawer by pressing the arrow again.
 
