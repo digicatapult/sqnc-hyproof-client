@@ -74,8 +74,6 @@ One further workflow can be demonstrated for Reginald the Regulator:
 
 You will first adopt the persona of Heidi, a Hydrogen Producer. Heidi has just generated a batch of hydrogen through electrolysis and is now seeking to have that batch certified.
 
-
-
 In order to obtain a certificate for a new batch of hydrogen, click on the `New Certificate` button in the right hand panel.
 
 This will bring up an input page where Heidi records the start and end time of hydrogen production, the batch size to be certified, and the amount of electricity that was used to generate the hydrogen.
