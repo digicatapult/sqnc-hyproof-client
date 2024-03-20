@@ -1,22 +1,24 @@
 # SQNC HyProof Client
 
-This repository contains the code for the HyProof front-end ( HyProof Client ).
+This repository contains the code for the HyProof front-end (HyProof Client). 
 
-## SQNC HyProof Client: Description
+Instructions for running the **Demonstrator** can be found in `/demo/hyproof-demo.md`
+
+## Description
 
 This repository contains the front-end for the **HyProof** proof of concept project.
 
-**HyProof**, aka **Hydrogen Proof** is the effort to deliver the DLT-based _MVP_ as part of the wider **HII Seed** initiative which aims to push the boundaries when it comes to building the socio-technical acceptability and business implications of a fully digitised UK certification infrastructure for verifiable hydrogen provenance ( e.g: green hydrogen, etc ).
+**HyProof** is a DLT-based _MVP_ delivered as part of the wider **HII Seed** initiative which aims to push the boundaries when it comes to building the socio-technical acceptability and business implications of a fully digitised UK certification infrastructure for verifiable hydrogen provenance ( e.g: green hydrogen, etc ).
 
 ---
 
-## SQNC HyProof Client: Configuration
+## Configuration
 
 At the moment, this project is configured to use environment variables in a _dot env_ ( `.env` ) file at root level ( although no env variables are need at the moment ).
 
 ---
 
-## SQNC HyProof Client: Installation
+## Installation
 
 ```sh
 npm i
@@ -26,7 +28,7 @@ Installs dependencies from **`package.json`**.
 
 ---
 
-## SQNC HyProof Client: Usage
+## Usage
 
 ```sh
 npm run build
@@ -39,7 +41,7 @@ Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browse
 
 ---
 
-## SQNC HyProof Client: Dev Usage
+## Dev Usage
 
 ```sh
 npm run dev
@@ -51,7 +53,7 @@ Open **[http://localhost:3000](http://localhost:3000)** to view it in the Browse
 
 ---
 
-## SQNC HyProof Client: Build
+## Build
 
 ```sh
 npm run build
@@ -61,7 +63,7 @@ Builds the app for production to the build folder.
 
 ---
 
-## SQNC HyProof Client: Assets
+## Assets
 
 In terms of assets, this project contains the following:
 
@@ -71,7 +73,7 @@ In terms of assets, this project contains the following:
 
 ---
 
-## SQNC HyProof Client: License
+## License
 
 This project is licensed under the **Apache 2.0** license.
 
