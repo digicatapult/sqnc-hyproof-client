@@ -11,8 +11,8 @@ export default function CertificateViewOwnership({ id, hOwner, eOwner }) {
         <SpanLock>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</SpanLock>
       </DivLock>
       <DivRounded>
-        <Div>Hydrogen Owner: {hOwner}</Div>
-        <Div>Energy Owner: {eOwner}</Div>
+        <Div>Hydrogen Producer: {hOwner}</Div>
+        <Div>Energy Supplier: {eOwner}</Div>
         <Hr />
         <DivImageLeft>
           <Div>Hydrogen Certificate</Div>
