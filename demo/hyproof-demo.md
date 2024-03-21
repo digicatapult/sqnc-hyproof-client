@@ -57,13 +57,13 @@ This brings up the landing page of the **HyProof Demonstrator** as shown below:
 
 ![Landing page](./landing_page.png)
 
-The landing page of the demo shows a list of existing certificates for individual batches of hydrogen. Each one represents a different amount of hydrogen that has been certified, alongside the embodied CO~2~ for each batch, and some other details.
+The landing page of the demo shows a list of existing certificates for individual batches of hydrogen. Each one represents a different amount of hydrogen that has been certified, alongside the embodied CO2 for each batch, and some other details.
 
 We will now walk through the demonstration following a *happy path* workflow. This takes the following steps:
 
 - Heidi the Hydrogen Producer initialises a certificate
-- Emma the Energy Supplier calculates the embodied CO~2~ (eCO~2~)
-- Emma the Energy Supplier adds the eCO~2~ to the certificate
+- Emma the Energy Supplier calculates the embodied CO2 (eCO2)
+- Emma the Energy Supplier adds the eCO2 to the certificate
 - The system now issues the final certificate
 
 One further workflow can be demonstrated for Reginald the Regulator:
@@ -112,13 +112,13 @@ What is happening is as follows:
 
 2. `Emma` first checks this additional private data aligns with what has been publicly recorded by `Heidi` on the ledger using the `cryptographic commitment`. This keeps `Heidi` honest
 
-3. `Emma` then calculates the embodied CO~2~ for `Heidi`'s batch from:
+3. `Emma` then calculates the embodied CO2 for `Heidi`'s batch from:
 
     - the `time window` sent by `Heidi`
     - the total `kWh` used by `Heidi`
     - `Emma`'s knowledge of her `carbon intensity` over that period
 
-4. `Emma` submits this embodied CO~2~ value to the ledger to be added to the certificate that `Heidi` previously **intitiated**
+4. `Emma` submits this embodied CO2 value to the ledger to be added to the certificate that `Heidi` previously **intitiated**
 
 5. The system updates the certificate into a final `Issued` state
 
