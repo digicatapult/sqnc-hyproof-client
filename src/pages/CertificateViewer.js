@@ -36,6 +36,9 @@ export default function CertificateViewer() {
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
 
+  // Functions
+  const onRevoke = () => alert('Revoke')
+
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
     // Fetch latest certificate
@@ -217,7 +220,7 @@ export default function CertificateViewer() {
         </MainContainer>
         <Sidebar area="sidebar">
           {persona.id === 'reginald' && (
-            <LargeButton>
+            <LargeButton onClick={onRevoke} variant="roundedPronounced">
               Revoke
             </LargeButton>
           )}
