@@ -63,7 +63,7 @@ We will now walk through the demonstration following a *happy path* workflow. Th
 
 - Heidi the Hydrogen Producer initialises a certificate
 - Emma the Energy Supplier calculates the embodied CO~2~ (eCO~2~)
-- Emma the Energy Supplier adds eCO~2~ to the certificate
+- Emma the Energy Supplier adds the eCO~2~ to the certificate
 - The system now issues the final certificate
 
 One further workflow can be demonstrated for Reginald the Regulator:
@@ -118,7 +118,7 @@ What is happening is as follows:
     - the total `kWh` used by `Heidi`
     - `Emma`'s knowledge of her `carbon intensity` over that period
 
-4. `Emma` submits this embodied CO~2~ value to the ledger to be added to the certificate that `Heidi` previously intitiated
+4. `Emma` submits this embodied CO~2~ value to the ledger to be added to the certificate that `Heidi` previously **intitiated**
 
 5. The system updates the certificate into a final `Issued` state
 
