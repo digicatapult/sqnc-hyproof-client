@@ -65,7 +65,10 @@ export default function CertificateViewer() {
     const resLocal = await callApi({ url, body })
     if (!resLocal || !resLocal?.ipfs_hash || !resLocal?.id) return
 
-    alert(id)
+    // StepTwo - The Second POST
+    const fileId = resLocal?.id
+    url = `${origin}/v1/certificate/${id}/revocation`
+    body = { reason: fileId }
 
     setRevoking(false)
   }, [origin, callApi, data])
