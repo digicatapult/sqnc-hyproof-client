@@ -1,4 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
+
+import { useCallback } from 'react'
+
 import styled from 'styled-components'
 import { Timeline, Grid, Button } from '@digicatapult/ui-component-library'
 
@@ -22,6 +25,15 @@ import { TimelineDisclaimer } from './components/shared'
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
+const reasonsDummyJSON = {
+  predefinedReasons: {
+    0: { selection: null },
+    1: { selection: null },
+    2: { selection: null },
+  },
+  otherReason: '',
+}
+
 export default function CertificateViewer() {
   // Constants
   const { id } = useParams()
@@ -36,8 +48,28 @@ export default function CertificateViewer() {
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
 
+  const { callApiFn: callApi } = useAxios(false)
+  const [revoking, setRevoking] = useState(false)
+
   // Functions
-  const onRevoke = () => alert('Revoke')
+  const onRevoke = useCallback(async () => {
+    let url, body
+
+    setRevoking(true)
+
+    // StepOne - The First POST
+    url = `${origin}/v1/attachment`
+    body = reasonsDummyJSON
+
+    const resLocal = await callApi({ url, body })
+    if (!resLocal || !resLocal?.ipfs_hash || resLocal?.id) return
+
+    const fileId = resLocal?.id
+
+    alert('File uploaded to IPFS. File ID: ' + fileId)
+
+    setRevoking(false)
+  }, [origin, callApi])
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
@@ -225,7 +257,7 @@ export default function CertificateViewer() {
               disabled={data?.state === 'revoked'}
               variant="roundedPronounced"
             >
-              Revoke
+              Revoke {revoking && '...'}
             </LargeButton>
           )}
         </Sidebar>
