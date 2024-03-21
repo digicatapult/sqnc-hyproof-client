@@ -24,7 +24,7 @@ export default function CertificateFormHeader() {
               Hydrogen Producer: <strong>Heidi</strong>
             </ListItem>
             <ListItem>
-              Energy Producer: <strong>Emma</strong>
+              Energy Supplier: <strong>Emma</strong>
             </ListItem>
             <ListItem>
               Regulator: <strong>Reginald</strong>
