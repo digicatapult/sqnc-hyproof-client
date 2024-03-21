@@ -220,7 +220,11 @@ export default function CertificateViewer() {
         </MainContainer>
         <Sidebar area="sidebar">
           {persona.id === 'reginald' && (
-            <LargeButton onClick={onRevoke} variant="roundedPronounced">
+            <LargeButton
+              onClick={onRevoke}
+              disabled={data?.state === 'revoked'}
+              variant="roundedPronounced"
+            >
               Revoke
             </LargeButton>
           )}
