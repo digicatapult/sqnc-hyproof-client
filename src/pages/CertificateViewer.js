@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
-import { Timeline, Grid } from '@digicatapult/ui-component-library'
+import { Timeline, Grid, Button } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -215,7 +215,13 @@ export default function CertificateViewer() {
             )}
           </Paper>
         </MainContainer>
-        <Sidebar area="sidebar"></Sidebar>
+        <Sidebar area="sidebar">
+          {persona.id === 'reginald' && (
+            <LargeButton>
+              Revoke
+            </LargeButton>
+          )}
+        </Sidebar>
       </MainWrapper>
     </>
   )
@@ -239,9 +245,10 @@ const MainWrapper = styled.div`
 const Sidebar = styled(Grid.Panel)`
   align-items: center;
   justify-items: center;
-
   color: white;
   background: #0c3b38;
+  gap: 10px;
+  padding: 34px 21px;
 `
 
 const MainContainer = styled(Grid.Panel)`
@@ -283,5 +290,22 @@ const Paper = styled.div`
     background: transparent;
     display: block;
     width: 0;
+  }
+`
+
+const LargeButton = styled(Button)`
+  min-height: 60px;
+  width: 100%;
+  font: normal 500 21px Roboto;
+  white-space: nowrap;
+  color: #33e58c;
+  border: 1px solid #2fe181;
+  background: #124338;
+  &:hover {
+    opacity: 0.6;
+  }
+  &:disabled {
+    color: #1c774a;
+    border: 1px solid #1c774a;
   }
 `
