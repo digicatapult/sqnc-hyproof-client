@@ -53,6 +53,7 @@ export default function CertificateViewer() {
 
   // Functions
   const onRevoke = useCallback(async () => {
+    const id = data?.id
     let url, body
 
     setRevoking(true)
@@ -62,14 +63,12 @@ export default function CertificateViewer() {
     body = reasonsDummyJSON
 
     const resLocal = await callApi({ url, body })
-    if (!resLocal || !resLocal?.ipfs_hash || resLocal?.id) return
+    if (!resLocal || !resLocal?.ipfs_hash || !resLocal?.id) return
 
-    const fileId = resLocal?.id
-
-    alert('File uploaded to IPFS. File ID: ' + fileId)
+    alert(id)
 
     setRevoking(false)
-  }, [origin, callApi])
+  }, [origin, callApi, data])
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
