@@ -186,8 +186,4 @@ const LargeButton = styled(Button)`
     color: #1c774a;
     border: 1px solid #1c774a;
   }
-  & a {
-    color: #33e58c;
-    text-decoration: none;
-  }
 `
