@@ -53,6 +53,7 @@ export default function CertificateViewer() {
 
   // Functions
   const onRevoke = useCallback(async () => {
+    let id = data?.original_token_id
     let url, body
 
     setRevoking(true)
@@ -66,15 +67,24 @@ export default function CertificateViewer() {
 
     // StepTwo - The Second POST
     const fileId = resLocal?.id
-    url = `${origin}/v1/certificate/${data?.id}/revocation`
+    url = `${origin}/v1/certificate/${id}/revocation`
     body = { reason: fileId }
     const resChain = await callApi({ url, body })
-
     if (resChain?.state !== 'submitted') return
 
+    // StepThree - The Infinite GET Loop
+    url = `${origin}/v1/certificate/${id}`
+    let isFinalised = false
+    let res = null
+    while (!isFinalised) {
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      res = await callApi({ url })
+      if (res?.state === 'revoked') isFinalised = true
+    }
+
     // eslint-disable-next-line no-console
-    console.log(JSON.stringify(resChain))
-    alert(JSON.stringify(resChain))
+    console.log(JSON.stringify(await callApi({ url })))
+    alert(JSON.stringify(await callApi({ url })))
 
     setRevoking(false)
   }, [origin, callApi, data])
