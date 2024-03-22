@@ -1,5 +1,3 @@
-#docker compose -f docker-compose-3-persona.yml up --build -d
-
 ##################################################################################
 ## Docker-Compose for a 3-persona testnet ########################################
 ##
