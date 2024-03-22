@@ -4,7 +4,7 @@ This document walks you through the steps required to deliver a complete demonst
 
 ## Basic Demo Prerequisites
 
-You will require `git` and `docker` to be installed on your machine in order to run these locally, and have some familiarity with a command line interface.
+You will require `git`, `docker` and `nodejs` (version `>=20.x`) to be installed on your machine in order to run these locally, and have some familiarity with a command line interface.
 
 In order to be able to reproduce the steps described in this document, you need to have the front-end user interface repository (`sqnc-hyproof-client`) cloned locally using `git`.
 
