@@ -265,15 +265,6 @@ export default function CertificateViewer() {
           </Paper>
         </MainContainer>
         <Sidebar area="sidebar">
-          {/* {persona.id === 'reginald' && (
-            <LargeButton
-              onClick={onRevoke}
-              disabled={data?.state !== 'issued'}
-              variant="roundedPronounced"
-            >
-              Revoke {revoking && '...'}
-            </LargeButton>
-          )} */}
           {persona.id === 'reginald' && (
             <RevokeActionsButton
               handleRevoke={handleRevoke}
