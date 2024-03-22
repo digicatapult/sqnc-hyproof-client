@@ -68,6 +68,13 @@ export default function CertificateViewer() {
     const fileId = resLocal?.id
     url = `${origin}/v1/certificate/${data?.id}/revocation`
     body = { reason: fileId }
+    const resChain = await callApi({ url, body })
+
+    if (resChain?.state !== 'submitted') return
+
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(resChain))
+    alert(JSON.stringify(resChain))
 
     setRevoking(false)
   }, [origin, callApi, data])
