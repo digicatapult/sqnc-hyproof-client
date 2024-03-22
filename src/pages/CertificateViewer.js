@@ -353,20 +353,3 @@ const Paper = styled.div`
     width: 0;
   }
 `
-
-const LargeButton = styled(Button)`
-  min-height: 60px;
-  width: 100%;
-  font: normal 500 21px Roboto;
-  white-space: nowrap;
-  color: #33e58c;
-  border: 1px solid #2fe181;
-  background: #124338;
-  &:hover {
-    opacity: 0.6;
-  }
-  &:disabled {
-    color: #1c774a;
-    border: 1px solid #1c774a;
-  }
-`
