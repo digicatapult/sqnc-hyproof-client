@@ -1,6 +1,9 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
+
+import { useCallback } from 'react'
+
 import styled from 'styled-components'
-import { Timeline, Grid, Button } from '@digicatapult/ui-component-library'
+import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -19,6 +22,8 @@ import CertificateViewDetails from './components/CertificateViewDetails'
 import { formatDate } from '../utils/helpers'
 import { TimelineDisclaimer } from './components/shared'
 
+import RevokeActionsButton from './components/RevokeActionsButton'
+
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -36,8 +41,49 @@ export default function CertificateViewer() {
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
 
+  const { callApiFn: callApi } = useAxios(false)
+  const [revoking, setRevoking] = useState(false)
+
   // Functions
-  const onRevoke = () => alert('Revoke')
+  const handleRevoke = useCallback(
+    async (reasonsJSON) => {
+      let id = data?.original_token_id
+      let url, body
+
+      setRevoking(true)
+
+      // StepOne - The First POST
+      url = `${origin}/v1/attachment`
+      body = reasonsJSON
+
+      const resLocal = await callApi({ url, body })
+      if (!resLocal || !resLocal?.ipfs_hash || !resLocal?.id) return
+
+      // StepTwo - The Second POST
+      const fileId = resLocal?.id
+      url = `${origin}/v1/certificate/${id}/revocation`
+      body = { reason: fileId }
+      const resChain = await callApi({ url, body })
+      if (resChain?.state !== 'submitted') return
+
+      // StepThree - The Periodical GET Check Loop
+      url = `${origin}/v1/certificate/${id}`
+      let isFinalised = false
+      let res = null
+      while (!isFinalised) {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        res = await callApi({ url })
+        if (res?.state === 'revoked') isFinalised = true
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(await callApi({ url })))
+      alert(`DONE! Certificate ID_${id} has been revoked.`)
+
+      setRevoking(false)
+    },
+    [origin, callApi, data]
+  )
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
@@ -220,13 +266,11 @@ export default function CertificateViewer() {
         </MainContainer>
         <Sidebar area="sidebar">
           {persona.id === 'reginald' && (
-            <LargeButton
-              onClick={onRevoke}
-              disabled={data?.state === 'revoked'}
-              variant="roundedPronounced"
-            >
-              Revoke
-            </LargeButton>
+            <RevokeActionsButton
+              handleRevoke={handleRevoke}
+              disabled={data?.state !== 'issued'}
+              loading={revoking}
+            />
           )}
         </Sidebar>
       </MainWrapper>
@@ -297,22 +341,5 @@ const Paper = styled.div`
     background: transparent;
     display: block;
     width: 0;
-  }
-`
-
-const LargeButton = styled(Button)`
-  min-height: 60px;
-  width: 100%;
-  font: normal 500 21px Roboto;
-  white-space: nowrap;
-  color: #33e58c;
-  border: 1px solid #2fe181;
-  background: #124338;
-  &:hover {
-    opacity: 0.6;
-  }
-  &:disabled {
-    color: #1c774a;
-    border: 1px solid #1c774a;
   }
 `
