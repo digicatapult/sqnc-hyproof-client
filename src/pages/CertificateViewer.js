@@ -175,9 +175,6 @@ export default function CertificateViewer() {
     }
   }, [curPersona, id, origin, context, fetchCert])
 
-  if (errorLast) return <>ErrLast:{errorLast}</>
-  if (errorHash) return <>ErrHash:{errorHash}</>
-
   const certificateDates = useMemo(() => {
     return (
       data?.events.reduce(
@@ -189,6 +186,9 @@ export default function CertificateViewer() {
       ) || {}
     )
   }, [data])
+
+  if (errorLast) return <>ErrLast:{errorLast}</>
+  if (errorHash) return <>ErrHash:{errorHash}</>
 
   return (
     <>

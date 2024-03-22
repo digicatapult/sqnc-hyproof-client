@@ -117,6 +117,18 @@ export default function CertificateCo2Post() {
     handleSubmitStep,
   ])
 
+  const certificateDates = useMemo(() => {
+    return (
+      dataCertFound?.events.reduce(
+        (acc, { event, occurred_at }) => {
+          acc[event] = formatDate(occurred_at)
+          return acc
+        },
+        { initiated: undefined, issued: undefined }
+      ) || {}
+    )
+  }, [dataCertFound])
+
   if (errorHash) return <p>{errorHash}</p>
   // if (loading) return <p>Loading...</p>
   if (errorFound || errorLocal || errorChain || errorFinal) {
@@ -132,18 +144,6 @@ export default function CertificateCo2Post() {
       </p>
     )
   }
-
-  const certificateDates = useMemo(() => {
-    return (
-      dataCertFound?.events.reduce(
-        (acc, { event, occurred_at }) => {
-          acc[event] = formatDate(occurred_at)
-          return acc
-        },
-        { initiated: undefined, issued: undefined }
-      ) || {}
-    )
-  }, [dataCertFound])
 
   return (
     <>
