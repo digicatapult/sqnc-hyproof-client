@@ -272,7 +272,7 @@ export default function CertificateViewer() {
           {persona.id === 'reginald' && (
             <LargeButton
               onClick={onRevoke}
-              disabled={data?.state === 'revoked'}
+              disabled={data?.state !== 'issued'}
               variant="roundedPronounced"
             >
               Revoke {revoking && '...'}
