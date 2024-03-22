@@ -22,6 +22,8 @@ import CertificateViewDetails from './components/CertificateViewDetails'
 import { formatDate } from '../utils/helpers'
 import { TimelineDisclaimer } from './components/shared'
 
+import RevokeActionsButton from './components/RevokeActionsButton'
+
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -88,6 +90,11 @@ export default function CertificateViewer() {
 
     setRevoking(false)
   }, [origin, callApi, data])
+
+  const handleRevoke = useCallback(async () => {
+    alert('Revoke')
+    onRevoke()
+  }, [onRevoke])
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
@@ -269,7 +276,7 @@ export default function CertificateViewer() {
           </Paper>
         </MainContainer>
         <Sidebar area="sidebar">
-          {persona.id === 'reginald' && (
+          {/* {persona.id === 'reginald' && (
             <LargeButton
               onClick={onRevoke}
               disabled={data?.state !== 'issued'}
@@ -277,6 +284,12 @@ export default function CertificateViewer() {
             >
               Revoke {revoking && '...'}
             </LargeButton>
+          )} */}
+          {persona.id === 'reginald' && (
+            <RevokeActionsButton
+              handleRevoke={handleRevoke}
+              json={reasonsDummyJSON}
+            />
           )}
         </Sidebar>
       </MainWrapper>
