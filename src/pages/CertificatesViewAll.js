@@ -54,7 +54,10 @@ const aggregateData = (data, id = 'default') => {
     certs.map((cert) => [
       <NameCell
         key={cert.original_token_id}
-        date={formatDate(cert.created_at)}
+        date={formatDate(
+          cert.events.find(({ event }) => event === 'initiated')?.occurred_at ||
+            cert.created_at
+        )}
         name={formatCertName(cert)}
       />,
       `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,
@@ -70,7 +73,10 @@ const aggregateData = (data, id = 'default') => {
       certs.map((cert) => [
         <NameCell
           key={cert.original_token_id}
-          date={formatDate(cert.created_at)}
+          date={formatDate(
+            cert.events.find(({ event }) => event === 'initiated')
+              ?.occurred_at || cert.created_at
+          )}
           name={formatCertName(cert)}
         />,
         `${(cert.hydrogen_quantity_wh / 1000000).toFixed(1)} MWh`,

@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 
@@ -113,7 +119,7 @@ export default function CertificateCo2Post() {
 
   if (errorHash) return <p>{errorHash}</p>
   // if (loading) return <p>Loading...</p>
-  if (errorFound || errorLocal || errorChain || errorFinal)
+  if (errorFound || errorLocal || errorChain || errorFinal) {
     return (
       <p>
         Err:
@@ -125,6 +131,20 @@ export default function CertificateCo2Post() {
         })}
       </p>
     )
+  }
+
+  const certificateDates = useMemo(() => {
+    return (
+      dataCertFound?.events.reduce(
+        (acc, { event, occurred_at }) => {
+          acc[event] = formatDate(occurred_at)
+          return acc
+        },
+        { initiated: undefined, issued: undefined }
+      ) || {}
+    )
+  }, [dataCertFound])
+
   return (
     <>
       <Nav />
@@ -140,19 +160,17 @@ export default function CertificateCo2Post() {
           variant={'hyproof'}
         >
           <Timeline.Item variant="hyproof" title={'Initiated'} checked={true}>
-            {dataCertFound && formatDate(dataCertFound.created_at)}
+            {certificateDates.initiated}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
-            checked={dataCertChain?.embodied_co2}
+            checked={!!certificateDates.issued}
           >
-            {dataCertChain?.embodied_co2 &&
-              formatDate(dataCertChain.updated_at)}
+            {certificateDates.issued}
           </Timeline.Item>
           <Timeline.Item variant="hyproof" title={'Issued'} checked={false}>
-            {dataCertChain?.state == 'issued' &&
-              formatDate(dataCertFinal.updated_at)}
+            {certificateDates.issued}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>

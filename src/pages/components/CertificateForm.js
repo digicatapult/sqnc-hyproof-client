@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useContext } from 'react'
+import React, { useState, useCallback, useContext, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { Context } from '../../utils/Context'
+import { formatDate } from '../../utils/helpers'
 
 import { Grid, Timeline } from '@digicatapult/ui-component-library'
 import CertificateInputFields from './CertificateInputFields'
@@ -131,6 +132,18 @@ export default function CertificateForm() {
     ]
   )
 
+  const certificateDates = useMemo(() => {
+    return (
+      dataFinal?.events.reduce(
+        (acc, { event, occurred_at }) => {
+          acc[event] = formatDate(occurred_at)
+          return acc
+        },
+        { initiated: undefined, issued: undefined }
+      ) || {}
+    )
+  }, [dataFinal])
+
   return (
     <>
       <TimelineWrapper area="timeline">
@@ -142,23 +155,23 @@ export default function CertificateForm() {
           <Timeline.Item
             variant="hyproof"
             title={'Initiated'}
-            checked={dataFinal?.state === 'initiated'}
+            checked={!!certificateDates.initiated}
           >
-            {dataFinal?.state === 'initiated' ? dataFinal.created_at : null}
+            {certificateDates.initiated}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
-            checked={dataFinal?.embodied_co2}
+            checked={!!certificateDates.issued}
           >
-            {dataFinal?.embodied_co2 && formatDate(dataFinal.updated_at)}
+            {certificateDates.issued}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issued'}
-            checked={dataFinal?.state === 'issued'}
+            checked={!!certificateDates.issued}
           >
-            {dataFinal?.state === 'issued' && formatDate(dataFinal.updated_at)}
+            {!!certificateDates.issued}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
