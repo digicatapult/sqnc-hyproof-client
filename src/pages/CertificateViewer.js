@@ -84,7 +84,7 @@ export default function CertificateViewer() {
 
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(await callApi({ url })))
-    alert(JSON.stringify(await callApi({ url })))
+    alert(`DONE! Certificate ID_${id} has been revoked.`)
 
     setRevoking(false)
   }, [origin, callApi, data])
