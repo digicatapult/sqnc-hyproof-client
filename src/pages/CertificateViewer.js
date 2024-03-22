@@ -47,7 +47,6 @@ export default function CertificateViewer() {
   // Functions
   const handleRevoke = useCallback(
     async (reasonsJSON) => {
-      alert('Revoke')
       let id = data?.original_token_id
       let url, body
 
