@@ -92,7 +92,7 @@ It is now time to change persona to `Emma the Energy Supplier`.
 
 ### 2. Emma the Energy Supplier completes the certificate
 
-You should first change persona by pressing the right arrow just below the `Hydrogen Innovation Initiative` logo in the top left hand side of the screen.
+You should first change persona by pressing the arrow just below the `Hydrogen Innovation Initiative` logo in the top left hand side of the screen.
 
 ![Drawer arrow](./drawer_arrow.png)
 
@@ -100,7 +100,7 @@ This opens a drawer showing the 4 personas available in the demonstrator. Select
 
 `Emma`'s work is automatically carried out by the system itself in the background. 
 
-![Emma busy](./emma_busy.png)
+![Emma busy](./energy_busy.png)
 
 What is happening is as follows:
 
@@ -110,7 +110,7 @@ What is happening is as follows:
     - the `start time` and `end time` of `Heidi's` hydrogen production
     - the total `kWh` of electricity used by `Heidi`
 
-2. `Emma` first checks this additional private data aligns with what has been publicly recorded by `Heidi` on the ledger using the `cryptographic commitment`. This keeps `Heidi` honest
+2. `Emma` first checks if this additional private data aligns with what has been publicly recorded by `Heidi` on the ledger using the `cryptographic commitment`. This keeps `Heidi` honest
 
 3. `Emma` then calculates the embodied CO2 for `Heidi`'s batch from:
 
@@ -126,7 +126,7 @@ What is happening is as follows:
 
 ### 3. Viewing the final certificate
 
-Taking a look at the final certificate, it is clear to see the following valuable information:
+Taking a look at the final certificate, it is clear to see it contains the following valuable information:
 
 - Date and time of certification
 - Guarantees of origin (the hydrogen producer and energy supplier)
@@ -135,7 +135,7 @@ Taking a look at the final certificate, it is clear to see the following valuabl
 
 The system also protects against certain personas obtaining information that they should not be allowed to see. This can be demonstrated by keeping the current certificate on the screen and switching between personas using the left hand drawer.
 
-`Heidi` and `Emma` see a certificate that has been generated from their local databases where they first entered or calculated the data, and the information recorded on the ledger itself. As a result, both `Heidi` and `Emma` can see all of the data associated with a batch of hydrogen they collaboratively certified.
+`Heidi` and `Emma` see a certificate that has been generated from their local databases using a combination of entered or calculated data, and the information recorded on the ledger itself. As a result, both `Heidi` and `Emma` can see all of the data associated with a batch of hydrogen they collaboratively certified.
 
 `Reginald` and `Connor` do not have access to the private data that `Heidi` shared with `Emma`, so they do not have access to:
 
@@ -145,11 +145,11 @@ The system also protects against certain personas obtaining information that the
 
 This means that these two personas only see the total batch size and the total carbon embodiment of that batch.
 
-![Reginald's view](./reginald_view.png)
+![Reginald's view](./regulator_view.png)
 
 If the `Regulator` wanted to obtain additional information for audit purposes, they could request this directly from `Heidi` or `Emma`.
 
-The truth of this data could then be confirmed against the cryptographic data within the ledger, or transmitted between `Heidi` and `Emma` to generate the certificate. 
+The truth of this data could then be confirmed against the cryptographic data within the ledger, or against that transmitted between these two in order to generate the certificate.
 
 In this way `Heidi` and `Emma` keep each other honest, and the `Regulator` keeps them both honest.
 
@@ -159,13 +159,13 @@ One final action that is possible within the system is the ability for the `Regu
 
 However, in order to keep the `Regulator` themselves honest and auditable, the reasons for revocation must be recorded in an indelible, high integrity manner, and made available to others.
 
-In order to demonstrate this functionality, we now switch to the persona of `Reginald the Regulator` using the left hand drawer.
+To demonstrate this functionality, we now switch to the persona of `Reginald the Regulator` in the left hand drawer.
 
 >Reginald's view
 
 `Reginald the Regulator` has identified a problem with this latest hydrogen certificate.
 
-Click on the `Revoke Certificate` button on the right hand side. This will pop up a form that asks you to supply the reasons for revocation.
+Click on the `Revoke` button on the right hand side. This will pop up a form that asks you to supply the reasons for revocation.
 
 The system is designed like this to prevent revocation from happening without a reason first being given and linked to the certificate that it is revoking.
 
@@ -173,8 +173,9 @@ The system is designed like this to prevent revocation from happening without a 
 
 `Reginald the Regulator` clicks submit, and the form is loaded into the system and attached to the relevant certificate.
 
-Upon completion the certificate is now `Revoked`. This is instantly visible to all personas.
+After a few seconds of processing the certificate is now `Revoked`. This is instantly visible to all personas.
 
+>image of revoked certificate
 ---
 
 ### End of demonstration
