@@ -3,7 +3,7 @@ import React, { useRef, useState, useContext, useEffect } from 'react'
 import { useCallback } from 'react'
 
 import styled from 'styled-components'
-import { Timeline, Grid, Button } from '@digicatapult/ui-component-library'
+import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
 import Nav from './components/Nav'
 import Header from './components/Header'
