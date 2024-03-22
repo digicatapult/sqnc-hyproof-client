@@ -53,7 +53,6 @@ export default function CertificateViewer() {
 
   // Functions
   const onRevoke = useCallback(async () => {
-    const id = data?.id
     let url, body
 
     setRevoking(true)
@@ -67,7 +66,7 @@ export default function CertificateViewer() {
 
     // StepTwo - The Second POST
     const fileId = resLocal?.id
-    url = `${origin}/v1/certificate/${id}/revocation`
+    url = `${origin}/v1/certificate/${data?.id}/revocation`
     body = { reason: fileId }
 
     setRevoking(false)
