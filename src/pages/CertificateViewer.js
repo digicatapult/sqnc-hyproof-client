@@ -72,7 +72,7 @@ export default function CertificateViewer() {
     const resChain = await callApi({ url, body })
     if (resChain?.state !== 'submitted') return
 
-    // StepThree - The Infinite GET Loop
+    // StepThree - The Periodical GET Check Loop
     url = `${origin}/v1/certificate/${id}`
     let isFinalised = false
     let res = null
