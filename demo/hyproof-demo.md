@@ -6,33 +6,25 @@ This document walks you through the steps required to deliver a complete demonst
 
 You will require `git` and `docker` to be installed on your machine in order to run these locally, and have some familiarity with a command line interface.
 
-In order to be able to reproduce the steps described in this document, you need to have both the back-end API (`sqnc-hyproof-api`) and front-end user interface (`sqnc-hyproof-client`) components running.
+In order to be able to reproduce the steps described in this document, you need to have the front-end user interface (`sqnc-hyproof-client`) cloned locally using `git`.
 
-The first step is to fetch both of these codebases from Github.
-
-Change into your preferred directory for cloning git repositories and enter the following commands:
-
-```
-git clone https://github.com/digicatapult/sqnc-hyproof-api.git
-```
-
-followed by
+Change into your preferred directory for cloning git repositories and enter the following command:
 
 ```
 git clone https://github.com/digicatapult/sqnc-hyproof-client.git
 ```
 
-### Installing and running the HyProof back-end API
+### Running the ledger infrastructure with Docker
 
-Use the following command in the `sqnc-hyproof-api` folder to build and run the 3-persona testnet used for the demonstrator:
+More information about the underlying ledger infrastructure can be found in the `sqnc-documentation` repository on Digital Catapult's public GitHub account.
 
-```sh
-docker compose -f docker-compose-3-persona.yml up --build -d
-```
+The infrastructure for running the demo must first be brought up with the following command:
 
-Wait for all containers to fully load and come to a steady state before proceeding with the user interface.
+`docker compose up -d`
 
-### Installing and running the HyProof user interface 
+After waiting for all containers to be active, you may now move on to starting the user interface.
+
+### Installing and running the HyProof user interface
 
 Use the following commands in the `sqnc-hyproof-client` folder to install all necessary packages and initialise the system:
 ```
@@ -49,7 +41,7 @@ Run the following command to begin the demonstrator:
 npm run dev
 ```
 
-## Running the Demo
+## Using the Demo
 
 Load your web browser and navigate to `localhost:3000`. The demonstrator works in most browsers, but is best viewed in Chrome.
 
@@ -65,10 +57,6 @@ We will now walk through the demonstration following a *happy path* workflow. Th
 - Emma the Energy Supplier calculates the embodied CO2 (eCO2)
 - Emma the Energy Supplier adds the eCO2 to the certificate
 - The system now issues the final certificate
-
-One further workflow can be demonstrated for Reginald the Regulator:
-
-- Reginald the Regulator reviews and revokes a certificate
 
 ### 1. Heidi the Hydrogen Producer initialises a certificate
 
@@ -152,31 +140,6 @@ If the `Regulator` wanted to obtain additional information for audit purposes, t
 The truth of this data could then be confirmed against the cryptographic data within the ledger, or against that transmitted between these two in order to generate the certificate.
 
 In this way `Heidi` and `Emma` keep each other honest, and the `Regulator` keeps them both honest.
-
-### 4. Revoking the certificate
-
-One final action that is possible within the system is the ability for the `Regulator` to revoke a certificate.
-
-However, in order to keep the `Regulator` themselves honest and auditable, the reasons for revocation must be recorded in an indelible, high integrity manner, and made available to others.
-
-To demonstrate this functionality, we now switch to the persona of `Reginald the Regulator` in the left hand drawer.
-
->Reginald's view
-
-`Reginald the Regulator` has identified a problem with this latest hydrogen certificate.
-
-Click on the `Revoke` button on the right hand side. This will pop up a form that asks you to supply the reasons for revocation.
-
-The system is designed like this to prevent revocation from happening without a reason first being given and linked to the certificate that it is revoking.
-
->image of revoke wizard tool
-
-`Reginald the Regulator` clicks submit, and the form is loaded into the system and attached to the relevant certificate.
-
-After a few seconds of processing the certificate is now `Revoked`. This is instantly visible to all personas.
-
->image of revoked certificate
----
 
 ### End of demonstration
 
