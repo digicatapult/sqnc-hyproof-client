@@ -1,0 +1,10 @@
+networks:
+  hydrogen-producer:
+    ipam:
+      driver: default
+  energy-owner:
+    ipam:
+      driver: default
+  regulator:
+    ipam:
+      driver: default
