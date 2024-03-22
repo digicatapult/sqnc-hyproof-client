@@ -27,15 +27,6 @@ import RevokeActionsButton from './components/RevokeActionsButton'
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
-const reasonsDummyJSON = {
-  predefinedReasons: {
-    0: { selection: null },
-    1: { selection: null },
-    2: { selection: null },
-  },
-  otherReason: '',
-}
-
 export default function CertificateViewer() {
   // Constants
   const { id } = useParams()
@@ -54,47 +45,46 @@ export default function CertificateViewer() {
   const [revoking, setRevoking] = useState(false)
 
   // Functions
-  const onRevoke = useCallback(async () => {
-    let id = data?.original_token_id
-    let url, body
+  const handleRevoke = useCallback(
+    async (reasonsJSON) => {
+      alert('Revoke')
+      let id = data?.original_token_id
+      let url, body
 
-    setRevoking(true)
+      setRevoking(true)
 
-    // StepOne - The First POST
-    url = `${origin}/v1/attachment`
-    body = reasonsDummyJSON
+      // StepOne - The First POST
+      url = `${origin}/v1/attachment`
+      body = reasonsJSON
 
-    const resLocal = await callApi({ url, body })
-    if (!resLocal || !resLocal?.ipfs_hash || !resLocal?.id) return
+      const resLocal = await callApi({ url, body })
+      if (!resLocal || !resLocal?.ipfs_hash || !resLocal?.id) return
 
-    // StepTwo - The Second POST
-    const fileId = resLocal?.id
-    url = `${origin}/v1/certificate/${id}/revocation`
-    body = { reason: fileId }
-    const resChain = await callApi({ url, body })
-    if (resChain?.state !== 'submitted') return
+      // StepTwo - The Second POST
+      const fileId = resLocal?.id
+      url = `${origin}/v1/certificate/${id}/revocation`
+      body = { reason: fileId }
+      const resChain = await callApi({ url, body })
+      if (resChain?.state !== 'submitted') return
 
-    // StepThree - The Periodical GET Check Loop
-    url = `${origin}/v1/certificate/${id}`
-    let isFinalised = false
-    let res = null
-    while (!isFinalised) {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      res = await callApi({ url })
-      if (res?.state === 'revoked') isFinalised = true
-    }
+      // StepThree - The Periodical GET Check Loop
+      url = `${origin}/v1/certificate/${id}`
+      let isFinalised = false
+      let res = null
+      while (!isFinalised) {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        res = await callApi({ url })
+        if (res?.state === 'revoked') isFinalised = true
+      }
 
-    // eslint-disable-next-line no-console
-    console.log(JSON.stringify(await callApi({ url })))
-    alert(`DONE! Certificate ID_${id} has been revoked.`)
+      // eslint-disable-next-line no-console
+      console.log(JSON.stringify(await callApi({ url })))
+      alert(`DONE! Certificate ID_${id} has been revoked.`)
 
-    setRevoking(false)
-  }, [origin, callApi, data])
-
-  const handleRevoke = useCallback(async () => {
-    alert('Revoke')
-    onRevoke()
-  }, [onRevoke])
+      setRevoking(false)
+    },
+    [origin, callApi, data]
+  )
 
   // When mounted fetch every few secs and post co2 before that if Emma and co2 not set
   useEffect(() => {
@@ -288,7 +278,8 @@ export default function CertificateViewer() {
           {persona.id === 'reginald' && (
             <RevokeActionsButton
               handleRevoke={handleRevoke}
-              json={reasonsDummyJSON}
+              disabled={data?.state !== 'issued'}
+              revoking={revoking}
             />
           )}
         </Sidebar>
