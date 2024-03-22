@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Button } from '@digicatapult/ui-component-library'
 
 const reasonsDummyJSON = {
@@ -14,7 +14,7 @@ const reasonsDummyJSON = {
 export default function RevokeActionsButton({
   handleRevoke,
   disabled,
-  revoking,
+  revoking: loading,
 }) {
   const onClick = () => {
     const answer = window.confirm('Reason for revoking?')
@@ -29,7 +29,8 @@ export default function RevokeActionsButton({
       disabled={disabled}
       variant="roundedPronounced"
     >
-      Revoke {revoking && '...'}
+      {!loading && 'Revoke '}
+      {loading && <AnimatedSpan>...</AnimatedSpan>}
     </LargeButton>
   )
 }
@@ -49,4 +50,21 @@ const LargeButton = styled(Button)`
     color: #1c774a;
     border: 1px solid #1c774a;
   }
+`
+
+const RevealAnimation = keyframes`
+  from {
+    width: 0px;
+  }
+  to {
+    width: 22px;
+  }
+`
+
+const AnimatedSpan = styled.span`
+  overflow: hidden;
+  display: inline-flex;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: ${RevealAnimation} 1s steps(4, end) infinite;
 `
