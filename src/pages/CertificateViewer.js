@@ -269,7 +269,7 @@ export default function CertificateViewer() {
             <RevokeActionsButton
               handleRevoke={handleRevoke}
               disabled={data?.state !== 'issued'}
-              revoking={revoking}
+              loading={revoking}
             />
           )}
         </Sidebar>

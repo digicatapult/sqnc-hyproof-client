@@ -14,7 +14,7 @@ const reasonsDummyJSON = {
 export default function RevokeActionsButton({
   handleRevoke,
   disabled,
-  revoking: loading,
+  loading,
 }) {
   const onClick = () => {
     const answer = window.confirm('Reason for revoking?')
