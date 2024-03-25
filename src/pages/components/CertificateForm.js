@@ -139,7 +139,7 @@ export default function CertificateForm() {
           acc[event] = formatDate(occurred_at)
           return acc
         },
-        { initiated: undefined, issued: undefined }
+        { initiated: undefined, issued: undefined, revoked: undefined }
       ) || {}
     )
   }, [dataFinal])
