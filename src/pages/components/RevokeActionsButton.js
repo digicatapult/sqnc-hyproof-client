@@ -2,6 +2,9 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button } from '@digicatapult/ui-component-library'
 
+import { useRef } from 'react'
+import { Dialog } from '@digicatapult/ui-component-library'
+
 const reasonsDummyJSON = {
   predefinedReasons: {
     0: { selection: null },
@@ -16,22 +19,45 @@ export default function RevokeActionsButton({
   disabled,
   loading,
 }) {
-  const onClick = () => {
-    const answer = window.confirm('Reason for revoking?')
-    if (answer) {
-      handleRevoke(reasonsDummyJSON)
-    }
+  const dialogRef = useRef(null)
+
+  const onClick = () => dialogRef.current?.showModal()
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    dialogRef.current?.close()
+    // alert('handleRevoke')
+    handleRevoke(reasonsDummyJSON)
   }
 
   return (
-    <LargeButton
-      onClick={onClick}
-      disabled={disabled}
-      variant="roundedPronounced"
-    >
-      {!loading && 'Revoke '}
-      {loading && <AnimatedSpan>...</AnimatedSpan>}
-    </LargeButton>
+    <>
+      <LargeButton
+        onClick={onClick}
+        disabled={disabled}
+        variant="roundedPronounced"
+      >
+        {!loading && 'Revoke '}
+        {loading && <AnimatedSpan>...</AnimatedSpan>}
+      </LargeButton>
+      <Dialog
+        width="99ch"
+        maxHeight="90lvh"
+        margin="auto auto"
+        padding="0px"
+        modalBackdropColor="rgba(26, 26, 26, 0.9)"
+        borderRadius="0px"
+        boxShadow="0px"
+        includeClose={false}
+        useModal={true}
+        //
+        ref={dialogRef}
+      >
+        Reason for revoking? <br />
+        <hr />
+        <button onClick={onSubmit}>Submit</button>
+      </Dialog>
+    </>
   )
 }
 
