@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useEffect } from 'react'
+import React, { useRef, useState, useContext, useEffect, useMemo } from 'react'
 
 import { useCallback } from 'react'
 
@@ -175,6 +175,18 @@ export default function CertificateViewer() {
     }
   }, [curPersona, id, origin, context, fetchCert])
 
+  const certificateDates = useMemo(() => {
+    return (
+      data?.events.reduce(
+        (acc, { event, occurred_at }) => {
+          acc[event] = formatDate(occurred_at)
+          return acc
+        },
+        { initiated: undefined, issued: undefined, revoked: undefined }
+      ) || {}
+    )
+  }, [data])
+
   if (errorLast) return <>ErrLast:{errorLast}</>
   if (errorHash) return <>ErrHash:{errorHash}</>
 
@@ -195,23 +207,23 @@ export default function CertificateViewer() {
           <Timeline.Item
             variant="hyproof"
             title={'Initiated'}
-            checked={data?.created_at}
+            checked={!!certificateDates.initiated}
           >
-            {data?.created_at && formatDate(data?.created_at)}
+            {certificateDates.initiated}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
-            checked={data?.embodied_co2}
+            checked={!!certificateDates.issued}
           >
-            {data?.embodied_co2 && formatDate(data?.updated_at)}
+            {certificateDates.issued}
           </Timeline.Item>
           <Timeline.Item
             variant="hyproof"
             title={'Issued'}
-            checked={data?.state === 'issued'}
+            checked={!!certificateDates.issued}
           >
-            {data?.state === 'issued' && formatDate(data.updated_at)}
+            {certificateDates.issued}
           </Timeline.Item>
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
@@ -257,7 +269,10 @@ export default function CertificateViewer() {
                     energy={data?.energy_consumed_wh}
                     eco2={data?.embodied_co2}
                     posting={posting}
-                    timestamp={data?.updated_at}
+                    timestamp={
+                      data?.events.find(({ event }) => event === 'issued')
+                        ?.occurred_at
+                    }
                   />
                 </Grid.Panel>
               </Grid>
