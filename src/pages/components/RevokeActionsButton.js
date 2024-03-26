@@ -3,7 +3,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button } from '@digicatapult/ui-component-library'
 
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useRef } from 'react'
 import { Dialog } from '@digicatapult/ui-component-library'
 
@@ -12,17 +12,26 @@ import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
 // import { useEffect } from 'react'
 
-const reasonsDummyJSON = {
-  predefinedReasons: {
-    0: { selection: null },
-    1: { selection: null },
-    2: { selection: null },
-  },
+const reasonsDefaultObj = {
+  dataError: { discrepancies: false, incorrect: false, missing: false },
+  certMis: { incorrect: false, unverified: false, claims: false },
+  nonCompliance: { violation: false, repeated: false },
   otherReason: '',
 }
 
 const ReasonsPopup = ({ handleConfirm }) => {
   const [isConfVisible, setIsConfVisible] = useState(false)
+  const [reasons, setReasons] = useState(reasonsDefaultObj)
+  const update = (group, pair) => {
+    setReasons({
+      ...reasons,
+      [group]: {
+        ...reasons[group],
+        [pair]: !reasons[group][pair],
+      },
+    })
+  }
+  const isValid = useMemo(() => {}, [reasons])
   return (
     <>
       {!isConfVisible && (
@@ -37,8 +46,8 @@ const ReasonsPopup = ({ handleConfirm }) => {
               <TitleWarning>
                 Please provide the reason: <br />
                 <SubtitleWarning>
-                  Submit button to cause revocation in the certification that will
-                  be reflected on the blockchain.
+                  Submit button to cause revocation in the certification that
+                  will be reflected on the blockchain.
                 </SubtitleWarning>
               </TitleWarning>
             </DivWarning>
@@ -51,15 +60,83 @@ const ReasonsPopup = ({ handleConfirm }) => {
             background="#ffffff"
             headingSize="0em"
           >
-            <button onClick={(e) => { e.preventDefault(); setIsConfVisible(true) }}>Submit</button>
+            <CheckboxGroup>
+              <CheckboxGroupTitle>Data Errors</CheckboxGroupTitle>
+              <CheckboxContainer>
+                <Span>Discrepancies in energy usage data</Span>
+                <Input onChange={() => update('dataError', 'discrepancies')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <Span>
+                  Incorrect production date/quantity/source information
+                </Span>
+                <Input onChange={() => update('dataError', 'incorrect')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <Span>Missing or incomplete data</Span>
+                <Input onChange={() => update('dataError', 'missing')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+            </CheckboxGroup>
+
+            <CheckboxGroup>
+              <CheckboxGroupTitle>
+                Certification Misrepresentation
+              </CheckboxGroupTitle>
+              <CheckboxContainer>
+                <Span>Incorrect carbon intensity calculation</Span>
+                <Input onChange={() => update('certMis', 'incorrect')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <Span>Unverified energy sources</Span>
+                <Input onChange={() => update('certMis', 'unverified')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <Span>False claims about production process</Span>
+                <Input onChange={() => update('certMis', 'claims')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+            </CheckboxGroup>
+
+            <CheckboxGroup>
+              <CheckboxGroupTitle>Non-Compliance</CheckboxGroupTitle>
+              <CheckboxContainer>
+                <Span>Violation of regulatory standards</Span>
+                <Input onChange={() => update('nonCompliance', 'violation')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+              <CheckboxContainer>
+                <Span>Repeated certificate discrepancies</Span>
+                <Input onChange={() => update('nonCompliance', 'repeated')} />
+                <CheckboxInput />
+              </CheckboxContainer>
+            </CheckboxGroup>
+
+            <hr />
+            <small>{JSON.stringify(reasons, null, 2)}</small>
+            <hr />
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                setIsConfVisible(true)
+              }}
+            >
+              Submit
+            </button>
           </Section>
         </>
       )}
       {isConfVisible && (
         <>
-          The second part. Lorem ipsum dolor est testing
+          The second part ( the second message ).
           <button type="submit">Cancel</button>
-          <button onClick={(e) => { e.preventDefault(); handleConfirm() }}>Tes, revoke it</button>
+          <button onClick={(e) => { e.preventDefault(); handleConfirm() }}>
+            Tes, revoke it
+          </button>
         </>
       )}
     </>
@@ -76,11 +153,11 @@ export default function RevokeActionsButton({
 
   // useEffect(() => { dialogRef.current?.showModal() }, [])
 
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     dialogRef.current?.close()
     // alert('handleRevoke')
-    handleRevoke(reasonsDummyJSON)
-  }
+    handleRevoke(reasons)
+  }, [handleRevoke])
 
   return (
     <>
@@ -93,7 +170,7 @@ export default function RevokeActionsButton({
         {loading && <AnimatedSpan>...</AnimatedSpan>}
       </LargeButton>
       <Dialog
-        width="70ch"
+        width="75ch"
         maxHeight="90lvh"
         margin="auto auto"
         padding="0px"
@@ -145,7 +222,7 @@ const AnimatedSpan = styled.span`
   animation: ${RevealAnimation} 1s steps(4, end) infinite;
 `
 
-//
+// Heading
 
 const DivWarning = styled.div`
   text-align: left;
@@ -189,3 +266,117 @@ const SubtitleWarning = styled.div`
   font-weight: 500;
   line-height: 24px;
 `
+
+// Checkboxes
+
+const CheckboxGroup = styled.div`
+  text-align: left;
+  padding: 5px 0;
+`
+
+const CheckboxGroupTitle = styled.h2`
+  color: #1a1a1a;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 14px;
+`
+
+const CheckboxContainer = styled.label`
+  display: table;
+  position: relative;
+  padding-left: 2rem;
+  cursor: pointer;
+  margin-bottom: 0.4rem;
+
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: content-box !important;
+  }
+
+  input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  span {
+    line-height: 1.75;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+`
+
+const CheckboxInput = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.25rem;
+  width: 1.25rem;
+  background: #f1f5f9;
+  transition: background 250ms;
+  border: 1px solid #27847a;
+  border-radius: 0.2rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 0.3rem;
+    height: 0.6rem;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transition: background 250ms;
+    transform: rotate(45deg);
+  }
+
+  ${CheckboxContainer} input:checked ~ &::after {
+    display: block;
+  }
+
+  ${CheckboxContainer} input:disabled ~ &::after {
+    border-color: #ffffff;
+  }
+
+  ${CheckboxContainer} input:checked ~ & {
+    background: #27847a;
+    border-color: #27847a;
+  }
+
+  ${CheckboxContainer} input:disabled ~ & {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  ${CheckboxContainer}:hover input:not([disabled]) ~ &,
+  ${CheckboxContainer} input:focus ~ & {
+    background: rgb(255, 255, 255);
+    border-color: #07645a;
+  }
+
+  ${CheckboxContainer}:hover input:not([disabled]):checked ~ &,
+  ${CheckboxContainer} input:checked:focus ~ & {
+    background: #17746a;
+    border-color: #17746a;
+  }
+
+  ${CheckboxContainer} input:focus ~ & {
+    box-shadow: 0 0 0 2px #27847a;
+  }
+`
+
+const Span = styled.span`
+  color: #7b9390;
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 171.429% */
+`
+
+const Input = styled.input.attrs({ type: 'checkbox' })``
