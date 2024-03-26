@@ -22,6 +22,14 @@ const reasonsDefaultObj = {
 const ReasonsPopup = ({ handleConfirm }) => {
   const [isConfVisible, setIsConfVisible] = useState(false)
   const [reasons, setReasons] = useState(reasonsDefaultObj)
+  // const [text, setText] = useState('')
+  const isValid = useMemo(() => {
+    const hasAtLeastOneItem = Object.values(reasons)
+      .flatMap((o) => Object.values(o))
+      .some((v) => v === true)
+    const hasOtherReason = reasons.otherReason.trim().length > 0
+    return hasAtLeastOneItem || hasOtherReason
+  }, [reasons])
   const update = (group, pair) => {
     setReasons({
       ...reasons,
@@ -31,7 +39,9 @@ const ReasonsPopup = ({ handleConfirm }) => {
       },
     })
   }
-  const isValid = useMemo(() => {}, [reasons])
+  const change = (text) => {
+    setReasons({ ...reasons, otherReason: text })
+  }
   return (
     <>
       {!isConfVisible && (
@@ -116,15 +126,24 @@ const ReasonsPopup = ({ handleConfirm }) => {
               </CheckboxContainer>
             </CheckboxGroup>
 
+            <CheckboxGroup>
+              <CheckboxGroupTitle>Other</CheckboxGroupTitle>
+              <Textarea
+                value={reasons?.otherReason}
+                onChange={(e) => change(e.target.value)}
+                type="text"
+                placeholder="Please provide details in the text box below."
+                rows={3}
+              >
+              </Textarea>
+            </CheckboxGroup>
+
             <hr />
             <small>{JSON.stringify(reasons, null, 2)}</small>
             <hr />
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                setIsConfVisible(true)
-              }}
-            >
+            <small>HasValidReason(s):{JSON.stringify(isValid)}</small>
+            <hr />
+            <button onClick={(e) => { e.preventDefault(); setIsConfVisible(true) }}>
               Submit
             </button>
           </Section>
@@ -134,7 +153,12 @@ const ReasonsPopup = ({ handleConfirm }) => {
         <>
           The second part ( the second message ).
           <button type="submit">Cancel</button>
-          <button onClick={(e) => { e.preventDefault(); handleConfirm() }}>
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              handleConfirm()
+            }}
+          >
             Tes, revoke it
           </button>
         </>
@@ -380,3 +404,15 @@ const Span = styled.span`
 `
 
 const Input = styled.input.attrs({ type: 'checkbox' })``
+
+const Textarea = styled.textarea`
+  width: 100%;
+  color: #7b9390;
+  padding: 10px 30px;
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+`
