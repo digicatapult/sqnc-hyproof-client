@@ -41,7 +41,7 @@ export default function RevokeActionsButton({
         modalBackdropColor="rgba(26, 26, 26, 0.9)"
         borderRadius="0px"
         boxShadow="0px"
-        includeClose={false}
+        includeClose={true}
         useModal={true}
         ref={dialogRef}
       >
