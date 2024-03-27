@@ -311,6 +311,7 @@ const Sidebar = styled(Grid.Panel)`
   padding: 34px 21px;
   & form {
     margin-bottom: -5px;
+    width: 100%;
   }
 `
 
