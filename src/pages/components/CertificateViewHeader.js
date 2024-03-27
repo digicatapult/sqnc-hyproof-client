@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import ApprovalSealLargeSVG from '../../assets/images/approval-seal-large.svg'
-// import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
+import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
-export default function CertificateViewHeader({ id }) {
+export default function CertificateViewHeader({ id, revoked }) {
   return (
     <>
       <HeaderContainerUnderlined>
@@ -17,9 +17,11 @@ export default function CertificateViewHeader({ id }) {
           <HeaderImageRight />
         </HeaderContainer>
       </HeaderContainerUnderlined>
-      <HeaderContainerRevoked>
-        Lore ipsum dolore sit amet, consectetur adipiscing elit.
-      </HeaderContainerRevoked>
+      {revoked && (
+        <HeaderContainerRevoked>
+          <TitleWarning>Note: This certificate has been revoked.</TitleWarning>
+        </HeaderContainerRevoked>
+      )}
     </>
   )
 }
@@ -71,6 +73,40 @@ const HeaderContainerRevoked = styled.div`
   border-radius: 10px;
   text-align: left;
   padding: 29px 20px;
+`
+
+const TitleWarning = styled.span`
+  width: 100%;
+  position: relative;
+
+  color: #fff;
+  font-family: Roboto;
+  font-size: 18.4px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+
+  text-transform: uppercase;
+
+  margin-left: 70px;
+  text-indent: 0px;
+  // display: block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -70px;
+    margin-top: -27px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: transparent url(${WarningSignSvg}) no-repeat;
+  }
+
+  // a {
+  //   color: #fff;
+  // }
 `
 
 const H1 = styled.h1`
