@@ -41,6 +41,7 @@ export default function CertificateViewer() {
 
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
+  const isRevoked = (state) => state?.data === 'revoked'
 
   // Functions
   const handleRevoke = useCallback(
@@ -246,7 +247,7 @@ export default function CertificateViewer() {
                 ]}
               >
                 <Grid.Panel area="div-header">
-                  <CertificateViewHeader id={id} />
+                  <CertificateViewHeader id={id} revoked={isRevoked(data)} />
                 </Grid.Panel>
                 <Grid.Panel area="div-ownership">
                   <CertificateViewOwnership
