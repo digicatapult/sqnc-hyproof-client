@@ -1,26 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
 import ApprovalSealLargeSVG from '../../assets/images/approval-seal-large.svg'
+// import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
 export default function CertificateViewHeader({ id }) {
   return (
-    <HeaderContainerUnderlined>
-      <HeaderContainer>
-        <HeaderImageLeft />
-        <HeaderTextHeadings>
-          <H1>CERTIFICATE</H1>
-          <H2>HYDROGEN PRODUCTION</H2>
-          <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
-        </HeaderTextHeadings>
-        <HeaderImageRight />
-      </HeaderContainer>
-    </HeaderContainerUnderlined>
+    <>
+      <HeaderContainerUnderlined>
+        <HeaderContainer>
+          <HeaderImageLeft />
+          <HeaderTextHeadings>
+            <H1>CERTIFICATE</H1>
+            <H2>HYDROGEN PRODUCTION</H2>
+            <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
+          </HeaderTextHeadings>
+          <HeaderImageRight />
+        </HeaderContainer>
+      </HeaderContainerUnderlined>
+      <HeaderContainerRevoked>
+        Lore ipsum dolore sit amet, consectetur adipiscing elit.
+      </HeaderContainerRevoked>
+    </>
   )
 }
 
 const HeaderContainerUnderlined = styled.div`
   border-bottom: 2px solid #27847a;
-  width: 100%;
 `
 
 const HeaderContainer = styled.div`
@@ -57,6 +62,15 @@ const HeaderTextHeadings = styled.div`
   padding: 0 10px;
   width: 50%;
   color: #27847a;
+`
+
+const HeaderContainerRevoked = styled.div`
+  min-height: 74px;
+  background: #ff3f3f;
+  margin: 9px 0;
+  border-radius: 10px;
+  text-align: left;
+  padding: 29px 20px;
 `
 
 const H1 = styled.h1`
