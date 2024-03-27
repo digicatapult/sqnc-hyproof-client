@@ -45,6 +45,7 @@ export default function ReasonsPopup({ handleConfirm }) {
             title=""
             background="#27847a"
             headingSize="0em"
+            padding="10px 72px"
           >
             <DivWarning>
               <TitleWarning>
@@ -141,14 +142,6 @@ export default function ReasonsPopup({ handleConfirm }) {
             >
               Submit
             </SubmitButton>
-
-            {/* ToBeRemoved */}
-            <hr />
-            <small>{JSON.stringify(reasons, null, 2)}</small>
-            <hr />
-            <small>HasValidReason(s):{JSON.stringify(isValid)}</small>
-            <hr />
-            {/* ToBeRemovedEnd */}
           </Section>
         </>
       )}
@@ -229,6 +222,7 @@ const SubtitleWarning = styled.div`
   color: #8cb9b3;
 
   margin-left: 70px;
+  padding-left: 70px;
 
   font-family: Roboto;
   font-size: 12px;
