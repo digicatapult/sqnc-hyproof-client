@@ -45,14 +45,13 @@ export default function ReasonsPopup({ handleConfirm }) {
             title=""
             background="#27847a"
             headingSize="0em"
-            padding="10px 72px"
+            padding="10px 130px"
           >
             <DivWarning>
               <TitleWarning>
                 Please provide the reason: <br />
                 <SubtitleWarning>
-                  Submit button to cause revocation in the certification that
-                  will be reflected on the blockchain.
+                  Click the submit button to revoke the certificate.
                 </SubtitleWarning>
               </TitleWarning>
             </DivWarning>
