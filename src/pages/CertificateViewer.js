@@ -1,7 +1,5 @@
 import React, { useRef, useState, useContext, useEffect, useMemo } from 'react'
-
 import { useCallback } from 'react'
-
 import styled from 'styled-components'
 import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
@@ -75,10 +73,6 @@ export default function CertificateViewer() {
         res = await callApi({ url })
         if (res?.state === 'revoked') isFinalised = true
       }
-
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(await callApi({ url })))
-      alert(`DONE! Certificate ID_${id} has been revoked.`)
 
       setRevoking(false)
     },
@@ -315,6 +309,10 @@ const Sidebar = styled(Grid.Panel)`
   background: #0c3b38;
   gap: 10px;
   padding: 34px 21px;
+  & form {
+    margin-bottom: -5px;
+    width: 100%;
+  }
 `
 
 const MainContainer = styled(Grid.Panel)`

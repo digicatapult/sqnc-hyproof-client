@@ -1,37 +1,49 @@
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Button } from '@digicatapult/ui-component-library'
+import { Button, Dialog } from '@digicatapult/ui-component-library'
 
-const reasonsDummyJSON = {
-  predefinedReasons: {
-    0: { selection: null },
-    1: { selection: null },
-    2: { selection: null },
-  },
-  otherReason: '',
-}
+import ReasonsPopup from './ReasonsPopup'
 
 export default function RevokeActionsButton({
   handleRevoke,
   disabled,
   loading,
 }) {
-  const onClick = () => {
-    const answer = window.confirm('Reason for revoking?')
-    if (answer) {
-      handleRevoke(reasonsDummyJSON)
-    }
-  }
+  const dialogRef = useRef(null)
+  const onClick = () => dialogRef.current?.showModal()
+  const handleConfirm = useCallback(
+    (r) => {
+      dialogRef.current?.close()
+      handleRevoke(r)
+    },
+    [handleRevoke]
+  )
 
   return (
-    <LargeButton
-      onClick={onClick}
-      disabled={disabled}
-      variant="roundedPronounced"
-    >
-      {!loading && 'Revoke '}
-      {loading && <AnimatedSpan>...</AnimatedSpan>}
-    </LargeButton>
+    <>
+      <LargeButton
+        onClick={onClick}
+        disabled={disabled}
+        variant="roundedPronounced"
+      >
+        {!loading && 'Revoke '}
+        {loading && <AnimatedSpan>...</AnimatedSpan>}
+      </LargeButton>
+      <Dialog
+        width="75ch"
+        maxHeight="90lvh"
+        margin="auto auto"
+        padding="0px"
+        modalBackdropColor="rgba(26, 26, 26, 0.9)"
+        borderRadius="0px"
+        boxShadow="0px"
+        includeClose={true}
+        useModal={true}
+        ref={dialogRef}
+      >
+        <ReasonsPopup handleConfirm={handleConfirm} />
+      </Dialog>
+    </>
   )
 }
 
