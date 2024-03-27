@@ -41,7 +41,7 @@ export default function CertificateViewer() {
 
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
-  const isRevoked = (state) => state?.data === 'revoked'
+  const isRevoked = (d) => d?.state === 'revoked'
 
   // Functions
   const handleRevoke = useCallback(
@@ -254,6 +254,7 @@ export default function CertificateViewer() {
                     id={id}
                     hOwner={data?.hydrogen_owner}
                     eOwner={data?.energy_owner}
+                    revoked={isRevoked(data)}
                   />
                 </Grid.Panel>
                 <Grid.Panel area="div-details">
@@ -268,6 +269,7 @@ export default function CertificateViewer() {
                       data?.events.find(({ event }) => event === 'issued')
                         ?.occurred_at
                     }
+                    revoked={isRevoked(data)}
                   />
                 </Grid.Panel>
               </Grid>
