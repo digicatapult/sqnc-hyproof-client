@@ -1,6 +1,10 @@
-import React, { useCallback, useRef } from 'react'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Dialog, Button } from '@digicatapult/ui-component-library'
+import { Button } from '@digicatapult/ui-component-library'
+
+import { useCallback } from 'react'
+import { useRef } from 'react'
+import { Dialog } from '@digicatapult/ui-component-library'
 
 import ReasonsPopup from './ReasonsPopup'
 
@@ -46,6 +50,8 @@ export default function RevokeActionsButton({
     </>
   )
 }
+
+// PartOfRevokeActionsButton
 
 const LargeButton = styled(Button)`
   min-height: 60px;

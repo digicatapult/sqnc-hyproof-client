@@ -198,7 +198,7 @@ const DivWarning = styled.div`
   margin: 0.18em;
 `
 
-const TitleWarning = styled.div`
+const TitleWarning = styled.span`
   width: 100%;
   position: relative;
 
@@ -210,6 +210,7 @@ const TitleWarning = styled.div`
   line-height: 13px;
 
   margin-left: 70px;
+  text-indent: -70px;
 
   &::before {
     content: '';
@@ -226,6 +227,8 @@ const TitleWarning = styled.div`
 
 const SubtitleWarning = styled.div`
   color: #8cb9b3;
+
+  margin-left: 70px;
 
   font-family: Roboto;
   font-size: 12px;
@@ -378,7 +381,7 @@ const Textarea = styled.textarea`
 
 const SubmitButton = styled(Button)`
   min-height: 40px;
-  min-width: 150px;
+  min-width: 180px;
   margin-top: 15px;
   margin-bottom: 10px;
   font: normal 500 1rem Roboto;
@@ -412,7 +415,7 @@ const DivHalf = styled.div`
 
 const CancelButton = styled(Button)`
   min-height: 40px;
-  min-width: 150px;
+  min-width: 180px;
   margin-top: 15px;
   margin-bottom: 10px;
   font: normal 500 1rem Roboto;
