@@ -42,7 +42,7 @@ export default function ReasonsPopup({ handleConfirm }) {
             title=""
             background="#27847a"
             headingSize="0em"
-            padding="10px 130px"
+            padding="10px 141px"
           >
             <DivWarning>
               <TitleWarning>
@@ -148,6 +148,7 @@ export default function ReasonsPopup({ handleConfirm }) {
             title=""
             background="#27847a"
             headingSize="0em"
+            padding="10px 37px"
           >
             <DivWarning>
               <TitleWarning>
@@ -190,7 +191,7 @@ const TitleWarning = styled.span`
   position: relative;
 
   color: #fff;
-  font-family: Inter;
+  font-family: Roboto;
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
