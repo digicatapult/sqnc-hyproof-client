@@ -315,6 +315,9 @@ const Sidebar = styled(Grid.Panel)`
   background: #0c3b38;
   gap: 10px;
   padding: 34px 21px;
+  & form {
+    margin-bottom: -5px;
+  }
 `
 
 const MainContainer = styled(Grid.Panel)`
