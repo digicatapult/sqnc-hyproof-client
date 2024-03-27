@@ -1,7 +1,5 @@
 import React, { useRef, useState, useContext, useEffect, useMemo } from 'react'
-
 import { useCallback } from 'react'
-
 import styled from 'styled-components'
 import { Timeline, Grid } from '@digicatapult/ui-component-library'
 
@@ -76,9 +74,7 @@ export default function CertificateViewer() {
         if (res?.state === 'revoked') isFinalised = true
       }
 
-      // eslint-disable-next-line no-console
-      console.log(JSON.stringify(await callApi({ url })))
-      alert(`DONE! Certificate ID_${id} has been revoked.`)
+      // alert(`DONE! Certificate ID_${id} has been revoked.`)
 
       setRevoking(false)
     },
