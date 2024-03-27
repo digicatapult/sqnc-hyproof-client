@@ -57,7 +57,7 @@ export default function ReasonsPopup({ handleConfirm }) {
           <Section
             headingLevel={2}
             title=""
-            padding="50px 100px 40px 100px"
+            padding="35px 100px 25px 100px"
             background="#ffffff"
             headingSize="0em"
           >
