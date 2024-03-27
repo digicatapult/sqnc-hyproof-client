@@ -182,8 +182,6 @@ export default function ReasonsPopup({ handleConfirm }) {
   )
 }
 
-// Heading
-
 const DivWarning = styled.div`
   text-align: left;
   padding: 35px 17px 30px 17px;
@@ -229,8 +227,6 @@ const SubtitleWarning = styled.div`
   font-weight: 500;
   line-height: 24px;
 `
-
-// Checkboxes
 
 const CheckboxGroup = styled.div`
   text-align: left;
@@ -344,8 +340,6 @@ const Span = styled.span`
 
 const Input = styled.input.attrs({ type: 'checkbox' })``
 
-// Textarea
-
 const Textarea = styled.textarea`
   width: 100%;
   color: #7b9390;
@@ -370,8 +364,6 @@ const Textarea = styled.textarea`
   }
 `
 
-// SubmitBtn
-
 const SubmitButton = styled(Button)`
   min-height: 40px;
   min-width: 180px;
@@ -392,8 +384,6 @@ const SubmitButton = styled(Button)`
     opacity: 1;
   }
 `
-
-// Confirming
 
 const DivContainer = styled.div`
   margin: 10px auto;

@@ -74,8 +74,6 @@ export default function CertificateViewer() {
         if (res?.state === 'revoked') isFinalised = true
       }
 
-      // alert(`DONE! Certificate ID_${id} has been revoked.`)
-
       setRevoking(false)
     },
     [origin, callApi, data]

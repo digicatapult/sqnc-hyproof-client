@@ -51,8 +51,6 @@ export default function RevokeActionsButton({
   )
 }
 
-// PartOfRevokeActionsButton
-
 const LargeButton = styled(Button)`
   min-height: 60px;
   width: 100%;
