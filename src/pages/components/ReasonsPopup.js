@@ -1,10 +1,7 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { Button } from '@digicatapult/ui-component-library'
+import { Button, Section } from '@digicatapult/ui-component-library'
 
-import { useState, useMemo } from 'react'
-
-import { Section } from '@digicatapult/ui-component-library'
 import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
 const reasonsDefaultObj = {
