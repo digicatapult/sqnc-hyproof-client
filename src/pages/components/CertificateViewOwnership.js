@@ -3,8 +3,14 @@ import styled from 'styled-components'
 
 import LockerSvg from '../../assets/images/locker-icon.svg'
 import SealSvg from '../../assets/images/approval-seal-small.svg'
+import RevokedSvg from '../../assets/images/approval-seal-small-revoked.svg'
 
-export default function CertificateViewOwnership({ id, hOwner, eOwner }) {
+export default function CertificateViewOwnership({
+  id,
+  hOwner,
+  eOwner,
+  revoked,
+}) {
   return (
     <>
       <DivLock>
@@ -14,9 +20,13 @@ export default function CertificateViewOwnership({ id, hOwner, eOwner }) {
         <Div>Hydrogen Producer: {hOwner}</Div>
         <Div>Energy Supplier: {eOwner}</Div>
         <Hr />
-        <DivImageLeft>
-          <Div>Hydrogen Certificate</Div>
-          <Small>Adherence to official standards</Small>
+        <DivImageLeft rev={revoked}>
+          <Div>{!revoked ? 'Hydrogen Certificate' : 'Revoked'}</Div>
+          <Small>
+            {!revoked
+              ? 'Adherence to official standards'
+              : 'This certificate has been revoked'}
+          </Small>
         </DivImageLeft>
       </DivRounded>
     </>
@@ -96,7 +106,16 @@ const DivImageLeft = styled.div`
     margin-top: -25px;
     width: 34px;
     height: 50px;
-    background: transparent url(${SealSvg}) no-repeat;
+    ${({ rev }) =>
+      !rev &&
+      `
+      background: transparent url(${SealSvg}) no-repeat;
+    `}
+    ${({ rev }) =>
+      rev &&
+      `
+      background: transparent url(${RevokedSvg}) no-repeat;
+    `}
   }
 `
 

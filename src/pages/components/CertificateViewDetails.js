@@ -26,14 +26,17 @@ export default function CertificateViewDetails({
   eco2,
   posting,
   timestamp,
+  revoked,
 }) {
   return (
     <PaddedWrapperDiv>
       <ContainerFlexWrapDiv>
         {hasEco2(eco2) && (
           <FullWidthDiv>
-            <GreenText>Timestamp of Certificate Issuance</GreenText>
-            <GreenBoldText>{formatDate(timestamp)}</GreenBoldText>
+            <GreenText>Timestamp of Certificate Issuance:</GreenText>
+            <GreenBoldText>
+              {!revoked ? formatDate(timestamp) : 'N/A (Certificate Revoked)'}
+            </GreenBoldText>
           </FullWidthDiv>
         )}
         {hasDate(start) && hasDate(end) && (
