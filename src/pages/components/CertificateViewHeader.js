@@ -1,26 +1,46 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Context } from '../../utils/Context'
 import ApprovalSealLargeSVG from '../../assets/images/approval-seal-large.svg'
+import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
-export default function CertificateViewHeader({ id }) {
+import { personas } from '../../App'
+
+export default function CertificateViewHeader({ id, revoked, reason }) {
+  const { current } = useContext(Context)
+  const { origin } = personas.find(({ id }) => id === current)
+  const url = `${origin}/v1/attachment/${reason}`
   return (
-    <HeaderContainerUnderlined>
-      <HeaderContainer>
-        <HeaderImageLeft />
-        <HeaderTextHeadings>
-          <H1>CERTIFICATE</H1>
-          <H2>HYDROGEN PRODUCTION</H2>
-          <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
-        </HeaderTextHeadings>
-        <HeaderImageRight />
-      </HeaderContainer>
-    </HeaderContainerUnderlined>
+    <>
+      <HeaderContainerUnderlined>
+        <HeaderContainer>
+          <HeaderImageLeft />
+          <HeaderTextHeadings>
+            <H1>CERTIFICATE</H1>
+            <H2>HYDROGEN PRODUCTION</H2>
+            <H3>{id?.indexOf('-') > 0 ? id : `UK-HYPROOF-${id}`}</H3>
+          </HeaderTextHeadings>
+          <HeaderImageRight />
+        </HeaderContainer>
+      </HeaderContainerUnderlined>
+      {revoked && (
+        <HeaderContainerRevoked>
+          <TitleWarning>
+            Note: This certificate has been revoked. (
+            <Link to={url} target="_blank">
+              Open Attachment
+            </Link>
+            )
+          </TitleWarning>
+        </HeaderContainerRevoked>
+      )}
+    </>
   )
 }
 
 const HeaderContainerUnderlined = styled.div`
   border-bottom: 2px solid #27847a;
-  width: 100%;
 `
 
 const HeaderContainer = styled.div`
@@ -57,6 +77,49 @@ const HeaderTextHeadings = styled.div`
   padding: 0 10px;
   width: 50%;
   color: #27847a;
+`
+
+const HeaderContainerRevoked = styled.div`
+  min-height: 74px;
+  background: #ff3f3f;
+  margin: 9px 0;
+  border-radius: 10px;
+  text-align: left;
+  padding: 29px 20px;
+`
+
+const TitleWarning = styled.span`
+  width: 100%;
+  position: relative;
+
+  color: #fff;
+  font-family: Roboto;
+  font-size: 18.4px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+
+  text-transform: uppercase;
+
+  margin-left: 70px;
+  text-indent: 0px;
+  display: block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -70px;
+    margin-top: -27px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: transparent url(${WarningSignSvg}) no-repeat;
+  }
+
+  a {
+    color: #fff;
+  }
 `
 
 const H1 = styled.h1`
