@@ -247,7 +247,11 @@ export default function CertificateViewer() {
                 ]}
               >
                 <Grid.Panel area="div-header">
-                  <CertificateViewHeader id={id} revoked={isRevoked(data)} />
+                  <CertificateViewHeader
+                    id={id}
+                    revoked={isRevoked(data)}
+                    reason={data?.revocation_reason}
+                  />
                 </Grid.Panel>
                 <Grid.Panel area="div-ownership">
                   <CertificateViewOwnership
