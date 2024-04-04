@@ -224,7 +224,7 @@ export default function CertificateViewer() {
             <>
               <Timeline.Item
                 variant="hyproof"
-                title="Revoked"
+                title={revoking ? 'Revoking...' : 'Revoked'}
                 checked={!revoking}
                 revoked={true}
               >
