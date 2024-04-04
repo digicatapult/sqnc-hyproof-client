@@ -206,6 +206,7 @@ export default function CertificateViewer() {
           >
             {certificateDates.initiated}
           </Timeline.Item>
+
           <Timeline.Item
             variant="hyproof"
             title={'Carbon Embodiment'}
@@ -213,6 +214,7 @@ export default function CertificateViewer() {
           >
             {certificateDates.issued}
           </Timeline.Item>
+
           <Timeline.Item
             variant="hyproof"
             title={'Issued'}
@@ -220,6 +222,7 @@ export default function CertificateViewer() {
           >
             {certificateDates.issued}
           </Timeline.Item>
+
           {(!!certificateDates.revoked || revoking) && (
             <>
               <Timeline.Item
@@ -233,6 +236,7 @@ export default function CertificateViewer() {
             </>
           )}
         </Timeline>
+
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </LeftWrapper>
       <MainWrapper>
