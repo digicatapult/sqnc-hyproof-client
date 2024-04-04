@@ -220,6 +220,18 @@ export default function CertificateViewer() {
           >
             {certificateDates.issued}
           </Timeline.Item>
+          {(!!certificateDates.revoked || revoking) && (
+            <>
+              <Timeline.Item
+                variant="hyproof"
+                title="Revoked"
+                checked={!revoking}
+                revoked={true}
+              >
+                {certificateDates.revoked}
+              </Timeline.Item>
+            </>
+          )}
         </Timeline>
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </LeftWrapper>
