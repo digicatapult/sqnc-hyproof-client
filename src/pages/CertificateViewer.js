@@ -161,7 +161,9 @@ export default function CertificateViewer() {
 
     // If Emma then post co2 if it hasn't got co2 (no embedded co2 from fetch)
     if (curPersona === 'emma') {
-      fetchPromise.then(co2PostIfNeeded)
+      setTimeout(() => {
+        fetchPromise.then(co2PostIfNeeded)
+      }, 3 * 1000)
     }
 
     // Cleanup the interval on unmount
