@@ -208,14 +208,14 @@ export default function CertificateViewer() {
             {certificateDates.initiated}
           </Timeline.Item>
 
-          {(xor(!certificateDates?.revoked, revoking)) && (
-          <Timeline.Item
-            variant="hyproof"
-            title={'Carbon Embodiment'}
-            checked={!!certificateDates.issued}
-          >
-            {certificateDates.issued}
-          </Timeline.Item>
+         {xor(!certificateDates?.revoked, revoking) && (
+            <Timeline.Item
+              variant="hyproof"
+              title={'Carbon Embodiment'}
+              checked={!!certificateDates.issued}
+            >
+              {certificateDates.issued}
+            </Timeline.Item>
           )}
 
           <Timeline.Item
