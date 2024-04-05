@@ -42,7 +42,7 @@ export default function CertificateViewer() {
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
   const isRevoked = (d) => d?.state === 'revoked'
-  const xor = (a, b) => ((a || b) && !(a && b ))
+  const xor = (a, b) => (a || b) && !(a && b)
 
   // Functions
   const handleRevoke = useCallback(
