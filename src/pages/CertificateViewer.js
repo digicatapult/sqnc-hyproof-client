@@ -42,6 +42,7 @@ export default function CertificateViewer() {
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
   const isRevoked = (d) => d?.state === 'revoked'
+  const xor = (a, b) => (a || b) && !(a && b)
 
   // Functions
   const handleRevoke = useCallback(
@@ -206,13 +207,17 @@ export default function CertificateViewer() {
           >
             {certificateDates.initiated}
           </Timeline.Item>
-          <Timeline.Item
-            variant="hyproof"
-            title={'Carbon Embodiment'}
-            checked={!!certificateDates.issued}
-          >
-            {certificateDates.issued}
-          </Timeline.Item>
+
+          {xor(!certificateDates?.revoked, revoking) && (
+            <Timeline.Item
+              variant="hyproof"
+              title={'Carbon Embodiment'}
+              checked={!!certificateDates.issued}
+            >
+              {certificateDates.issued}
+            </Timeline.Item>
+          )}
+
           <Timeline.Item
             variant="hyproof"
             title={'Issued'}
@@ -220,7 +225,21 @@ export default function CertificateViewer() {
           >
             {certificateDates.issued}
           </Timeline.Item>
+
+          {(!!certificateDates.revoked || revoking) && (
+            <>
+              <Timeline.Item
+                variant="hyproof"
+                title={revoking ? 'Revoking...' : 'Revoked'}
+                checked={!revoking}
+                revoked={true}
+              >
+                {certificateDates.revoked}
+              </Timeline.Item>
+            </>
+          )}
         </Timeline>
+
         <TimelineDisclaimer>{disclaimer}</TimelineDisclaimer>
       </LeftWrapper>
       <MainWrapper>
