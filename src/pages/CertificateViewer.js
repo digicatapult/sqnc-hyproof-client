@@ -163,7 +163,7 @@ export default function CertificateViewer() {
     if (curPersona === 'emma') {
       setTimeout(() => {
         fetchPromise.then(co2PostIfNeeded)
-      }, 4 * 1000)
+      }, 3 * 1000)
     }
 
     // Cleanup the interval on unmount
