@@ -42,7 +42,7 @@ export default function CertificateViewer() {
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
   const isRevoked = (d) => d?.state === 'revoked'
-  const xor = (a, b) => ((a || b) && !(a && b ))
+  const xor = (a, b) => (a || b) && !(a && b)
 
   // Functions
   const handleRevoke = useCallback(
@@ -73,7 +73,7 @@ export default function CertificateViewer() {
       while (!isFinalised) {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         res = await callApi({ url })
-      if (res?.state === 'revoked') isFinalised = true
+        if (res?.state === 'revoked') isFinalised = true
       }
 
       setRevoking(false)
@@ -208,14 +208,14 @@ export default function CertificateViewer() {
             {certificateDates.initiated}
           </Timeline.Item>
 
-          {(xor(!certificateDates?.revoked, revoking)) && (
-          <Timeline.Item
-            variant="hyproof"
-            title={'Carbon Embodiment'}
-            checked={!!certificateDates.issued}
-          >
-            {certificateDates.issued}
-          </Timeline.Item>
+          {xor(!certificateDates?.revoked, revoking) && (
+            <Timeline.Item
+              variant="hyproof"
+              title={'Carbon Embodiment'}
+              checked={!!certificateDates.issued}
+            >
+              {certificateDates.issued}
+            </Timeline.Item>
           )}
 
           <Timeline.Item
