@@ -53,18 +53,23 @@ The landing page of the demo shows a list of existing certificates for individua
 
 We will now walk through the demonstration following a *happy path* workflow. This takes the following steps:
 
-- Heidi the Hydrogen Producer initialises a certificate
-- Emma the Energy Supplier calculates the embodied CO2 (eCO2)
-- Emma the Energy Supplier adds the eCO2 to the certificate
+- `Heidi the Hydrogen Producer` initialises a certificate
+- `Emma the Energy Supplier` calculates the embodied CO2 (eCO2)
+- `Emma the Energy Supplier` adds the eCO2 to the certificate
 - The system now issues the final certificate
+
+One further workflow can be demonstrated for `Reginald the Regulator`:
+
+- `Reginald the Regulator` reviews and revokes a certificate
+
 
 ### 1. Heidi the Hydrogen Producer initialises a certificate
 
-You will first adopt the persona of Heidi, a Hydrogen Producer. Heidi has just generated a batch of hydrogen through electrolysis and is now seeking to have that batch certified.
+You will first adopt the persona of `Heidi the Hydrogen Producer`. `Heidi` has just generated a batch of hydrogen through electrolysis and is now seeking to have that batch certified.
 
 In order to obtain a certificate for a new batch of hydrogen, click on the `New Certificate` button in the right hand panel.
 
-This will bring up an input page where Heidi records the start and end time of hydrogen production, the batch size to be certified, and the amount of electricity that was used to generate the hydrogen.
+This will bring up an input page where `Heidi` records the start and end time of hydrogen production, the batch size to be certified, and the amount of electricity that was used to generate the hydrogen.
 
 ![Data entry page](./data_entry.png)
 
@@ -106,7 +111,7 @@ What is happening is as follows:
     - the total `kWh` used by `Heidi`
     - `Emma`'s knowledge of her `carbon intensity` over that period
 
-4. `Emma` submits this embodied CO2 value to the ledger to be added to the certificate that `Heidi` previously **intitiated**
+4. `Emma` submits this embodied CO2 value to the ledger to be added to the certificate that `Heidi` previously **initiated**
 
 5. The system updates the certificate into a final `Issued` state
 
@@ -140,6 +145,26 @@ If the `Regulator` wanted to obtain additional information for audit purposes, t
 The truth of this data could then be confirmed against the cryptographic data within the ledger, or against that transmitted between these two in order to generate the certificate.
 
 In this way `Heidi` and `Emma` keep each other honest, and the `Regulator` keeps them both honest.
+
+### 4. Revoking the certificate
+
+One final action that is possible within the system is the ability for `Reginald the Regulator` to revoke a certificate.
+
+`Reginald` has identified a problem with this latest hydrogen certificate.
+
+Click on the `Revoke` button on the right hand side of the screen. 
+
+In order to keep `Reginald` themselves honest and auditable, the reasons for revocation must be recorded in an indelible, high integrity manner, and made available to others. This form asks `Reginald` to supply the reasons for revocation.
+
+![Revocation Form](./revocation_form.png)
+
+`Reginald` clicks submit, and the form is loaded into the system and attached to the relevant certificate.
+
+After a few seconds of processing the certificate is now `Revoked`. This is instantly visible to all.
+
+![Revoked Certificate](./revoked_certificate.png)
+
+The reasons for revoking the certificate are also available to every persona except `Connor the Consumer` using the embedded link.
 
 ### End of demonstration
 
