@@ -111,7 +111,7 @@ What is happening is as follows:
     - the total `kWh` used by `Heidi`
     - `Emma`'s knowledge of her `carbon intensity` over that period
 
-4. `Emma` submits this embodied CO2 value to the ledger to be added to the certificate that `Heidi` previously **intitiated**
+4. `Emma` submits this embodied CO2 value to the ledger to be added to the certificate that `Heidi` previously **initiated**
 
 5. The system updates the certificate into a final `Issued` state
 
