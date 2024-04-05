@@ -22,6 +22,8 @@ import { TimelineDisclaimer } from './components/shared'
 
 import RevokeActionsButton from './components/RevokeActionsButton'
 
+// import axios from 'axios'
+
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -87,7 +89,10 @@ export default function CertificateViewer() {
     const fetchLatestCert = async () => {
       let result = null
       try {
-        result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+        // result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+        result = await (await fetch(`${origin}/v1/certificate/${id}`)).json()
+        // const res = await axios['get'](`${origin}/v1/certificate/${id}`)
+        // result = res?.data
       } catch (e) {
         setErrorLast(e)
       }
