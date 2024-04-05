@@ -73,7 +73,7 @@ export default function CertificateViewer() {
       while (!isFinalised) {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         res = await callApi({ url })
-      if (res?.state === 'revoked') isFinalised = true
+        if (res?.state === 'revoked') isFinalised = true
       }
 
       setRevoking(false)
