@@ -24,6 +24,16 @@ import RevokeActionsButton from './components/RevokeActionsButton'
 
 // import axios from 'axios'
 
+// import { useQuery } from '@tanstack/react-query'
+
+// const useAxiosCustom = (u) => {
+//   const { refetch } = useQuery({
+//     queryKey: [u],
+//     queryFn: () => fetch(u).then((res) => res.json()),
+//   })
+//   return { recallApiFn: refetch }
+// }
+
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -40,6 +50,8 @@ export default function CertificateViewer() {
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
+  const urlRefetch = `${origin}/v1/certificate/${id}`
+  const { refetchApiFn: refetch } = useAxios(false, '', '', '', '', urlRefetch)
 
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
@@ -90,9 +102,7 @@ export default function CertificateViewer() {
       let result = null
       try {
         // result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
-        result = await (await fetch(`${origin}/v1/certificate/${id}`)).json()
-        // const res = await axios['get'](`${origin}/v1/certificate/${id}`)
-        // result = res?.data
+        result = (await refetch()).data
       } catch (e) {
         setErrorLast(e)
       }
@@ -176,7 +186,7 @@ export default function CertificateViewer() {
       clearInterval(intervalId)
       setPosting(false)
     }
-  }, [curPersona, id, origin, context, fetchCert])
+  }, [curPersona, id, origin, context, fetchCert, refetch])
 
   const certificateDates = useMemo(() => {
     return (
