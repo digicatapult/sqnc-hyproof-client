@@ -54,8 +54,7 @@ export default function useAxios(
   const { refetch: refetchApiFn } = useQuery({
     queryKey: [url],
     queryFn: useCallback(async () => {
-      const headers = { 'content-type': 'application/json' }
-      const options = [url, { headers }]
+      const options = [url, { headers: { 'content-type': 'application/json' } }]
       const method = 'get'
       try {
         const res = await axios[method](...options)
