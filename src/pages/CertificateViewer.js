@@ -22,18 +22,6 @@ import { TimelineDisclaimer } from './components/shared'
 
 import RevokeActionsButton from './components/RevokeActionsButton'
 
-// import axios from 'axios'
-
-// import { useQuery } from '@tanstack/react-query'
-
-// const useAxiosCustom = (u) => {
-//   const { refetch } = useQuery({
-//     queryKey: [u],
-//     queryFn: () => fetch(u).then((res) => res.json()),
-//   })
-//   return { recallApiFn: refetch }
-// }
-
 const disclaimer =
   'Your certification status is dynamic and may change over time. Always refer to this page for the most up-to-date status.'
 
@@ -101,7 +89,6 @@ export default function CertificateViewer() {
     const fetchLatestCert = async () => {
       let result = null
       try {
-        // result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
         result = (await refetch()).data
       } catch (e) {
         setErrorLast(e)
