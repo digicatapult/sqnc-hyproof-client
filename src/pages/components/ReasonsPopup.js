@@ -183,7 +183,7 @@ export default function ReasonsPopup({ handleConfirm }) {
 const DivWarning = styled.div`
   text-align: left;
   padding: 35px 17px 30px 17px;
-  margin: 0.18em;
+  margin: 0.18em 0 0.18em 2em;
 `
 
 const TitleWarning = styled.div`
