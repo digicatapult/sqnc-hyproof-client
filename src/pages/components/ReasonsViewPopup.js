@@ -18,8 +18,8 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
   const { origin } = personas.find(({ id }) => id === current)
   const url = `${origin}/v1/attachment/${reason}`
   const { data /*, error, loading */ } = useAxios(true, url)
-  // if (loading) return <div>Loading...</div>
-  // if (error) return <div>Error: {JSON.stringify(error)}</div>
+  // if (loading) return <>Loading...</>
+  // if (error) return <>Error: {JSON.stringify(error)}</>
   return (
     <>
       <Section
