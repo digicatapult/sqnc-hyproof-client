@@ -38,8 +38,14 @@ export default function CertificateViewer() {
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
-  const urlRefetch = `${origin}/v1/certificate/${id}`
-  const { refetchApiFn: refetch } = useAxios(false, '', '', '', '', urlRefetch)
+  const { refetchApiFn: refetch } = useAxios(
+    false,
+    '',
+    '',
+    '',
+    '',
+    `${origin}/v1/certificate/${id}`
+  )
 
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
