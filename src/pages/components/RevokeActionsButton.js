@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
 
-import ReasonsPopup from './ReasonsPopup'
+import ReasonsPopup from './ReasonsFormPopup'
 import ReasonsViewPopup from './ReasonsViewPopup'
 
 export default function RevokeActionsButton({
