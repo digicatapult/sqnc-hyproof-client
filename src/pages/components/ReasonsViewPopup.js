@@ -15,10 +15,11 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
   const { origin } = personas.find(({ id }) => id === current)
   const url = `${origin}/v1/attachment/${reason}`
   const hasTrue = (o) => (!o ? false : Object.values(o).some((v) => v === true))
-  const hasOther = (s) => (s.trim() !== '' ? true : false)
+  const hasOther = (s) => (!s ? false : true)
   const { data, error, loading } = useAxios(true, url)
   if (loading) return <AnimatedSpan>...</AnimatedSpan>
   if (error) return <Error>Error: {JSON.stringify(error)}</Error>
+
   return (
     <>
       <Section
@@ -37,7 +38,6 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
           </TitleWarning>
         </DivWarning>
       </Section>
-
       <Section
         headingLevel={2}
         title=""
