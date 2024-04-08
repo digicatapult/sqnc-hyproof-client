@@ -8,7 +8,7 @@ import axios from 'axios'
 // Notes:
 // Can be used with useAxios(true, '...') for an automatic call on component mount.
 // Additionally, can be used with useAxios(false, '...') for a manual call.
-// Also, can also be used w/ { refetchApiFn } = useAxios(false, '...', url) for state-less call.
+// Also, can also be used w/ { refetchApiFn } = useAxios(false, '...', url) for stateless call.
 export default function useAxios(
   run = false,
   urlRun,
