@@ -11,7 +11,7 @@ const reasonsDefaultObj = {
   otherReason: '',
 }
 
-export default function ReasonsPopup({ handleConfirm }) {
+export default function ReasonsFormPopup({ handleConfirm }) {
   const [isConfVisible, setIsConfVisible] = useState(false)
   const [reasons, setReasons] = useState(reasonsDefaultObj)
   const isValid = useMemo(() => {

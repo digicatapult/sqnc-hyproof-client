@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
 
-import ReasonsPopup from './ReasonsFormPopup'
+import ReasonsFormPopup from './ReasonsFormPopup'
 import ReasonsViewPopup from './ReasonsViewPopup'
 
 export default function RevokeActionsButton({
@@ -50,7 +50,7 @@ export default function RevokeActionsButton({
           useModal={true}
           ref={dialogRevFormRef}
         >
-          <ReasonsPopup handleConfirm={handleConfirm} />
+          <ReasonsFormPopup handleConfirm={handleConfirm} />
         </Dialog>
       )}
       {disabled && reason && (
