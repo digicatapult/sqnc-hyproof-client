@@ -21,14 +21,16 @@ export default function RevokeActionsButton({
 
   return (
     <>
-      <LargeButton
-        onClick={onClick}
-        disabled={disabled}
-        variant="roundedPronounced"
-      >
-        {!loading && 'Revoke '}
-        {loading && <AnimatedSpan>...</AnimatedSpan>}
-      </LargeButton>
+      {!disabled && (
+        <LargeButton
+          onClick={onClick}
+          disabled={false}
+          variant="roundedPronounced"
+        >
+          {!loading && 'Revoke '}
+          {loading && <AnimatedSpan>...</AnimatedSpan>}
+        </LargeButton>
+      )}
       <Dialog
         width="75ch"
         maxHeight="90lvh"
