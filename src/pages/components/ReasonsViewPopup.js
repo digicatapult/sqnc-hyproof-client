@@ -1,26 +1,24 @@
 import React, { useContext } from 'react'
-import styled from 'styled-components'
-import { Button } from '@digicatapult/ui-component-library'
+import styled, { keyframes } from 'styled-components'
+import { Button, Section } from '@digicatapult/ui-component-library'
 
-// ReasonsViewPopup(imports)
-import { Section } from '@digicatapult/ui-component-library'
 import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
-// ApiStuff
 import { personas } from '../../App'
 import { Context } from '../../utils/Context'
 import useAxios from '../../hooks/use-axios'
 
-const email = 'reginald@hydrogenregulator.org.uk'
+const defaultEmail = 'reginald@hydrogenregulator.org.uk'
 
 export default function ReasonsViewPopup({ handleCancel, reason }) {
   const { current } = useContext(Context)
   const { origin } = personas.find(({ id }) => id === current)
   const url = `${origin}/v1/attachment/${reason}`
   const hasTrue = (o) => (!o ? false : Object.values(o).some((v) => v === true))
-  const { data /*, error, loading */ } = useAxios(true, url)
-  if (loading) return <>Loading...</>
-  if (error) return <>Error: {JSON.stringify(error)}</>
+  const hasOther = (s) => (s.trim() !== '' ? true : false)
+  const { data, error, loading } = useAxios(true, url)
+  if (loading) return <AnimatedSpan>...</AnimatedSpan>
+  if (error) return <Error>Error: {JSON.stringify(error)}</Error>
   return (
     <>
       <Section
@@ -79,7 +77,7 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
                 </Span>
               </Li>
             )}
-            {data?.otherReason && (
+            {hasOther(data?.otherReason) && (
               <Li>
                 Other: <Span>{data?.otherReason}</Span>
               </Li>
@@ -90,8 +88,9 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
           <TextTitle>What to Do:</TextTitle>
           <Text>
             Please contact the regulatory body at{' '}
-            <a href="mailto:{email}">{email}</a> for for more information on
-            certificate revocation procedures to discuss next steps.
+            <a href={`mailto:${defaultEmail}`}>{defaultEmail}</a> for for more
+            information on certificate revocation procedures to discuss next
+            steps.
           </Text>
         </TextSection>
         {/* DebugInfo */}
@@ -199,6 +198,39 @@ const CloseButton = styled(Button)`
   &:hover {
     opacity: 0.6;
   }
+`
+
+const Error = styled.div`
+  padding: 50px 17px 50px 17px;
+  color: #000000;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+`
+
+const RevealAnimation = keyframes`
+  from {
+    width: 0px;
+  }
+  to {
+    width: 22px;
+  }
+`
+
+const AnimatedSpan = styled.span`
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100px;
+
+  overflow: hidden;
+  display: inline-flex;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: ${RevealAnimation} 1s steps(4, end) infinite;
 `
 
 const Span = styled.span``
