@@ -41,16 +41,16 @@ const ReasonsViewPopup = function ({ handleCancel }) {
           <TextTitle>Reason(s) for Revocation:</TextTitle>
           <Ol>
             <Li>
-              Data Error: Incorrect production date/quantity source information
+              Data Error: Incorrect production date/quantity source information;
             </Li>
             <Li>
               Certification Misrepresentation: False claims about production
-              process
+              process;
             </Li>
-            <Li>Non-Compliance: Repeated certificate discrepancies</Li>
+            <Li>Non-Compliance: Repeated certificate discrepancies;</Li>
             <Li>
               Other: Failure to meet new safety protocols implemented on
-              03/02/2024 (regulation change).
+              03/02/2024 (regulation change)
             </Li>
           </Ol>
         </TextSection>
