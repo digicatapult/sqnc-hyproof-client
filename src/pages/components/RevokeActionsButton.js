@@ -22,11 +22,7 @@ export default function RevokeActionsButton({
   return (
     <>
       {!disabled && (
-        <LargeButton
-          onClick={onClick}
-          disabled={false}
-          variant="roundedPronounced"
-        >
+        <LargeButton onClick={onClick} variant="roundedPronounced">
           {!loading && 'Revoke '}
           {loading && <AnimatedSpan>...</AnimatedSpan>}
         </LargeButton>
