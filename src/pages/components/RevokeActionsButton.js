@@ -56,7 +56,7 @@ export default function RevokeActionsButton({
   const onSeeReasonClick = () => dialogRevViewRef.current?.showModal()
   const handleConfirm = useCallback(
     (r) => {
-      dialogRef.current?.close()
+      dialogRevFormRef.current?.close()
       handleRevoke(r)
     },
     [handleRevoke]
@@ -65,7 +65,7 @@ export default function RevokeActionsButton({
   return (
     <>
       {!disabled && (
-        <LargeButton onRevokeClick={onRevokeClick} variant="roundedPronounced">
+        <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
           {!loading && 'Revoke '}
           {loading && <AnimatedSpan>...</AnimatedSpan>}
         </LargeButton>
