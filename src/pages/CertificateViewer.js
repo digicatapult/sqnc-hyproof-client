@@ -46,7 +46,6 @@ export default function CertificateViewer() {
     '',
     `${origin}/v1/certificate/${id}`
   )
-
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
   const isRevoked = (d) => d?.state === 'revoked'
@@ -279,7 +278,7 @@ export default function CertificateViewer() {
                   <CertificateViewHeader
                     id={id}
                     revoked={isRevoked(data)}
-                    reason={data?.revocation_reason}
+                    reason={data?.revocation_reason} //
                   />
                 </Grid.Panel>
                 <Grid.Panel area="div-ownership">
@@ -314,6 +313,7 @@ export default function CertificateViewer() {
             <RevokeActionsButton
               handleRevoke={handleRevoke}
               disabled={data?.state !== 'issued'}
+              reason={data?.revocation_reason}
               loading={revoking}
             />
           )}
