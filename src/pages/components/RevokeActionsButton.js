@@ -4,13 +4,43 @@ import { Button, Dialog } from '@digicatapult/ui-component-library'
 
 import ReasonsPopup from './ReasonsPopup'
 
-//
+// ReasonsViewPopup(imports)
+import { Section } from '@digicatapult/ui-component-library'
+// import WarningSignSvg from '../../assets/images/warning-sign.svg'
+import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
-//
-const ReasonsViewPopup = function () {
+// ReasonsViewPopup
+const ReasonsViewPopup = function ({ handleCancel }) {
   return (
     <>
-      <h1>Reasons for Revoke</h1>
+      <Section
+        headingLevel={1}
+        title=""
+        background="#27847a"
+        headingSize="0em"
+        padding="10px 141px"
+      >
+        <DivWarning>
+          <TitleWarning>
+            This hydrogen certificate has been revoked. <br />
+            <SubtitleWarning>
+              This certificate has been revoked by the regulator and its status
+              will be reflected on the blockchain.
+            </SubtitleWarning>
+          </TitleWarning>
+        </DivWarning>
+      </Section>
+      <Section
+        headingLevel={2}
+        title=""
+        padding="35px 100px 25px 100px"
+        background="#ffffff"
+        headingSize="0em"
+      >
+        Body
+        <hr />
+        <button onClick={handleCancel}>Close</button>
+      </Section>
     </>
   )
 }
@@ -60,18 +90,18 @@ export default function RevokeActionsButton({
         <ReasonsPopup handleConfirm={handleConfirm} />
       </Dialog>
       <Dialog
-        width="75ch"
+        width="95ch"
         maxHeight="90lvh"
         margin="auto auto"
         padding="0px"
         modalBackdropColor="rgba(26, 26, 26, 0.9)"
         borderRadius="0px"
         boxShadow="0px"
-        includeClose={true}
+        includeClose={false}
         useModal={true}
         ref={dialogRevViewRef}
       >
-        <ReasonsViewPopup />
+        <ReasonsViewPopup handleCancel={dialogRevViewRef.current?.close()} />
       </Dialog>
     </>
   )
@@ -109,4 +139,52 @@ const AnimatedSpan = styled.span`
   white-space: nowrap;
   margin: 0 auto;
   animation: ${RevealAnimation} 1s steps(4, end) infinite;
+`
+
+// ReasonsViewPopup
+
+const DivWarning = styled.div`
+  text-align: left;
+  padding: 35px 17px 30px 17px;
+  margin: 0.18em;
+`
+
+const TitleWarning = styled.div`
+  width: 100%;
+  position: relative;
+
+  color: #fff;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+
+  // margin-left: 70px;
+  // text-indent: -70px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -70px;
+    margin-top: -30px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: transparent url(${WarningSignSvg}) no-repeat;
+  }
+`
+
+const SubtitleWarning = styled.div`
+  color: #8cb9b3;
+
+  // margin-left: 70px;
+  // padding-left: 70px;
+
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
 `
