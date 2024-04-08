@@ -197,9 +197,6 @@ const TitleWarning = styled.div`
   font-weight: 500;
   line-height: 15px;
 
-  // margin-left: 70px;
-  // text-indent: -70px;
-
   &::before {
     content: '';
     position: absolute;
@@ -215,9 +212,6 @@ const TitleWarning = styled.div`
 
 const SubtitleWarning = styled.div`
   color: #8cb9b3;
-
-  // margin-left: 70px;
-  // padding-left: 70px;
 
   font-family: Roboto;
   font-size: 12px;
