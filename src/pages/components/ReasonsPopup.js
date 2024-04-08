@@ -186,7 +186,7 @@ const DivWarning = styled.div`
   margin: 0.18em;
 `
 
-const TitleWarning = styled.span`
+const TitleWarning = styled.div`
   width: 100%;
   position: relative;
 
@@ -195,10 +195,10 @@ const TitleWarning = styled.span`
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 13px;
+  line-height: 15px;
 
-  margin-left: 70px;
-  text-indent: -70px;
+  // margin-left: 70px;
+  // text-indent: -70px;
 
   &::before {
     content: '';
@@ -216,8 +216,8 @@ const TitleWarning = styled.span`
 const SubtitleWarning = styled.div`
   color: #8cb9b3;
 
-  margin-left: 70px;
-  padding-left: 70px;
+  // margin-left: 70px;
+  // padding-left: 70px;
 
   font-family: Roboto;
   font-size: 12px;
