@@ -17,9 +17,10 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
   const { current } = useContext(Context)
   const { origin } = personas.find(({ id }) => id === current)
   const url = `${origin}/v1/attachment/${reason}`
+  const hasTrue = (o) => (!o ? false : Object.values(o).some((v) => v === true))
   const { data /*, error, loading */ } = useAxios(true, url)
-  // if (loading) return <>Loading...</>
-  // if (error) return <>Error: {JSON.stringify(error)}</>
+  if (loading) return <>Loading...</>
+  if (error) return <>Error: {JSON.stringify(error)}</>
   return (
     <>
       <Section
@@ -49,18 +50,40 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
         <TextSection>
           <TextTitle>Reason(s) for Revocation:</TextTitle>
           <Ol>
-            <Li>
-              Data Error: Incorrect production date/quantity source information;
-            </Li>
-            <Li>
-              Certification Misrepresentation: False claims about production
-              process;
-            </Li>
-            <Li>Non-Compliance: Repeated certificate discrepancies;</Li>
-            <Li>
-              Other: Failure to meet new safety protocols implemented on
-              03/02/2024 (regulation change)
-            </Li>
+            {hasTrue(data?.dataError) && (
+              <Li>
+                Data Errors:{' '}
+                <Span>
+                  {data.dataError?.discrepancies && 'discrepancies; '}
+                  {data.dataError?.incorrect && 'incorrect; '}
+                  {data.dataError?.missing && 'missing; '}
+                </Span>
+              </Li>
+            )}
+            {hasTrue(data?.certMis) && (
+              <Li>
+                Certification Misrepresentation:{' '}
+                <Span>
+                  {data.certMis?.incorrect && 'incorrect; '}
+                  {data.certMis?.unverified && 'unverified; '}
+                  {data.certMis?.claims && 'claims; '}
+                </Span>
+              </Li>
+            )}
+            {hasTrue(data?.nonCompliance) && (
+              <Li>
+                Non-Compliance:{' '}
+                <Span>
+                  {data.nonCompliance?.violation && 'violation; '}
+                  {data.nonCompliance?.repeated && 'repeated; '}
+                </Span>
+              </Li>
+            )}
+            {data?.otherReason && (
+              <Li>
+                Other: <Span>{data?.otherReason}</Span>
+              </Li>
+            )}
           </Ol>
         </TextSection>
         <TextSection>
@@ -71,9 +94,13 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
             certificate revocation procedures to discuss next steps.
           </Text>
         </TextSection>
+        {/* DebugInfo */}
         <TextSection>
-          <Text>{data && JSON.stringify(data)}</Text>
+          <Text>
+            <small>{data && JSON.stringify(data)}</small>
+          </Text>
         </TextSection>
+        {/* DebugInfoEnd */}
         <CloseButton variant="roundedPronounced" onClick={handleCancel}>
           Close
         </CloseButton>
@@ -173,3 +200,5 @@ const CloseButton = styled(Button)`
     opacity: 0.6;
   }
 `
+
+const Span = styled.span``
