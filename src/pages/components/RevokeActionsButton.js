@@ -4,14 +4,26 @@ import { Button, Dialog } from '@digicatapult/ui-component-library'
 
 import ReasonsPopup from './ReasonsPopup'
 
+//
+
+//
+const ReasonsViewPopup = function () {
+  return (
+    <>
+      <h1>Reasons for Revoke</h1>
+    </>
+  )
+}
+
 export default function RevokeActionsButton({
   handleRevoke,
   disabled,
   loading,
 }) {
   const dialogRevFormRef = useRef(null)
+  const dialogRevViewRef = useRef(null)
   const onRevokeClick = () => dialogRevFormRef.current?.showModal()
-  const onSeeReasonClick = () => alert('See Reason Clicked')
+  const onSeeReasonClick = () => dialogRevViewRef.current?.showModal()
   const handleConfirm = useCallback(
     (r) => {
       dialogRef.current?.close()
@@ -46,6 +58,20 @@ export default function RevokeActionsButton({
         ref={dialogRevFormRef}
       >
         <ReasonsPopup handleConfirm={handleConfirm} />
+      </Dialog>
+      <Dialog
+        width="75ch"
+        maxHeight="90lvh"
+        margin="auto auto"
+        padding="0px"
+        modalBackdropColor="rgba(26, 26, 26, 0.9)"
+        borderRadius="0px"
+        boxShadow="0px"
+        includeClose={true}
+        useModal={true}
+        ref={dialogRevViewRef}
+      >
+        <ReasonsViewPopup />
       </Dialog>
     </>
   )
