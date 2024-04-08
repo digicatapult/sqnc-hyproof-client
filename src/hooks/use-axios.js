@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import axios from 'axios'
 
 // Custom hook for making HTTP requests
 // Notes:
 // Can be used with useAxios(true, '...') for an automatic call on component mount.
-// Also, can be used with useAxios(false, '...') for a manual call.
+// Additionally, can be used with useAxios(false, '...') for a manual call.
+// Also, can also be used w/ { refetchApiFn } = useAxios(false, '...', url) for stateless call.
 export default function useAxios(
   run = false,
   urlRun,
   bodyRun,
   methodRun,
-  headersRun
+  headersRun,
+  url
 ) {
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
@@ -49,6 +51,21 @@ export default function useAxios(
     cacheTime: 0,
   })
 
+  const { refetch: refetchApiFn } = useQuery({
+    queryKey: [url],
+    queryFn: useCallback(async () => {
+      const options = [url, { headers: { 'content-type': 'application/json' } }]
+      const method = 'get'
+      try {
+        const res = await axios[method](...options)
+        if (res.status >= 400) return new Error(res.status)
+        return res.data
+      } catch (err) {
+        return new Error(err)
+      }
+    }, [url]),
+  })
+
   useEffect(() => {
     if (!run) return
 
@@ -60,5 +77,5 @@ export default function useAxios(
     }).then((data) => setData(data))
   }, [run, urlRun, bodyRun, methodRun, headersRun, callApiFn])
 
-  return { data, error, loading, callApiFn }
+  return { data, error, loading, callApiFn, refetchApiFn }
 }

@@ -38,6 +38,14 @@ export default function CertificateViewer() {
   const [errorHash, setErrorHash] = useState('')
   const [errorLast, setErrorLast] = useState('')
   const { callApiFn: fetchCert } = useAxios(false)
+  const { refetchApiFn: refetch } = useAxios(
+    false,
+    '',
+    '',
+    '',
+    '',
+    `${origin}/v1/certificate/${id}`
+  )
 
   const { callApiFn: callApi } = useAxios(false)
   const [revoking, setRevoking] = useState(false)
@@ -87,7 +95,7 @@ export default function CertificateViewer() {
     const fetchLatestCert = async () => {
       let result = null
       try {
-        result = await fetchCert({ url: `${origin}/v1/certificate/${id}` })
+        result = (await refetch()).data
       } catch (e) {
         setErrorLast(e)
       }
@@ -171,7 +179,7 @@ export default function CertificateViewer() {
       clearInterval(intervalId)
       setPosting(false)
     }
-  }, [curPersona, id, origin, context, fetchCert])
+  }, [curPersona, id, origin, context, fetchCert, refetch])
 
   const certificateDates = useMemo(() => {
     return (
