@@ -49,25 +49,25 @@ export default function RevokeActionsButton({
         </>
       )}
       {disabled && reason && (
-        <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
-          See Reason
-        </LargeButton>
-      )}
-      {disabled && reason && (
-        <Dialog
-          width="95ch"
-          maxHeight="90lvh"
-          margin="auto auto"
-          padding="0px"
-          modalBackdropColor="rgba(26, 26, 26, 0.9)"
-          borderRadius="0px"
-          boxShadow="0px"
-          includeClose={false}
-          useModal={true}
-          ref={dialogRevViewRef}
-        >
-          <ReasonsViewPopup handleCancel={handleViewCancel} reason={reason} />
-        </Dialog>
+        <>
+          <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
+            See Reason
+          </LargeButton>
+          <Dialog
+            width="95ch"
+            maxHeight="90lvh"
+            margin="auto auto"
+            padding="0px"
+            modalBackdropColor="rgba(26, 26, 26, 0.9)"
+            borderRadius="0px"
+            boxShadow="0px"
+            includeClose={false}
+            useModal={true}
+            ref={dialogRevViewRef}
+          >
+            <ReasonsViewPopup handleCancel={handleViewCancel} reason={reason} />
+          </Dialog>
+        </>
       )}
     </>
   )
