@@ -94,7 +94,7 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
           <TextTitle>What to Do:</TextTitle>
           <Text>
             Please contact the regulatory body at{' '}
-            <a href={`mailto:${defaultEmail}`}>{defaultEmail}</a> for for more
+            <a href={`mailto:${defaultEmail}`}>{defaultEmail}</a> for more
             information on certificate revocation procedures to discuss next
             steps.
           </Text>
