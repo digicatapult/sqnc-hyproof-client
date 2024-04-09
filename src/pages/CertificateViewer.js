@@ -241,7 +241,7 @@ export default function CertificateViewer() {
                 variant="hyproof"
                 title={revoking ? 'Revoking...' : 'Revoked'}
                 checked={!revoking}
-                revoked={true}
+                revoked={revoking ? false : true}
               >
                 {certificateDates.revoked}
               </Timeline.Item>
