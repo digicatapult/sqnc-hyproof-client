@@ -48,7 +48,7 @@ export default function RevokeActionsButton({
           </Dialog>
         </>
       )}
-      {disabled && (
+      {disabled && reason && (
         <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
           See Reason
         </LargeButton>
