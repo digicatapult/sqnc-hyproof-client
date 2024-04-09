@@ -52,9 +52,11 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
               <Li>
                 Data Errors:{' '}
                 <Span>
-                  {data.dataError?.discrepancies && 'discrepancies; '}
-                  {data.dataError?.incorrect && 'incorrect; '}
-                  {data.dataError?.missing && 'missing; '}
+                  {data.dataError?.discrepancies &&
+                    'Discrepancies in energy usage data; '}
+                  {data.dataError?.incorrect &&
+                    'Incorrect production date/quantity/source information; '}
+                  {data.dataError?.missing && 'Missing or incomplete data; '}
                 </Span>
               </Li>
             )}
@@ -62,9 +64,11 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
               <Li>
                 Certification Misrepresentation:{' '}
                 <Span>
-                  {data.certMis?.incorrect && 'incorrect; '}
-                  {data.certMis?.unverified && 'unverified; '}
-                  {data.certMis?.claims && 'claims; '}
+                  {data.certMis?.incorrect &&
+                    'Incorrect carbon intensity calculation; '}
+                  {data.certMis?.unverified && 'Unverified energy sources; '}
+                  {data.certMis?.claims &&
+                    'False claims about production process; '}
                 </Span>
               </Li>
             )}
@@ -72,8 +76,10 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
               <Li>
                 Non-Compliance:{' '}
                 <Span>
-                  {data.nonCompliance?.violation && 'violation; '}
-                  {data.nonCompliance?.repeated && 'repeated; '}
+                  {data.nonCompliance?.violation &&
+                    'Violation of regulatory standards; '}
+                  {data.nonCompliance?.repeated &&
+                    'Repeated certificate discrepancies; '}
                 </Span>
               </Li>
             )}
