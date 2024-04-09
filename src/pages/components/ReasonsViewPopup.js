@@ -99,13 +99,6 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
             steps.
           </Text>
         </TextSection>
-        {/* DebugInfo */}
-        <TextSection>
-          <Text>
-            <small>{data && JSON.stringify(data)}</small>
-          </Text>
-        </TextSection>
-        {/* DebugInfoEnd */}
         <CloseButton variant="roundedPronounced" onClick={handleCancel}>
           Close
         </CloseButton>
