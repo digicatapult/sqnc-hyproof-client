@@ -1,16 +1,9 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import styled from 'styled-components'
-import { Context } from '../../utils/Context'
 import ApprovalSealLargeSVG from '../../assets/images/approval-seal-large.svg'
 import WarningSignSvg from '../../assets/images/warning-sign-icon.svg'
 
-import { personas } from '../../App'
-
-export default function CertificateViewHeader({ id, revoked, reason }) {
-  const { current } = useContext(Context)
-  const { origin } = personas.find(({ id }) => id === current)
-  const url = `${origin}/v1/attachment/${reason}`
+export default function CertificateViewHeader({ id, revoked }) {
   return (
     <>
       <HeaderContainerUnderlined>
@@ -26,13 +19,7 @@ export default function CertificateViewHeader({ id, revoked, reason }) {
       </HeaderContainerUnderlined>
       {revoked && (
         <HeaderContainerRevoked>
-          <TitleWarning>
-            Note: This certificate has been revoked. (
-            <Link to={url} target="_blank">
-              Open Attachment
-            </Link>
-            )
-          </TitleWarning>
+          <TitleWarning>Note: This certificate has been revoked.</TitleWarning>
         </HeaderContainerRevoked>
       )}
     </>
@@ -115,10 +102,6 @@ const TitleWarning = styled.span`
     height: 55px;
     border-radius: 50%;
     background: transparent url(${WarningSignSvg}) no-repeat;
-  }
-
-  a {
-    color: #fff;
   }
 `
 

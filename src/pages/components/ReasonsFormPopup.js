@@ -11,7 +11,7 @@ const reasonsDefaultObj = {
   otherReason: '',
 }
 
-export default function ReasonsPopup({ handleConfirm }) {
+export default function ReasonsFormPopup({ handleConfirm }) {
   const [isConfVisible, setIsConfVisible] = useState(false)
   const [reasons, setReasons] = useState(reasonsDefaultObj)
   const isValid = useMemo(() => {
@@ -183,10 +183,10 @@ export default function ReasonsPopup({ handleConfirm }) {
 const DivWarning = styled.div`
   text-align: left;
   padding: 35px 17px 30px 17px;
-  margin: 0.18em;
+  margin: 0.18em 0 0.18em 2em;
 `
 
-const TitleWarning = styled.span`
+const TitleWarning = styled.div`
   width: 100%;
   position: relative;
 
@@ -195,10 +195,7 @@ const TitleWarning = styled.span`
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
-  line-height: 13px;
-
-  margin-left: 70px;
-  text-indent: -70px;
+  line-height: 15px;
 
   &::before {
     content: '';
@@ -215,9 +212,6 @@ const TitleWarning = styled.span`
 
 const SubtitleWarning = styled.div`
   color: #8cb9b3;
-
-  margin-left: 70px;
-  padding-left: 70px;
 
   font-family: Roboto;
   font-size: 12px;

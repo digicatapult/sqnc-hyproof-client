@@ -11,7 +11,7 @@ export default function WhoWeArePopup({ handleClick }) {
       <Section
         headingLevel={1}
         title=""
-        padding="70px 100px 5px 100px"
+        padding="60px 100px 5px 100px"
         background="#27847a"
         headingSize="0em"
       >
@@ -25,7 +25,7 @@ export default function WhoWeArePopup({ handleClick }) {
       <Section
         headingLevel={2}
         title=""
-        padding="50px 100px 40px 100px"
+        padding="40px 100px 30px 100px"
         background="#ffffff"
         headingSize="0em"
       >
@@ -125,7 +125,7 @@ const Li = styled.li`
 const CloseButton = styled(Button)`
   min-height: 40px;
   min-width: 180px;
-  margin-top: 30px;
+  margin-top: 10px;
   font: normal 500 1rem Roboto;
   color: #33e58c;
   border: 1px solid #2fe181;
