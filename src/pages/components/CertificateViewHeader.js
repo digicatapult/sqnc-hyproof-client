@@ -19,9 +19,7 @@ export default function CertificateViewHeader({ id, revoked }) {
       </HeaderContainerUnderlined>
       {revoked && (
         <HeaderContainerRevoked>
-          <TitleWarning>
-            Note: This certificate has been revoked. (OPEN ATTACHMENT)
-          </TitleWarning>
+          <TitleWarning>Note: This certificate has been revoked.</TitleWarning>
         </HeaderContainerRevoked>
       )}
     </>
