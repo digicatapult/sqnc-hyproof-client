@@ -1,6 +1,9 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useContext, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
+
+import { personas } from '../../App'
+import { Context } from '../../utils/Context'
 
 import ReasonsFormPopup from './ReasonsFormPopup'
 import ReasonsViewPopup from './ReasonsViewPopup'
@@ -11,6 +14,8 @@ export default function RevokeActionsButton({
   loading,
   reason,
 }) {
+  const { current } = useContext(Context)
+  const persona = personas.find(({ id }) => id === current)
   const dialogRevFormRef = useRef(null)
   const dialogRevViewRef = useRef(null)
   const onRevokeClick = () => dialogRevFormRef.current?.showModal()
@@ -26,7 +31,7 @@ export default function RevokeActionsButton({
 
   return (
     <>
-      {!disabled && (
+      {!disabled && persona.id === 'reginald' && (
         <>
           <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
             {!loading && 'Revoke '}
