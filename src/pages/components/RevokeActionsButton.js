@@ -27,31 +27,31 @@ export default function RevokeActionsButton({
   return (
     <>
       {!disabled && (
-        <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
-          {!loading && 'Revoke '}
-          {loading && <AnimatedSpan>...</AnimatedSpan>}
-        </LargeButton>
+        <>
+          <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
+            {!loading && 'Revoke '}
+            {loading && <AnimatedSpan>...</AnimatedSpan>}
+          </LargeButton>
+          <Dialog
+            width="75ch"
+            maxHeight="90lvh"
+            margin="auto auto"
+            padding="0px"
+            modalBackdropColor="rgba(26, 26, 26, 0.9)"
+            borderRadius="0px"
+            boxShadow="0px"
+            includeClose={true}
+            useModal={true}
+            ref={dialogRevFormRef}
+          >
+            <ReasonsFormPopup handleConfirm={handleConfirm} />
+          </Dialog>
+        </>
       )}
       {disabled && (
         <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
           See Reason
         </LargeButton>
-      )}
-      {!disabled && (
-        <Dialog
-          width="75ch"
-          maxHeight="90lvh"
-          margin="auto auto"
-          padding="0px"
-          modalBackdropColor="rgba(26, 26, 26, 0.9)"
-          borderRadius="0px"
-          boxShadow="0px"
-          includeClose={true}
-          useModal={true}
-          ref={dialogRevFormRef}
-        >
-          <ReasonsFormPopup handleConfirm={handleConfirm} />
-        </Dialog>
       )}
       {disabled && reason && (
         <Dialog
