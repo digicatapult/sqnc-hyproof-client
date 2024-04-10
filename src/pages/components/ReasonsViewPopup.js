@@ -33,7 +33,7 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
           <TitleWarning>
             This hydrogen certificate has been revoked. <br />
             <SubtitleWarning>
-              this certificate has been revoked by the regulator.
+              This certificate has been revoked by the regulator.
             </SubtitleWarning>
           </TitleWarning>
         </DivWarning>
