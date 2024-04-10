@@ -177,6 +177,8 @@ export default function CertificateViewer() {
     return () => {
       clearInterval(intervalId)
       setPosting(false)
+      setData(null)
+      buffer.current = null
     }
   }, [curPersona, id, origin, context, fetchCert, refetch])
 
