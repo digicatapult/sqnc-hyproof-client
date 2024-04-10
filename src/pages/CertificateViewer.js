@@ -177,6 +177,8 @@ export default function CertificateViewer() {
     return () => {
       clearInterval(intervalId)
       setPosting(false)
+      setData(null)
+      buffer.current = null
     }
   }, [curPersona, id, origin, context, fetchCert, refetch])
 
@@ -305,14 +307,12 @@ export default function CertificateViewer() {
           </Paper>
         </MainContainer>
         <Sidebar area="sidebar">
-          {persona.id === 'reginald' && (
-            <RevokeActionsButton
-              handleRevoke={handleRevoke}
-              disabled={data?.state !== 'issued'}
-              reason={data?.revocation_reason}
-              loading={revoking}
-            />
-          )}
+          <RevokeActionsButton
+            handleRevoke={handleRevoke}
+            disabled={data?.state !== 'issued'}
+            reason={data?.revocation_reason}
+            loading={revoking}
+          />
         </Sidebar>
       </MainWrapper>
     </>

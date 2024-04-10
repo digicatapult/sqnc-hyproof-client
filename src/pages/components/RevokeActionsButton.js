@@ -1,7 +1,8 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useContext, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
-
+import { personas } from '../../App'
+import { Context } from '../../utils/Context'
 import ReasonsFormPopup from './ReasonsFormPopup'
 import ReasonsViewPopup from './ReasonsViewPopup'
 
@@ -11,6 +12,8 @@ export default function RevokeActionsButton({
   loading,
   reason,
 }) {
+  const { current } = useContext(Context)
+  const persona = personas.find(({ id }) => id === current)
   const dialogRevFormRef = useRef(null)
   const dialogRevViewRef = useRef(null)
   const onRevokeClick = () => dialogRevFormRef.current?.showModal()
@@ -26,48 +29,52 @@ export default function RevokeActionsButton({
 
   return (
     <>
-      {!disabled && (
-        <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
-          {!loading && 'Revoke '}
-          {loading && <AnimatedSpan>...</AnimatedSpan>}
-        </LargeButton>
+      {!disabled && persona.id === 'reginald' && (
+        <>
+          <LargeButton onClick={onRevokeClick} variant="roundedPronounced">
+            {!loading && 'Revoke '}
+            {loading && <AnimatedSpan>...</AnimatedSpan>}
+          </LargeButton>
+          <Dialog
+            width="75ch"
+            maxHeight="90lvh"
+            margin="auto auto"
+            padding="0px"
+            modalBackdropColor="rgba(26, 26, 26, 0.9)"
+            borderRadius="0px"
+            boxShadow="0px"
+            includeClose={true}
+            useModal={true}
+            ref={dialogRevFormRef}
+          >
+            <ReasonsFormPopup handleConfirm={handleConfirm} />
+          </Dialog>
+        </>
       )}
-      {disabled && (
-        <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
-          See Reason
-        </LargeButton>
-      )}
-      {!disabled && (
-        <Dialog
-          width="75ch"
-          maxHeight="90lvh"
-          margin="auto auto"
-          padding="0px"
-          modalBackdropColor="rgba(26, 26, 26, 0.9)"
-          borderRadius="0px"
-          boxShadow="0px"
-          includeClose={true}
-          useModal={true}
-          ref={dialogRevFormRef}
-        >
-          <ReasonsFormPopup handleConfirm={handleConfirm} />
-        </Dialog>
-      )}
-      {disabled && reason && (
-        <Dialog
-          width="95ch"
-          maxHeight="90lvh"
-          margin="auto auto"
-          padding="0px"
-          modalBackdropColor="rgba(26, 26, 26, 0.9)"
-          borderRadius="0px"
-          boxShadow="0px"
-          includeClose={false}
-          useModal={true}
-          ref={dialogRevViewRef}
-        >
-          <ReasonsViewPopup handleCancel={handleViewCancel} reason={reason} />
-        </Dialog>
+      {disabled && reason && persona.id !== 'connor' && (
+        <>
+          <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
+            See Reason
+          </LargeButton>
+          <Dialog
+            width="95ch"
+            maxHeight="90lvh"
+            margin="auto auto"
+            padding="0px"
+            modalBackdropColor="rgba(26, 26, 26, 0.9)"
+            borderRadius="0px"
+            boxShadow="0px"
+            includeClose={false}
+            useModal={true}
+            ref={dialogRevViewRef}
+          >
+            <ReasonsViewPopup
+              footer={persona.id === 'heidi' ? true : false}
+              handleCancel={handleViewCancel}
+              reason={reason}
+            />
+          </Dialog>
+        </>
       )}
     </>
   )
