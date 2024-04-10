@@ -68,7 +68,11 @@ export default function RevokeActionsButton({
             useModal={true}
             ref={dialogRevViewRef}
           >
-            <ReasonsViewPopup handleCancel={handleViewCancel} reason={reason} />
+            <ReasonsViewPopup
+              footer={persona.id === 'heidi' ? true : false}
+              handleCancel={handleViewCancel}
+              reason={reason}
+            />
           </Dialog>
         </>
       )}

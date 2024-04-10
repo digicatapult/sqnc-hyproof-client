@@ -10,7 +10,7 @@ import useAxios from '../../hooks/use-axios'
 
 const defaultEmail = 'reginald@hydrogenregulator.org.uk'
 
-export default function ReasonsViewPopup({ handleCancel, reason }) {
+export default function ReasonsViewPopup({ handleCancel, reason, footer }) {
   const { current } = useContext(Context)
   const { origin } = personas.find(({ id }) => id === current)
   const url = `${origin}/v1/attachment/${reason}`
@@ -90,15 +90,17 @@ export default function ReasonsViewPopup({ handleCancel, reason }) {
             )}
           </Ol>
         </TextSection>
-        <TextSection>
-          <TextTitle>What to Do:</TextTitle>
-          <Text>
-            Please contact the regulatory body at{' '}
-            <a href={`mailto:${defaultEmail}`}>{defaultEmail}</a> for more
-            information on certificate revocation procedures to discuss next
-            steps.
-          </Text>
-        </TextSection>
+        {footer && (
+          <TextSection>
+            <TextTitle>What to Do:</TextTitle>
+            <Text>
+              Please contact the regulatory body at{' '}
+              <a href={`mailto:${defaultEmail}`}>{defaultEmail}</a> for more
+              information on certificate revocation procedures to discuss next
+              steps.
+            </Text>
+          </TextSection>
+        )}
         <CloseButton variant="roundedPronounced" onClick={handleCancel}>
           Close
         </CloseButton>
