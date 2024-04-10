@@ -1,10 +1,8 @@
 import React, { useCallback, useContext, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
-
 import { personas } from '../../App'
 import { Context } from '../../utils/Context'
-
 import ReasonsFormPopup from './ReasonsFormPopup'
 import ReasonsViewPopup from './ReasonsViewPopup'
 
