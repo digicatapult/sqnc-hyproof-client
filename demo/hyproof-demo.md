@@ -164,7 +164,7 @@ After a few seconds of processing the certificate is now `Revoked`. This is inst
 
 ![Revoked Certificate](./revoked_certificate.png)
 
-The reasons for revoking the certificate are also available to every persona except `Connor the Consumer` using the embedded link.
+The reasons for revoking the certificate are also available to every persona except `Connor the Consumer` by pressing the `See Reason` button in the top right.
 
 ### End of demonstration
 
