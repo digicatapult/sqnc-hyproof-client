@@ -1,4 +1,5 @@
-import React, { useCallback, useContext, useRef } from 'react'
+import React, { useCallback, useContext, useRef, useState } from 'react'
+
 import styled, { keyframes } from 'styled-components'
 import { Button, Dialog } from '@digicatapult/ui-component-library'
 import { personas } from '../../App'
@@ -14,10 +15,12 @@ export default function RevokeActionsButton({
 }) {
   const { current } = useContext(Context)
   const persona = personas.find(({ id }) => id === current)
+
   const dialogRevFormRef = useRef(null)
   const dialogRevViewRef = useRef(null)
+  const [viewOpened, setViewOpened] = useState(false)
+
   const onRevokeClick = () => dialogRevFormRef.current?.showModal()
-  const onSeeReasonClick = () => dialogRevViewRef.current?.showModal()
   const handleConfirm = useCallback(
     (r) => {
       dialogRevFormRef.current?.close()
@@ -25,7 +28,15 @@ export default function RevokeActionsButton({
     },
     [handleRevoke]
   )
-  const handleViewCancel = () => dialogRevViewRef.current?.close()
+
+  const onViewReasonClick = () => {
+    setViewOpened(true)
+    dialogRevViewRef.current?.showModal()
+  }
+  const handleViewCancel = () => {
+    setViewOpened(false)
+    dialogRevViewRef.current?.close()
+  }
 
   return (
     <>
@@ -53,7 +64,7 @@ export default function RevokeActionsButton({
       )}
       {disabled && reason && persona.id !== 'connor' && (
         <>
-          <LargeButton onClick={onSeeReasonClick} variant="roundedPronounced">
+          <LargeButton onClick={onViewReasonClick} variant="roundedPronounced">
             See Reason
           </LargeButton>
           <Dialog
@@ -68,11 +79,13 @@ export default function RevokeActionsButton({
             useModal={true}
             ref={dialogRevViewRef}
           >
-            <ReasonsViewPopup
-              footer={persona.id === 'heidi' ? true : false}
-              handleCancel={handleViewCancel}
-              reason={reason}
-            />
+            {viewOpened && (
+              <ReasonsViewPopup
+                footer={persona.id === 'heidi' ? true : false}
+                handleCancel={handleViewCancel}
+                reason={reason}
+              />
+            )}
           </Dialog>
         </>
       )}
