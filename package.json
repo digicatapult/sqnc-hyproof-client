@@ -14,7 +14,7 @@
         "prepare": "npm run prepare:react && npm run prepare:react-dom",
         "dev": "webpack-dev-server --mode=development",
         "start": "serve -s ./build",
-        "build": "./node_modules/.bin/webpack --mode=production",
+        "build": "$(npm root)/.bin/webpack --mode=production",
         "depcheck": "depcheck",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
