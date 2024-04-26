@@ -18,7 +18,7 @@ services:
     networks: ['hydrogen-producer']
 
   hydrogen-producer-identity:
-    image: digicatapult/sqnc-identity-service:latest
+    image: digicatapult/sqnc-identity-service:v1.12.0
     container_name: hydrogen-producer-identity
     command: /bin/sh -c "
       sleep 10 &&
@@ -66,7 +66,7 @@ services:
     networks: ['energy-owner']
 
   energy-owner-identity:
-    image: digicatapult/sqnc-identity-service:latest
+    image: digicatapult/sqnc-identity-service:v1.12.0
     container_name: energy-owner-identity
     command: /bin/sh -c "
       sleep 10 &&
@@ -114,7 +114,7 @@ services:
     networks: ['regulator']
 
   regulator-identity:
-    image: digicatapult/sqnc-identity-service:latest
+    image: digicatapult/sqnc-identity-service:v1.12.0
     container_name: regulator-identity
     command: /bin/sh -c "
       sleep 10 &&
