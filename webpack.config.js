@@ -74,9 +74,9 @@ module.exports = (vars) => {
         analyzerMode: 'disabled', // disable analyser. Replace with "server" or "static" to render analyser
       }),
     ],
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
+    externals: { // externals object should be empty to include React & ReactDOM in the bundle making the GUI available offline
+      // react: 'React',
+      // 'react-dom': 'ReactDOM',
     },
   }
 }
