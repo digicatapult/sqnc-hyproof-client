@@ -223,10 +223,11 @@ async function issueCertificate(
 
   const getHardcodedFactor = () => {
     const factorLimits = [0.03, 0.11]
-    return Math.random() * (factorLimits[1] - factorLimits[0]) + factorLimits[0]
+    const rnd = Math.random()
+    return rnd * (factorLimits[1] - factorLimits[0]) + factorLimits[0]
   }
 
-  const getHardcodedEco2 = (energy) => Math.floor(getHardcodedFactor() * energy)
+  const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
 
   const issueResult = await fetch(issueEndpoint, {
     method: 'POST',
