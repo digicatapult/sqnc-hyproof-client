@@ -216,7 +216,7 @@ async function issueCertificate(
       const result = await fetch(url)
       return result.ok
     } catch (e) {
-      console.log('Detected off-line mode when using fetch.')
+      console.log('Detected off-line mode when using fetch. Using random vals.')
       return false
     }
   }
