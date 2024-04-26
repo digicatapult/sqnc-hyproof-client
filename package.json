@@ -12,9 +12,9 @@
         "prepare:react": "cp $(npm root)/react/umd/react.production.min.js $(npm root)/../public/",
         "prepare:react-dom": "cp $(npm root)/react-dom/umd/react-dom.production.min.js $(npm root)/../public/",
         "prepare": "npm run prepare:react && npm run prepare:react-dom",
-        "dev": "webpack-dev-server --mode=development",
+        "dev": "npm run prepare && webpack-dev-server --mode=development",
         "start": "serve -s ./build",
-        "build": "$(npm root)/.bin/webpack --mode=production",
+        "build": "npm run prepare && $(npm root)/.bin/webpack --mode=production",
         "depcheck": "depcheck",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
