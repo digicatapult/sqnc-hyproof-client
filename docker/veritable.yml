@@ -9,7 +9,7 @@ services:
   ##################################################################################
 
   hydrogen-producer-veritable:
-    image: digicatapult/veritable-cloudagent:latest
+    image: digicatapult/veritable-cloudagent:v0.5.1
     container_name: hydrogen-producer-veritable
     depends_on:
       hydrogen-producer-ipfs:
@@ -38,7 +38,7 @@ services:
   ##################################################################################
 
   energy-owner-veritable:
-    image: digicatapult/veritable-cloudagent:latest
+    image: digicatapult/veritable-cloudagent:v0.5.1
     container_name: energy-owner-veritable
     depends_on:
       energy-owner-ipfs:
@@ -67,7 +67,7 @@ services:
   ##################################################################################
 
   regulator-veritable:
-    image: digicatapult/veritable-cloudagent:latest
+    image: digicatapult/veritable-cloudagent:v0.5.1
     container_name: regulator-veritable
     depends_on:
       regulator-ipfs:
