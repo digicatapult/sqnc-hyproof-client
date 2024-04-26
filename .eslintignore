@@ -2,5 +2,3 @@ node_modules
 build
 package.json
 webpack.config.js
-public/react-dom.production.min.js
-public/react.production.min.js
