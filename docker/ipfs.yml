@@ -9,7 +9,7 @@ services:
   ##################################################################################
 
   hydrogen-producer-ipfs:
-    image: digicatapult/sqnc-ipfs:latest
+    image: digicatapult/sqnc-ipfs:v2.10.20
     container_name: hydrogen-producer-ipfs
     depends_on:
       hydrogen-producer-node:
@@ -39,7 +39,7 @@ services:
   ##################################################################################
 
   energy-owner-ipfs:
-    image: digicatapult/sqnc-ipfs:latest
+    image: digicatapult/sqnc-ipfs:v2.10.20
     container_name: energy-owner-ipfs
     depends_on:
       energy-owner-node:
@@ -69,7 +69,7 @@ services:
   ##################################################################################
 
   regulator-ipfs:
-    image: digicatapult/sqnc-ipfs:latest
+    image: digicatapult/sqnc-ipfs:v2.10.20
     container_name: regulator-ipfs
     depends_on:
       regulator-node:
