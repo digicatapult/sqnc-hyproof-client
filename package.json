@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/sqnc-hyproof-client",
-    "version": "0.5.33",
+    "version": "0.5.34",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/sqnc-hyproof-client",
     "main": "src/index.js",
@@ -61,10 +61,10 @@
         "eslint-plugin-cypress": "^2.15.2",
         "eslint-plugin-prettier": "^5.1.3",
         "eslint-plugin-react": "^7.34.1",
-        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-hooks": "^4.6.1",
         "html-webpack-plugin": "^5.6.0",
         "prettier": "^3.2.5",
-        "serve": "^14.2.2",
+        "serve": "^14.2.3",
         "style-loader": "^3.3.4",
         "url-loader": "^4.1.1",
         "webpack": "^5.91.0",
@@ -73,9 +73,9 @@
         "webpack-dev-server": "^5.0.4"
     },
     "dependencies": {
-        "@digicatapult/ui-component-library": "^0.19.27",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "@digicatapult/ui-component-library": "^0.19.28",
+        "react": "^18.3.0",
+        "react-dom": "^18.3.0",
         "react-id-generator": "^3.0.2",
         "react-router-dom": "^6.23.0",
         "styled-components": "^6.1.8"
