@@ -209,7 +209,7 @@ async function issueCertificate(
   }
 
   const issueEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}/issuance`
-  const carbonIntensityApiUrl = `https://api.carbonintensity.com/intensity/${new Date(production_start_time).toISOString()}/${new Date(production_end_time).toISOString()}`
+  const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(production_start_time).toISOString()}/${new Date(production_end_time).toISOString()}`
 
   const checkCarbonIntensityAPI = async (url) => {
     try {

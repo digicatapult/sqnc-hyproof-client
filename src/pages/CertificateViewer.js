@@ -137,7 +137,7 @@ export default function CertificateViewer() {
       if (resLocal?.state !== 'initiated') return
 
       url = `${origin}/v1/certificate/${id}/issuance`
-      const carbonIntensityApiUrl = `https://api.carbonintensity.com/intensity/${new Date(start).toISOString()}/${new Date(end).toISOString()}`
+      const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(start).toISOString()}/${new Date(end).toISOString()}`
       const checkCarbonIntensityAPI = async (u) => {
         try {
           const result = await fetch(u)
