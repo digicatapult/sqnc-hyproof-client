@@ -23,7 +23,7 @@ services:
     command: /bin/sh -c "
       sleep 10 &&
       npx knex@3.1.0 migrate:latest --knexfile build/lib/db/knexfile &&
-      npx @digicatapult/sqnc-process-management@2.2.30 create -h hydrogen-producer-node -p 9944 -u //Alice -f ./processFlows.json &&
+      npx @digicatapult/sqnc-process-management@2.2.33 create -h hydrogen-producer-node -p 9944 -u //Alice -f ./processFlows.json &&
       npm start"
     environment:
       - PORT=8000
