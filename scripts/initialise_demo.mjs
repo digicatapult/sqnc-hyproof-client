@@ -220,190 +220,49 @@ async function issueCertificate(
     embodied_co2: getHardcodedEco2(energy_consumed_wh),
   })
 
+  const optionsEmpty = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: bodyStrEmpty,
+  }
+
+  const optionsHardCodedFactor = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: bodyStrHardCodedFactor,
+  }
+
+  const waitForComplete = async () => {
+    await waitForCertificateState(id, 'issued', energyProviderPort)
+    const finalCert = await waitForCertificateState(
+      id,
+      'issued',
+      hydrogenProducerPort
+    )
+    return finalCert
+  }
+
   return fetch(carbonIntensityApiUrl)
     .then(async () => {
       // Handle successful response
-      const bodyStr = bodyStrEmpty
-      const issueResult = await fetch(issueEndpoint, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: bodyStr,
-      })
+      const issueResult = await fetch(optionsEmpty)
       if (!issueResult.ok) {
         const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
         console.error(message)
         throw new Error(message)
-      }
-
-      const waitForComplete = async () => {
-        await waitForCertificateState(id, 'issued', energyProviderPort)
-        const finalCert = await waitForCertificateState(
-          id,
-          'issued',
-          hydrogenProducerPort
-        )
-        return finalCert
       }
       return waitForComplete
     })
     .catch(async () => {
       // Handle failure response
       console.log('Detected off-line mode when using fetch. Using random vals.')
-      const bodyStr = bodyStrHardCodedFactor
-      const issueResult = await fetch(issueEndpoint, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: bodyStr,
-      })
+      const issueResult = await fetch(issueEndpoint, optionsHardCodedFactor)
       if (!issueResult.ok) {
         const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
         console.error(message)
         throw new Error(message)
       }
-
-      const waitForComplete = async () => {
-        await waitForCertificateState(id, 'issued', energyProviderPort)
-        const finalCert = await waitForCertificateState(
-          id,
-          'issued',
-          hydrogenProducerPort
-        )
-        return finalCert
-      }
       return waitForComplete
-    })
-
-  return fetch(url)
-    .then(async () => {
-      // Handle successful response
-
-      const {
-        original_token_id: id,
-        commitment_salt,
-        energy_consumed_wh,
-        production_end_time,
-        production_start_time,
-      } = certificate
-      const commitment = {
-        commitment_salt,
-        energy_consumed_wh,
-        production_end_time,
-        production_start_time,
-      }
-
-      const updateEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}`
-      const updateResult = await fetch(updateEndpoint, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(commitment),
-      })
-
-      if (!updateResult.ok) {
-        const message = `Error updating certificate ${id} on port ${energyProviderPort}. Error was ${updateResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-
-      const issueEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}/issuance`
-      const issueResult = await fetch(issueEndpoint, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({}),
-      })
-      if (!issueResult.ok) {
-        const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-
-      const waitForComplete = async () => {
-        await waitForCertificateState(id, 'issued', energyProviderPort)
-        const finalCert = await waitForCertificateState(
-          id,
-          'issued',
-          hydrogenProducerPort
-        )
-        return finalCert
-      }
-      return waitForComplete
-
-      // return somethingOne() // Trigger somethingOne function
-    })
-    .catch(async () => {
-      // Handle failure response
-
-      console.log('Detected off-line mode when using fetch. Using random vals.')
-      const {
-        original_token_id: id,
-        commitment_salt,
-        energy_consumed_wh,
-        production_end_time,
-        production_start_time,
-      } = certificate
-      const commitment = {
-        commitment_salt,
-        energy_consumed_wh,
-        production_end_time,
-        production_start_time,
-      }
-
-      const updateEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}`
-      const updateResult = await fetch(updateEndpoint, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(commitment),
-      })
-
-      if (!updateResult.ok) {
-        const message = `Error updating certificate ${id} on port ${energyProviderPort}. Error was ${updateResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-
-      const getHardcodedFactor = () => {
-        const factorLimits = [0.03, 0.11]
-        const rnd = Math.random()
-        return rnd * (factorLimits[1] - factorLimits[0]) + factorLimits[0]
-      }
-      const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
-      const issueEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}/issuance`
-      const issueResult = await fetch(issueEndpoint, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          embodied_co2: getHardcodedEco2(energy_consumed_wh),
-        }),
-      })
-      if (!issueResult.ok) {
-        const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-
-      const waitForComplete = async () => {
-        await waitForCertificateState(id, 'issued', energyProviderPort)
-        const finalCert = await waitForCertificateState(
-          id,
-          'issued',
-          hydrogenProducerPort
-        )
-        return finalCert
-      }
-      return waitForComplete
-
-      // return false // Trigger somethingTwo function
     })
 }
 
