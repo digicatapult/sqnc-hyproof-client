@@ -259,15 +259,6 @@ async function issueCertificate(
     console.log('Detected off-line mode when using fetch. Using random vals.')
     return issueAndWaitForComplete(hardcodedCertOptions)
   }
-
-  // return fetch(carbonIntensityApiUrl)
-  //   .then(async () => {
-  //     return issueAndWaitForComplete(defaultCertOptions)
-  //   })
-  //   .catch(async () => {
-  //     console.log('Detected off-line mode when using fetch. Using random vals.')
-  //     return issueAndWaitForComplete(hardcodedCertOptions)
-  //   })
 }
 
 const healthChecks = await Promise.all([
