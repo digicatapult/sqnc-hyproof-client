@@ -215,10 +215,21 @@ async function issueCertificate(
   const end = new Date(production_start_time).toISOString()
   const carbonIntensityApiUrl = `${carbonIntensityApiDomain}/intensity/${start}/${end}`
 
+  const getHardcodedFactor = () => {
+    const limits = [0.03, 0.11]
+    return Math.random() * (limits[1] - limits[0]) + limits[0]
+  }
+  const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
+
+  const bodyStrEmpty = JSON.stringify({})
+  const bodyStrHardCodedFactor = JSON.stringify({
+    embodied_co2: getHardcodedEco2(energy_consumed_wh),
+  })
+
   return fetch(carbonIntensityApiUrl)
     .then(async () => {
       // Handle successful response
-      const bodyStr = JSON.stringify({})
+      const bodyStr = bodyStrEmpty
       const issueResult = await fetch(issueEndpoint, {
         method: 'POST',
         headers: {
@@ -246,15 +257,7 @@ async function issueCertificate(
     .catch(async () => {
       // Handle failure response
       console.log('Detected off-line mode when using fetch. Using random vals.')
-      const getHardcodedFactor = () => {
-        const factorLimits = [0.03, 0.11]
-        const rnd = Math.random()
-        return rnd * (factorLimits[1] - factorLimits[0]) + factorLimits[0]
-      }
-      const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
-      const bodyStr = JSON.stringify({
-        embodied_co2: getHardcodedEco2(energy_consumed_wh),
-      })
+      const bodyStr = bodyStrHardCodedFactor
       const issueResult = await fetch(issueEndpoint, {
         method: 'POST',
         headers: {
