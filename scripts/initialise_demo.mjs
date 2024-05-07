@@ -222,13 +222,17 @@ async function issueCertificate(
 
   const defaultCertOptions = {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'content-type': 'application/json',
+    },
     body: JSON.stringify({}),
   }
 
   const hardcodedCertOptions = {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'content-type': 'application/json',
+    },
     body: JSON.stringify({
       embodied_co2: hardcodedEco2(energy_consumed_wh),
     }),
