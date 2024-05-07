@@ -174,50 +174,6 @@ async function initiateCertificate(hydrogenProducerPort, energyProviderPort) {
   return waitForComplete
 }
 
-// async function checkCarbonIntensityAPI(url, timeout = 2000) {
-//   const controller = new AbortController()
-//   const signal = controller.signal
-//
-//   const fetchPromise = fetch(url, { signal })
-//
-//   const timeoutId = setTimeout(() => controller.abort(), timeout)
-//
-//   try {
-//     await fetchPromise
-//   } catch (e) {
-//     console.log('Detected off-line mode when using fetch. Using random vals.')
-//     return false
-//   }
-//   clearTimeout(timeoutId)
-// }
-
-// async function checkCarbonIntensityAPI2(url) {
-//   try {
-//     await fetch(url)
-//   } catch (e) {
-//     console.log('Detected off-line mode when using fetch. Using random vals.')
-//     return false
-//   } finally {
-//   }
-//   return true
-// }
-
-// async function checkCarbonIntensityAPIset(start, end) {
-//   const carbonIntensityApiDomain = `https://api.carbonintensity.org.uk`
-//   const s = new Date(start).toISOString()
-//   const e = new Date(end).toISOString()
-//   const carbonIntensityApiUrl = `${carbonIntensityApiDomain}/intensity/${s}/${e}`
-//   try {
-//     await fetch(carbonIntensityApiUrl)
-//   } catch (e) {
-//     console.log('Detected off-line mode when using fetch. Using random vals.')
-//     console.log(typeof e.message)
-//     return false
-//   }
-//   console.log('before return true', Math.random())
-//   return true
-// }
-
 async function issueCertificate(
   certificate,
   hydrogenProducerPort,
@@ -253,16 +209,6 @@ async function issueCertificate(
   }
 
   const issueEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}/issuance`
-
-  // const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(production_start_time).toISOString()}/${new Date(production_end_time).toISOString()}`
-
-  // const getHardcodedFactor = () => {
-  //   const factorLimits = [0.03, 0.11]
-  //   const rnd = Math.random()
-  //   return rnd * (factorLimits[1] - factorLimits[0]) + factorLimits[0]
-  // }
-
-  // const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
 
   const carbonIntensityApiDomain = `https://api.carbonintensity.org.uk`
   const start = new Date(production_end_time).toISOString()
@@ -333,47 +279,6 @@ async function issueCertificate(
       }
       return waitForComplete
     })
-
-  // const bodyStr = JSON.stringify(
-  //   (await checkCarbonIntensityAPI(carbonIntensityApiUrl))
-  //     ? {}
-  //     : {
-  //         embodied_co2: getHardcodedEco2(energy_consumed_wh),
-  //       }
-  // )
-
-  // const bodyStr = JSON.stringify(isOnline ? {} : { embodied_co2: getHardcodedEco2(energy_consumed_wh) })
-
-  // const issueResult = await fetch(issueEndpoint, {
-  //   method: 'POST',
-  //   headers: {
-  //     'content-type': 'application/json',
-  //   },
-  //   body: bodyStr,
-  // })
-  // if (!issueResult.ok) {
-  //   const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
-  //   console.error(message)
-  //   throw new Error(message)
-  // }
-
-  // const waitForComplete = async () => {
-  //   await waitForCertificateState(id, 'issued', energyProviderPort)
-  //   const finalCert = await waitForCertificateState(
-  //     id,
-  //     'issued',
-  //     hydrogenProducerPort
-  //   )
-  //   console.log('before finalCert', Math.random())
-  //   return finalCert
-  // }
-  // return waitForComplete
-
-  // NEW CODE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  // const s = '2024-01-01T01:00:00.000Z'
-  // const e = '2024-01-01T02:00:00.000Z'
-  // const url = `https://api.carbonintensity.org.uk/intensity/${s}/${e}`
 
   return fetch(url)
     .then(async () => {
