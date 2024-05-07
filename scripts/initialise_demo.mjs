@@ -212,57 +212,57 @@ async function issueCertificate(
 
   const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(production_end_time).toISOString()}/${new Date(production_start_time).toISOString()}`
 
-  const bodyStrEmpty = JSON.stringify({})
+  // const bodyStrEmpty = JSON.stringify({})
 
   const hardcodedFactor = (gap) => Math.random() * (gap[1] - gap[0]) + gap[0]
+
   const getHardcodedEco2 = (e) => Math.floor(hardcodedFactor([0.03, 0.11]) * e)
-  const bodyStrHardCodedFactor = JSON.stringify({
-    embodied_co2: getHardcodedEco2(energy_consumed_wh),
-  })
+  // const bodyStrHardCodedFactor = JSON.stringify({
+  //   embodied_co2: getHardcodedEco2(energy_consumed_wh),
+  // })
 
-  const optionsEmpty = {
+  const optionsEmptyBody = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: bodyStrEmpty,
+    body: JSON.stringify({}),
   }
 
-  const optionsHardCodedFactor = {
+  const optionsHardcodedBody = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: bodyStrHardCodedFactor,
+    body: JSON.stringify({
+      embodied_co2: getHardcodedEco2(energy_consumed_wh),
+    }),
   }
 
-  const waitForComplete = async () => {
-    await waitForCertificateState(id, 'issued', energyProviderPort)
-    const finalCert = await waitForCertificateState(
-      id,
-      'issued',
-      hydrogenProducerPort
-    )
-    return finalCert
+  const issueAndWaitForComplete = async (options) => {
+    const issueResult = await fetch(issueEndpoint, options)
+    if (!issueResult.ok) {
+      const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
+      console.error(message)
+      throw new Error(message)
+    }
+    const waitForComplete = async () => {
+      await waitForCertificateState(id, 'issued', energyProviderPort)
+      const finalCert = await waitForCertificateState(
+        id,
+        'issued',
+        hydrogenProducerPort
+      )
+      return finalCert
+    }
+    return waitForComplete
   }
 
   return fetch(carbonIntensityApiUrl)
     .then(async () => {
       // Handle successful response
-      const issueResult = await fetch(optionsEmpty)
-      if (!issueResult.ok) {
-        const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-      return waitForComplete
+      return issueAndWaitForComplete(optionsEmptyBody) // waitForComplete
     })
     .catch(async () => {
       // Handle failure response
       console.log('Detected off-line mode when using fetch. Using random vals.')
-      const issueResult = await fetch(issueEndpoint, optionsHardCodedFactor)
-      if (!issueResult.ok) {
-        const message = `Error issuing certificate ${id} on port ${energyProviderPort}. Error was ${issueResult.statusText}`
-        console.error(message)
-        throw new Error(message)
-      }
-      return waitForComplete
+      return issueAndWaitForComplete(optionsHardcodedBody) // waitForComplete
     })
 }
 
