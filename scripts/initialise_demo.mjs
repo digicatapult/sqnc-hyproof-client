@@ -210,18 +210,12 @@ async function issueCertificate(
 
   const issueEndpoint = `http://localhost:${energyProviderPort}/v1/certificate/${id}/issuance`
 
-  const carbonIntensityApiDomain = `https://api.carbonintensity.org.uk`
-  const start = new Date(production_end_time).toISOString()
-  const end = new Date(production_start_time).toISOString()
-  const carbonIntensityApiUrl = `${carbonIntensityApiDomain}/intensity/${start}/${end}`
-
-  const getHardcodedFactor = () => {
-    const limits = [0.03, 0.11]
-    return Math.random() * (limits[1] - limits[0]) + limits[0]
-  }
-  const getHardcodedEco2 = (e) => Math.floor(getHardcodedFactor() * e)
+  const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(production_end_time).toISOString()}/${new Date(production_start_time).toISOString()}`
 
   const bodyStrEmpty = JSON.stringify({})
+
+  const hardcodedFactor = (gap) => Math.random() * (gap[1] - gap[0]) + gap[0]
+  const getHardcodedEco2 = (e) => Math.floor(hardcodedFactor([0.03, 0.11]) * e)
   const bodyStrHardCodedFactor = JSON.stringify({
     embodied_co2: getHardcodedEco2(energy_consumed_wh),
   })
