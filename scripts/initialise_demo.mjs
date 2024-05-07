@@ -215,23 +215,22 @@ async function issueCertificate(
   // const bodyStrEmpty = JSON.stringify({})
 
   const hardcodedFactor = (gap) => Math.random() * (gap[1] - gap[0]) + gap[0]
-
-  const getHardcodedEco2 = (e) => Math.floor(hardcodedFactor([0.03, 0.11]) * e)
+  const hardcodedEco2 = (e) => Math.floor(hardcodedFactor([0.03, 0.11]) * e)
   // const bodyStrHardCodedFactor = JSON.stringify({
   //   embodied_co2: getHardcodedEco2(energy_consumed_wh),
   // })
 
-  const optionsEmptyBody = {
+  const defaultCertOptions = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({}),
   }
 
-  const optionsHardcodedBody = {
+  const hardcodedCertOptions = {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
-      embodied_co2: getHardcodedEco2(energy_consumed_wh),
+      embodied_co2: hardcodedEco2(energy_consumed_wh),
     }),
   }
 
@@ -257,12 +256,12 @@ async function issueCertificate(
   return fetch(carbonIntensityApiUrl)
     .then(async () => {
       // Handle successful response
-      return issueAndWaitForComplete(optionsEmptyBody) // waitForComplete
+      return issueAndWaitForComplete(defaultCertOptions)
     })
     .catch(async () => {
       // Handle failure response
       console.log('Detected off-line mode when using fetch. Using random vals.')
-      return issueAndWaitForComplete(optionsHardcodedBody) // waitForComplete
+      return issueAndWaitForComplete(hardcodedCertOptions)
     })
 }
 
