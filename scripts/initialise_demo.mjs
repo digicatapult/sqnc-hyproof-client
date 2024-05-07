@@ -212,13 +212,8 @@ async function issueCertificate(
 
   const carbonIntensityApiUrl = `https://api.carbonintensity.org.uk/intensity/${new Date(production_end_time).toISOString()}/${new Date(production_start_time).toISOString()}`
 
-  // const bodyStrEmpty = JSON.stringify({})
-
   const hardcodedFactor = (gap) => Math.random() * (gap[1] - gap[0]) + gap[0]
   const hardcodedEco2 = (e) => Math.floor(hardcodedFactor([0.03, 0.11]) * e)
-  // const bodyStrHardCodedFactor = JSON.stringify({
-  //   embodied_co2: getHardcodedEco2(energy_consumed_wh),
-  // })
 
   const defaultCertOptions = {
     method: 'POST',
@@ -259,11 +254,9 @@ async function issueCertificate(
 
   return fetch(carbonIntensityApiUrl)
     .then(async () => {
-      // Handle successful response
       return issueAndWaitForComplete(defaultCertOptions)
     })
     .catch(async () => {
-      // Handle failure response
       console.log('Detected off-line mode when using fetch. Using random vals.')
       return issueAndWaitForComplete(hardcodedCertOptions)
     })
@@ -312,10 +305,6 @@ console.log('Issuing certificates')
 
 const waitIssueFns = []
 for (const cert of certificates) {
-  // const { production_start_time: s, production_end_time: e } = cert
-  // const check = await checkCarbonIntensityAPIset(s, e)
-  // console.log({ check })
-  // console.log('await issueCertificate', Math.random())
   const waitFn = await issueCertificate(cert, 8000, 8010)
   await delay(100)
   waitIssueFns.push(waitFn)
