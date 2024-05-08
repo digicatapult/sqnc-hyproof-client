@@ -1,6 +1,6 @@
 {
     "name": "@digicatapult/sqnc-hyproof-client",
-    "version": "0.5.38",
+    "version": "0.5.39",
     "description": "User interface for HyProof",
     "homepage": "https://github.com/digicatapult/sqnc-hyproof-client",
     "main": "src/index.js",
@@ -11,7 +11,7 @@
         "init": "./scripts/initialise_demo.mjs",
         "dev": "webpack-dev-server --mode=development",
         "start": "serve -s ./build",
-        "build": "./node_modules/.bin/webpack --mode=production",
+        "build": "$(npm root)/.bin/webpack --mode=production",
         "depcheck": "depcheck",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

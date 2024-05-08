@@ -19,11 +19,11 @@ services:
 
   hydrogen-producer-hyproof-api:
     container_name: hydrogen-producer-hyproof-api
-    image: digicatapult/sqnc-hyproof-api:latest
+    image: digicatapult/sqnc-hyproof-api:v0.13.36
     command: /bin/sh -c "
       sleep 10 &&
-      npx knex migrate:latest --knexfile build/lib/db/knexfile &&
-      npx @digicatapult/sqnc-process-management@latest create -h hydrogen-producer-node -p 9944 -u //Alice -f ./processFlows.json &&
+      npx knex@3.1.0 migrate:latest --knexfile build/lib/db/knexfile &&
+      npx @digicatapult/sqnc-process-management@2.2.37 create -h hydrogen-producer-node -p 9944 -u //Alice -f ./processFlows.json &&
       npm start"
     environment:
       - PORT=8000
@@ -77,10 +77,10 @@ services:
 
   energy-owner-hyproof-api:
     container_name: energy-owner-hyproof-api
-    image: digicatapult/sqnc-hyproof-api:latest
+    image: digicatapult/sqnc-hyproof-api:v0.13.36
     command: /bin/sh -c "
       sleep 10 &&
-      npx knex migrate:latest --knexfile build/lib/db/knexfile &&
+      npx knex@3.1.0 migrate:latest --knexfile build/lib/db/knexfile &&
       npm start"
     environment:
       - PORT=8010
@@ -134,10 +134,10 @@ services:
 
   regulator-hyproof-api:
     container_name: regulator-hyproof-api
-    image: digicatapult/sqnc-hyproof-api:latest
+    image: digicatapult/sqnc-hyproof-api:v0.13.36
     command: /bin/sh -c "
       sleep 10 &&
-      npx knex migrate:latest --knexfile build/lib/db/knexfile &&
+      npx knex@3.1.0 migrate:latest --knexfile build/lib/db/knexfile &&
       npm start"
     environment:
       - PORT=8020

@@ -74,10 +74,7 @@ module.exports = (vars) => {
         analyzerMode: 'disabled', // disable analyser. Replace with "server" or "static" to render analyser
       }),
     ],
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
+    externals: {},
   }
 }
 
