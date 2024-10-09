@@ -2,6 +2,10 @@
 
 # This repository is not production software. It should be used for investigation and demonstration purposes only
 
+## Deprecation Notice
+This application was deprecated on October 9th 2024, there will be no further dependency or security updates.
+---
+
 This repository contains the code for the HyProof front-end (HyProof Client). 
 
 Instructions for running the **Demonstrator** can be found in `/demo/hyproof-demo.md`
